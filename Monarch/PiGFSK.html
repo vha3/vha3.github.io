@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>PiGFSK</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,21 +13077,29 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="GFSK-Demodulator-on-Raspberry-Pi">GFSK Demodulator on Raspberry Pi<a class="anchor-link" href="#GFSK-Demodulator-on-Raspberry-Pi">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu)<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">&#182;</a></h4>
+<h4 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This webpage describes the radio receiver station that I built to conduct the experiments described on the <a href="./VineyardMonarch.html">vineyard and cattle monitoring Monarch page</a>. One of these receiver stations is pictured below, with all of the components labeled. This particular station was deployed at the vineyard to gather the Monarch data over 5 weeks, as described on the webpage linked previously. The station is powered by two 17W solar panels from <a href="https://voltaicsystems.com">Voltaic system</a>, which interface with their 24,000mAh V88 Laptop Battery. This battery powers a Raspberry Pi, which is demodulating packets being received from an RTL-SDR software-defined radio. This SDR is attached to a Yagi antenna through a low noise amplifier.</p>
+<p>With this ground station, I was able to consistently gather packets (at 50bps) from Monarchs up to a quarter-mile away (with no forward error correction, matched filtering, or anything). Those distances were sufficient for the tests that I was conducting.</p>
 
 </div>
 </div>
@@ -13099,37 +13107,24 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_serial.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids.html">Implementation of Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">String pattern analysis</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Probabilistic packet transmission through a limited-lifetime deletion channel with arbitrary deletion probability</a></li>
-</ol>
+<figure>
+    <img align="center" width="800" height="200" src="vineyardreceiver.png" alt='missing' />
+    <center><figcaption>Raspberry-Pi-based GFSK demodulator for use with CC1310</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background-Math">Background Math<a class="anchor-link" href="#Background-Math">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The background math for this project and for the Verilog-based GFSK demodulator project are the same, so I've copied the relevant sections from that webpage below.</p>
 
 </div>
 </div>
@@ -13137,7 +13132,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h5 id="Finite-Impulse-Response-Filter">Finite Impulse Response Filter<a class="anchor-link" href="#Finite-Impulse-Response-Filter">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A finite impulse response filter is essentially just a weighted average of the $N$ most recent samples, where the weights associated with each of those samples are chosen in order to get a desired frequency response in the filter. For example, the output $y[n]$ of an FIR filter of order $N$ is shown below, where $b_i$ is the weight associated with sample $x_i$.</p>
 
 </div>
 </div>
@@ -13145,40 +13147,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone <em>quite</em> as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
+\begin{align}
+y[n] &amp;= \sum_{i=0}^N b_0x[n] + b_1x[n-1] + \cdots + b_N x[n-N]
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This filters have the advantage of requiring no feedback, being inherently stable, and being capable of being designed such that they are linear phase. This is accomplished by simply making the coefficient sequence symmetric, and is a desirable property for phase-sensitive applications like GFSK demodulation.</p>
 
 </div>
 </div>
@@ -13186,7 +13164,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<p>Many methods exist for coming up with a set of coefficients that meet requirements on passband ripple, stopband ripple, and transition width. Some of these include the window design method, frequency sampling method, and Parks-McClellan method. I used a Matlab tool that implements the Parks-McClellan method in order to come up with a set of coefficents for a 10-tap FIR filter that low-passes the raw RF samples down to 50 kHz. Such tools did not exist for any of the other aspects of this project.</p>
 
 </div>
 </div>
@@ -13194,45 +13172,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
+<h5 id="GFSK-Demodulation">GFSK Demodulation<a class="anchor-link" href="#GFSK-Demodulation">&#182;</a></h5>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Courses for which I was the primary instructor</strong></p>
-<ol>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-</ul>
-</blockquote>
-</li>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32.<blockquote><ul>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Courses for which I was a TA and prepared course supplements</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Selected talks</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites.</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-</ol>
+<p>The low-power transmitters (TI-CC1310's) use Gaussian Frequency Shift Keying (GFSK) to encode information at the carrier frequency. With GFSK, a logical 1 is encoded by increasing the frequency of the transmission to slightly greater than the carrier frequency and a logical zero is encoded by decreasing the frequency of the transmission to slightly less than the carrier frequency. This is in contrast to Amplitude Modulation which obviously modulates the amplitude in order to encode 1's and 0's, and Phase Modulation, which modulates the phase of the transmission (while keeping the frequency constant) in order to encode 1's and 0's. A good introductory article on these modulation schemes can be found here: <a href="https://www.allaboutcircuits.com/textbook/radio-frequency-analysis-design/radio-frequency-demodulation/quadrature-frequency-and-phase-demodulation/">https://www.allaboutcircuits.com/textbook/radio-frequency-analysis-design/radio-frequency-demodulation/quadrature-frequency-and-phase-demodulation/</a>.</p>
 
 </div>
 </div>
@@ -13240,7 +13187,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<p>A discussion of the demodulation method requires a brief discussion of how the RTL-SDR sampling works. The RTL-SDR has two voltage-controlled oscillators that oscillate at precisely the carrier frequency of the transmitter (915 MHz). One of these oscillators is 90 degrees out of phase from the other. The RF transmissions received by the antenna are mixed with these local oscillators in order to get the baseband transmission. By mixing the received transmissions with both the in-phase oscillator and the out-of-phase oscillator, the RTL-SDR is able to represent the received transmission as the sum of two out-of-phase 915 MHz waves. One of these waves is in-phase (I) and the other is out-of-phase (or "quadrature", Q). This I/Q data is a nice way to represent the received transmissions because it is independent of the carrier frequency, and it includes phase information (which would be impossible to recover with just one local oscillator).</p>
 
 </div>
 </div>
@@ -13248,37 +13195,55 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
+<p>With the I/Q data, one has all of the information necessary to demodulate any of the modulation schemes mentioned above. For Amplitude Modulation, the relevant quantity would be the amplitude of the received transmission ($\sqrt{I^2 + Q^2}$). For phase modulation, the relevant quantity is the phase of the received signal relative to the local oscillators $\left(\text{atan2}\left(\frac{I}{Q}\right)\right)$. For Frequency Modulation, the information is encoded on the derivative of the phase. A procedural way to approximate this quantity is to find the conjugate product of the $n^{th}$ and $(n-1)^{st}$ samples (a complex number), and then to find the argument of the resulting complex number. If these two samples have the same phase, then the product will be a real number with argument 0. If these two samples are 90 degrees out of phase, then the product will be a purely imaginary number with argument $\frac{\pi}{2}$. The I/Q plot for a frequency-modulated signal ends up forming a circle, since the phase of the received transmission moves continually around the complex plane. For phase-modulated signals, the I/Q plots look like a collection of dots. Letting $\tilde{x}[n-1]$ be the complex conjugate of sample $x[n-1]$, this is represented by the below equation.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
+\begin{align}
+y[n] = \text{arg}\left(x[n]\overline{x}[n-1]\right)
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When no transmission is being received, the output of this demodulation method is white noise, since two consecutive samples may be any amount of phase separated from one another. During a transmission, however, this demodulation method is capable of recovering the logical waveform (the 1's and 0's) of the transmission.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Code">Code<a class="anchor-link" href="#Code">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code below gathers samples from the RTL-SDR through a TCP/IP socket, decimates, demodulates, filters, binary slices, searches for a sync word, gathers a packet (when it sees the sync word), performs a checksum, and then stores the packet in a local file.</p>
+<p>There is some code commented out that will alternatively send the packet to some server address rather than just storing it locally.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To use this:</p>
 <ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
+<li>Install the RTL-SDR command line tools on the RPi</li>
+<li>Plug the RTL-SDR into the Raspberry Pi</li>
+<li>Start sending radio samples to the code below through a TCP/IP socket by running:<br>
+<code>rtl_tcp -a 127.0.0.1 -p 1234 -s 900001 -f 915000000</code><br>
+This starts rtl_tcp, sends to the local address at which the C code below is looking, port no. 1234, sample rate of 900001 samples/sec (at 50kpbs, that's 18 samples/bit), at a frequency of 915 MHz</li>
+<li>Run the C-code below with <code>./demod</code></li>
 </ol>
 
 </div>
@@ -13287,26 +13252,459 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<div class="highlight"><pre><span></span><span class="c1">///////////////////////////////////////</span>
+<span class="c1">/// Hunter Adams (vha3@cornell.edu)</span>
+<span class="c1">/// test VGA with hardware video input copy to VGA</span>
+<span class="c1">// compile with</span>
+<span class="c1">// gcc demodulate_fpga.c -o demod -lm -lpthread</span>
+<span class="c1">//////////////////////////////////////</span>
+<span class="cp">#define _GNU_SOURCE </span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ol>
-<li><a href="./Professional/CV.pdf">CV</a></li>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ol>
-<p><strong>External links</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube channel</a></li>
-<li><a href="https://github.com/vha3">GitHub</a></li>
-<li><a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a></li>
-<li><a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ol>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/ipc.h&gt; </span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/shm.h&gt; </span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt; </span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;math.h&gt; </span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;netinet/in.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;netdb.h&gt; </span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sched.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;arpa/inet.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;signal.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// threads</span>
+<span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;semaphore.h&gt;  </span><span class="cp"></span>
+
+<span class="c1">// Semaphores for flow control</span>
+<span class="n">sem_t</span> <span class="n">tcpip_semaphore</span><span class="p">;</span>
+<span class="n">sem_t</span> <span class="n">slice_semaphore</span><span class="p">;</span>
+<span class="n">sem_t</span> <span class="n">search_semaphore</span><span class="p">;</span>
+<span class="n">sem_t</span> <span class="n">check_semaphore</span><span class="p">;</span>
+<span class="n">sem_t</span> <span class="n">start_semaphore</span><span class="p">;</span>
+<span class="n">sem_t</span> <span class="n">exfiltrate_semaphore</span><span class="p">;</span>
+
+<span class="c1">// TCPIP buffer from RTL-SDR</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">tcpip_buffer</span><span class="p">[</span><span class="mi">14400</span><span class="p">];</span>
+
+<span class="c1">// 50 bytes at a time</span>
+<span class="kt">double</span> <span class="n">filtered_zero</span><span class="p">[</span><span class="mi">400</span><span class="p">];</span>
+<span class="kt">double</span> <span class="n">filtered_one</span><span class="p">[</span><span class="mi">400</span><span class="p">];</span>
+<span class="kt">double</span> <span class="n">filtered_two</span><span class="p">[</span><span class="mi">400</span><span class="p">];</span>
+
+<span class="c1">// Store 128 bytes</span>
+<span class="kt">char</span> <span class="n">received_test_0</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">received_test_1</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">received_test_2</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+
+<span class="c1">// Sync word</span>
+<span class="kt">char</span> <span class="n">address</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x93</span><span class="p">,</span> <span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0x51</span><span class="p">,</span> <span class="mh">0xde</span><span class="p">};</span>
+
+<span class="c1">// Count received packets</span>
+<span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// 128-50</span>
+<span class="kt">char</span> <span class="n">packet</span><span class="p">[</span><span class="mi">78</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">packetlen</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">numclocks</span><span class="p">;</span>
+<span class="kt">uint16_t</span> <span class="n">checksum</span><span class="p">;</span>
+
+<span class="cp">#define PORT &quot;3490&quot;  </span><span class="c1">// the port users will be connecting to</span>
+<span class="cp">#define BACKLOG 10   </span><span class="c1">// how many pending connections queue will hold</span>
+
+<span class="kt">void</span> <span class="nf">clock_array</span><span class="p">(</span><span class="kt">char</span> <span class="n">array</span><span class="p">[</span><span class="mi">128</span><span class="p">])</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">127</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">7</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">array</span><span class="p">[</span><span class="mi">127</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">array</span><span class="p">[</span><span class="mi">127</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cp">#define CRC16_POLY 0x8005</span>
+<span class="cp">#define CRC_INIT 0xFFFF</span>
+<span class="kt">uint16_t</span> <span class="nf">culCalcCRC</span><span class="p">(</span><span class="kt">char</span> <span class="n">crcData</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">crcReg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(((</span><span class="n">crcReg</span> <span class="o">&amp;</span> <span class="mh">0x8000</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">crcData</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">crcReg</span> <span class="o">=</span> <span class="p">(</span><span class="n">crcReg</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="n">CRC16_POLY</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="n">crcReg</span> <span class="o">=</span> <span class="p">(</span><span class="n">crcReg</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">crcData</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">crcReg</span><span class="p">;</span>
+<span class="p">}</span><span class="c1">// culCalcCRC</span>
+
+<span class="kt">void</span> <span class="nf">sigchld_handler</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">s</span><span class="p">;</span> <span class="c1">// quiet unused variable warning</span>
+
+    <span class="c1">// waitpid() might overwrite errno, so we save and restore it:</span>
+    <span class="kt">int</span> <span class="n">saved_errno</span> <span class="o">=</span> <span class="n">errno</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">WNOHANG</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="n">errno</span> <span class="o">=</span> <span class="n">saved_errno</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// get sockaddr, IPv4 or IPv6:</span>
+<span class="kt">void</span> <span class="o">*</span><span class="nf">get_in_addr</span><span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">sa</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sa</span><span class="o">-&gt;</span><span class="n">sa_family</span> <span class="o">==</span> <span class="n">AF_INET</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span> <span class="n">sockaddr_in</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin_addr</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="o">&amp;</span><span class="p">(((</span><span class="k">struct</span> <span class="n">sockaddr_in6</span><span class="o">*</span><span class="p">)</span><span class="n">sa</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">sin6_addr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">char</span> <span class="nf">slice_n_dice</span><span class="p">(</span><span class="kt">int</span> <span class="n">count</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0x7f</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xbf</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xdf</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xef</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xf7</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xfb</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">6</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xfd</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span> <span class="k">return</span> <span class="mh">0xfe</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">read_tcpip</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start_semaphore</span><span class="p">);</span>
+
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// ========== Opens TCP/IP socket to RTL-SDR for I/Q sampling ============</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="n">portno</span><span class="p">,</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">serv_addr</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">hostent</span> <span class="o">*</span><span class="n">server</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">frequency</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
+    <span class="n">portno</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="s">&quot;1234&quot;</span><span class="p">);</span>
+    <span class="n">sockfd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sockfd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;ERROR opening socket</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="c1">// server = gethostbyname(&quot;192.168.1.145&quot;);</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">gethostbyname</span><span class="p">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">server</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;ERROR, no such host</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">bzero</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">serv_addr</span><span class="p">));</span>
+    <span class="n">serv_addr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span>
+    <span class="n">bcopy</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">server</span><span class="o">-&gt;</span><span class="n">h_addr</span><span class="p">,</span> 
+         <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span><span class="p">,</span>
+         <span class="n">server</span><span class="o">-&gt;</span><span class="n">h_length</span><span class="p">);</span>
+    <span class="n">serv_addr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="n">portno</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">connect</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">serv_addr</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="s">&quot;ERROR connecting</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="c1">//printf(&quot;Please enter the message: &quot;);</span>
+    <span class="n">bzero</span><span class="p">(</span><span class="n">tcpip_buffer</span><span class="p">,</span><span class="mi">14400</span><span class="p">);</span>
+    <span class="n">length</span><span class="o">=</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr_in</span><span class="p">);</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// =======================================================================</span>
+
+
+    <span class="c1">// variables to hold raw I/Q samples</span>
+    <span class="kt">double</span> <span class="n">first_i</span><span class="p">,</span> <span class="n">first_q</span><span class="p">,</span> <span class="n">second_i</span><span class="p">,</span> <span class="n">second_q</span><span class="p">;</span>
+    <span class="c1">// variables for re/im part of complex conjugate</span>
+    <span class="kt">double</span> <span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">;</span>
+    <span class="c1">// variable for argument of complex number</span>
+    <span class="kt">double</span> <span class="n">output</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+    <span class="c1">// finite impulse response filter taps</span>
+    <span class="kt">double</span> <span class="n">tap1</span> <span class="o">=</span> <span class="mf">0.0584283</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">tap2</span> <span class="o">=</span> <span class="mf">0.88314341</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">tap3</span> <span class="o">=</span> <span class="mf">0.0584283</span><span class="p">;</span>
+
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="p">{</span>
+
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tcpip_semaphore</span><span class="p">);</span>
+        <span class="n">bzero</span><span class="p">(</span><span class="n">tcpip_buffer</span><span class="p">,</span><span class="mi">14400</span><span class="p">);</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="n">recvfrom</span><span class="p">(</span><span class="n">sockfd</span><span class="p">,</span> <span class="n">tcpip_buffer</span><span class="p">,</span>
+            <span class="mi">14400</span><span class="p">,</span> <span class="n">MSG_WAITALL</span><span class="p">,(</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">serv_addr</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">length</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// variables for sample rates in TCPIP buffer</span>
+            <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">filterdex</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sorter</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">12</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// Decimate</span>
+                <span class="n">first_q</span> <span class="o">=</span>    <span class="n">tcpip_buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">128</span><span class="p">;</span>
+                <span class="n">first_i</span> <span class="o">=</span>    <span class="n">tcpip_buffer</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">128</span><span class="p">;</span>
+                <span class="n">second_q</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">tcpip_buffer</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">]</span> <span class="o">-</span> <span class="mi">128</span><span class="p">);</span>
+                <span class="n">second_i</span> <span class="o">=</span>   <span class="n">tcpip_buffer</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">128</span><span class="p">;</span>
+                <span class="c1">// Demodulate</span>
+                <span class="n">real</span> <span class="o">=</span> <span class="n">first_i</span><span class="o">*</span><span class="n">second_i</span> <span class="o">-</span> <span class="n">first_q</span><span class="o">*</span><span class="n">second_q</span><span class="p">;</span>
+                <span class="n">imag</span> <span class="o">=</span> <span class="n">first_i</span><span class="o">*</span><span class="n">second_q</span> <span class="o">+</span> <span class="n">first_q</span><span class="o">*</span><span class="n">second_i</span><span class="p">;</span>
+                <span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">imag</span><span class="p">,</span> <span class="n">real</span><span class="p">);</span>
+                <span class="c1">// Filter</span>
+                <span class="k">switch</span> <span class="p">(</span><span class="n">sorter</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                        <span class="n">filtered_zero</span><span class="p">[</span><span class="n">filterdex</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tap1</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap2</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap3</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+                        <span class="n">sorter</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                        <span class="n">filtered_one</span><span class="p">[</span><span class="n">filterdex</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tap1</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap2</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap3</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+                        <span class="n">sorter</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                        <span class="n">filtered_two</span><span class="p">[</span><span class="n">filterdex</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tap1</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap2</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">tap3</span><span class="o">*</span><span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+                        <span class="n">sorter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                        <span class="n">filterdex</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// Iterate</span>
+                <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+                <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">slice_semaphore</span><span class="p">);</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span> <span class="c1">// end if</span>
+    <span class="p">}</span> <span class="c1">// end while(1)</span>
+<span class="p">}</span> <span class="c1">// end task</span>
+
+
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">slice</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">slice_semaphore</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">temp0</span><span class="o">=</span><span class="mh">0xff</span><span class="p">,</span> <span class="n">temp1</span><span class="o">=</span><span class="mh">0xff</span><span class="p">,</span> <span class="n">temp2</span><span class="o">=</span><span class="mh">0xff</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">bit_index</span> <span class="o">=</span> <span class="mi">78</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">index</span><span class="o">&lt;</span><span class="mi">400</span><span class="p">;</span> <span class="n">index</span><span class="o">++</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">test</span> <span class="o">=</span> <span class="n">tracker</span> <span class="o">%</span> <span class="mi">8</span><span class="p">;</span>
+            <span class="kt">char</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">slice_n_dice</span><span class="p">(</span><span class="n">test</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">filtered_zero</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="n">temp0</span> <span class="o">&amp;=</span> <span class="n">mask</span><span class="p">;}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">filtered_one</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>  <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="n">temp1</span> <span class="o">&amp;=</span> <span class="n">mask</span><span class="p">;}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">filtered_two</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>  <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="n">temp2</span> <span class="o">&amp;=</span> <span class="n">mask</span><span class="p">;}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">test</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">received_test_0</span><span class="p">[</span><span class="n">bit_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp0</span><span class="p">;</span>
+                <span class="n">received_test_1</span><span class="p">[</span><span class="n">bit_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span><span class="p">;</span>
+                <span class="n">received_test_2</span><span class="p">[</span><span class="n">bit_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp2</span><span class="p">;</span>
+                <span class="n">temp0</span><span class="o">=</span><span class="mh">0xff</span><span class="p">,</span> <span class="n">temp1</span><span class="o">=</span><span class="mh">0xff</span><span class="p">,</span> <span class="n">temp2</span><span class="o">=</span><span class="mh">0xff</span><span class="p">;</span>
+                <span class="n">bit_index</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">tracker</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// you&#39;ll pop bitstrings over to FPGA here</span>
+        <span class="c1">//</span>
+        <span class="n">numclocks</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">search</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">numclocks</span> <span class="o">&lt;</span> <span class="mi">400</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="n">received_test_0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> 
+                <span class="p">(</span><span class="n">received_test_0</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_0</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">3</span><span class="p">])){</span>
+                <span class="n">packetlen</span> <span class="o">=</span> <span class="n">received_test_0</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span><span class="p">;</span> 
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">packetlen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">received_test_0</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
+                <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">check_semaphore</span><span class="p">);</span>
+                <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="n">received_test_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> 
+                <span class="p">(</span><span class="n">received_test_1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">3</span><span class="p">])){</span>
+                <span class="n">packetlen</span> <span class="o">=</span> <span class="n">received_test_1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">packetlen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">received_test_1</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
+                <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">check_semaphore</span><span class="p">);</span>
+                <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">((</span><span class="n">received_test_2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> 
+                <span class="p">(</span><span class="n">received_test_2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">received_test_2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">==</span><span class="n">address</span><span class="p">[</span><span class="mi">3</span><span class="p">])){</span>
+                <span class="n">packetlen</span> <span class="o">=</span> <span class="n">received_test_2</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">packetlen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">received_test_2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="p">}</span>
+                <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">check_semaphore</span><span class="p">);</span>
+                <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_0</span><span class="p">);</span>
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_1</span><span class="p">);</span>
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_2</span><span class="p">);</span>
+            <span class="n">bzero</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span> <span class="mi">78</span><span class="p">);</span>
+            <span class="n">numclocks</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tcpip_semaphore</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">check</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">check_semaphore</span><span class="p">);</span>
+
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+        <span class="n">checksum</span> <span class="o">=</span> <span class="n">CRC_INIT</span><span class="p">;</span> <span class="c1">// Init value for CRC calculation</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">packetlen</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">checksum</span> <span class="o">=</span> <span class="n">culCalcCRC</span><span class="p">(</span><span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">checksum</span><span class="p">);</span>
+        <span class="p">}</span>
+
+
+        <span class="k">if</span><span class="p">(((</span><span class="n">checksum</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span><span class="o">==</span><span class="n">packet</span><span class="p">[</span><span class="n">packetlen</span><span class="p">])</span> <span class="o">&amp;&amp;</span>
+            <span class="p">((</span><span class="n">checksum</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="o">==</span> <span class="n">packet</span><span class="p">[</span><span class="n">packetlen</span><span class="o">-</span><span class="mi">1</span><span class="p">]){</span>
+            <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">exfiltrate_semaphore</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">bzero</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span> <span class="mi">78</span><span class="p">);</span>
+            <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">connection</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="kt">void</span> <span class="o">*</span> <span class="nf">exfiltrate</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// ========== Opens TCP/IP socket for packet exfiltration ================</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// // struct sockaddr_in address; </span>
+    <span class="c1">// int new_fd = 0, valread; </span>
+    <span class="c1">// struct sockaddr_in serv_addr; </span>
+    <span class="c1">// if ((new_fd = socket(AF_INET, SOCK_STREAM, 0)) &lt; 0) </span>
+    <span class="c1">// { </span>
+    <span class="c1">//     printf(&quot;\n Socket creation error \n&quot;); </span>
+    <span class="c1">//     // return -1; </span>
+    <span class="c1">// } </span>
+    <span class="c1">// memset(&amp;serv_addr, &#39;0&#39;, sizeof(serv_addr)); </span>
+    <span class="c1">// serv_addr.sin_family = AF_INET; </span>
+    <span class="c1">// serv_addr.sin_port = htons(3490); </span>
+    <span class="c1">// //19265 </span>
+    <span class="c1">// // Convert IPv4 and IPv6 addresses from text to binary form </span>
+    <span class="c1">// // 3.19.114.185</span>
+    <span class="c1">// if(inet_pton(AF_INET, &quot;169.254.113.120&quot;, &amp;serv_addr.sin_addr)&lt;=0)  </span>
+    <span class="c1">// { </span>
+    <span class="c1">//     printf(&quot;\nInvalid address/ Address not supported \n&quot;); </span>
+    <span class="c1">//     // return -1; </span>
+    <span class="c1">// } </span>
+    <span class="c1">// // int connection = -1;</span>
+    <span class="c1">// // if (connect(new_fd, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr)) &lt; 0) </span>
+    <span class="c1">// while (connection &lt; 0)</span>
+    <span class="c1">// { </span>
+    <span class="c1">//  connection = connect(new_fd, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr));</span>
+    <span class="c1">//     printf(&quot;\nRetrying Connection \n&quot;); </span>
+    <span class="c1">//     // return -1; </span>
+    <span class="c1">// } </span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// =======================================================================</span>
+    <span class="c1">// =======================================================================</span>
+
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="kt">time_t</span> <span class="n">now</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start_semaphore</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">exfiltrate_semaphore</span><span class="p">);</span>
+
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d: &quot;</span><span class="p">,</span> <span class="n">counter</span><span class="p">);</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;stored_data.txt&quot;</span><span class="p">,</span> <span class="s">&quot;a+&quot;</span><span class="p">);</span>
+        <span class="n">time</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">packetlen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%02x &quot;</span><span class="p">,</span> <span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&quot;%02x &quot;</span><span class="p">,</span> <span class="n">packet</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">now</span><span class="p">));</span>
+        <span class="c1">// fputs(&quot;\n&quot;, fp);</span>
+        <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="c1">// if (send(new_fd, packet, packetlen+1, 0) == -1)</span>
+        <span class="c1">//  perror(&quot;send&quot;);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="p">(</span><span class="n">packetlen</span><span class="o">*</span><span class="mi">8</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_0</span><span class="p">);</span>
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_1</span><span class="p">);</span>
+            <span class="n">clock_array</span><span class="p">(</span><span class="n">received_test_2</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">bzero</span><span class="p">(</span><span class="n">packet</span><span class="p">,</span> <span class="mi">78</span><span class="p">);</span>
+        <span class="n">numclocks</span> <span class="o">+=</span> <span class="n">packetlen</span><span class="o">*</span><span class="mi">8</span><span class="p">;</span>
+        <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="kt">cpu_set_t</span> <span class="n">cpuset</span><span class="p">;</span>
+    <span class="n">CPU_ZERO</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>  
+    <span class="c1">// put two processsors into the list</span>
+    <span class="n">CPU_SET</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">CPU_SET</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">CPU_SET</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">CPU_SET</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+
+    <span class="c1">// the thread identifiers</span>
+    <span class="n">pthread_t</span> <span class="n">thread_read</span><span class="p">,</span> <span class="n">thread_demodulate</span><span class="p">,</span> <span class="n">thread_filter</span><span class="p">,</span> <span class="n">thread_search</span><span class="p">,</span> <span class="n">thread_slice</span><span class="p">,</span> <span class="n">thread_check</span><span class="p">,</span> <span class="n">thread_exfiltrate</span> <span class="p">;</span>
+
+    <span class="c1">// the semaphore inits</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tcpip_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">search_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">slice_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">check_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">start_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">exfiltrate_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">//For portability, explicitly create threads in a joinable state </span>
+    <span class="c1">// thread attribute used here to allow JOIN</span>
+    <span class="n">pthread_attr_t</span> <span class="n">attr</span><span class="p">;</span>
+    <span class="n">pthread_attr_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">);</span>
+    <span class="n">pthread_attr_setdetachstate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">attr</span><span class="p">,</span> <span class="n">PTHREAD_CREATE_JOINABLE</span><span class="p">);</span>
+
+    <span class="c1">// now the threads</span>
+    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_read</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">read_tcpip</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_search</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">search</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_slice</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">slice</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_check</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span><span class="n">check</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">thread_exfiltrate</span><span class="p">,</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">exfiltrate</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="c1">// for efficiency, force  threads onto separate processors</span>
+    <span class="n">pthread_setaffinity_np</span><span class="p">(</span><span class="n">thread_read</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">cpu_set_t</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">pthread_setaffinity_np</span><span class="p">(</span><span class="n">thread_search</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">cpu_set_t</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">pthread_setaffinity_np</span><span class="p">(</span><span class="n">thread_slice</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">cpu_set_t</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">pthread_setaffinity_np</span><span class="p">(</span><span class="n">thread_check</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">cpu_set_t</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+    <span class="n">pthread_setaffinity_np</span><span class="p">(</span><span class="n">thread_exfiltrate</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">cpu_set_t</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">cpuset</span><span class="p">);</span>
+
+    <span class="c1">// In this case the thread never exit</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="n">thread_read</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="n">thread_search</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="n">thread_slice</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="n">thread_check</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="n">thread_exfiltrate</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span> <span class="c1">// end main</span>
+</pre></div>
 
 </div>
 </div>
