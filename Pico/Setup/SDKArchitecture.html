@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>SDKArchitecture</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,197 +13077,49 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Understanding-the-C/C++-SDK-architecture-for-the-Raspberry-Pi-Pico">Understanding the C/C++ SDK architecture for the Raspberry Pi Pico<a class="anchor-link" href="#Understanding-the-C/C++-SDK-architecture-for-the-Raspberry-Pi-Pico">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu)<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">&#182;</a></h4>
+<h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
+<p><strong><em>All of the information in this webpage comes from the <a href="./PicoCSDK.pdf">Raspberry Pi Pico C/C++ SDK</a>. Many parts of this webpage come directly from this document, slightly rewritten or re-ordered as an exercise in understanding the content and arranging it in a way that is most useful to me.</em></strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_serial.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids.html">Implementation of Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./Mandelbrot/Mandelbrot.html">Mandelbrot and Julia set visualization on the DE1-SoC</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">String pattern analysis</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Probabilistic packet transmission through a limited-lifetime deletion channel with arbitrary deletion probability</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone <em>quite</em> as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (course in progress)</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
+<li><a href="#INTERFACE-libraries">INTERFACE libraries</a></li>
+<li><a href="#SDK-library-structure">SDK library structure</a><blockquote><ul>
+<li><a href="#High-level-API&#39;s">High-level API's</a></li>
+<li><a href="#Runtime-support-libraries">Runtime support libraries</a></li>
+<li><a href="#Hardware-support-libraries">Hardware support libraries</a></li>
+<li><a href="#Hardware-structs-library">Hardware structs library</a></li>
+<li><a href="#Hardware-registers-library">Hardware registers library</a></li>
 </ul>
 </blockquote>
 </li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li><a href="#Adding-SDK-libraries-to-your-project">Adding SDK libraries to your project</a><blockquote><ul>
+<li><a href="#The-build-system">The build system</a></li>
+<li><a href="#Dependency-trees">Dependency trees</a></li>
+<li><a href="#Accessing-libraries">Accessing libraries</a></li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li><a href="#Multi-core-support">Multi-core support</a></li>
 </ul>
 </blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
 
 </div>
 </div>
@@ -13283,37 +13135,193 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
+<h2 id="INTERFACE-libraries">INTERFACE libraries<a class="anchor-link" href="#INTERFACE-libraries">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
+<p>All libraries within the SDK (with the exception of the C/C++ standard libraries provided by the compiler) are <code>INTERFACE</code> libraries. A CMake <code>INTERFACE</code> library is a collection of:</p>
+<blockquote><ul>
+<li>Source files</li>
+<li>Include paths</li>
+<li>Compiler definitions (visible to code as <code>#defines</code>)</li>
+<li>Compile and link options</li>
+<li>Dependencies on other <code>INTERFACE</code> libraries</li>
+</ul>
+</blockquote>
+<p>All of these <code>INTERFACE</code> libraries form a tree of dependencies, each contributing source files, include paths, compiler definitions, and compile/link options to the build. Collection of all of these dependencies is done recursively. They are collected based on the libraries you have listed in your CMakeLists.txt file, and by the libraries depended on by <em>those</em> libraries, and so on.</p>
+<p>A single project may contain many executables, as is the case for the <code>pico-examples</code> project. All of the code for each executable, including the SDK libraries, is (re)compiled for <em>each</em> executable from source. This allows you to specify customised settings for those libraries on a <em>per-application</em> basis, at compile-time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SDK-library-structure">SDK library structure<a class="anchor-link" href="#SDK-library-structure">&#182;</a></h2><h4 id="High-level-API's">High-level API's<a class="anchor-link" href="#High-level-API's">&#182;</a></h4><p>The SDK libraries are arranged heirarchically. There are high-level libraries (<code>pico_xxxx</code>) that generally enable the user to do things that have cross-cutting concerns between various pieces of hardware. For example, the <code>sleep_</code> functions in <code>pico_time</code> must be aware of both the RP2040's timer hardware and with the way that the RP2040 enters and exits low-power states.</p>
+<p>Generally speaking, these libraries are build upon one or more lower-level <code>hardware_</code> libraries, and often depend on one another. Section 4.2 of the SDK guide lists all these high-level libraries. This list is copied below.</p>
+<blockquote><ul>
+<li><code>pico_multicore</code> - Adds support for running code on the second processor core (core1)<blockquote><ul>
+<li><code>fifo</code> - Functions for inter-core FIFO</li>
 </ul>
 </blockquote>
 </li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
+<li><code>pico_stdlib</code> - Aggregation of a core subset of Raspberry Pi Pico SDK libraries used by most executables along with some additional utility methods. Including pico_stdlib gives you everything you need to get a basic program running which prints to stdout or flashes a LED.</li>
+<li><code>pico_sync</code> - synchronizations primitives and mutual exclusion<blockquote><ul>
+<li><code>critical_section</code> - Critical Section API for short-lived mutual exclusion safe for IRQ and multi-core.</li>
+<li><code>mutex</code> - mutex API for non IRQ mutual exclusion events between cores</li>
+<li><code>sem</code> - semaphore API for restricting access to a resource</li>
+</ul>
+</blockquote>
+</li>
+<li><code>pico_time</code> - API for accurate timestamps, sleeping, and time based callbacks.<blockquote><ul>
+<li><code>timestamp</code> - Timestamp functions relating to points in time (including the current time)</li>
+<li><code>sleep</code> - Sleep functions for delaying execution in a lower power state.</li>
+<li><code>alarm</code> - Alarm functions for scheduling future execution.</li>
+<li><code>repeating_timer</code> - Repeating Timer functions for simple scheduling of repeated execution.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>pico_unique_id</code> - Unique device ID access API.</li>
+<li><code>pico_util</code> - Useful data structures and utility functions.<blockquote><ul>
+<li><code>datetime</code> - Date/Time formatting.</li>
+<li><code>pheap</code> - Pairing Heap Implementation.</li>
+<li><code>queue</code> - Multi-core and IRQ safe queue implementation.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<p>Section 4.2 contains some example code and the API description for these high-level functions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Runtime-support-libraries">Runtime support libraries<a class="anchor-link" href="#Runtime-support-libraries">&#182;</a></h4><p>Section 4.4 of the SDK guide provides a description of all runtime libraries that bundle functionality which is common to most RP2040-based applications. Each of these API's is described thoroughly in the SDK guide, but they are listed here for reference.</p>
+<blockquote><ul>
+<li><code>boot_stage2</code> - Second stage boot loaders responsible for setting up external flash.</li>
+<li><code>pico_base</code> - Core types and macros for the Raspberry Pi Pico SDK. This header is intended to be included by all source code.</li>
+<li><code>pico_bit_ops</code> - Optimized bit manipulation functions. Additionally provides replacement implementations of the compiler built-ins builtin_popcount, builtin<em>clz and \</em>_bulitin_ctz.</li>
+<li><code>pico_bootrom</code> - Access to functions and data in the RP2040 bootrom.</li>
+<li><code>pico_cxx_options</code> - non-code library controlling C++ related compile options</li>
+<li><code>pico_divider</code> - Optimized 32 and 64 bit division functions accelerated by the RP2040 hardware divider. Additionally provides integration with the C / and % operators.</li>
+<li><code>pico_double</code> - Optimized double-precision floating point functions.</li>
+<li><code>pico_float</code> - Optimized single-precision floating point functions.</li>
+<li><code>pico_int64_ops</code> - Optimized replacement implementations of the compiler built-in 64 bit multiplication.</li>
+<li><code>pico_malloc</code> - Multi-core safety for malloc, calloc and free.</li>
+<li><code>pico_mem_ops</code> - Provides optimized replacement implementations of the compiler built-in memcpy, memset and related functions:</li>
+<li><code>pico_platform</code> - Compiler definitions for the selected PICO_PLATFORM.</li>
+<li><code>pico_printf</code> - Compact replacement for printf by Marco Paland (info@paland.com)</li>
+<li><code>pico_runtime</code> - Aggregate runtime support including pico_bit_ops, pico_divider, pico_double, pico_int64_ops, pico_float, pico_malloc, pico_mem_ops and pico_standard_link.</li>
+<li><code>pico_stdio</code> - Customized stdio support allowing for input and output from UART, USB, semi-hosting etc.<blockquote><ul>
+<li><code>pico_stdio_semihosting</code> - Experimental support for stdout using RAM semihosting.</li>
+<li><code>pico_stdio_uart</code> - Support for stdin/stdout using UART.</li>
+<li><code>pico_stdio_usb</code> - Support for stdin/stdout over USB serial (CDC)</li>
+</ul>
+</blockquote>
+</li>
+<li><code>pico_standard_link</code> - Standard link step providing the basics for creating a runnable binary.</li>
+</ul>
+</blockquote>
+<p>As an example of the heirarchical nature of this SDK, both <code>pico_runtime</code> and <code>pico_standard_link</code> are included with <code>pico_stdlib</code>. And, furthermore, <code>pico_runtime</code> itself includes <code>pico_bit_ops</code>, <code>pico_divider</code>, <code>pico_double</code>, <code>pico_int64_ops</code>, <code>pico_float</code>, <code>pico_malloc</code>, <code>pico_mem_ops</code> and <code>pico_standard_link</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hardware-support-libraries">Hardware support libraries<a class="anchor-link" href="#Hardware-support-libraries">&#182;</a></h4><p>See section 4.1. These are individual libraries (<code>hardware_xxx</code>) that provide actual API's for interacting with each piece of physical hardware/peripheral. They are lightweight and provide only thin abstractions. They generally provide functions for configuring or interacting with the peripheral hardware at a functional level, rather than accessing registers directly. For example:</p>
+<p><code>pio_sm_set_wrap(pio, sm, bottom, top) ;</code></p>
+<p>instead of</p>
+<p><code>pio-&gt;sm[sm].execctrl =</code><br>
+$\hspace{1cm}$<code>(pio-&gt;sm[sm].execctrl &amp; ~(PIO_SM0_EXECCTRL_WRAP_TOP_BITS | PIO_SM0_EXECCTRL_WRAP_BOTTOM_BITS)) |</code><br>
+<code>(bottom &lt;&lt; PIO_SM0_EXECCTRL_WRAP_BOTTOM_LSB) | (top &lt;&lt; PIO_SM0_EXECCTRL_WRAP_TOP_LSB);</code></p>
+<p>These libraries are intended to have very minimal runtime cost. They generally do not require any or much RAM, and do not rely on other runtime infrastructure. In general, their onlly dpendencies are the <code>hardware_structs</code> and <code>hardware_regs</code> libraries that contain definitions of memory-mapped register layout on the RP2040. Many of them are implemented as static inline functions, the idea being that you sacrifice no performance by using these functions as compared with using preprocessor macros with the <code>hardware_regs</code> definitions.</p>
+<blockquote><ul>
+<li><code>hardware_adc</code> - Analog to Digital Converter (ADC) API.</li>
+<li><code>hardware_base</code> - Low-level types and (atomic) accessors for memory-mapped hardware registers.</li>
+<li><code>hardware_claim</code> - Lightweight hardware resource management.</li>
+<li><code>hardware_clocks</code> - Clock Management API.</li>
+<li><code>hardware_divider</code> - Low-level hardware-divider access.</li>
+<li><code>hardware_dma</code> - DMA Controller API.<blockquote><ul>
+<li><code>channel_config</code> - DMA channel configuration.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>hardware_flash</code> - Low level flash programming and erase API.</li>
+<li><code>hardware_gpio</code> - General Purpose Input/Output (GPIO) API.</li>
+<li><code>hardware_i2c</code> - I2C Controller API.</li>
+<li><code>hardware_interp</code> - Hardware Interpolator API.<blockquote><ul>
+<li><code>interp_config</code> - Interpolator configuration.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>hardware_irq</code> - Hardware interrupt handling.</li>
+<li><code>hardware_pio</code> - Programmable I/O (PIO) API.<blockquote><ul>
+<li><code>sm_config</code> - PIO state machine configuration.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>hardware_pll</code> - Phase Locked Loop control APIs.</li>
+<li><code>hardware_pwm</code> - Hardware Pulse Width Modulation (PWM) API.</li>
+<li><code>hardware_resets</code> - Hardware Reset API.</li>
+<li><code>hardware_rtc</code> - Hardware Real Time Clock API.</li>
+<li><code>hardware_spi</code> - Hardware SPI API.</li>
+<li><code>hardware_sync</code> - Low level hardware spin-lock, barrier and processor event API.</li>
+<li><code>hardware_timer</code> - Low-level hardware timer API.</li>
+<li><code>hardware_uart</code> - Hardware UART API.</li>
+<li><code>hardware_vreg</code> - Voltage Regulation API.</li>
+<li><code>hardware_watchdog</code> - Hardware Watchdog Timer API.</li>
+<li><code>hardware_xosc</code> - Crystal Oscillator (XOSC) API.</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hardware-structs-library">Hardware structs library<a class="anchor-link" href="#Hardware-structs-library">&#182;</a></h4><p>The <code>hardware_structs</code> library provides a set of C structures which represent the memory mapped layout of the RP2040 registers in the system address space. This allows the user to replace code that looks like this (written in C with defines from the lower-level <code>hardware_regs</code>, described in the next section):</p>
+<div class="highlight"><pre><span></span><span class="o">*</span><span class="p">(</span><span class="k">volatile</span> <span class="kt">uint32_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">PIO0_BASE</span> <span class="o">+</span> <span class="n">PIO_SM1_SHIFTCTRL_OFFSET</span><span class="p">)</span> <span class="o">|=</span> <span class="n">PIO_SM1_SHIFTCTRL_AUTOPULL_BITS</span> <span class="p">;</span>
+</pre></div>
+<p>with code that looks like this:</p>
+<div class="highlight"><pre><span></span><span class="n">pio0</span><span class="o">-&gt;</span><span class="n">sm</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">shiftctrl</span> <span class="o">|=</span> <span class="n">PIO_SM1_SHIFTCTRL_AUTOPULL_BITS</span> <span class="p">;</span>
+</pre></div>
+<p>The struct headers are named consistently with both the <code>hardware</code> libraries and the <code>hardware_regs</code> register headers. So, for example, if you access the <code>hardware_pio</code> library's functionality through <code>hardware/pio.h</code>, the <code>hardware_structs</code> library (a dependee of <code>hardware_pio</code>) contains a header you can include as <code>hardware/structs/pio.h</code> if you need to access a register directly, and this itself pulls in <code>hardware/regs/pio.h</code> for register field definitions.</p>
+<p>Just as an example, here is a snippet from <code>src/rp2040/hardware_structs/structs/pll.h</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">io_rw_32</span> <span class="n">cs</span> <span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">pwr</span> <span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">fbdiv_int</span> <span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">prim</span> <span class="p">;</span>
+<span class="p">}</span> <span class="n">pll_tw_t</span> <span class="p">;</span>
+
+<span class="cp">#define pll_sys_hw ((pll_hw_t *const)PLL_SYS_BASE)</span>
+<span class="cp">#define pll_usb_hw ((pll_hw_t *const)PLL_USB_BASE)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Hardware-registers-library">Hardware registers library<a class="anchor-link" href="#Hardware-registers-library">&#182;</a></h4><p>These are the lowest level libraries. The <code>hardware_regs</code> library is a complete set of include files for all RP2040 registers, autogenerated from the hardware itself. These are heavily commented, and they define the offset of every register and the layout of the fields in those registers, as well as the access type of the field (e.g. read-only). Note that these contain only comments and <code>#define</code> statements, so they can be included from <em>both</em> assembly files and C files.</p>
 
 </div>
 </div>
@@ -13329,19 +13337,79 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ol>
-<li><a href="./Professional/CV.pdf">CV</a></li>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ol>
-<p><strong>Articles</strong></p>
-<ol>
-<li><a href="./Media/Media.html">Link to list of media articles</a></li>
-</ol>
-<p><strong>External links</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ol>
+<h2 id="Adding-SDK-libraries-to-your-project">Adding SDK libraries to your project<a class="anchor-link" href="#Adding-SDK-libraries-to-your-project">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="The-build-system">The build system<a class="anchor-link" href="#The-build-system">&#182;</a></h4><p>The Pico SDK uses CMake to manage builds. The project files titled <code>CMakeLists.txt</code> specify how your application or project should be built. To quote the SDK guide, "CMake is fundamental to the way the SDK is structured, and how applications are configured and built."</p>
+<p>Let us introduce some of the ideas and syntax for CMake through a simple example: the <code>CMakeLists.txt</code> file used for the <code>blink</code> example in <code>pico-examples.</code> This code is provided below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">blink</span> <span class="s">blink.c</span><span class="p">)</span>
+
+<span class="c"># Pull in our pico_stdlib which pulls in commonly used features</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">blink</span> <span class="s">pico_stdlib</span><span class="p">)</span>
+
+<span class="c">#create map/bin/hex file etc.</span>
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">blink</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>add_executable</code> function in this file declares that a program called <code>blink</code> should be built from the single C source file <code>blink.c</code>. This will also be the target name used to build the program, allowing the user to say something like <code>make blink</code> in the build directory to build this particular application.</p>
+<p><code>target_link_libraries</code> is pulling in the SDK functionality that the program needs. If you don't ask for a library, it doesn't appear in your program binary.</p>
+<p><code>pico_add_extra_outputs</code> creates UF2 files for loading onto the Pico via USB. If we didn't include this, the system would build an ELF file (executable linkable format) that could be loaded onto the Pico through the Serial Wire Debug port, with a debugger setup like <code>gdb</code> and <code>openocd</code>. This also creates <code>.hex</code>, <code>.bin</code>, <code>.map</code>, and <code>.dis</code> files.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Dependency-trees">Dependency trees<a class="anchor-link" href="#Dependency-trees">&#182;</a></h4><p>Consider the example <code>CMakeLists.txt</code> file for the <code>blink</code> project above. We declare a dependency on the <code>INTERFACE</code> library <code>pico_stdlib</code>. This library itself depends on other <code>INTERFACE</code> libraries, includeing <code>pico_runtime</code>, <code>hardware_gpio</code>, <code>hardware_uart</code>, and others. The linker will garbage collect any of the functions in these libraries which we don't call, so that they don't bloat our binary. But, what does it actually mean for the <code>pico_stdlib</code> library to depend on (for example) the <code>hardware_gpio</code> libary? Well, let's look at the directory structure of the <code>hardware_gpio</code> libarary, illustrated below:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em><code>hardware_gpio</code></em><br>
+|--- <code>CMakeLists.txt</code><br>
+|--- <code>gpio.c</code><br>
+|--- <em><code>include</code></em><br>
+$\hspace{.75cm}$|---<em><code>hardware</code></em><br>
+$\hspace{1.5cm}$|---<code>gpio.h</code><br></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The dependency on the <code>hardware_gpio</code> <code>INTERFACE</code> library (thru the <code>pico_stdlib</code> library) causes your application to compile and link <code>gpio.c</code>, and adds the <code>include</code> directory within the <code>hardware_gpio</code> directory to be added to your search path. This means that, in your own project, when you <code>#include "hardware/gpio.h"</code>, the correct header will be pulled into the code.</p>
+<p>These <code>INTERFACE</code> libraries tidily aggregate a bunch of functionality into readily consumable chunks like <code>pico_stdlib</code>. Many of these libraries don't directly contribute any code, but they depend on a handful of lower-level libraries that do contribute code. This lets you pull in a group of libraries related to a particular goal without listing them all by name. This adds readability, with the potential cost of obfuscating <em>exactly</em> what's being included, at least until you've memorized the code that's included in each <code>INTERFACE</code> library.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Accessing-libraries">Accessing libraries<a class="anchor-link" href="#Accessing-libraries">&#182;</a></h4><p>In the CMakeLists.txt example file above, <code>target_link_libraries</code> is pulling in the SDK functionality that the program needs. If you don't ask for a library, it doesn't appear in your program binary. If we needed access to other headers not pulled in by <code>pico_stdlib</code> (e.g. <code>hardware_dma</code>), we would list those libraries in that line. For example, we might list <code>hardware_dma</code> before or after <code>pico_stdlib</code>.</p>
+<p>We would then be able to add <code>#include "hardware/dmah.h"</code> to our source code. Trying to include that header file in our source code <em>without</em> listing <code>hardware_dma</code> as a dependency will fail. And by the way, the naming convention illustrated for <code>hardware_dma</code> is true for all toplevel SDK library headers. The library is called <code>foo_bar</code> and the associated header is <code>foo/bar.h</code>. Recall that the top-level bundle API's include a number of these harware support libraries.</p>
 
 </div>
 </div>
@@ -13351,6 +13419,34 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Multi-core-support">Multi-core support<a class="anchor-link" href="#Multi-core-support">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is copy-pasted from the SDK guide . . .</p>
+<p>Multi-core support should be familiar to those used to programming with threads in other environments. The second core is just treated as a second thread within your application; initially the second core (<code>core1</code> as it is usually referred to; the main application thread runs on <code>core0</code>) is halted, however you can start it executing some function in parallel from your main application thread.</p>
+<p>Core 1 (the second core) is started by calling <code>multicore_launch_core1(some_function_pointer);</code> on core 0, which wakes the core from its low-power sleep state and provides it with its entry point — some function you have provided which hopefully with a descriptive name like <code>void core1_main() { }</code>. This function, as well as others such as pushing and popping data through the inter-core mailbox FIFOs, is listed under pico_multicore.</p>
+<p>Care should be taken with calling C library functions from both cores simultaneously as they are generally not designed to be thread safe. You can use the <code>mutex_</code> API provided by the SDK in the <code>pico_sync</code> library ( <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/common/pico_sync/include/pico/mutex.h">https://github.com/raspberrypi/pico-sdk/tree/master/src/common/pico_sync/include/pico/mutex.h</a>) from within your own code.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="500" height="500" src="multi.png" alt='missing' />
+    <center><figcaption>Example multicore C-code from the SDK guide</figcaption></center>
+</figure>
 </div>
 </div>
 </div>
