@@ -13353,7 +13353,8 @@ colorout:
     <img align="center" width="500" height="500" src="checkerboard.png" alt='missing' />
     <center><figcaption>Checkerboard to confirm colors and horizontal/vertical stability</figcaption></center>
 </figure><h4 id="Mandelbrot-Set">Mandelbrot Set<a class="anchor-link" href="#Mandelbrot-Set">&#182;</a></h4><p>The theory behind the Mandelbrot Set is covered on others of my project pages, so it isn't covered here. As a second demonstration, the RP2040 computes and renders the Mandelbrot Set. One a single core, it completed 79747133 complex iterations (fixed point) in 86.845272 sec. <a href="./mandelbrot.zip">Project Zip</a>.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/o2erqZ6J9C0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o2erqZ6J9C0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h4 id="Multicore-acceleration-of-Mandelbrot-Set">Multicore acceleration of Mandelbrot Set<a class="anchor-link" href="#Multicore-acceleration-of-Mandelbrot-Set">&#182;</a></h4><p>Core 0 is used to calculate the top half of the Mandelbrot Set, from left-to-right. Core 1 is used to calculate the bottom half from right-to-left. This nearly halves the total compute time to 46.458416 sec. <a href="./mandelbrot-multicore.zip">Project Zip</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q4B22lXM-58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
