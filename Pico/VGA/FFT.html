@@ -13138,23 +13138,16 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="ADC-and-DMA">ADC and DMA<a class="anchor-link" href="#ADC-and-DMA">&#182;</a></h2><p>A series of steps are required to configure the DMA interface to the ADC. The C SDK makes these configurations quite simple, but even so care is required.</p>
 <ol>
-<li>If using a GPIO input (as opposed to the temperature sensor), prepare that GPIO for use with the ADC by disabling all digital functions. GPIO numbers 26, 27, 28, 29 are valid ADC GPIO pins.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_gpio_init</span><span class="p">(</span><span class="n">uint</span> <span class="n">gpio</span><span class="p">)</span> <span class="p">;</span>
+<li>If using a GPIO input (as opposed to the temperature sensor), prepare that GPIO for use with the ADC by disabling all digital functions. GPIO numbers 26, 27, 28, 29 are valid ADC GPIO pins.<div class="highlight"><pre><span></span><span class="n">adc_gpio_init</span><span class="p">(</span><span class="n">uint</span> <span class="n">gpio</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
-<ol>
-<li>The ADC will be in an unknown state. Reset it, turn it back on, and prepare the internal 48MHz clock for use with the ADC. This is accomplished by manipulating the RESETS_RESET_ADC_BITS and ADC_CS_EN_BITS. Then, wait for ADC_CS_READY_BITS to assert, which means that the staging for the ADC is complete. In the C sdk, this is all accomplished by calling:</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-</pre></div>
-<ol>
-<li><p>Select the ADC mux input. GPIO 26 is MUX 0, 27 is MUX 1, 28 MUX 2, 29 MUX3, and temperature sensor MUX 4. This is accomplished by manipulating the AINSEL bits. In the C sdk:</p>
-<div class="highlight"><pre><span></span><span class="n">adc_select_input</span><span class="p">(</span><span class="n">uint</span> <span class="n">input</span><span class="p">)</span> <span class="p">;</span>
-</pre></div>
-<p>Note that this will select a single ADC input. If round-robin sampling of a few inputs is desired, then different configuration is required. In particular, this would involve calling the <code>adc_set_round_robin()</code> function with the input mask.</p>
 </li>
-<li><p>Configure the ADC FIFO. The ADC FIFO should be turned on, the DMA data request should be enabled, DREQ (and IRQ) should be asserted when at least 1 sample is present in the FIFO, the error bit should be disabled, and the ADC should be configured to shift each sample to 8 bits when pushing to the FIFO (so that we can DMA to a byte array). This is all accomplished with the following:</p>
-<div class="highlight"><pre><span></span><span class="c1">// Setup the FIFO</span>
+<li>The ADC will be in an unknown state. Reset it, turn it back on, and prepare the internal 48MHz clock for use with the ADC. This is accomplished by manipulating the RESETS_RESET_ADC_BITS and ADC_CS_EN_BITS. Then, wait for ADC_CS_READY_BITS to assert, which means that the staging for the ADC is complete. In the C sdk, this is all accomplished by calling:<div class="highlight"><pre><span></span><span class="n">adc_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</li>
+<li>Select the ADC mux input. GPIO 26 is MUX 0, 27 is MUX 1, 28 MUX 2, 29 MUX3, and temperature sensor MUX 4. This is accomplished by manipulating the AINSEL bits. In the C sdk:<div class="highlight"><pre><span></span><span class="n">adc_select_input</span><span class="p">(</span><span class="n">uint</span> <span class="n">input</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+Note that this will select a single ADC input. If round-robin sampling of a few inputs is desired, then different configuration is required. In particular, this would involve calling the <code>adc_set_round_robin()</code> function with the input mask.</li>
+<li>Configure the ADC FIFO. The ADC FIFO should be turned on, the DMA data request should be enabled, DREQ (and IRQ) should be asserted when at least 1 sample is present in the FIFO, the error bit should be disabled, and the ADC should be configured to shift each sample to 8 bits when pushing to the FIFO (so that we can DMA to a byte array). This is all accomplished with the following:<div class="highlight"><pre><span></span><span class="c1">// Setup the FIFO</span>
  <span class="n">adc_fifo_setup</span><span class="p">(</span>
      <span class="nb">true</span><span class="p">,</span>    <span class="c1">// Write each completed conversion to the sample FIFO</span>
      <span class="nb">true</span><span class="p">,</span>    <span class="c1">// Enable DMA data request (DREQ)</span>
@@ -13164,101 +13157,81 @@ div#notebook {
  <span class="p">);</span>
 </pre></div>
 </li>
-<li><p>Configure the pacing timer for the ADC. Divisor of 0 -&gt; full speed. Free-running capture with the divider is equivalent to pressing the ADC_CS_START_ONCE button once per <code>div + 1</code> cycles (div not necessarily an integer). Each conversion takes 96 cycles, so in general you want a divider of 0 (hold down the button continuously) or &gt; 95 (take samples less frequently than 96 cycle intervals). This is all timed by the 48 MHz ADC clock. For example, for a sample rate $F_s$, the setup is (48Mhz/$F_s$ - 1).</p>
-</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_set_clkdiv</span><span class="p">(</span><span class="mi">48000000</span><span class="o">/</span><span class="n">Fs</span><span class="p">)</span> <span class="p">;</span>
+<li>Configure the pacing timer for the ADC. Divisor of 0 -&gt; full speed. Free-running capture with the divider is equivalent to pressing the ADC_CS_START_ONCE button once per <code>div + 1</code> cycles (div not necessarily an integer). Each conversion takes 96 cycles, so in general you want a divider of 0 (hold down the button continuously) or &gt; 95 (take samples less frequently than 96 cycle intervals). This is all timed by the 48 MHz ADC clock. For example, for a sample rate $F_s$, the setup is (48Mhz/$F_s$ - 1).<div class="highlight"><pre><span></span><span class="n">adc_set_clkdiv</span><span class="p">(</span><span class="mi">48000000</span><span class="o">/</span><span class="n">Fs</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
-<ol>
+</li>
 <li><strong>Do not start the ADC yet</strong>. We need to setup the DMA channel first.</li>
-<li>Configure the DMA channel for 8-bit transfers, no read incrementing, yes write incrementing, paced by <code>DREQ_ADC</code>. The DMA channel should read from <code>&amp;adc_hw-&gt;fifo</code> and it should write to a byte array of length <code>NUM_SAMPLES</code>.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="c1">// Channel</span>
-    <span class="kt">int</span> <span class="n">sample_chan</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span>
-
-    <span class="c1">// Channel configurations</span>
-    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">);</span>
-
-
-    <span class="c1">// ADC SAMPLE CHANNEL</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>     <span class="c1">// 8-bit txfers</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>              <span class="c1">// no read incrementing</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>              <span class="c1">// yes write incrementing</span>
-    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DREQ_ADC</span><span class="p">);</span>                     <span class="c1">// paced by DREQ_ADC</span>
-
-    <span class="n">dma_channel_configure</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">,</span>
-        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>            <span class="c1">// channel config</span>
-        <span class="n">sample_array</span><span class="p">,</span>   <span class="c1">// dst</span>
-        <span class="o">&amp;</span><span class="n">adc_hw</span><span class="o">-&gt;</span><span class="n">fifo</span><span class="p">,</span>  <span class="c1">// src</span>
-        <span class="n">NUM_SAMPLES</span><span class="p">,</span>    <span class="c1">// transfer count</span>
-        <span class="nb">false</span>           <span class="c1">// do not start immediately</span>
-    <span class="p">);</span>
+<li>Configure the DMA channel for 8-bit transfers, no read incrementing, yes write incrementing, paced by <code>DREQ_ADC</code>. The DMA channel should read from <code>&amp;adc_hw-&gt;fifo</code> and it should write to a byte array of length <code>NUM_SAMPLES</code>.<div class="highlight"><pre><span></span><span class="c1">// Channel</span>
+ <span class="kt">int</span> <span class="n">sample_chan</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span>
+ <span class="c1">// Channel configurations</span>
+ <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">);</span>
+ <span class="c1">// ADC SAMPLE CHANNEL</span>
+ <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>     <span class="c1">// 8-bit txfers</span>
+ <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>              <span class="c1">// no read incrementing</span>
+ <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>              <span class="c1">// yes write incrementing</span>
+ <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DREQ_ADC</span><span class="p">);</span>                     <span class="c1">// paced by DREQ_ADC</span>
+ <span class="c1">// Configuration</span>
+ <span class="n">dma_channel_configure</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">,</span>
+     <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>            <span class="c1">// channel config</span>
+     <span class="n">sample_array</span><span class="p">,</span>   <span class="c1">// dst</span>
+     <span class="o">&amp;</span><span class="n">adc_hw</span><span class="o">-&gt;</span><span class="n">fifo</span><span class="p">,</span>  <span class="c1">// src</span>
+     <span class="n">NUM_SAMPLES</span><span class="p">,</span>    <span class="c1">// transfer count</span>
+     <span class="nb">false</span>           <span class="c1">// do not start immediately</span>
+ <span class="p">);</span>
 </pre></div>
-<ol>
-<li>Configure a second channel to reconfigure and restart the first.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="c1">// Channels</span>
-    <span class="kt">int</span> <span class="n">control_chan</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
-
-    <span class="c1">// Channel configurations</span>
-    <span class="n">dma_channel_config</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">control_chan</span><span class="p">);</span>
-
-    <span class="c1">// CONTROL CHANNEL</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>              <span class="c1">// 32-bit txfers</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                        <span class="c1">// no read incrementing</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                       <span class="c1">// no write incrementing</span>
-    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">sample_chan</span><span class="p">);</span>                        <span class="c1">// chained to sample channel</span>
-
-    <span class="n">dma_channel_configure</span><span class="p">(</span>
-        <span class="n">control_chan</span><span class="p">,</span>                         <span class="c1">// Channel to be configured</span>
-        <span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span>                                  <span class="c1">// The configuration we just created</span>
-        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">sample_chan</span><span class="p">].</span><span class="n">write_addr</span><span class="p">,</span>  <span class="c1">// Write address (channel 0 read address)</span>
-        <span class="o">&amp;</span><span class="n">sample_address_pointer</span><span class="p">,</span>              <span class="c1">// Read address (POINTER TO AN ADDRESS)</span>
-        <span class="mi">1</span><span class="p">,</span>                                    <span class="c1">// Number of transfers, in this case each is 4 byte</span>
-        <span class="nb">false</span>                                 <span class="c1">// Don&#39;t start immediately.</span>
-    <span class="p">);</span>
-</pre></div>
-<ol>
-<li>Start the sample channel.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">dma_start_channel_mask</span><span class="p">(</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">sample_chan</span><span class="p">);</span>
-</pre></div>
-<ol>
-<li>Start the ADC.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
-</pre></div>
-<ol>
-<li>Wait for the DMA to finish.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">dma_channel_wait_for_finish_blocking</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">)</span> <span class="p">;</span>
-</pre></div>
-<ol>
-<li>Halt the ADC, or immediately start a new DMA transfer.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span> <span class="p">;</span>
-</pre></div>
-<ol>
-<li>Drain the FIFO.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_fifo_drain</span><span class="p">()</span> <span class="p">;</span>
-</pre></div>
-<ol>
-<li><p>Use the samples.</p>
 </li>
-<li><p>Trigger the control channel, which will reconfigure and restart the sample channel.</p>
+<li>Configure a second channel to reconfigure and restart the first.<div class="highlight"><pre><span></span><span class="c1">// Channels</span>
+ <span class="kt">int</span> <span class="n">control_chan</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
+ <span class="c1">// Channel configurations</span>
+ <span class="n">dma_channel_config</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">control_chan</span><span class="p">);</span>
+ <span class="c1">// CONTROL CHANNEL</span>
+ <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>              <span class="c1">// 32-bit txfers</span>
+ <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                        <span class="c1">// no read incrementing</span>
+ <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                       <span class="c1">// no write incrementing</span>
+ <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">sample_chan</span><span class="p">);</span>                        <span class="c1">// chained to sample channel</span>
+ <span class="c1">//Configuration</span>
+ <span class="n">dma_channel_configure</span><span class="p">(</span>
+     <span class="n">control_chan</span><span class="p">,</span>                         <span class="c1">// Channel to be configured</span>
+     <span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span>                                  <span class="c1">// The configuration we just created</span>
+     <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">sample_chan</span><span class="p">].</span><span class="n">write_addr</span><span class="p">,</span>  <span class="c1">// Write address (channel 0 read address)</span>
+     <span class="o">&amp;</span><span class="n">sample_address_pointer</span><span class="p">,</span>              <span class="c1">// Read address (POINTER TO AN ADDRESS)</span>
+     <span class="mi">1</span><span class="p">,</span>                                    <span class="c1">// Number of transfers, in this case each is 4 byte</span>
+     <span class="nb">false</span>                                 <span class="c1">// Don&#39;t start immediately.</span>
+ <span class="p">);</span>
+</pre></div>
 </li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">dma_channel_start</span><span class="p">(</span><span class="n">control_chan</span><span class="p">)</span> <span class="p">;</span>
+<li>Start the sample channel.<div class="highlight"><pre><span></span><span class="n">dma_start_channel_mask</span><span class="p">(</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">sample_chan</span><span class="p">);</span>
 </pre></div>
-<ol>
-<li>Restart the adc.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+</li>
+<li>Start the ADC.<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
-<ol>
+</li>
+<li>Wait for the DMA to finish.<div class="highlight"><pre><span></span><span class="n">dma_channel_wait_for_finish_blocking</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</li>
+<li>Halt the ADC, or immediately start a new DMA transfer.<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</li>
+<li>Drain the FIFO.<div class="highlight"><pre><span></span><span class="n">adc_fifo_drain</span><span class="p">()</span> <span class="p">;</span>
+</pre></div>
+</li>
+<li>Use the samples.</li>
+<li>Trigger the control channel, which will reconfigure and restart the sample channel.<div class="highlight"><pre><span></span><span class="n">dma_channel_start</span><span class="p">(</span><span class="n">control_chan</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</li>
+<li>Restart the adc.<div class="highlight"><pre><span></span><span class="n">adc_run</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+</li>
 <li>Back to 11.</li>
 </ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
