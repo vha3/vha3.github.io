@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Boids-predator</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,209 +13077,172 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Boids!">Boids!<a class="anchor-link" href="#Boids!">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu)<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">&#182;</a></h4>
+<h4 id="ECE-4760,-Fall-2021,-Adams/Land">ECE 4760, Fall 2021, Adams/Land<a class="anchor-link" href="#ECE-4760,-Fall-2021,-Adams/Land">&#182;</a></h4><p><a href="./Boids.html">Spring, 2021 version</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;</span>
+<span class="s1">code_show=true; </span>
+<span class="s1">function code_toggle() {</span>
+<span class="s1"> if (code_show){</span>
+<span class="s1"> $(&#39;div.input&#39;).hide();</span>
+<span class="s1"> } else {</span>
+<span class="s1"> $(&#39;div.input&#39;).show();</span>
+<span class="s1"> }</span>
+<span class="s1"> code_show = !code_show</span>
+<span class="s1">} </span>
+<span class="s1">$( document ).ready(code_toggle);</span>
+<span class="s1">&lt;/script&gt;</span>
+<span class="s1">&lt;form action=&quot;javascript:code_toggle()&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Click here to toggle on/off the raw code.&quot;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<script>
+code_show=true; 
+function code_toggle() {
+ if (code_show){
+ $('div.input').hide();
+ } else {
+ $('div.input').show();
+ }
+ code_show = !code_show
+} 
+$( document ).ready(code_toggle);
+</script>
+<form action="javascript:code_toggle()"><input type="submit" value="Click here to toggle on/off the raw code."></form>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Audio</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">from</span> <span class="nn">scipy.fft</span> <span class="kn">import</span> <span class="n">fftshift</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">wavfile</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;style&gt;</span>
+<span class="s2">.output_png {</span>
+<span class="s2">    display: table-cell;</span>
+<span class="s2">    text-align: center;</span>
+<span class="s2">    vertical-align: middle;</span>
+<span class="s2">}</span>
+<span class="s2">&lt;/style&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[1]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<style>
+.output_png {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+</style>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> (<a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a>, <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a>, <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a>, <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a>)</li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/VGA/Helicopter.html">PID control of 1D helicopter with RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./Mandelbrot/Mandelbrot.html">Mandelbrot and Julia set visualization on the DE1-SoC</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA7F_Rn8Jfj8CVBKGlAzMNA3">Student final projects</a></li>
+<li><a href="#Background-and-Introduction">Background and Introduction</a></li>
+<li><a href="#Algorithm-Overview">Algorithm Overview</a><blockquote><ul>
+<li><a href="#Separation">Separation</a></li>
+<li><a href="#Alignment">Alignment</a></li>
+<li><a href="#Cohesion">Cohesion</a></li>
+<li><a href="#Screen-edges">Screen edges</a></li>
+<li><a href="#Predator-avoidance-(ECE-5730-only">Predator avoidance (ECE 5730 only)</a>)</li>
+<li><a href="#Speed-limits">Speed limits</a></li>
+<li><a href="#Update-position">Update position</a></li>
+<li><a href="#Recommended-parameter-values">Recommended parameter values</a></li>
+<li><a href="#Pseudocode">Pseudocode</a></li>
 </ul>
 </blockquote>
 </li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li><a href="#Fixed-Point-Arithmetic">Fixed Point Arithmetic</a></li>
+<li><a href="#Frame-Rate">Frame Rate</a></li>
+<li><a href="#Hardware-connections-to-PIC32">Hardware connections to PIC32</a></li>
+<li><a href="#Program-Organization">Program Organization</a></li>
+<li><a href="#Weekly-checkpoints-and-lab-report">Weekly Checkpoints and Lab Report Specifications</a><blockquote><ul>
+<li><a href="#Week-one-checkpoint">Week one</a></li>
+<li><a href="#Week-two-checkpoint">Week two</a></li>
+<li><a href="#Week-three-assignment">Week three</a></li>
+<li><a href="#Lab-report">Lab Report</a></li>
+<li><a href="#Opportunities-to-keep-going">Opportunities to keep going</a></li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li><a href="#Example-of-working-system">Demonstrations of Working System (for reference)</a></li>
 </ul>
 </blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
 
 </div>
 </div>
@@ -13287,71 +13250,542 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<h2 id="Background-and-Introduction">Background and Introduction<a class="anchor-link" href="#Background-and-Introduction">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<p><a href="https://en.wikipedia.org/wiki/Boids">Boids</a> is an artificial life program that produces startlingly realistic simulations of the flocking behavior of birds. Each "boid" (which is an abbreviation of "bird-oid object" follows a very simple set of rules. These rules will be discussed at length, but they can be summarized as follows:<br></p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
+<li><strong>Separation</strong>: boids move away from other boids that are too close</li>
+<li><strong>Alignment</strong>: boids attempt to match the velocities of their neighbors</li>
+<li><strong>Cohesion</strong>: boids move toward the center of mass of their neighbors</li>
 </ul>
-<p><strong>Articles</strong></p>
+<p>ECE 5730 students will implement a fourth rule, which is <strong>predator avoidance.</strong> Boids will turn away from a randomly moving predator.</p>
+<p>When all of the boids follow these simple rules, the flock produces gorgeously organic-looking emergent patterns, as shown in the video below. You can compare the behavior shown in the simulation below to videos of actual murmurations of starlings (like <a href="https://www.youtube.com/watch?v=V4f_1_r80RY">this one</a>). These rules are also extendable. You might add a predator that all the boids must avoid, or you might add a "perching" behavior where boids near the bottom of the screen rest for a moment before rejoining the flock. The Boids algorithm was developed by Craig Reynolds in 1986.</p>
+<p>In this lab, you will create a flock of boids on the TFT that will be animated at (at least) 30 fps. You are challenged to produce the largest flock that you can. The parameters which govern boid behavior will be programmable via a Python user interface, and the flock will instantly begin behaving according to the updated parameters.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BTvkJj-z3xo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Algorithm-Overview">Algorithm Overview<a class="anchor-link" href="#Algorithm-Overview">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Just like in nature, no boid has global knowledge of every other boid in the flock. Instead, each can only see boids that are within its <em>visual range</em> and that are within its smaller <em>protected range</em>. These are tunable parameters. A boid will move away from other boids that are within its protected range (birds don't want to fly into each other), it will attempt to match the average velocity of boids within its visible range, and it will tend toward the center of mass of boids in its visible range.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will also enforce minimum and maximum speed limits for the boids. Flocking birds (like starlings) are never stationary in flight. So, we'll prevent the speed of any boid from dropping below some tunable value. Birds also have maximum speeeds, so we'll prevent the speed of any boid from exceeding some tunable value. Finally, we want for the boids to turn around when they reach the edges of the TFT screen. When a boid gets within some tunable margin of an edge of the screen, we will turn it by some tunable value. The greater this value, the faster the birds will be able to turn. We can play with these parameters until we get realistic-looking behavior.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The state for each boid includes its x/y position and its x/y velocity, represented as:<br>
+<code>boid.x</code><br>
+<code>boid.y</code><br>
+<code>boid.vx</code><br>
+<code>boid.vy</code><br></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="600" height="200" src="flock.png" alt='missing' />
+    <center><figcaption>Each boid determines whether each other boid is in its protected/visual range.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Separation">Separation<a class="anchor-link" href="#Separation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each boid attempts to avoid running into other boids. If two or more boids get too close to one another (i.e. within one another's <em>protected range</em>), they will steer away from one another. They will do so in the following way:</p>
+<ol>
+<li>At the start of the update for a particular boid, two accumulating variable (<code>close_dx</code> and <code>close_dy</code>) are zeroed</li>
+<li>We loop thru every other boid. If the distance to a particular boid is less than the protected range, then <br><code>close_dx += boid.x - otherboid.x</code><br><code>close_dy += boid.y - otherboid.y</code>.</li>
+<li>Once we've looped through all other boids, then we update the velocity according to <br><code>boid.vx += close_dx*avoidfactor</code><br><code>boid.vy += close_dy*avoidfactor</code><br>(where <code>avoidfactor</code> is a tunable parameter)</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="500" height="200" src="separation.png" alt='missing' />
+    <center><figcaption>Move away from boids in protected range.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Alignment">Alignment<a class="anchor-link" href="#Alignment">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each boid attempts to match the velocity of other boids inside its visible range. It does so in the following way:</p>
+<ol>
+<li>At the start of the update for a particular boid, three variables (<code>xvel_avg</code>, <code>yvel_avg</code>, and <code>neighboring_boids</code>) are zeroed</li>
+<li>We loop thru every other boid. If the distance to a particular boid is less than the visible range, then<br>
+<code>xvel_avg += otherboid.vx</code><br>
+<code>yvel_avg += otherboid.vy</code><br>
+<code>neighboring_boids += 1</code></li>
+<li>Once we've looped through all other boids, we do the following <strong>if <code>neighboring_boids&gt;0</code></strong>:<br>
+<code>xvel_avg = xvel_avg/neighboring_boids</code><br>
+<code>yvel_avg = yvel_avg/neighboring_boids</code></li>
+<li>We then update the velocity according to:<br>
+<code>boid.vx += (xvel_avg - boid.vx)*matchingfactor</code><br>
+<code>boid.vy += (yvel_avg - boid.vy)*matchingfactor</code><br>
+(where <code>matchingfactor</code> is a tunable parameter)</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="500" height="200" src="alignment.png" alt='missing' />
+    <center><figcaption>Align with average velocity of boids in visible range.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Cohesion">Cohesion<a class="anchor-link" href="#Cohesion">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each boid steers gently toward the center of mass of other boids within its visible range. It does so in the following way:</p>
+<ol>
+<li>At the start of the update for a particular boid, three variables (<code>xpos_avg</code>, <code>ypos_avg</code>, and <code>neighboring_boids</code>) are zeroed</li>
+<li>We loop thru every other boid. If the distance to a particular boid is less than the visible range, then<br>
+<code>xpos_avg += otherboid.x</code><br>
+<code>ypos_avg += otherboid.y</code><br>
+<code>neighboring_boids += 1</code></li>
+<li>Once we've looped through all other boids, we do the following <strong>if <code>neighboring_boids&gt;0</code></strong>:<br>
+<code>xpos_avg = xpos_avg/neighboring_boids</code><br>
+<code>ypos_avg = ypos_avg/neighboring_boids</code></li>
+<li>We then update the velocity according to:<br>
+<code>boid.vx += (xpos_avg - boid.x)*centeringfactor</code><br>
+<code>boid.vy += (ypos_avg - boid.y)*centeringfactor</code><br>
+(where <code>centeringfactor</code> is a tunable parameter)</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="500" height="200" src="cohesion.png" alt='missing' />
+    <center><figcaption>Move toward center of mass of boids in visible range.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Screen-edges">Screen edges<a class="anchor-link" href="#Screen-edges">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We want our boids to turn-around at an organic-looking turn radius when they approach an edge of the TFT. We will do so in the following way: <br></p>
+
+<pre><code>if boid.x &lt; leftmargin:
+    boid.vx = boid.vx + turnfactor
+if boid.x &gt; rightmargin:
+    boid.vx = boid.vx - turnfactor
+if boid.y &gt; bottommargin:
+    boid.vy = boid.vy - turnfactor
+if boid.y &lt; topmargin:
+    boid.vy = boid.vy + turnfactor</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>where <code>turnfactor</code> and all margins are tunable parameters. I recommend a margin of 50 pixels on all edges.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="500" height="200" src="edges.png" alt='missing' />
+    <center><figcaption>Steer away from edges of TFT display.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Predator-avoidance-(ECE-5730-only)">Predator avoidance (ECE 5730 only)<a class="anchor-link" href="#Predator-avoidance-(ECE-5730-only)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ECE 5730 students are required to add at least one predator to the simulation. This predator moves like any other Boid, except that its only velocity updates come from turning at the screen edges (it does not perform any separation, cohesion, or alignment calculations).</p>
+<p>The Boids, of course, avoid the predator. They do so in the following way:</p>
+<ol>
+<li>For each Boid compute the distance from the Boid to the predator in each dimension:<br>
+<code>predator_dx = boid.x - predator.x</code><br>
+<code>predator_dy = boid.y - predator.y</code><br></li>
+<li>If the distance to the predator is less than the <code>predatory range</code> (a tunable parameter), then turn away from the predator:<br><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">predator_dy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//predator above boid</span>
+<span class="n">boid</span><span class="p">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="p">.</span><span class="n">vy</span> <span class="o">+</span> <span class="n">predatorturnfactor</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">predator_dy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//predator below boid</span>
+<span class="n">boid</span><span class="p">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="p">.</span><span class="n">vy</span> <span class="o">-</span> <span class="n">predatorturnfactor</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">predator_dx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//predator left of boid</span>
+<span class="n">boid</span><span class="p">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="p">.</span><span class="n">vx</span> <span class="o">+</span> <span class="n">predatorturnfactor</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">predator_dx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//predator right of boid</span>
+<span class="n">boid</span><span class="p">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="p">.</span><span class="n">vx</span> <span class="o">-</span> <span class="n">predatorturnfactor</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+where <code>predatorturnfactor</code>, similarly to <code>turnfactor</code>, dictates how sharply a boid is capable of turning away from a predator.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Speed-limits">Speed limits<a class="anchor-link" href="#Speed-limits">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We constrain the boids to move faster than some minimum speed and slower than some maximum speed. We do so in the following way:</p>
+<ol>
+<li>Once the velocity has been updated, compute the boid speed<br>
+<code>speed = sqrt(boid.vx*boid.vx + boid.vy*boid.vy)</code></li>
+<li>If <code>speed&gt;maxspeed</code>:<br>
+<code>boid.vx = (boid.vx/speed)*maxspeed</code><br>
+<code>boid.vy = (boid.vy/speed)*minspeed</code></li>
+<li>If <code>speed&lt;minspeed</code>:<br>
+<code>boid.vx = (boid.vx/speed)*minspeed</code><br>
+<code>boid.vy = (boid.vy/speed)*minspeed</code></li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Update-position">Update position<a class="anchor-link" href="#Update-position">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With the updated velocity, we update the boid position. Assume that $\Delta t = 1$ from frame to frame (i.e. that velocity is in units of pixels/frame):<br><br>
+<code>boid.x = boid.x + boid.vx</code><br>
+<code>boid.y = boid.y + boid.vy</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Recommended-parameter-values">Recommended parameter values<a class="anchor-link" href="#Recommended-parameter-values">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can play with these to get different emergent behaviors. These are the parameters that I used in the example videos on this webpage. Note that you will need to convert these to <a href="https://people.ece.cornell.edu/land/courses/ece4760/PIC32/index_fixed_point.html">fixed-point</a>. I recommend using the type <code>_Accum</code> for all arithmetic.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>turnfactor</code>: 0.2<br>
+<code>visualRange</code>: 20<br>
+<code>protectedRange</code>: 2<br>
+<code>centeringfactor</code>: 0.0005<br>
+<code>avoidfactor</code>: 0.05<br>
+<code>matchingfactor</code>: 0.05<br>
+<code>maxspeed</code>: 3<br>
+<code>minspeed</code>: 2<br><br>
+<em>ECE 5730 students</em><br><br>
+<code>predatorturnfactor</code>: 0.4<br>
+<code>predatorRange</code>: 50</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Pseudocode">Pseudocode<a class="anchor-link" href="#Pseudocode">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All of the above rules are represented in the below pseudocode.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="c1"># For every boid . . .</span>
+<span class="k">for</span> <span class="n">each</span> <span class="n">boid</span> <span class="p">(</span><span class="n">boid</span><span class="p">):</span>
+
+    <span class="c1"># Zero all accumulator variables</span>
+    <span class="n">xpos_avg</span><span class="p">,</span> <span class="n">ypos_avg</span><span class="p">,</span> <span class="n">xvel_avg</span><span class="p">,</span> <span class="n">yvel_avg</span><span class="p">,</span> <span class="n">neighboring_boids</span><span class="p">,</span> <span class="n">close_dx</span><span class="p">,</span> <span class="n">close_dy</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># ECE 5730 students only, also zero accumulator variables associated with predator</span>
+    <span class="n">num_predators</span><span class="p">,</span> <span class="n">predator_dx</span><span class="p">,</span> <span class="n">predator_dy</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># For every other boid in the flock . . .</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="n">other</span> <span class="n">boid</span> <span class="p">(</span><span class="n">otherboid</span><span class="p">):</span>
+
+        <span class="c1"># Compute differences in x and y coordinates</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">y</span>
+
+        <span class="c1"># Are both those differences less than the visual range?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span><span class="o">&lt;</span><span class="n">visual_range</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span><span class="o">&lt;</span><span class="n">visual_range</span><span class="p">):</span>  
+
+            <span class="c1"># If so, calculate the squared distance</span>
+            <span class="n">squared_distance</span> <span class="o">=</span> <span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span>
+
+            <span class="c1"># Is squared distance less than the protected range?</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">squared_distance</span> <span class="o">&lt;</span> <span class="n">protected_range_squared</span><span class="p">):</span>
+
+                <span class="c1"># If so, calculate difference in x/y-coordinates to nearfield boid</span>
+                <span class="n">close_dx</span> <span class="o">+=</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">x</span> 
+                <span class="n">close_dy</span> <span class="o">+=</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">y</span>
+
+            <span class="c1"># If not in protected range, is the boid in the visual range?</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">squared_distance</span> <span class="o">&lt;</span> <span class="n">visual_range_squared</span><span class="p">):</span>
+
+                <span class="c1"># Add other boid&#39;s x/y-coord and x/y vel to accumulator variables</span>
+                <span class="n">xpos_avg</span> <span class="o">+=</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">x</span> 
+                <span class="n">ypos_avg</span> <span class="o">+=</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">y</span> 
+                <span class="n">xvel_avg</span> <span class="o">+=</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">vx</span>
+                <span class="n">yvel_avg</span> <span class="o">+=</span> <span class="n">otherboid</span><span class="o">.</span><span class="n">vy</span>
+
+                <span class="c1"># Increment number of boids within visual range</span>
+                <span class="n">neighboring_boids</span> <span class="o">+=</span> <span class="mi">1</span> 
+
+    <span class="c1">####################################################################################</span>
+    <span class="c1">######################### 5730 students only #######################################</span>
+    <span class="c1">####################################################################################</span>
+    <span class="c1"># For every predator . . .</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="n">predator</span> <span class="p">(</span><span class="n">predator</span><span class="p">):</span>
+
+        <span class="c1"># Compute the differences in x and y coordinates</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">predator</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">predator</span><span class="o">.</span><span class="n">y</span>
+
+        <span class="c1"># Are both those differences less than the predatory range?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span><span class="o">&lt;</span><span class="n">predatory_range</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span><span class="o">&lt;</span><span class="n">predatory_range</span><span class="p">):</span>
+
+            <span class="c1"># If so, calculate the squared distance to the predator</span>
+            <span class="n">squared_predator_distance</span> <span class="o">=</span> <span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span>
+
+            <span class="c1"># Is the squared distance less than the predatory range squared?</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">squared_predator_distance</span> <span class="o">&lt;</span> <span class="n">predatory_range_squared</span><span class="p">):</span>
+
+                <span class="c1"># If so, accumulate the differences in x/y coordinates to the predator</span>
+                <span class="n">predator_dx</span> <span class="o">+=</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">predator</span><span class="o">.</span><span class="n">x</span>
+                <span class="n">predator_dy</span> <span class="o">+=</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">predator</span><span class="o">.</span><span class="n">y</span>
+
+                <span class="c1"># Increment the number of predators in the boid&#39;s predatory range</span>
+                <span class="n">num_predators</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># If there were any predators in the predatory range, turn away!</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">num_predators</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">predator_dy</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">+</span> <span class="n">predator_turnfactor</span>
+        <span class="k">if</span> <span class="n">predator_dy</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">-</span> <span class="n">predator_turnfactor</span>
+        <span class="k">if</span> <span class="n">predator_dx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">+</span> <span class="n">predator_turnfactor</span>
+        <span class="k">if</span> <span class="n">predator_dx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">-</span> <span class="n">predator_turnfactor</span>     
+    <span class="c1">####################################################################################</span>
+
+    <span class="c1"># If there were any boids in the visual range . . .            </span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">neighboring_boids</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span> 
+
+        <span class="c1"># Divide accumulator variables by number of boids in visual range</span>
+        <span class="n">xpos_avg</span> <span class="o">=</span> <span class="n">xpos_avg</span><span class="o">/</span><span class="n">neighboring_boids</span> 
+        <span class="n">ypos_avg</span> <span class="o">=</span> <span class="n">ypos_avg</span><span class="o">/</span><span class="n">neighboring_boids</span>
+        <span class="n">xvel_avg</span> <span class="o">=</span> <span class="n">xvel_avg</span><span class="o">/</span><span class="n">neighboring_boids</span>
+        <span class="n">yvel_avg</span> <span class="o">=</span> <span class="n">yvel_avg</span><span class="o">/</span><span class="n">neighboring_boids</span>
+
+        <span class="c1"># Add the centering/matching contributions to velocity</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">+</span> 
+                   <span class="p">(</span><span class="n">xpos_avg</span> <span class="o">-</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">centering_factor</span> <span class="o">+</span> 
+                   <span class="p">(</span><span class="n">xvel_avg</span> <span class="o">-</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="p">)</span><span class="o">*</span><span class="n">matching_factor</span><span class="p">)</span>
+
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">+</span> 
+                   <span class="p">(</span><span class="n">ypos_avg</span> <span class="o">-</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="n">centering_factor</span> <span class="o">+</span> 
+                   <span class="p">(</span><span class="n">yvel_avg</span> <span class="o">-</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="p">)</span><span class="o">*</span><span class="n">matching_factor</span><span class="p">)</span>
+
+    <span class="c1"># Add the avoidance contribution to velocity</span>
+    <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">+</span> <span class="p">(</span><span class="n">close_dx</span><span class="o">*</span><span class="n">avoidfactor</span><span class="p">)</span>
+    <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">+</span> <span class="p">(</span><span class="n">close_dy</span><span class="o">*</span><span class="n">avoidfactor</span><span class="p">)</span>
+
+
+    <span class="c1"># If the boid is near an edge, make it turn by turnfactor</span>
+    <span class="k">if</span> <span class="n">outside</span> <span class="n">top</span> <span class="n">margin</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">+</span> <span class="n">turnfactor</span>
+    <span class="k">if</span> <span class="n">outside</span> <span class="n">right</span> <span class="n">margin</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">-</span> <span class="n">turnfactor</span>
+    <span class="k">if</span> <span class="n">outside</span> <span class="n">left</span> <span class="n">margin</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">+</span> <span class="n">turnfactor</span>
+    <span class="k">if</span> <span class="n">outside</span> <span class="n">bottom</span> <span class="n">margin</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">-</span> <span class="n">turnfactor</span>
+
+    <span class="c1"># Calculate the boid&#39;s speed</span>
+    <span class="c1"># Slow step! Lookup the &quot;alpha max plus beta min&quot; algorithm</span>
+    <span class="n">speed</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="o">*</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">+</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">*</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="p">)</span>
+
+    <span class="c1"># Enforce min and max speeds</span>
+    <span class="k">if</span> <span class="n">speed</span> <span class="o">&lt;</span> <span class="n">minspeed</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">minspeed</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
+    <span class="k">if</span> <span class="n">speed</span> <span class="o">&gt;</span> <span class="n">maxspeed</span><span class="p">:</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
+
+    <span class="c1"># Update boid&#39;s position</span>
+    <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">boid</span><span class="o">.</span><span class="n">vx</span>
+    <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">boid</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">boid</span><span class="o">.</span><span class="n">vy</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Fixed-Point-Arithmetic">Fixed Point Arithmetic<a class="anchor-link" href="#Fixed-Point-Arithmetic">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Floating point is too slow for animation, so you will be using a <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/index_fixed_point.html">fixed point data type</a> and doing all arithmetic in fixed point. <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/Target_board/version_1_3_2/TFT_animation_Accum_BRL4.c">This animation example</a> on the <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/target_board.html">Dev Board page</a> does animation using the <code>_Accum</code> data type. To generate a random number in fixed format:<br></p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="n">_Accum</span> <span class="n">Accum_rand</span><span class="p">,</span> <span class="n">Accum_rand_scaled</span> <span class="p">;</span>
+<span class="c1">//fraction from 0 to 1</span>
+<span class="n">Accum_rand</span> <span class="o">=</span> <span class="p">(</span><span class="n">_Accum</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span> <span class="p">;</span>
+<span class="c1">// range from -2 to 2</span>
+<span class="n">Accum_rand_scaled</span> <span class="o">=</span> <span class="p">((</span><span class="n">_Accum</span><span class="p">)(</span><span class="n">rand</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">14</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="p">;</span>
+<span class="c1">// to print</span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="s">&quot;%f&quot;</span><span class="p">,</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">Accum_rand_scaled</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Frame-Rate">Frame Rate<a class="anchor-link" href="#Frame-Rate">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Set the TFT frame time using a thread to be faster than 30/second. Since the computation will be the most demanding calculation and depends on the number of boids, arrange the thread to produce a constant frame rate, while allowing as much time as possible for computation. <a href="http://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_compute_thread.txt">Here is a pseudocode example</a> of constant frame rate.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hardware-connections-to-PIC32">Hardware connections to PIC32<a class="anchor-link" href="#Hardware-connections-to-PIC32">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
+<li><strong>Serial</strong>: serial default for protothreads (1.3.2) uses pins: <br>
+<code>PPSInput(2, U2RX, RPA1)</code><br>
+<code>PPSOutput(4, RPB10, U2TX)</code><br>
+<em>Be sure to uncomment</em> <code>#define use_art_serial</code> <em>in the config file.</em></li>
+<li><strong>TFT</strong>: As described on the <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/target_board.html">Big Board page</a></li>
 </ul>
 
 </div>
@@ -13360,8 +13794,324 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="Program-Organization">Program Organization<a class="anchor-link" href="#Program-Organization">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is a suggestion for how to organize your program:</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><strong>Protothreads</strong> maintains the ISR-driven, millisecond-scale timing as part of the supplied system. Use this for all low-precision timing (can have several milliseconds jitter).</li>
+<li><strong>Main</strong> sets up peripherals and protothreads then just schedules tasks, round-robin<blockquote><ul>
+<li>Initializes TFT display</li>
+<li>Sets up protothreads and schedules tasks round-robin</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>Python Serial Input Thread <a href="https://people.ece.cornell.edu/land/courses/ece4760/PIC32/index_remote.html">(see here)</a></strong><blockquote><ul>
+<li>Waits for input from Python user interface. The input will specify the value for a parameter (<code>visualRange</code>, <code>protectedRange</code>, <code>centeringfactor</code>, <code>matchingfactor</code>, or <code>avoidfactor</code>).</li>
+<li>If user input is received, it converts the received value to a fixed-point data type and sets the associated parameter to that value</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>Timing thread</strong><blockquote><ul>
+<li>Increments system time</li>
+<li>Displays time (in seconds), number of boids, and frame rate on the TFT display, or in Python interface</li>
+<li>Spawns boids until maximum number of boids is reached</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>Animation Thread (See <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/Target_board/version_1_3_2/TFT_animation_Accum_BRL4.c">this animation example</a> on the <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/target_board.html">Dev Board page</a> for a place to start)</strong><blockquote><ul>
+<li>Gets time using <code>PT_GET_TIME()</code></li>
+<li>Loops through each boid/predator<blockquote><ul>
+<li>Erases the boid/predator (draws a black pixel or circle over it)</li>
+<li>Computes the boid's/predator's updated position and velocity using the algorithm described above</li>
+<li>Draws the boid/predator at its new position</li>
+</ul>
+</blockquote>
+</li>
+<li>Gets the time again using <code>PT_GET_TIME()</code>, yields for as long as is required for a 30 frames/sec update rate</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Weekly-checkpoints-and-lab-report">Weekly checkpoints and lab report<a class="anchor-link" href="#Weekly-checkpoints-and-lab-report">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that these checkpoints are <strong>cumulative.</strong> In week 2, for example, you must have also completed all of the requirements from week 1.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By the end of lab section in week one you must have:</p>
+<ul>
+<li>Starting from <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/Target_board/version_1_3_2/TFT_animation_Accum_BRL4.c">this animation example</a> on the <a href="http://people.ece.cornell.edu/land/courses/ece4760/PIC32/target_board.html">Dev Board page</a>, get at least one boid flying around the TFT display with the following hardcoded parameters:<br><br>
+<code>turnfactor</code>: 0.2<br>
+<code>visualRange</code>: 20<br>
+<code>protectedRange</code>: 2<br>
+<code>centeringfactor</code>: 0.0005<br>
+<code>avoidfactor</code>: 0.05<br>
+<code>matchingfactor</code>: 0.05<br>
+<code>maxspeed</code>: 3<br>
+<code>minspeed</code>: 2<br>
+<code>topmargin</code>: 50px<br>
+<code>bottommargin</code>: 50px<br>
+<code>leftmargin</code>: 50px<br>
+<code>rightmargin</code>: 50px<br><br></li>
+<li>The boid should have randomized initial position (within margins) and velocity (within min/max speed limits)</li>
+<li>Your boid may be represented as a pixel (drawn using the <code>tft_drawPixel</code> routing) or as a circle (drawn using the <code>tft_drawCircle</code> routine). You can draw a pixel faster than a circle, so you'll be able to create more boids if they're represented as pixels. However, you can create larger boids if they are circles. So, consider starting with your boids as circles so that they are easy to see, and then switching them to pixels.</li>
+<li>Your animation should update at a constant frame rate &gt;=30fps (see <a href="http://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_compute_thread.txt">this pseudocode</a>)</li>
+<li>The TFT display (or the Python interface) should show the number of boids, the frame rate, and elapsed time in seconds</li>
+<li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By the end of lab section in week two you must have:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>At least 10 boids flocking. This is enough to show that the algorithm is working, but you do not need to have your code optimized by week two.</li>
+<li>The parameters should be initialized to the following values:<br><br>
+<code>turnfactor</code>: 0.2<br>
+<code>visualRange</code>: 20<br>
+<code>protectedRange</code>: 2<br>
+<code>centeringfactor</code>: 0.0005<br>
+<code>avoidfactor</code>: 0.05<br>
+<code>matchingfactor</code>: 0.05<br>
+<code>maxspeed</code>: 3<br>
+<code>minspeed</code>: 2<br>
+<code>topmargin</code>: 50px<br>
+<code>bottommargin</code>: 50px<br>
+<code>leftmargin</code>: 50px<br>
+<code>rightmargin</code>: 50px<br><br></li>
+<li>The boid should have randomized initial position (within margins) and velocity (within min/max speed limits)</li>
+<li>Your boid may be represented as a pixel (drawn using the <code>tft_drawPixel</code> routing) or as a circle (drawn using the <code>tft_drawCircle</code> routine).</li>
+<li>Your animation should update at a constant frame rate &gt;=30fps (see <a href="http://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_compute_thread.txt">this pseudocode</a>)</li>
+<li>The TFT display (or the Python interface) should show the number of boids, the frame rate, and elapsed time in seconds</li>
+<li><strong>You should be able to change at least one of these parameters via a Python interface and see the flock behavior change as expected.</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Week-three-assignment">Week three assignment<a class="anchor-link" href="#Week-three-assignment">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Timing of all functions in this lab, <strong>and in every exercise in this course</strong> will be handled by interrupt-driven counters, not by software wait-loops. ProtoThreads maintains an ISR driven timer for you. This will be enforced because wait-loops are hard to debug and tend to limit multitasking</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Write a ProtoThreads C program which does the following:</em></p>
+<ul>
+<li>At reset, the program spawns as many boids as it can while maintainting 30fps animation rate. The program will use the following parameters for the flock of boids:<br><br>
+<code>turnfactor</code>: 0.2<br>
+<code>visualRange</code>: 20<br>
+<code>protectedRange</code>: 2<br>
+<code>centeringfactor</code>: 0.0005<br>
+<code>avoidfactor</code>: 0.05<br>
+<code>matchingfactor</code>: 0.05<br>
+<code>maxspeed</code>: 3<br>
+<code>minspeed</code>: 2<br>
+<code>topmargin</code>: 50px<br>
+<code>bottommargin</code>: 50px<br>
+<code>leftmargin</code>: 50px<br>
+<code>rightmargin</code>: 50px<br><br></li>
+<li>The boids should have randomized initial position (within margins) and velocity (within min/max speed limits)</li>
+<li>The boids may be represented as pixels or circles, as long as they are visible</li>
+<li>Your animation should update at a constant frame rate &gt;=30fps (see <a href="http://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_compute_thread.txt">this pseudocode</a>)</li>
+<li>The TFT display or Python interface should show the number of boids, the frame rate, and elapsed time in seconds</li>
+<li><strong>Through a Python interface (see <a href="https://people.ece.cornell.edu/land/courses/ece4760/PIC32/index_remote.html">here</a>), the user may specify new values for <code>visualRange</code>, <code>protectedRange</code>, <code>centeringfactor</code>, <code>matchingfactor</code>, and <code>avoidfactor</code>. The flock will immediately begin behaving according to the new parameters.</strong></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Write a Python program which does the following:</em></p>
+<ul>
+<li>Enables the user to specify values for <code>visualRange</code>, <code>protectedRange</code>, <code>centeringfactor</code>, <code>matchingfactor</code>, and <code>avoidfactor</code> (sliders work well for this, but you may do whatever you'd like)</li>
+<li>I recommend that the flock start with the default parameter values given above, and that your interface enables the selection of values within the following ranges for each parameter<blockquote><ul>
+<li><code>protectedRange</code>: [0, 100]</li>
+<li><code>visualRange</code>: [0, 200]</li>
+<li><code>centeringFactor</code>: [0.0002, 1] (ok to represent as the reciprocal value if that's easier)</li>
+<li><code>avoidFactor</code>: [0.01, 1] (ok to represent as repicrocal value if that's easier)</li>
+<li><code>matchingFactor</code>: [0.01, 1] (ok to represent as reciprocal value if that's easier)</li>
+</ul>
+</blockquote>
+</li>
+<li>See below for an example of what your interface might look like</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="250" height="200" src="gui.PNG" alt='missing' />
+    <center><figcaption>Python interface for flock control.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>ECE 5730 students</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>In addition to all of the above</em>, ECE 5730 students must also do the following:</p>
+<ul>
+<li>Implement at least one predator, with behavior described in previous parts of this document. Use the following parameter values:<br><br>
+<code>predatorturnfactor</code>: 0.4<br>
+<code>predatorRange</code>: 50<br><br></li>
+<li>Add <code>predatorRange</code> to the list of parameters that can be varied in the user interface.</li>
+<li>An example video of a flock with a predator is shown at the bottom of this page.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Lab-report">Lab report<a class="anchor-link" href="#Lab-report">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Your written lab report should include the sections mentioned in the <a href="http://people.ece.cornell.edu/land/courses/ece4760/EE4760_policy.html">policy page</a>, and:</p>
+<ul>
+<li>A few cool photographs of your flock</li>
+<li>A heavily commented listing of your code</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Opportunities-to-keep-going">Opportunities to keep going<a class="anchor-link" href="#Opportunities-to-keep-going">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you're having fun, there are opportunities to extend these rules to generate additional behaviors. If not for this lab, perhaps as a final project?</p>
+<ul>
+<li>Make a more sophisticated predator. Perhaps it moves toward the center of mass of all boids in its visual range. Or, perhaps it picks a <strong>single</strong> boid in its visual range and moves toward that boid (that seems like more realistic behavior to me, but who knows). The boids will, of course, avoid the predator.</li>
+<li>Add perching behavior. Draw a background on the TFT (a tree branch, a simple ledge, whatever). If a boid gets near that object, have it pause on it for a certain amount of time, and then take off again.</li>
+<li>Add gravity. Birds tend to move more quickly when diving than when ascending. Incorporate that into your flock.</li>
+<li>Add a moving food source (or sources) that the boids track</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Example-of-working-system">Example of working system<a class="anchor-link" href="#Example-of-working-system">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the example below, the flock parameters are changed from the command line. When <code>avoidfactor</code> is increased (at ~7sec), you can see the flock rapidly disperse. By playing with dynamic variations of these parameters, you can make your flock do very interesting things.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uX4RzFJgMt4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And below is a demo video that includes a predator.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4KVYeBJ4tOk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
