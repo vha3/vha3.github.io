@@ -13084,6 +13084,45 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><ul>
+<li><a href="#About-this-document">About this document</a></li>
+<li><a href="#System-under-consideration">System under consideration</a><blockquote><ul>
+<li><a href="#Open-loop-control">Open loop control</a></li>
+<li><a href="#Closing-the-loop">Closing the loop</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#PID-Controller">PID Controllers</a><blockquote><ul>
+<li><a href="#Proportional-term">Proportional term</a></li>
+<li><a href="#Integral-term">Integral term</a></li>
+<li><a href="#Derivative-term">Derivative term</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Common-problems-with-PID-controllers-(and-their-solutions">Common problems with PID controllers (and their solutions)</a>)<blockquote><ul>
+<li><a href="#Integrator-windup">Integrator windup</a></li>
+<li><a href="#Derivative-noise-amplification">Derivative noise amplification</a></li>
+<li><a href="#Small-derivative-signal">Small derivative signal</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Tuning-the-system">Tuning the system</a><blockquote><ul>
+<li><a href="#Initial-guess-for-Kp">Initial guess for Kp</a></li>
+<li><a href="#Initial-guess-for-Kd">Initial guess for Kd</a></li>
+<li><a href="#Initial-guess-for-Ki">Initial guess for Ki</a></li>
+<li><a href="#Tuning">Tuning the system</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="About-this-document">About this document<a class="anchor-link" href="#About-this-document">&#182;</a></h2>
 </div>
 </div>
@@ -13092,7 +13131,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This document was assembled for students in ECE 4760, who are asked to construct and control a constrained drone like the one described below. I used the RP2040 for the demo videos rather than a PIC32 so that I could make use of the VGA screen for visualizations.</p>
-<p>This document focuses on building a phenomenological understanding of PID controllers through demos. A second document will focus on building an analytical understanding of these controllers.</p>
+<p>This document focuses on building a phenomenological understanding of PID controllers through demos. A second document will focus on building an analytical understanding of these controllers. The hope is that this document will help you debug your system based on the behavior that you observe in lab, and the other document will help you understand that behavior.</p>
 
 </div>
 </div>
