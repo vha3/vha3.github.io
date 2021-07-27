@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>PID</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,29 +13077,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Phenomenological-Introduction-to-PID-controllers">Phenomenological Introduction to PID controllers<a class="anchor-link" href="#Phenomenological-Introduction-to-PID-controllers">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu)<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu)">&#182;</a></h4>
+<h2 id="About-this-document">About this document<a class="anchor-link" href="#About-this-document">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
+<p>This document was assembled for students in ECE 4760, who are asked to construct and control a constrained drone like the one described below. I used the RP2040 for the demo videos rather than a PIC32 so that I could make use of the VGA screen for visualizations.</p>
+<p>This document focuses on building a phenomenological understanding of PID controllers through demos. A second document will focus on building an analytical understanding of these controllers.</p>
 
 </div>
 </div>
@@ -13107,7 +13100,37 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="System-under-consideration">System under consideration<a class="anchor-link" href="#System-under-consideration">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Consider the system illustrated below. There is a drone motor rigidly attached to the end of a lever arm. The other end of this lever arm is attached to a low-torque potentiometer. As the motor spins increasingly quickly ($\omega$ rad/sec), the thrust that it generates ($F_{thrust}$) exceeds the force of gravity ($F_g$) and lifts the arm to increasingly large angles $\theta$ away from the vertical. This is the system that we will build and control in ECE 4760. The user will specify a target angle, $\theta$, and a PID controller will control the motor speed to drive the arm to that angle. This document aims to systematically build an intuition for the system and for the controller that we'll use to control this system.</p>
+<figure>
+    <img align="center" width="700" height="500" src="system.png" alt='missing' />
+    <center><figcaption>System under consideration</figcaption></center>
+</figure><iframe width="560" height="315" src="https://www.youtube.com/embed/vh2X8x1M284" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Open-loop-control">Open loop control<a class="anchor-link" href="#Open-loop-control">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One strategy for controlling this system is <strong>open loop control</strong>. The control input to the motor is a voltage. 0 voltage means that the motor is not spinning, and increasing voltages lead to increasing motor speeds (up to some saturation speed). So, for each possible input voltage, we could solve for the output motor speed associated with that voltage. With a little physics, you could then solve for the angle $\theta$ that will be achieved for each input voltage. In principle, this reduces the control problem to a lookup table. For a particular target angle, the program would lookup the control voltage associated with that angle and blindly apply that voltage to the motor. This is illustrated in the block diagram below. The open-loop system takes a control input, physics happens, and there is an output. The control input is not adjusted based on the output. What's the problem with this?</p>
+<figure>
+    <img align="center" width="900" height="500" src="openloop.png" alt='missing' />
+    <center><figcaption>Open loop block diagram</figcaption></center>
+</figure><p>The problem is that this makes the accuracy of our system extremely sensitive to the conditions under which it was modeled and/or calibrated. If we were to run our system in Colorado, we'd find that we'd consistently come up short of our target angles (since the atmospheric density would be less). If we bumped our setup and the motor tilted slightly, we'd start seeing errors. As the motor warms or ages and its properties change, we'd see errors. Any load on the system, any change in the system, or any change in the environment would induce an error. <strong>For every desired hover angle, there does exist a motor speed that will achieve that angle. But how well can you know that motor speed, and how constant is it over time and from environment to environment?</strong></p>
+<p>Please note! Open-loop control is a completely reasonable approach for many situations, particularly those where the system is well understood and in a highly stable environment. It is just not a good approach for our particular system.</p>
 
 </div>
 </div>
@@ -13115,52 +13138,34 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> (<a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a>, <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a>, <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a>, <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a>)</li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/VGA/Helicopter.html">PID control of 1D helicopter with RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./Mandelbrot/Mandelbrot.html">Mandelbrot and Julia set visualization on the DE1-SoC</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
+<h4 id="Closing-the-loop">Closing the loop<a class="anchor-link" href="#Closing-the-loop">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We want for our system to make adjustments on its own in order to move to the desired hover angle. In order to achieve this, we <strong>close the loop.</strong> We sense the current output of the system (in our case, hover angle) and compare it with the desired hover angle. This <em>error</em> between the current and desired hover angles is then used to adjust the control input to the system. In this way, the system can move itself toward the desired state.</p>
+<p>The <strong>controller</strong> takes the error signal (which is in the same units as the output of the plant, on our case radians) and converts it to the units that are required for the control input (in our case, voltage). Furthermore, the controller must convert this error signal in such a way that the input into the motor drives it to the desired hover angle. There are many varieties of controllers. We will consider a particular variety called PID controllers.</p>
+<p>We are considering PID controllers because they are <strong>everywhere</strong>. These are, by far, the most ubiquitous controllers used in industry.<br><br></p>
+<figure>
+    <img align="center" width="900" height="500" src="closedloop.png" alt='missing' />
+    <center><figcaption>Closed loop block diagram</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="PID-Controllers">PID Controllers<a class="anchor-link" href="#PID-Controllers">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>"PID" is an acronym that stands for <strong>P</strong>roportional <strong>I</strong>ntegral <strong>D</strong>erivative. As the name suggests, this controller is composed of three terms that are summed together to form the control input. The first of those terms is proportional to the current error between the measured and desired output, the next is proportional to the integral of that error, and the third is proportional to the rate of change of that error. We'll consider each separately and build up some intuition about how each affects the system.</p>
 
 </div>
 </div>
@@ -13168,7 +13173,35 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h4 id="Proportional-term">Proportional term<a class="anchor-link" href="#Proportional-term">&#182;</a></h4><p>To start building up a controller, we might first consider doing something quite simple. Suppose that our controller took the error signal as an input, scaled it by some constant $K_p$, and used that scaled value as the input voltage to our motor. <br><br></p>
+<figure>
+    <img align="center" width="900" height="500" src="proportional.png" alt='missing' />
+    <center><figcaption>Block diagram for proportional controller</figcaption></center>
+</figure><p>Intuitively, this feels like a step in the right direction. If our desired angle is much greater than our current measured angle then the error will be large, so the control input will be large and the motor will spin fast to move toward the desired hover angle. This is illustrated in the plot below. But! There's a problem.</p>
+<figure>
+    <img align="center" width="900" height="500" src="proportional_plot.png" alt='missing' />
+    <center><figcaption>Contribution to proportional term. The control input looks at the current difference between the measured and desired outputs and scales it.</figcaption></center>
+</figure><p>The motor is fighting against gravity in order to lift the arm to a desired angle. If the error between the desired and measured angles is great enough, then the motor will spin quickly enough to lift the arm toward the desired angle. However, this error will decrease as the motor approaches the desired angle. As the error decreases, the input voltage to the motor will also decrease. As some point, the thrust from the motor will be in equilibrium with the force of gravity and the arm will stop moving with some <strong>steady-state error</strong> (see the video below). We could decrase this error by increasing our gain $K_p$, but it will never go away completely. And increasing $K_p$ too much can introduce another problem.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/a7Cm1E3pmA0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>If we make $K_p$ too large, then the motor will be moving very quickly until it is very near to the desired hover angle. As a consequence, the arm will have acquired significant velocity and will <strong>overshoot</strong> the desired hover angle. The same thing will then happen in the opposite direction, and the motor will oscillate around the desired angle (see video below). Not good! We can fix this problem by augmenting our controller with another term.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4oA5tnU_Et0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Integral-term">Integral term<a class="anchor-link" href="#Integral-term">&#182;</a></h4><p>A proportional controller only looks at the <em>current output error</em>. It does not know anything about the history of that error. In order to eliminate the steady-state errors that are produced by a strictly proportional controller, we need a mechanism by which the controller can <em>notice</em> that it has a steady-state error and increase the motor speed to correct this error. We do that by including an integral term in our controller.</p>
+<p>The integral term does not scale the instantaneous error between the current and desired outputs. Instead, it scales the <em>integral of that error over time</em>. It is maintaining an accumulating sum of the time history of errors (positive error increases the sum, negative error decreases the sum). This accumulated error is then scaled and added to the proportional term, as shown in the block diagram below.<br><br></p>
+<figure>
+    <img align="center" width="900" height="500" src="integral.png" alt='missing' />
+    <center><figcaption>Block diagram for Proportional Integral (PI) controller.</figcaption></center>
+</figure><p><strong>By the way</strong>: note that careful selection of units for time makes $\Delta t = 1$.</p>
+<p>This term will eliminate steady state error. Consider the case that our arm has come to rest with some small steady-state error below the desired hover angle. The contribution from the proportional term in the controller will be small because the instantaneous error is small, but that small instantaneous error will <em>accumulate over time</em>. As this error accumulates, the contribution from the integral term in the controller increases and the motor speed will increase until it achieves the desired hover angle.</p>
+<p>There are some things to be cautious about associated with this integral term that will be covered in a later section.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CwsaL1Ftsw8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><figure>
+    <img align="center" width="900" height="500" src="integral_plot.png" alt='missing' />
+    <center><figcaption>Contribution to integral term. The controller integrates the error over time, and scales that integrated error.</figcaption></center>
+</figure><p>This takes care of the steady-state error, but we still may have a problem with overshoot! Depending on the path that we took to the desired hover angle, it may be the case that the integrator term has accumulated enough error to go <em>passed</em> the desired angle. In order for this term's contribution to decrease, but must overshoot so that the error is negative and the contribution from this term decreases. So, we've eliminated steady-state error, but we may still have overshoot and ringing, particularly if we're trying to make our system respond quickly.</p>
 
 </div>
 </div>
@@ -13176,111 +13209,87 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
+<h4 id="Derivative-term">Derivative term<a class="anchor-link" href="#Derivative-term">&#182;</a></h4><p>The proportional term looks at the current error, the integral term looks at the past error, and the derivative term makes guesses about how the error will change in the future. This term scales the <em>rate of change of the error</em>, as shown in the block diagram below.<br><br></p>
+<figure>
+    <img align="center" width="900" height="500" src="derivative.png" alt='missing' />
+    <center><figcaption>Block diagram for Proportional Integral Derivative (PID) controller.</figcaption></center>
+</figure><p><strong>By the way</strong>: note that careful selection of units for time makes $\Delta t = 1$.</p>
+<p>If the error is decreasing very quickly (the motor is speeding toward the desired hover angle), the derivative of the error will be large and negative, as shown below. As such, the contribution from the derivative term of the PID controller will work <em>against</em> the proportional and integral terms, slowing the speed of the motor. This effect can be balanced against the proportional effect to control the system such that it is fast, but with overshoot that is within the requirements for your application. In some applications (like ours) some overshoot is fine. In other applications (landing a rocket on a barge, perhaps), overshoot is very destructive indeed.</p>
+<figure>
+    <img align="center" width="900" height="500" src="derivative_plot.png" alt='missing' />
+    <center><figcaption>Contribution to derivative term of PID controller comes from rate of change of the error.</figcaption></center>
+</figure><p>There are two videos below. One shows an untuned PID controller with significant overshoot/ringing. The other shows a highly tuned controller.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WZ5gsp-ZW2Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/mFCJNastS_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<h2 id="Common-problems-with-PID-controllers-(and-their-solutions)">Common problems with PID controllers (and their solutions)<a class="anchor-link" href="#Common-problems-with-PID-controllers-(and-their-solutions)">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
+<h4 id="Integrator-windup">Integrator windup<a class="anchor-link" href="#Integrator-windup">&#182;</a></h4><p>Consider the integrator term of the PID controller. Recall that this term's contribution to the control input is proportional to the error <em>accumulated over time</em>. The behavior that we desire is for this term to increase in value for as long as the error is positive, to remain constant when the error is zero (i.e. we are hovering at the desired hover angle), and to decrease when the error is negative (i.e. we've overshot the desired hover angle). Over time, we expect that this will stabilize to a constant value that keeps the arm at precisely the commanded angle. But, this term can create problems in some situations.</p>
+<p>Consider the situation where the arm is hanging straight down, you command it to hover horizontally, but you physically restrain it for a few seconds so that it doesn't move. What will happen?</p>
+<p>The proportional term of the PID controller will stay constant for as long as the arm is held in place. What will happen to the integral term? <em>It will continue to accumulate for as long as you restrain the arm.</em> The contribution from the integral term will grow until the motor is saturated, and then it will continue to grow beyond even the value which saturates the motor. It will only begin to decrease once the arm is released and moves past the commanded hover angle. But if you've restrained the arm for too long, the motor will stay saturated for <em>a long time after the arm moves past the desired angle</em>. The integrator term will have accumulated so much magnitude that it will take a long time for it to come back down and for the motor to slow. In the meantime, your system will have blown by your commanded angle and perhaps damaged itself. See the demo video below.</p>
+<figure>
+    <img align="center" width="900" height="500" src="windup.png" alt='missing' />
+    <center><figcaption>Integrator windup.</figcaption></center>
+</figure><iframe width="560" height="315" src="https://www.youtube.com/embed/0ZVsq5h24is" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>This problem is called <strong>integrator windup.</strong> There are a few solutions to this problem, but the simplest is to clamp this term at some maximum value.</p>
+<p>These are the conditions under which we prevent the integrator from accumulating any more value:</p>
+<ol>
+<li>The controller output is saturated.</li>
+<li>The sign of the controller output is the same as the sign of the error (i.e. the integrator is making the situation worse).</li>
+</ol>
+<p>As soon as the error switches sign, we unclamp the integrator term so that it immediately starts to decrease, limiting overshoot. It's a good idea to be a bit conservative with your clamping limits, don't make them the same as the saturation values for your actuators. Demo video below of integrator windup prevention with clamping.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JxfPVyv-l5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA7F_Rn8Jfj8CVBKGlAzMNA3">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
+<h4 id="Derivative-noise-amplification">Derivative noise amplification<a class="anchor-link" href="#Derivative-noise-amplification">&#182;</a></h4><p>The block diagrams above omit something extremely important: <strong>noise</strong>. This noise exists at all frequencies and can come from both the environment (think turbulence) and from your sensors.</p>
+<p>This has serious implications for our PID controller because we are <em>differentiating the error.</em> High-frequency noise in the error signal will be amplified by the derivative term in the controller and can have adverse effects on the system. Why is high-frequency noise amplified by the derivative term? Noise is just a collection of additively combined sine waves. Consider the equation for a sine wave:</p>
+\begin{align}
+y(t) = A \sin{\left(\omega \cdot t + \phi\right)}
+\end{align}<p>If we differentiate this, we get:</p>
+\begin{align}
+\frac{dy}{dt} = A\omega \sin{\left(\omega \cdot t + \phi + 90^{\circ}\right)}
+\end{align}
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, if $\omega&gt; 1$ rad/sec, then the amplitude of the derivative is greater than the amplitude of the original signal. The larger the frequency, the larger the amplitude. If we don't do anything about this, then these noise contributions to the derivative term will create noise in our controller. At best, this creates some jitter in the output (as shown in the video below). At worst, it will destabilize the system.</p>
+<p>The video below shows the arm jittering due to noisy input to the derivative term of the PID controller.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PWCBPA2Sx40" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>We solve this problem with a lowpass filter that attenuates high frequency input to the controller and passes low-frequency signal. Such a filter could be implemented in hardware or software. An opamp circuit like the one shown below, placed between the sensor and the ADC input of the microcontroller, will attenuate this noise. Choose R and C appropriately for the bandwidth of your system.</p>
+<figure>
+    <img align="center" width="500" height="500" src="anglesensor.png" alt='missing' />
+    <center><figcaption>Active lowpass filter.</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Small-derivative-signal">Small derivative signal<a class="anchor-link" href="#Small-derivative-signal">&#182;</a></h4><p>There's another way that noise can affect the derivative term of the PID controller. Consider the speed of the system vs. the speed of the controller.</p>
+<p>I am running this controller at 1 KHz. This means that I am sampling the ADC 1000 times per second, and computing the derivative of the error signal 1000 times per second. From one sample to the next, how much should we expect for the ADC measurement to change, even when the arm is swinging as fast as it can manage?</p>
+<p>If we turn the motor on full speed, it will rotate from vertical to horizontal in approximately 0.2 seconds. When hanging vertically, I read an ADC value off the potentiometer of 970 (using the 12-bit DAC on the RP2040). At horizontal, I measure an ADC value of 2040. This implies that the fastest that the ADC measurements are changing is 1070 ADC units in 0.2 seconds, or at a rate of approximately 5-6 ADC units per measurement. The RP2040 has only 9 effective bits, so changes this small are swallowed by noise.</p>
+<p>This is mitigated by being a bit careful when numerically esimating the derivative. There are a few options, but a simple one is to look a few samples back when doing the Euler approximation to the derivative. That is, instead of computing the derivative as:</p>
+\begin{align}
+\text{derivative} \approx \text{error}(n) - \text{error}(n-1)
+\end{align}<p>Instead compute it as:</p>
+\begin{align}
+\text{derivative} \approx \text{error}(n) - \text{error}(n-x)
+\end{align}<p>where $x$ is large enough for the signal to drive the difference in error measurements rather than noise. $x=4$ worked for me.</p>
 
 </div>
 </div>
@@ -13288,80 +13297,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<h2 id="Tuning-the-system">Tuning the system<a class="anchor-link" href="#Tuning-the-system">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<p>You will end up manually testing and tuning the $K_p$, $K_i$ and $K_d$ gains, but we can come up with some reasonable starting places.</p>
+<h4 id="Initial-guess-for-Kp">Initial guess for Kp<a class="anchor-link" href="#Initial-guess-for-Kp">&#182;</a></h4><p>Suppose that the arm is hanging straight down, and we send it a command to hover horizontally. On the RP2040, straight down corresponds to an ADC reading of 970, and horizontal corresponds to an ADC reading of 2040. This will give us an initial error of 2040-970 = 1070 ADC units.</p>
+<p>Probably, we'd like for the motor to turn on full throttle when it sees this error. This can give us a reasonable guess for the proportional gain $K_d$. Suppose that we are running the CPU at 25MHz, so that a 1KHz PWM signal accepts duty cycles in the range of 0-25000 CPU cycles. When the system sees the initial error of 1070 ADC units, we'd like for it to set the PWM duty cycle to about 25000. That implies a $K_p$ of about $\frac{25000}{1070} \approx 23$. More to the point, it suggests a $K_p$ value on the order of 10's rather than 100's or 1000's. Perhaps we start with 10.</p>
+<p>Suppose instead that we were running our CPU at 40MHz and we were using a 10-bit DAC so that straight down corresponded to a measurement of about 250 ADC units and horizontal corresponded to about 500. At 40MHz, a 1000 KHz PWM accepts duty cycles in the range 0-40000. If we want the motor on full throttle when it sees an error of 250 ADC units, this suggest a $K_p$ of approximately $\frac{40000}{250} = 160$. In this case, we expect $K_p$ to be on the order of 100's. Perhaps we start with 100.</p>
+<h4 id="Initial-guess-for-Kd">Initial guess for Kd<a class="anchor-link" href="#Initial-guess-for-Kd">&#182;</a></h4><p>In a previous section, we discussed that, when rotating at its fastest, we expect for the ADC measurements to change at about 5-6 units per measurement for the 12-bit DAC on the RP2040. The derivative term of the PID controller scales these differences in measurements by the derivative gain $K_d$. We'd like for the contribution from this term to be <em>non-negligible</em>, which suggests that we'd like for it to be of approximately the same magnitude as the proportional term. These measurement differences are 2-3 orders of magnitude smaller than the error measurements used by the proportional term (depending how many samples back you look for the derivative approximation, see previous section). So, we expect for $K_d$ to be 2-3 orders of magnitude <em>larger</em> than $K_p$. In the range of 1000's-10000's. Perhaps you start with around 1000.</p>
+<h4 id="Initial-guess-for-Ki">Initial guess for Ki<a class="anchor-link" href="#Initial-guess-for-Ki">&#182;</a></h4><p>As with $K_d$, we'd like for the contribution from the integral term to be of approximately the same magnitude as that from the proportional term. We need to be careful with the integral term, however! It can destabilize the system if it is too big.</p>
+<p>The integral term is summing errors, and those errors will (initially) be on the order of 1000 ADC units. So, $K_i$ will be <em>small</em> compared to $K_p$ and $K_d$. Perhaps you start with a value of $\frac{1}{32}$ and increase as necessary to eliminate steady-state error. It's a good idea to make $K_i$ a power of 2 so that you can use shift operations and maintain integer arithmetic in all your control calculations.</p>
+<h4 id="Tuning">Tuning<a class="anchor-link" href="#Tuning">&#182;</a></h4><p>Start with just a proportional gain. Increase this gain until the system is on the edge of stability (oscillating) and then add some derivative gain to suppress overshoot and oscillation. Get the system to respond quickly by increasing $K_p$, and suppress overshoot using $K_d$. Then add a bit of integral gain $K_i$ to eliminate steady state error.</p>
 
 </div>
 </div>
