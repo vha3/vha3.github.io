@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>UART</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,222 +13077,27 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Universal-Asynchronous-Receiver-Transmitter-(UART)">Universal Asynchronous Receiver Transmitter (UART)<a class="anchor-link" href="#Universal-Asynchronous-Receiver-Transmitter-(UART)">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/VGA/Helicopter.html">PID control of 1D helicopter with RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./Mandelbrot/Mandelbrot.html">Mandelbrot and Julia set visualization on the DE1-SoC</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA7F_Rn8Jfj8CVBKGlAzMNA3">Student final projects</a></li>
+<li><a href="#Hardware-Hookup">Hardware Hookup</a></li>
+<li><a href="#Hardware-Diagram">Timing Diagram</a></li>
+<li><a href="#Error-states">Error states</a><blockquote><ul>
+<li><a href="#Framing-errors">Framing errors</a></li>
+<li><a href="#Parity-error">Parity error</a></li>
+<li><a href="#Overrun-error">Overrun error</a></li>
+<li><a href="#Break-condition">Break condition</a></li>
 </ul>
 </blockquote>
 </li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li><a href="#9-bit-networking">9-bit networking</a></li>
 </ul>
 </blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
 
 </div>
 </div>
@@ -13300,71 +13105,39 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<h2 id="Video-discussion-of-the-content-on-this-page">Video discussion of the content on this page<a class="anchor-link" href="#Video-discussion-of-the-content-on-this-page">&#182;</a></h2><iframe width="560" height="315" src="https://www.youtube.com/embed/PxpsXWG91ME?start=675" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
+<h2 id="Hardware-Hookup">Hardware Hookup<a class="anchor-link" href="#Hardware-Hookup">&#182;</a></h2><p>A UART channel has two data lines. On each device there is an RX pin and a TX pin (RX for receive and TX for transmit). The RX pin of each device is connected to the TX pin of the other. Note that there is no shared clock line! This is the "asynchronous" aspect of Universal Asynchronous Receiver Transmitter.</p>
+<figure>
+    <img align="center" width="800" height="500" src="uart_hardware.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<h2 id="Timing-Diagram">Timing Diagram<a class="anchor-link" href="#Timing-Diagram">&#182;</a></h2><p>In an idle state, the Tx line from the sending device is held high. This is a legacy of old telegraph machines, for which the line is held high to make it obvious that it is not damaged. To send a packet, the transmitter first sends a start bit, which pulls the line low.</p>
+<p>“UART” stands for Universal Asynchronous Receiver-Transmitter. The word “Asynchronous” in the name means that there is no shared clock between the transmitter and receiver. Instead, this start bit acts like a synchronization pulse between the transmitter and receiver. Each has their own clock, and they synchronize those clocks using the falling edge of this start bit.</p>
+<p>That suggests that those two clocks need to running at the same speed. And indeed they do. These need to by synchronized to within ~2 percent or communication won’t work.</p>
+<p>After this start bit 8 (or 9, depending on the configuration) bits are sent in least significant bit first format. At the end of the packet, there is a stop bit. The stop bit is one more down time followed by a rising edge. When the receiver sees the rising edge of that stop bit, it knows that there is now a valid character in its receive buffer and it will send some sort of internal signal to indicate as such. It may throw an interrupt, for example. It needs some sort of signal because this is asynchronous - a valid character could arrive at any time.</p>
+<p>The number of clock pulses per bit can be configured to be 4 or 16. With only 4 pulses per bit, you can transmit faster, but you also only use a single sample per bit to determine whether a high or low level is present. With 16x the baud rate, majority detect circuitry is implemented to determine the value on the RX pin. The fastest that you can transmit is 1/4 the clock rate. So, at 40 MHz, you can in principle send data at up to 10Mbps, but don’t expect to be able to do that over very far distances.</p>
+<figure>
+    <img align="center" width="800" height="500" src="uart_timing.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>Some things to notice about this protocol:</p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
+<li>It takes 10 bit-times to transmit 8-bits.</li>
+<li>It takes 1/(baud rate) seconds to transmit each bit</li>
+<li>The number of clock pulses per bit is configurable (4 or 16)</li>
+<li>You could transmit at up to 1/4 the clock rate, but not for very far distances</li>
+<li>Clock synchronization to within about 2 percent is required for successful communication</li>
 </ul>
 
 </div>
@@ -13373,6 +13146,33 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Error-states">Error states<a class="anchor-link" href="#Error-states">&#182;</a></h2><h4 id="Framing-errors">Framing errors<a class="anchor-link" href="#Framing-errors">&#182;</a></h4><p>The UART status and control registers will indicate various status conditions, including error states associated with a transmission. Understanding this protocol makes understanding the error states a bit easier. They include framing errors, which occur when the receiver does not see a stop bit at the expected bit time. If the data line is not in the expected high state when the stop bit is expected (according to the number of data and parity bits for which the UART is set), the UART will signal a framing error.</p>
+<h4 id="Parity-error">Parity error<a class="anchor-link" href="#Parity-error">&#182;</a></h4><p>A parity error only gets thrown if the UART is in parity mode. In parity mode, an extra bit is sent which holds the parity (even or odd) of all of the transmitted data bits. If there is an error in a data bit (1 for 0 or 0 for 1), this parity bit will be wrong and an error will be thrown specifying an error.</p>
+<h4 id="Overrun-error">Overrun error<a class="anchor-link" href="#Overrun-error">&#182;</a></h4><p>An overrun error occurs when the receiver has not processed (removed characters from the input buffer) before the next character arrives.</p>
+<h4 id="Break-condition">Break condition<a class="anchor-link" href="#Break-condition">&#182;</a></h4><p>A break condition is not an error, necessarily. It occurs when the receiver input is at a logic level low state for longer than some duration of time, typically for more than a character time. It looks to the receiver like a character of all zero bits with a framing error. This is hacked for the software reset circuitry. In the python code, you can see that a reset is triggered by sending a break. This pulls the data line low for long enough that MCLR is pulled low and the board resets.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="9-bit-networking">9-bit networking<a class="anchor-link" href="#9-bit-networking">&#182;</a></h2><figure>
+    <img align="center" width="800" height="500" src="nine_bit.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>There is a configuration that allows you to setup a network that uses UART as the communication protocol. Doing so requires that all the lines of all the devices are wired together. There’s a diode going into each Tx line, and the whole thing is gently pulled up by a pull-up resistor.</p>
+<p>This configuration means that a transmit pin can pull down the line, and the resistor will pull it back up. You then need a scheme for addressing a particular device from a particular device. A way to do this is to configure the UART to 9-bit mode (which means, as the name suggests, that 9 data bits are transmitted instead of 8). That 9th bit is then used to indicate whether the information that was just sent was an address or data.</p>
+<p>If it was an address, then all secondary devices look for a match of their own hardcoded addresses. If they receive a match, they can be configured to automatically setup their receive/transmit functions. This address stays the bus address until a new address is sent. In other words, it’s persistent.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<hr>
+<hr>
 <hr>
 
 </div>
