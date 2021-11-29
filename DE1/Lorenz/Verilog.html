@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Verilog</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,27 +13077,33 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Review-of-Verilog-Basics">Review of Verilog Basics<a class="anchor-link" href="#Review-of-Verilog-Basics">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Some-concepts">Some concepts</a></li>
+<li><a href="#Recalling-Inferred-Latches">Recalling inferred latches</a></li>
+<li><a href="#Blocking-vs.-Non-Blocking-Assigns">Blocking vs. Non-Blocking Assigns</a></li>
+<li><a href="#Multiplexing-in-Verilog">Multiplexing in Verilog</a></li>
+<li><a href="#A-couple-more-things-to-be-careful-about">A couple more things to be careful about</a></li>
 </ul>
 </blockquote>
 
@@ -13107,197 +13113,72 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<h2 id="Video-discussion-of-content-on-this-page">Video discussion of content on this page<a class="anchor-link" href="#Video-discussion-of-content-on-this-page">&#182;</a></h2><iframe width="560" height="315" src="https://www.youtube.com/embed/hiUd4TfhSGs?start=147" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
+<h2 id="Some-concepts">Some concepts<a class="anchor-link" href="#Some-concepts">&#182;</a></h2><p>The <strong>only hardware</strong> that goes onto the FPGA is the hardware that <em>you describe in your Verilog</em>. This has a few implications . . .</p>
 <ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/VGA/Helicopter.html">PID control of 1D helicopter with RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./Mandelbrot/Mandelbrot.html">Mandelbrot and Julia set visualization on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA7F_Rn8Jfj8CVBKGlAzMNA3">Student final projects</a></li>
+<li>There are no init statements.<blockquote><ul>
+<li>If you initialize a register in Verilog, that register will obtain that value the <em>first time the FPGA is programmed</em>, but it will not retain that value through a reset.</li>
+<li>Instead, you must build a state machine with a reset state that initializes register values</li>
 </ul>
 </blockquote>
 </li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li>There are no system calls in Verilog.<blockquote><ul>
+<li>Because there's no system! The only hardware on the FPGA is that which you've described.</li>
+<li>You can't call <code>print</code> because there's no printer (unless you build one)</li>
+<li>You have to describe all the memory that you will use</li>
+<li>This makes debugging <em>different.</em> You will do most of your debugging in a simulation environment, and use LED's, HEX displays, switches, and an onboard logic analyzer to debug the FPGA</li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li>There are no reals/floats. <blockquote><ul>
+<li>You have registers, which are just collections of bits</li>
+<li>You can make that register whatever size you want, but you just have collections of bits</li>
+<li>If you want to call that collection of bits an <code>int</code> or a <code>float</code>, then <em>you</em> have to write the routines that treat that collection of bits as that data type</li>
+</ul>
+</blockquote>
+</li>
+<li>There is no timing information in Verilog. You <strong>do have</strong> a hardware clock.<blockquote><ul>
+<li>There's no concept of a <code>delay(ms)</code> function call</li>
+<li>If you want to delay for a certain amount of time, you must count off hardware clock cycles</li>
+</ul>
+</blockquote>
+</li>
+<li>Loops (in Verilog) are <strong>not sequential structures.</strong> They're <strong>repeated hardware.</strong><blockquote><ul>
+<li>Sometimes that's what you want! But just remember that that's what these loops are doing.</li>
+</ul>
+</blockquote>
+</li>
+<li>Modules are pieces of reusable hardware.<blockquote><ul>
+<li>Sort of looks and feels like a function (takes inputs, performs operations on those inputs, and returns outputs</li>
+<li>But! Everytime you instantiate a module, another <em>copy of that hardware</em> is placed on the FPGA</li>
+</ul>
+</blockquote>
+</li>
+<li>Each "assign" and "always" happens <strong>all the time.</strong><blockquote><ul>
+<li>If it can be happening, it is happening</li>
+<li>You can associate an always ith a logical condition (e.g. rising edge of a clock)</li>
+</ul>
+</blockquote>
+</li>
+<li><strong>There is no sequentiality except for that which you build!</strong><blockquote><ul>
+<li>If you want sequential execution, build a state machine!</li>
+</ul>
+</blockquote>
+</li>
+<li>An incomplete "case" or "if" can infer a latch.<blockquote><ul>
+<li>Inferred latches reviewed in a subsequent section</li>
+<li>Creates bugs that are hard to find</li>
+<li>Include a default case!</li>
 </ul>
 </blockquote>
 </li>
 </ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
 
 </div>
 </div>
@@ -13305,7 +13186,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="Recalling-Inferred-Latches">Recalling Inferred Latches<a class="anchor-link" href="#Recalling-Inferred-Latches">&#182;</a></h2><p>Consider the following code snippet:</p>
+<div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">sel</span><span class="p">)</span>
+        <span class="mh">2</span><span class="p">&#39;</span><span class="nl">b_11:</span> <span class="n">d</span><span class="o">=</span><span class="n">a</span> <span class="p">;</span>
+        <span class="mh">2</span><span class="p">&#39;</span><span class="nl">b_10:</span> <span class="n">d</span><span class="o">=</span><span class="n">b</span> <span class="p">;</span>
+        <span class="mh">2</span><span class="p">&#39;</span><span class="nl">b_00:</span> <span class="n">d</span><span class="o">=</span><span class="n">c</span> <span class="p">;</span>
+    <span class="k">endcase</span>
+<span class="k">end</span>
+</pre></div>
+<p>What's the problem with the above Verilog? We forgot a case!! In the situation that <code>sel</code> assumes the value <code>2b_01</code>, a latch will be inferred. The variable <code>d</code> will assume whatever it's most recently assigned value was, wihch could be nonsense. This is building a <em>clockless flip-flop</em>, and it will screw up your timing. In particular, this creates a set-reset flip-flop that is asynchronously set.</p>
+<blockquote><ul>
+<li><strong>This will not throw an error.</strong> </li>
+<li>Search your warnings for the keyword "inferred." </li>
+<li><strong>And always include a default.</strong></li>
+</ul>
+</blockquote>
 
 </div>
 </div>
@@ -13313,36 +13209,108 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
+<h2 id="Blocking-vs.-Non-Blocking-Assigns">Blocking vs. Non-Blocking Assigns<a class="anchor-link" href="#Blocking-vs.-Non-Blocking-Assigns">&#182;</a></h2><p>Let me first introduce the rule of thumb, and then I'll motivate that rule of thumb.</p>
+<h4 id="The-rule">The rule<a class="anchor-link" href="#The-rule">&#182;</a></h4><p>If you are building combinatorial (unclocked) logic, <strong>use a blocking assign</strong>.</p>
+<div class="highlight"><pre><span></span><span class="k">assign</span> <span class="n">signal</span> <span class="o">=</span> <span class="n">x</span> <span class="p">;</span>
+</pre></div>
+<p>Alternatively, if you are building <strong>sequential logic</strong>, use a <strong>non-blocking assign</strong></p>
+<div class="highlight"><pre><span></span><span class="n">signal</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Why-is-this-the-rule?">Why is this the rule?<a class="anchor-link" href="#Why-is-this-the-rule?">&#182;</a></h4><p>Let's consider two code snippets that are <em>identical</em> except that one uses a non-blocking assign and the other uses a blocking assign. We'll compare the hardware that each snippet builds. First, consider the non-blocking assign:</p>
+<div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">q1</span> <span class="o">&lt;=</span> <span class="n">in</span> <span class="p">;</span>
+    <span class="n">q2</span> <span class="o">&lt;=</span> <span class="n">q1</span> <span class="p">;</span>
+    <span class="n">out</span> <span class="o">&lt;=</span> <span class="n">q2</span> <span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+<p>The above Verilog builds the below hardware (a shift register!). Because we are using a non-blocking assign, the right side of each of the above expressions is <em>simultaneously</em> moved to the left side of each of the above expressions.</p>
+<figure>
+    <img align="center" width="700" height="500" src="one.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>Now consider the case that we used blocking assigns, as shown below:</p>
+<div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">q1</span> <span class="o">=</span> <span class="n">in</span> <span class="p">;</span>
+    <span class="n">q2</span> <span class="o">=</span> <span class="n">q1</span> <span class="p">;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">q2</span> <span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+<p><em>This builds a different circuit</em>. The compiler will look at this and build a circuit for which <code>q1</code> assumes the value of <code>in</code>, and then <code>q2</code> assumes the value of <code>q1</code>, and then <code>out</code> assumes the value of <code>q2</code>. It does <em>not execute these sequentially</em>, everything is executed simultaneously, but it will build a circuit that satisfies this logic. That circuit looks like this:</p>
+<figure>
+    <img align="center" width="700" height="500" src="two.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>At the rising edge of the clock, <code>q1</code>, <code>q2</code>, and <code>out</code> all get the value of <code>in</code>. For a shift register, that's not what we want. But! For combinatorial logic that <strong>is what we want</strong>! Consider instead this snippet:</p>
+<div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="n">a</span> <span class="k">or</span> <span class="n">b</span> <span class="k">or</span> <span class="n">c</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span> <span class="p">;</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">|</span> <span class="n">c</span> <span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+<p>The above Verilog builds the below circuit:</p>
+<figure>
+    <img align="center" width="700" height="500" src="three.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>The circuit AND's <code>a</code> and <code>b</code>, OR's that with <code>c</code>, and puts that in some register <code>y</code>.</p>
+<p><strong>Note</strong>: If you assign a signal in one always block, you <strong>cannot</strong> assign it anywhere else. (Be careful, the simulation environment will let you do this!)</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
+<h2 id="Multiplexing-in-Verilog">Multiplexing in Verilog<a class="anchor-link" href="#Multiplexing-in-Verilog">&#182;</a></h2><p>Suppose that we want to build a 2:1 mux like the one shown below:</p>
+<figure>
+    <img align="center" width="700" height="500" src="four.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>There are (at least) three ways to do this:</p>
+<h4 id="Conditional-assigns">Conditional assigns<a class="anchor-link" href="#Conditional-assigns">&#182;</a></h4><p>I find this particular syntax for multiplexing very nice for doing state transitions in state machines. However, for anything larger than two conditions, this becomes cumbersome and error prone.</p>
+<div class="highlight"><pre><span></span><span class="k">assign</span> <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">sel</span><span class="p">)</span><span class="o">?</span> <span class="nl">d1:</span><span class="n">d0</span> <span class="p">;</span>
+</pre></div>
+<h4 id="If-statements">If statements<a class="anchor-link" href="#If-statements">&#182;</a></h4><div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sel</span> <span class="o">==</span> <span class="mh">1</span><span class="p">&#39;</span><span class="n">b_0</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">d1</span> <span class="p">;</span>
+    <span class="k">end</span>
+    <span class="k">else</span> <span class="k">begin</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">d0</span> <span class="p">;</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+<h4 id="Case-statements">Case statements<a class="anchor-link" href="#Case-statements">&#182;</a></h4><p>If I had more than two possible conditions, I'd include a <code>default</code>!</p>
+<div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@</span> <span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">sel</span><span class="p">)</span>
+        <span class="mh">1</span><span class="p">&#39;</span><span class="nl">b_0:</span> <span class="n">out</span> <span class="o">=</span> <span class="n">d1</span> <span class="p">;</span>
+        <span class="mh">1</span><span class="p">&#39;</span><span class="nl">b_1:</span> <span class="n">out</span> <span class="o">=</span> <span class="n">d0</span> <span class="p">;</span>
+    <span class="k">endcase</span>
+<span class="k">end</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-couple-more-things-to-be-careful-about">A couple more things to be careful about<a class="anchor-link" href="#A-couple-more-things-to-be-careful-about">&#182;</a></h2><ol>
+<li>Be careful to declare signed registers as such. Otherwise they <em>default to unsigned.</em></li>
+</ol>
+<div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span> <span class="p">;</span>
+</pre></div>
 <ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
+<li><p>Be careful when shifting signed registers</p>
+<blockquote><ul>
+<li>Signed shift: "&lt;&lt;&lt;", "&gt;&gt;&gt;"</li>
+<li>Unsigned shift: "&gt;&gt;", "&lt;&lt;"</li>
 </ul>
 </blockquote>
 </li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
+<li><p>Search your warnings for the keyword "implicit."</p>
+<blockquote><ul>
+<li>Lets you know your using a register that you haven't initialized</li>
+<li>This doesn't throw an error! It will create a register that is 1-bit wide and create hard-to-track-down bugs</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Be obsessive about register sizes!</p>
+</li>
 </ol>
 
 </div>
@@ -13352,32 +13320,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 <hr>
 
 </div>
