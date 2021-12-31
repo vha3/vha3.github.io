@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Mandelbrot</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,228 +13077,110 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Mandelbrot-Set-Visualizer">Mandelbrot Set Visualizer<a class="anchor-link" href="#Mandelbrot-Set-Visualizer">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4><h4 id="Modified-from-Bruce-Land's-Mandelbrot-Lab">Modified from <a href="https://people.ece.cornell.edu/land/courses/ece5760/LABS/s2019/lab3_mandelbrot.html">Bruce Land's Mandelbrot Lab</a><a class="anchor-link" href="#Modified-from-Bruce-Land's-Mandelbrot-Lab">&#182;</a></h4>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;</span>
+<span class="s1">code_show=true; </span>
+<span class="s1">function code_toggle() {</span>
+<span class="s1"> if (code_show){</span>
+<span class="s1"> $(&#39;div.input&#39;).hide();</span>
+<span class="s1"> } else {</span>
+<span class="s1"> $(&#39;div.input&#39;).show();</span>
+<span class="s1"> }</span>
+<span class="s1"> code_show = !code_show</span>
+<span class="s1">} </span>
+<span class="s1">$( document ).ready(code_toggle);</span>
+<span class="s1">&lt;/script&gt;</span>
+<span class="s1">&lt;form action=&quot;javascript:code_toggle()&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Click here to toggle on/off the raw code.&quot;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[102]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<script>
+code_show=true; 
+function code_toggle() {
+ if (code_show){
+ $('div.input').hide();
+ } else {
+ $('div.input').show();
+ }
+ code_show = !code_show
+} 
+$( document ).ready(code_toggle);
+</script>
+<form action="javascript:code_toggle()"><input type="submit" value="Click here to toggle on/off the raw code."></form>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interactive</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/VGA/Helicopter.html">PID control of 1D helicopter with RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course using the PIC32. Started in Spring, 2021.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA7F_Rn8Jfj8CVBKGlAzMNA3">Student final projects</a></li>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Mathematical-background">Mathematical background</a><blockquote><ul>
+<li><a href="#A-simple-iteration">A simple iteration</a></li>
+<li><a href="#The-same-iteration-with-complex-numbers">The same iteration with complex numbers</a></li>
+<li><a href="#A-slight-modification-to-the-complex-iteration">A slight modification to the complex iteration</a></li>
+<li><a href="#Increasing-resolution-and-colorizing">Increasing resolution and colorizing</a></li>
 </ul>
 </blockquote>
 </li>
-<li>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li><a href="#Weekly-checkpoints-and-lab-report">Weekly checkpoints and lab report</a><blockquote><ul>
+<li><a href="#Week-One">Week One</a></li>
+<li><a href="#Week-Two">Week Two</a></li>
+<li><a href="#Week-Three">Week Three</a></li>
+<li><a href="#Lab-Report">Lab Report</a></li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li><a href="#References">References</a></li>
 </ul>
 </blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a> - Slides only</li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a> - Slides only</li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a> - Slides only</li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a> - Slides only</li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-</ol>
 
 </div>
 </div>
@@ -13306,71 +13188,283 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this lab, you will calculate and render the <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">Mandelbrot Set</a>, one of the most beautiful and interesting structures in mathematics. I can't explain why the Mandelbrot Set is beautiful (it's hard to know what, precisely, makes something beautiful), but here are some reasons that it's interesting:</p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
+<li>The edge of the Mandelbrot Set is <em>infinitely rough</em>. That means that you can zoom in on the edge of the set <em>forever</em> and you'll keep finding complicated (and beautiful) structures. In this lab, you'll be able to zoom in a distance of approximately $2^{14}$.</li>
+<li>This infinitely complex structure is generated by <em>shockingly simple rules.</em> The Mandelbrot Set is an example of complexity from simplicity. Meditating on that notion can take your mind to some interesting places, and lead you to some interesting reading.</li>
+<li>The edge of the Mandelbrot Set is connected. This was discovered by Adrien Douady and Cornell's John Hubbard.</li>
 </ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
+<p>You are challenged to compute and render the Mandelbrot Set on a 640x480 display <em>as fast as you can.</em> Each pixel on the display will map to a point on the complex plane at which you will run the iteration which generates the Mandelbrot Set. You will colorize that pixel according to the number of iterations that it takes to reach a threshold magnitude, and then move on to the next pixel. Last year, the fastest groups were able to compute and render the whole set in ~35 ms. Your user interface will allow for you to <em>explore the edges of the set</em>. You'll be able to zoom and pan to find interesting structures. It is often the case that students spend many hours exploring the Mandelbrot Set, once they have their system working.</p>
+<p>To accelerate calculation, you will want to parallelize as many iterators as possible on the FPGA. You will likely find that your limiting resource for parallization is multipliers. Think carefully about load balancing among all of your solvers.</p>
+<p>To accelerate rendering, think carefully about serial bottlenecks. How are you going to dispatch pixels to each solver? How are you going to write to the VGA screen from many solvers with limited contention among those solvers?</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/s-EJJK9lSTM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mathematical-background">Mathematical background<a class="anchor-link" href="#Mathematical-background">&#182;</a></h2><p>The Mandelbrot set is simply too interesting and too lovely to introduce as a set of equations for implementation. So, before we discuss how we'll implement this on the FPGA, I want to first attempt to explain what the Mandelbrot set is and why it's interesting.</p>
+<h3 id="A-simple-iteration">A simple iteration<a class="anchor-link" href="#A-simple-iteration">&#182;</a></h3><p>The train of thought that leads to the Mandelbrot set begins with thinking about iterations. An iteration is simply a rule which we apply over and over again. So, for example, the iteration below tells us to start with some number, $x_0$, and to square it repeatedly. If $x_0$ is 2, then $x_1$ is 4, $x_2$ is 16, etc.</p>
+\begin{align}
+x_{N+1} &amp;= x_N^2
+\end{align}<p>Now ask the following question: <strong>for which choices of $x_0$ does this iteration remain stable (not go to infinity), and for which choices of $x_0$ does it go to infinity?</strong> Is it obvious that, for this iteration, any $x_0$ in the range [-1,1] is stable, and any $x_0$ outside that range is unstable? We could color the parts of the real number line which are stable as shown below.<br><br></p>
+<figure>
+    <img align="center" width="800" height="500" src="line.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><h3 id="The-same-iteration-with-complex-numbers">The same iteration with complex numbers<a class="anchor-link" href="#The-same-iteration-with-complex-numbers">&#182;</a></h3><p>Let's consider almost the same iteration, except we'll allow for our numbers to be complex. Instead of representing our numbers on the real number line, we represent them in the complex plane. Our numbers can have real parts and imaginary parts.</p>
+\begin{align}
+z_{N+1} &amp;= z_N^2
+\end{align}<p>As before, the question is: <strong>for which choices of $z_0$ does this iteration remain stable (not go to infinity), and for which choices of $z_0$ does it go to infinity?</strong> As many of you will recall, when you square a complex number with magnitude less than one (i.e. a number that is less than one unit from the origin of the complex plane), the resulting complex number has a smaller magnitude. This is the complex extension of the iteration above. So, the region of stability for this iteration is a circle with radius 1 centered at the origin.</p>
+<p>Suppose that you couldn't figure out what this region of stability looked like. One strategy that you might deploy in order to get a sense for it might be to populate the complex plane with test points, and then to run the iteration on each of those test points. If you run the iteration some large number of times (say, 1000) and the magnitude of the complex number still hasn't gone above some threshold value (in particular, 2, for reasons that are beyond the scope of this document), then we'll assume that particular point is inside the region of stability. If it exceeds that threshold value, we'll assume it's outside the region of stability.</p>
+<p>For example, consider the array of test points below. We'll run the above iteration on each of these test points. If the iteration diverges at that point, we'll ignore it. If it converges, we'll mark it with an x. This way, we can get a visual sense for what the region of stability looks like.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">xiter</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">yiter</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="n">newx</span> <span class="o">=</span> <span class="n">xiter</span>
+        <span class="n">newy</span> <span class="o">=</span> <span class="n">yiter</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">count</span><span class="o">&lt;</span><span class="mi">1000</span> <span class="ow">and</span> <span class="p">(</span><span class="n">newx</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">newy</span><span class="o">**</span><span class="mf">2.</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)):</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="n">xiter</span><span class="o">**</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">yiter</span><span class="o">**</span><span class="mf">2.</span>
+            <span class="n">newy</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">xiter</span><span class="o">*</span><span class="n">yiter</span>
+            <span class="n">xiter</span> <span class="o">=</span> <span class="n">newx</span>
+            <span class="n">yiter</span> <span class="o">=</span> <span class="n">newy</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span><span class="o">==</span><span class="mi">1000</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As expected, we get a low resolution approximation for a <em>circle</em> of radius 1, centered at the origin of the complex plane.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-slight-modification-to-the-complex-iteration">A slight modification to the complex iteration<a class="anchor-link" href="#A-slight-modification-to-the-complex-iteration">&#182;</a></h3><p>Let us now consider an iteration that is almost the same as the above iteration. We'll assume that $z_0$ is 0, but we'll add some complex constant $c$ every time we update the iteration.</p>
+\begin{align}
+z_{N+1} = z_{N}^2 + c &amp;&amp; \text{where  }z_0 = 0
+\end{align}<p>Similar to before, the question is: <strong>for which choices of $c$ does this iteration remain stable (not go to infinity), and for which choices of $c$ does it go to infinity?</strong> Like we did for the previous iteration, let us populate the complex plane with test points to attempt to get an understanding for what this region of stability looks like. When we run this iteration for each test point and mark those that converge with an x, we get the following image:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+        <span class="n">xiter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">yiter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">newx</span> <span class="o">=</span> <span class="n">xiter</span>
+        <span class="n">newy</span> <span class="o">=</span> <span class="n">yiter</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">count</span><span class="o">&lt;</span><span class="mi">10000</span> <span class="ow">and</span> <span class="p">(</span><span class="n">newx</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">newy</span><span class="o">**</span><span class="mf">2.</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)):</span>
+            <span class="n">newx</span> <span class="o">=</span> <span class="n">xiter</span><span class="o">**</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">yiter</span><span class="o">**</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">i</span>
+            <span class="n">newy</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">xiter</span><span class="o">*</span><span class="n">yiter</span> <span class="o">+</span> <span class="n">j</span>
+            <span class="n">xiter</span> <span class="o">=</span> <span class="n">newx</span>
+            <span class="n">yiter</span> <span class="o">=</span> <span class="n">newy</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span><span class="o">==</span><span class="mi">10000</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>What the hell is that?</em> Benoit Mandelbrot would have asked himself the same thing when this came out of the printer in IBM. It is not obvious at this resolution what the edge of this region of convergence looks like. But, in the late 70's, this is the level of resolution that computers were capable of visualizing in reasonable amounts of time.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Increasing-resolution-and-colorizing">Increasing resolution and colorizing<a class="anchor-link" href="#Increasing-resolution-and-colorizing">&#182;</a></h3><p>The first ever published image of the Mandelbrot set is shown below left, at approximately the same resolution as it is shown in the previous section. As computers became more powerful, this iteration could be run on more and more test points, increasing the resolution for this region of stability. Below center is the <em>same picture</em>, but with more test points. Images like the ones below have since become some of the most famous in mathematics. Often, you'll see them drawn not just in black and white, but with the unstable points colored in proportion to how unstable they are. (Did the point diverge in 2 iterations? If so, color it some color. Did it take 20 iterations? Color it a different color. 500 iterations? A different color again.) These colorizations yield images like that shown below right.</p>
+<table>
+<thead><tr>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img align="center" width="400" height="500" src="First.png" alt='missing' /><center><figcaption>Fig. 2 from [1]</figcaption></center></td>
+<td><img align="center" width="400" height="500" src="two.png" alt='missing' /><center><figcaption>Same image, with more test points</figcaption></center></td>
+<td><img align="center" width="400" height="500" src="three.png" alt='missing' /><center><figcaption>Unstable points colorized</figcaption></center></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Weekly-checkpoints-and-lab-report">Weekly checkpoints and lab report<a class="anchor-link" href="#Weekly-checkpoints-and-lab-report">&#182;</a></h2><h4 id="Week-One">Week One<a class="anchor-link" href="#Week-One">&#182;</a></h4><ul>
+<li>Read the <a href="./Mandelbrot_Implementation.html">Mandelbrot Implementation Background</a> webpage.</li>
+<li>Demonstrate a simulation of one complex iterator pipeline in synthesizable Verilog running in ModelSim. The number of iterations required should match that returned by a Matlab or Python implementation (see the implementation webpage linked in the first bullet).<blockquote><ul>
+<li>For the custom hardware, I suggest using a minimum of 4.23 <a href="https://vha3.github.io/FixedPoint/FixedPoint.html">fixed point notation</a> for interating the quadratic complex number calculation. The number of bits carried will limit the zoom depth. Every bit gives one level of zoom, but you need 10 bits to represent the screen width, so 23 bits gives only 13 zoom levels. The top bit will be the usual 2's comp sign bit. The 4.23 notation means that a single DSP unit can do one multiply. This format give the numbers a dynamic range of +/-7.</li>
+<li>Make sure you test at a variety of points (some in the set, some outside the set, some positive, some negative). Do not continue until you have convinced yourself, beyond any shadow of doubt, that your iterator is working properly.</li>
 </ul>
-<p><strong>External links</strong></p>
+</blockquote>
+</li>
+<li>Download, run, and time the Mandelbrot example on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/univ_pgm_computer.index.html">University computer graphics</a> webpage. <em>This is the baseline performance that you <strong>must beat</strong> with the FPGA</em>.</li>
+<li>You need the best HPS time for comparision to FPGA solution time.</li>
+</ul>
+<h4 id="Week-Two">Week Two<a class="anchor-link" href="#Week-Two">&#182;</a></h4><ul>
+<li>Demo <em>more than one</em> complex iterator writing to the VGA display to show full Mandelbrot Set on the VGA. There are a few options for how you might do this. Some are slower (but easier) and others are faster (but harder). Consider getting one of the slower options working, and then optimizing to a faster option.<blockquote><ul>
+<li>You could write to the VGA subsystem using a bus master. This is slow because it requires a bus transaction for each pixel, and it introduces a serial bottleneck among the parallel solvers (since the bus master can only send color data from one solver at a time to the VGA subsystem). To pursue this option, see <strong><em>VGA display using a bus_master as a GPU for the HPS. Display from SDRAM.</em></strong> on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">bus master webpage</a>.</li>
+<li>You could have each parallel solver write directly to Qsys VGA display memory. This is faster than the first option because it avoids bus master transactions. However, there is still a serial bottleneck associated with writing to the display memory. An arbiter must schedule memory writes among all parallel solvers. To pursue this option, see <strong><em>GPU with FAST display from SRAM</em></strong> on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">bus master webpage</a>.</li>
+<li>The fastest option is to have each solver write to <em>its own</em> M10k memory block, and to have a custom VGA driver multiplex into those M10k blocks. This eliminates the serial bottlneck associated with writing to memory. <a href="https://vha3.github.io/DE1/VGA_Driver/Driver.html">Here is a VGA driver</a> to get you started.</li>
+</ul>
+</blockquote>
+</li>
+<li>The computation must be a bus-master output directly to the VGA bus-slave, and not pass results through the HPS. The VGA graphics interface should run the VGA at 640x480 resolution with at least 8-bit color per pixel. Colors may aid in debugging and certainly look cool. You may want to map color to the number of iterations to divergence, or to the log of that number. A reasonable approximation of the log is to just use the position of the largest non-zero bit in the count. Here's a color scheme I like based on the <a href="https://lospec.com/palette-list/commodore64">Commodore 64 Palette</a>.<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="n">max_iterations</span><span class="p">)</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_000_000_00</span> <span class="p">;</span> <span class="c1">// black</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">1</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_011_001_00</span> <span class="p">;</span> <span class="c1">// white</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">2</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_011_001_00</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">3</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_101_010_01</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">4</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_011_001_01</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">5</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_001_001_01</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">6</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_011_010_10</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">7</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_010_100_10</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">max_iterations</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">8</span><span class="p">))</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_010_100_10</span> <span class="p">;</span>
+<span class="k">end</span>
+<span class="k">else</span> <span class="k">begin</span>
+  <span class="n">color_reg</span> <span class="o">&lt;=</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">b_010_100_10</span> <span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</li>
+<li>Display the time to render either on the VGA screen, or a serial console.</li>
+<li>Demonstrate interactive zooming and panning on the VGA.</li>
+</ul>
+<h4 id="Week-Three">Week Three<a class="anchor-link" href="#Week-Three">&#182;</a></h4><ul>
+<li>You may use HPS for control, but you do not have to.</li>
+<li>The corners of the region being plotted should be displayed either on the VGA screen, or on a serial console.</li>
+<li>You should be able to choose the maximum number of iterations using serial input the HPS, or toggle switches, or however you want to do it.</li>
+<li>Upon pressing KEY0, the system should compute and display the full Mandelbrot set, as shown above.</li>
+<li>There will be a zoom interface using push buttons, or serial communication to a terminal or a mouse interface. It is sufficient to use a center coordinate anywhere in the displayed range and zoom in/out by a factor of two. When you trigger the zoom calculation, the specified corners should be reassigned to the corners of the display and 640x480 new points in those intervals should be iterated again.<blockquote><ul>
+<li>You will be evaluated on your project's usability! Think carefully about user interface. The mouse is, I think, the most fun and intuitive way to explore the set.</li>
+</ul>
+</blockquote>
+</li>
+<li>Part of your grade will depend upon how fast you can render the full 640x480 set and two other regions picked on demo day.</li>
+<li>The elapsed time to draw the screen (in milliseconds) should be shown on the VGA screen or on the HPS console. </li>
+<li>You will need to show how your solution time for the full set depends on the number of solver pipelines used.</li>
+</ul>
+<h4 id="Lab-Report">Lab Report<a class="anchor-link" href="#Lab-Report">&#182;</a></h4><p>Your written lab report should include the sections mentioned in the <a href="https://people.ece.cornell.edu/land/courses/ece5760/policy.html">policy page</a>, and :</p>
 <ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
+<li>What determines how deep you can zoom?</li>
+<li>A table of times to compute various regions of the Mandelbrot set close to the areas specified in the list.
+\begin{align}
+x=[-2,1] &amp;&amp; &amp;y=[-1,1]\\
+x=[-0.758,-0.75]&amp;&amp; &amp;y=[0.05,0.06]\\
+x=[-1.45, -1.3]&amp;&amp; &amp;y=[-0.07, 0.07]
+\end{align}</li>
+<li>A collection of photographs of your favorite regions, and their coordinates. The camera should be good enough to resolve individual pixels.</li>
+<li>A table of your solution time for the full set versus the number of solver pipelines used and for FPGA solution versus HPS solution time.</li>
+<li>A detailed description of your Qsys design.</li>
+<li>A heavily commented listing of your Verilog design (for FPGA) and GCC code (for HPS).</li>
 </ul>
 
 </div>
@@ -13379,10 +13473,66 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ol>
+<li>Brooks, Robert and Matelski, J. Peter. "The Dynamics of 2-Generator Subgroups of PSL(2, ℂ)". Riemann Surfaces Related Topics (AM-97), Volume 97: Proceedings of the 1978 Stony Brook Conference. (AM-97), edited by Irwin Kra and Bernard Maskit, Princeton: Princeton University Press, 2016, pp. 65-72. <a href="https://doi.org/10.1515/9781400881550-007">https://doi.org/10.1515/9781400881550-007</a></li>
+<li><a href="https://www.youtube.com/watch?v=FFftmWSzgmk">What's so special about the Mandelbrot Set - Numberphile</a></li>
+</ol>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># num=100</span>
+<span class="c1"># def f(Zr, Zi, c, d):</span>
+<span class="c1">#     plt.figure(2, figsize=(10, 10))</span>
+<span class="c1">#     x = list(numpy.zeros(num))</span>
+<span class="c1">#     y = list(numpy.zeros(num))</span>
+<span class="c1">#     x[0] = Zr</span>
+<span class="c1">#     y[0] = Zi</span>
+<span class="c1">#     for i in range(1, num):</span>
+<span class="c1">#         x[i] = x[i-1]**2. - y[i-1]**2. + c*numpy.cos(d)</span>
+<span class="c1">#         y[i] = 2*x[i-1]*y[i-1] + c*numpy.sin(d)</span>
+<span class="c1">#     plt.plot(x, y, &#39;b-&#39;, alpha=0.1)</span>
+<span class="c1">#     plt.plot(numpy.linspace(-1.5, 1.5, 100), numpy.zeros(100), color=&#39;black&#39;, alpha=0.2)</span>
+<span class="c1">#     plt.plot(numpy.zeros(100), numpy.linspace(-1.5, 1.5, 100), color=&#39;black&#39;, alpha=0.2)</span>
+<span class="c1">#     plt.plot(x, y, &#39;r.&#39;)</span>
+<span class="c1">#     plt.xlabel(&#39;Real&#39;, fontsize=18)</span>
+<span class="c1">#     plt.ylabel(&#39;Imaginary&#39;, fontsize=18)</span>
+<span class="c1">#     plt.plot(c*numpy.cos(d), c*numpy.sin(d), &#39;b*&#39;)</span>
+<span class="c1"># #     circle = numpy.linspace(0, 2*numpy.pi, 100)</span>
+<span class="c1"># #     plt.plot(numpy.cos(circle), numpy.sin(circle))</span>
+<span class="c1">#     plt.plot(x[0], y[0], &#39;g*&#39;)</span>
+<span class="c1">#     plt.ylim(-1.5, 1.5)</span>
+<span class="c1">#     plt.xlim(-1.5 ,1.5)</span>
+
+<span class="c1"># interactive_plot = interactive(f, Zr=(-2.0, 2.0, .01), Zi=(-2.0, 2.0, .01),</span>
+<span class="c1">#                                c=(0.0, 2.0, 0.01), d=(0.0, 2*numpy.pi, 0.001))</span>
+<span class="c1"># output = interactive_plot.children[-1]</span>
+<span class="c1"># output.layout.height = &#39;600px&#39;</span>
+<span class="c1"># interactive_plot</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
