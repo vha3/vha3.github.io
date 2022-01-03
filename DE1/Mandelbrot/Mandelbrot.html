@@ -13163,6 +13163,7 @@ $( document ).ready(code_toggle);
 <blockquote><ul>
 <li><a href="#Introduction">Introduction</a></li>
 <li><a href="#Mathematical-background">Mathematical background</a><blockquote><ul>
+<li><a href="#Video-discussion-of-mathematical-background">Video discussion of mathematical background</a></li>
 <li><a href="#A-simple-iteration">A simple iteration</a></li>
 <li><a href="#The-same-iteration-with-complex-numbers">The same iteration with complex numbers</a></li>
 <li><a href="#A-slight-modification-to-the-complex-iteration">A slight modification to the complex iteration</a></li>
@@ -13205,7 +13206,7 @@ $( document ).ready(code_toggle);
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Mathematical-background">Mathematical background<a class="anchor-link" href="#Mathematical-background">&#182;</a></h2><p>The Mandelbrot set is simply too interesting and too lovely to introduce as a set of equations for implementation. So, before we discuss how we'll implement this on the FPGA, I want to first attempt to explain what the Mandelbrot set is and why it's interesting.</p>
-<h3 id="A-simple-iteration">A simple iteration<a class="anchor-link" href="#A-simple-iteration">&#182;</a></h3><p>The train of thought that leads to the Mandelbrot set begins with thinking about iterations. An iteration is simply a rule which we apply over and over again. So, for example, the iteration below tells us to start with some number, $x_0$, and to square it repeatedly. If $x_0$ is 2, then $x_1$ is 4, $x_2$ is 16, etc.</p>
+<h3 id="Video-discussion-of-mathematical-background">Video discussion of mathematical background<a class="anchor-link" href="#Video-discussion-of-mathematical-background">&#182;</a></h3><iframe width="560" height="315" src="https://www.youtube.com/embed/47sJEYMBIZw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h3 id="A-simple-iteration">A simple iteration<a class="anchor-link" href="#A-simple-iteration">&#182;</a></h3><p>The train of thought that leads to the Mandelbrot set begins with thinking about iterations. An iteration is simply a rule which we apply over and over again. So, for example, the iteration below tells us to start with some number, $x_0$, and to square it repeatedly. If $x_0$ is 2, then $x_1$ is 4, $x_2$ is 16, etc.</p>
 \begin{align}
 x_{N+1} &amp;= x_N^2
 \end{align}<p>Now ask the following question: <strong>for which choices of $x_0$ does this iteration remain stable (not go to infinity), and for which choices of $x_0$ does it go to infinity?</strong> Is it obvious that, for this iteration, any $x_0$ in the range [-1,1] is stable, and any $x_0$ outside that range is unstable? We could color the parts of the real number line which are stable as shown below.<br><br></p>
