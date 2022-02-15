@@ -13093,11 +13093,14 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><ul>
 <li><a href="#Objective-and-page-organization">Objective and page organization</a></li>
+<li><a href="#Download">Download</a></li>
 <li><a href="#Documentation">Documentation</a></li>
 <li><a href="#All-the-code">All the code</a></li>
 <li><a href="#Stepping-thru-the-code">Stepping thru the code</a><blockquote><ul>
 <li><a href="#Includes">Includes</a></li>
+<li><a href="#Fixed-point-macros">Fixed-point macros</a></li>
 <li><a href="#DDS-globals">DDS globals</a></li>
+<li><a href="#Amplitude-modulation-variables-and-parameters">Amplitude-modulation variables and parameters</a></li>
 <li><a href="#SPI-globals">SPI globals</a></li>
 <li><a href="#Multicore-sync-globals">Multicore sync globals</a></li>
 <li><a href="#Spinlock">Spinlock</a></li>
@@ -13126,9 +13129,17 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This project was meant to provide an objective thru which to build understanding of multicore capabilities on the RP2040. For this project, I instantiated a timer interrupt on both core 0 and core 1. <a href="https://vha3.github.io/DDS/DDS.html">Direct digital synthesis</a> is performed separately on each core, and each core writes to a separate channel of the SPI DAC. The consequence is that the A output of the DAC is an an 800 Hz sine wave being generated on core 1, and the B output of the DAC is a 400 Hz sine wave being generated on core 0. Because the RP2040 buffers SPI writes, no spinlock is required to control each core's access to the SPI channel.</p>
+<p>This project was meant to provide an objective thru which to build understanding of multicore capabilities on the RP2040. For this project, I instantiated a timer interrupt on both core 0 and core 1. <a href="https://vha3.github.io/DDS/DDS.html">Direct digital synthesis</a> is performed separately on each core, and each core writes to a separate channel of the SPI DAC. The consequence is that the A output of the DAC is an an 800 Hz sine wave being generated on core 1, and the B output of the DAC is a 400 Hz sine wave being generated on core 0. A simple state machine amplitude-modulates these sine waves to 1Hz "beeps." Because the RP2040 buffers SPI writes, no spinlock is required to control each core's access to the SPI channel.</p>
 <p>A spinlock is used in the main program of each core to control access to a global variable. Each core locks the variable, increments it by 10 (printing as it does so), and then unlocks it so that the other core can lock/increment. Experimentation shows that a small delay is required after unlocking for the other core to reliably take control of the spinlock.</p>
 <p>All of the code is provided in a listing in the first section of this page. The rest of the page walks through the C source file from top to bottom, explaining each line of code. Lastly, I've included some plots output plots from the oscilloscope and compared the measured output frequencies to the expected output frequencies.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Download">Download<a class="anchor-link" href="#Download">&#182;</a></h2><p>Project available <a href="./multi-testing.zip">here</a>.</p>
 
 </div>
 </div>
@@ -13165,7 +13176,7 @@ div#notebook {
 <span class="cm">    RP2040. The program instantiates a timer interrupt on each core.</span>
 <span class="cm">    Each of these timer interrupts writes to a separate channel</span>
 <span class="cm">    of the SPI DAC and does DDS of two sine waves of two different</span>
-<span class="cm">    frequencies.</span>
+<span class="cm">    frequencies. These sine waves are amplitude-modulated to &quot;beeps.&quot;</span>
 
 <span class="cm">    No spinlock is required to mediate the SPI writes because of the</span>
 <span class="cm">    SPI buffer on the RP2040. Spinlocks are used in the main program</span>
@@ -13188,6 +13199,17 @@ div#notebook {
 <span class="cp">#include</span> <span class="cpf">&quot;hardware/sync.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;hardware/spi.h&quot;</span><span class="cp"></span>
 
+<span class="c1">// === the fixed point macros ========================================</span>
+<span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">int</span> <span class="n">fix15</span> <span class="p">;</span>
+<span class="cp">#define multfix15(a,b) ((fix15)((((signed long long)(a))*((signed long long)(b)))&gt;&gt;15))</span>
+<span class="cp">#define float2fix15(a) ((fix15)((a)*32768.0)) </span>
+<span class="cp">#define fix2float15(a) ((float)(a)/32768.0)</span>
+<span class="cp">#define absfix15(a) abs(a) </span>
+<span class="cp">#define int2fix15(a) ((fix15)(a &lt;&lt; 15))</span>
+<span class="cp">#define fix2int15(a) ((int)(a &gt;&gt; 15))</span>
+<span class="cp">#define char2fix15(a) (fix15)(((fix15)(a)) &lt;&lt; 15)</span>
+<span class="cp">#define divfix(a,b) (fix15)( (((signed long long)(a)) &lt;&lt; 15) / (b))</span>
+
 <span class="c1">//DDS parameters</span>
 <span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
 <span class="cp">#define Fs 40000</span>
@@ -13200,7 +13222,23 @@ div#notebook {
 
 <span class="c1">// DDS sine table</span>
 <span class="cp">#define sine_table_size 256</span>
-<span class="k">volatile</span> <span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+
+<span class="c1">// Values output to DAC</span>
+<span class="kt">int</span> <span class="n">DAC_output_0</span> <span class="p">;</span>
+<span class="kt">int</span> <span class="n">DAC_output_1</span> <span class="p">;</span>
+
+<span class="c1">// Amplitude modulation parameters and variables</span>
+<span class="n">fix15</span> <span class="n">max_amplitude</span> <span class="o">=</span> <span class="n">int2fix15</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">attack_inc</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">decay_inc</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="cp">#define ATTACK_TIME             200</span>
+<span class="cp">#define DECAY_TIME              200</span>
+<span class="cp">#define SUSTAIN_TIME            10000</span>
+<span class="cp">#define BEEP_DURATION           10400</span>
+<span class="cp">#define BEEP_REPEAT_INTERVAL    40000</span>
 
 <span class="c1">//SPI data</span>
 <span class="kt">uint16_t</span> <span class="n">DAC_data_1</span> <span class="p">;</span> <span class="c1">// output value</span>
@@ -13225,20 +13263,61 @@ div#notebook {
 <span class="k">volatile</span> <span class="kt">int</span> <span class="n">corenum_1</span>  <span class="p">;</span>
 
 <span class="c1">// Global counter for spinlock experimenting</span>
-<span class="kt">int</span> <span class="n">global_counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">int</span> <span class="n">global_counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
 
 <span class="c1">// Counter spinlock</span>
 <span class="kt">int</span> <span class="n">spinlock_num_count</span> <span class="p">;</span>
 <span class="n">spin_lock_t</span> <span class="o">*</span><span class="n">spinlock_count</span> <span class="p">;</span>
 
+<span class="c1">// State machine variables</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+
 <span class="c1">// This one is called on core 1</span>
 <span class="kt">bool</span> <span class="nf">repeating_timer_callback_core_1</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// DDS phase and sine table lookup</span>
-    <span class="n">phase_accum_main_1</span> <span class="o">+=</span> <span class="n">phase_incr_main_1</span>  <span class="p">;</span>
-    <span class="n">DAC_data_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
-    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">STATE_1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// DDS phase and sine table lookup</span>
+        <span class="n">phase_accum_main_1</span> <span class="o">+=</span> <span class="n">phase_incr_main_1</span>  <span class="p">;</span>
+        <span class="n">DAC_output_1</span> <span class="o">=</span> <span class="n">fix2int15</span><span class="p">(</span><span class="n">multfix15</span><span class="p">(</span><span class="n">current_amplitude_1</span><span class="p">,</span>
+            <span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">2048</span> <span class="p">;</span>
+
+        <span class="c1">// Ramp up amplitude</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">&lt;</span> <span class="n">ATTACK_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_1</span> <span class="o">+</span> <span class="n">attack_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Ramp down amplitude</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">&gt;</span> <span class="n">BEEP_DURATION</span> <span class="o">-</span> <span class="n">DECAY_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_1</span> <span class="o">-</span> <span class="n">decay_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Mask with DAC control bits</span>
+        <span class="n">DAC_data_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">(</span><span class="n">DAC_output_1</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+        <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
+        <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Increment the counter</span>
+        <span class="n">count_1</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+
+        <span class="c1">// State transition?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">==</span> <span class="n">BEEP_DURATION</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span>
+            <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// State transition?</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">count_1</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">==</span> <span class="n">BEEP_REPEAT_INTERVAL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="c1">// retrieve core number of execution</span>
     <span class="n">corenum_1</span> <span class="o">=</span> <span class="n">get_core_num</span><span class="p">()</span> <span class="p">;</span>
@@ -13248,12 +13327,46 @@ div#notebook {
 
 <span class="c1">// This one is called on core 0</span>
 <span class="kt">bool</span> <span class="nf">repeating_timer_callback_core_0</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// DDS phase and sine table lookup</span>
-    <span class="n">phase_accum_main_0</span> <span class="o">+=</span> <span class="n">phase_incr_main_0</span>  <span class="p">;</span>
-    <span class="n">DAC_data_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_B</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_0</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
-    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">STATE_0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// DDS phase and sine table lookup</span>
+        <span class="n">phase_accum_main_0</span> <span class="o">+=</span> <span class="n">phase_incr_main_0</span>  <span class="p">;</span>
+        <span class="n">DAC_output_0</span> <span class="o">=</span> <span class="n">fix2int15</span><span class="p">(</span><span class="n">multfix15</span><span class="p">(</span><span class="n">current_amplitude_0</span><span class="p">,</span>
+            <span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_0</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">2048</span> <span class="p">;</span>
+
+        <span class="c1">// Ramp up amplitude</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">&lt;</span> <span class="n">ATTACK_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_0</span> <span class="o">+</span> <span class="n">attack_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Ramp down amplitude</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">&gt;</span> <span class="n">BEEP_DURATION</span> <span class="o">-</span> <span class="n">DECAY_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_0</span> <span class="o">-</span> <span class="n">decay_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">DAC_data_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_B</span> <span class="o">|</span> <span class="p">(</span><span class="n">DAC_output_0</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+        <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
+        <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Increment the counter</span>
+        <span class="n">count_0</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+
+        <span class="c1">// State transition?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">==</span> <span class="n">BEEP_DURATION</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span>
+            <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// State transition?</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">count_0</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">==</span> <span class="n">BEEP_REPEAT_INTERVAL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="c1">// retrieve core number of execution</span>
     <span class="n">corenum_0</span> <span class="o">=</span> <span class="n">get_core_num</span><span class="p">()</span> <span class="p">;</span>
@@ -13317,11 +13430,15 @@ div#notebook {
     <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LDAC</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">)</span> <span class="p">;</span>
     <span class="n">gpio_put</span><span class="p">(</span><span class="n">LDAC</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
 
+    <span class="c1">// set up increments for calculating bow envelope</span>
+    <span class="n">attack_inc</span> <span class="o">=</span> <span class="n">divfix</span><span class="p">(</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">int2fix15</span><span class="p">(</span><span class="n">ATTACK_TIME</span><span class="p">))</span> <span class="p">;</span><span class="c1">//max_amplitude/(float)ATTACK_TIME ;</span>
+    <span class="n">decay_inc</span> <span class="o">=</span>  <span class="n">divfix</span><span class="p">(</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">int2fix15</span><span class="p">(</span><span class="n">DECAY_TIME</span><span class="p">))</span> <span class="p">;</span><span class="c1">//max_amplitude/(float)DECAY_TIME ;</span>
+
     <span class="c1">// === build the sine lookup table =======</span>
     <span class="c1">// scaled to produce values between 0 and 4096</span>
     <span class="kt">int</span> <span class="n">ii</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sine_table_size</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">){</span>
-         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
+         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">float2fix15</span><span class="p">(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
     <span class="p">}</span>
 
     <span class="c1">// Claim and initialize a spinlock</span>
@@ -13330,6 +13447,9 @@ div#notebook {
 
     <span class="c1">// Launch core 1</span>
     <span class="n">multicore_launch_core1</span><span class="p">(</span><span class="n">core1_entry</span><span class="p">);</span>
+
+    <span class="c1">// Desyncrhonize the beeps</span>
+    <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">;</span>
 
     <span class="c1">// Create a repeating timer that calls </span>
     <span class="c1">// repeating_timer_callback (defaults core 0)</span>
@@ -13401,6 +13521,24 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Fixed-point-macros">Fixed-point macros<a class="anchor-link" href="#Fixed-point-macros">&#182;</a></h4><p>Fixed-point is used for amplitude modulating the sine waves to speed up the ISR's. For an extended discussion of fixed point arithmetic, see <a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html">here</a>.</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">signed</span> <span class="kt">int</span> <span class="n">fix15</span> <span class="p">;</span>
+<span class="cp">#define multfix15(a,b) ((fix15)((((signed long long)(a))*((signed long long)(b)))&gt;&gt;15))</span>
+<span class="cp">#define float2fix15(a) ((fix15)((a)*32768.0)) </span>
+<span class="cp">#define fix2float15(a) ((float)(a)/32768.0)</span>
+<span class="cp">#define absfix15(a) abs(a) </span>
+<span class="cp">#define int2fix15(a) ((fix15)(a &lt;&lt; 15))</span>
+<span class="cp">#define fix2int15(a) ((int)(a &gt;&gt; 15))</span>
+<span class="cp">#define char2fix15(a) (fix15)(((fix15)(a)) &lt;&lt; 15)</span>
+<span class="cp">#define divfix(a,b) (fix15)( (((signed long long)(a)) &lt;&lt; 15) / (b))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="DDS-globals">DDS globals<a class="anchor-link" href="#DDS-globals">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">//DDS parameters</span>
 <span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
 <span class="cp">#define Fs 40000</span>
@@ -13413,9 +13551,39 @@ div#notebook {
 
 <span class="c1">// DDS sine table</span>
 <span class="cp">#define sine_table_size 256</span>
-<span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
 </pre></div>
 <p>The next chunk of code defines and declares a series of variables which will be used for Direct Digital Synthesis. For an extended explanation of the DDS algorithm, please see <a href="https://vha3.github.io/DDS/DDS.html">this webpage</a>. Note that each core has its own phase accumulator and increment variables, but that they share a sine table. This sine table is calculated in <code>main()</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Amplitude-modulation-variables-and-parameters">Amplitude-modulation variables and parameters<a class="anchor-link" href="#Amplitude-modulation-variables-and-parameters">&#182;</a></h4><p>We declare a series of parameters for amplitude-modulating the sine wave. These include the attack time, sustain time, and decay time for the "beeps," as well as two <code>fix15</code> variables <code>current_amplitude_x</code> to use for modulating the sine wave. The state machine variables are used to control amplitude modulation.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Values output to DAC (unmasked with control bits)</span>
+<span class="kt">int</span> <span class="n">DAC_output_0</span> <span class="p">;</span>
+<span class="kt">int</span> <span class="n">DAC_output_1</span> <span class="p">;</span>
+
+<span class="c1">// Amplitude modulation parameters and variables</span>
+<span class="n">fix15</span> <span class="n">max_amplitude</span> <span class="o">=</span> <span class="n">int2fix15</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">attack_inc</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">decay_inc</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="n">fix15</span> <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="cp">#define ATTACK_TIME             200</span>
+<span class="cp">#define DECAY_TIME              200</span>
+<span class="cp">#define SUSTAIN_TIME            10000</span>
+<span class="cp">#define BEEP_DURATION           10400</span>
+<span class="cp">#define BEEP_REPEAT_INTERVAL    40000</span>
+
+<span class="c1">// State machine variables</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+</pre></div>
 
 </div>
 </div>
@@ -13482,12 +13650,47 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Timer-callback-functions">Timer callback functions<a class="anchor-link" href="#Timer-callback-functions">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// This one is called on core 1</span>
 <span class="kt">bool</span> <span class="nf">repeating_timer_callback_core_1</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// DDS phase and sine table lookup</span>
-    <span class="n">phase_accum_main_1</span> <span class="o">+=</span> <span class="n">phase_incr_main_1</span>  <span class="p">;</span>
-    <span class="n">DAC_data_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
-    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">STATE_1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// DDS phase and sine table lookup</span>
+        <span class="n">phase_accum_main_1</span> <span class="o">+=</span> <span class="n">phase_incr_main_1</span>  <span class="p">;</span>
+        <span class="n">DAC_output_1</span> <span class="o">=</span> <span class="n">fix2int15</span><span class="p">(</span><span class="n">multfix15</span><span class="p">(</span><span class="n">current_amplitude_1</span><span class="p">,</span>
+            <span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_1</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">2048</span> <span class="p">;</span>
+
+        <span class="c1">// Ramp up amplitude</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">&lt;</span> <span class="n">ATTACK_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_1</span> <span class="o">+</span> <span class="n">attack_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Ramp down amplitude</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">&gt;</span> <span class="n">BEEP_DURATION</span> <span class="o">-</span> <span class="n">DECAY_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_1</span> <span class="o">-</span> <span class="n">decay_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Mask with DAC control bits</span>
+        <span class="n">DAC_data_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">(</span><span class="n">DAC_output_1</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+        <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
+        <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Increment the counter</span>
+        <span class="n">count_1</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+
+        <span class="c1">// State transition?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">==</span> <span class="n">BEEP_DURATION</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span>
+            <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// State transition?</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">count_1</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_1</span> <span class="o">==</span> <span class="n">BEEP_REPEAT_INTERVAL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">STATE_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">count_1</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="c1">// retrieve core number of execution</span>
     <span class="n">corenum_1</span> <span class="o">=</span> <span class="n">get_core_num</span><span class="p">()</span> <span class="p">;</span>
@@ -13497,12 +13700,46 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
 
 <span class="c1">// This one is called on core 0</span>
 <span class="kt">bool</span> <span class="nf">repeating_timer_callback_core_0</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// DDS phase and sine table lookup</span>
-    <span class="n">phase_accum_main_0</span> <span class="o">+=</span> <span class="n">phase_incr_main_0</span>  <span class="p">;</span>
-    <span class="n">DAC_data_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_B</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_0</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
-    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">STATE_0</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// DDS phase and sine table lookup</span>
+        <span class="n">phase_accum_main_0</span> <span class="o">+=</span> <span class="n">phase_incr_main_0</span>  <span class="p">;</span>
+        <span class="n">DAC_output_0</span> <span class="o">=</span> <span class="n">fix2int15</span><span class="p">(</span><span class="n">multfix15</span><span class="p">(</span><span class="n">current_amplitude_0</span><span class="p">,</span>
+            <span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main_0</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]))</span> <span class="o">+</span> <span class="mi">2048</span> <span class="p">;</span>
+
+        <span class="c1">// Ramp up amplitude</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">&lt;</span> <span class="n">ATTACK_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_0</span> <span class="o">+</span> <span class="n">attack_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// Ramp down amplitude</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">&gt;</span> <span class="n">BEEP_DURATION</span> <span class="o">-</span> <span class="n">DECAY_TIME</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">current_amplitude_0</span> <span class="o">-</span> <span class="n">decay_inc</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">DAC_data_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_B</span> <span class="o">|</span> <span class="p">(</span><span class="n">DAC_output_0</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+        <span class="c1">// SPI write (no spinlock b/c of SPI buffer)</span>
+        <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Increment the counter</span>
+        <span class="n">count_0</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+
+        <span class="c1">// State transition?</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">==</span> <span class="n">BEEP_DURATION</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">;</span>
+            <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// State transition?</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="n">count_0</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count_0</span> <span class="o">==</span> <span class="n">BEEP_REPEAT_INTERVAL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">current_amplitude_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">STATE_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+            <span class="n">count_0</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
     <span class="c1">// retrieve core number of execution</span>
     <span class="n">corenum_0</span> <span class="o">=</span> <span class="n">get_core_num</span><span class="p">()</span> <span class="p">;</span>
@@ -13510,7 +13747,7 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-<p>Each of the above is a callback function associated with alarms on cores 0 and 1. The first is the callback function for the alarm on core 1, and the second is the callback function for the alarm on core 0. In these callbacks, the phase accumulator is incremented and used to index into the sine table, a single SPI write is performed (to channel A on core 1 and channel B on core 0), and the core number is retrieved. There are a few things to note about this section of code.</p>
+<p>Each of the above is a callback function associated with alarms on cores 0 and 1. The first is the callback function for the alarm on core 1, and the second is the callback function for the alarm on core 0. In these callbacks, the phase accumulator is incremented and used to index into the sine table, a single SPI write is performed (to channel A on core 1 and channel B on core 0), and the core number is retrieved. A simple state machine modulates the synthesized sine waves to "beeps." There are a few things to note about this section of code.</p>
 <p>The first item to note is that there is no spinlock protecting SPI writes. This is because there is a 15-bit wide, 8-locations deep memory buffer for both SPI transmit and receive. Cores 1 and 0 can each write to the FIFO simultaneously, and the peripheral will write each transmission sequentially out of the buffer.</p>
 <p>The timer peripheral on the RP2040 has four alarms. Each of these alarms interrupt on a match of the lower 32 bits of the 64-bit counter. Each alarm outputs a separate interrupt. The particular interrupt that fires for a particular alarm is (it seems) whichever timer interrupt is associated with that alarm (<code>TIMER_IRQ_0</code>, <code>TIMER_IRQ_1</code>, <code>TIMER_IRQ_2</code>, <code>TIMER_IRQ_3</code>). Note that there may be more than one alarm associated with each of these underlying hardware alarms - so you can have up to four alarm pools. The callbacks for a particular alarm pool take place on the core from which the alarm pool was created, and they are called from the hardware alarm IRQ handler. Note that the <code>repeating_timer</code> library uses the default alarm pool. Unless the default configurations are changed, the default alarm pool is on core 0, allows for up to 16 separate concurrent timers (this could be configured up to 256), and utilizes hardware alarm 3.</p>
 <p>Note that these callbacks are configured to take, as an argument, an object of type <code>repeating_timer</code>. The declaration of the <code>repeating_timer</code> struct is shown below, copied from the source code. Note also that the function which sets up these callbacks, described in the next section, is <code>alarm_pool_add_repeating_timer_us()</code>, as documented on page 217 of the C SDK guide.</p>
@@ -13606,11 +13843,15 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
     <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LDAC</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">)</span> <span class="p">;</span>
     <span class="n">gpio_put</span><span class="p">(</span><span class="n">LDAC</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
 
+    <span class="c1">// set up increments for calculating bow envelope</span>
+    <span class="n">attack_inc</span> <span class="o">=</span> <span class="n">divfix</span><span class="p">(</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">int2fix15</span><span class="p">(</span><span class="n">ATTACK_TIME</span><span class="p">))</span> <span class="p">;</span><span class="c1">//max_amplitude/(float)ATTACK_TIME ;</span>
+    <span class="n">decay_inc</span> <span class="o">=</span>  <span class="n">divfix</span><span class="p">(</span><span class="n">max_amplitude</span><span class="p">,</span> <span class="n">int2fix15</span><span class="p">(</span><span class="n">DECAY_TIME</span><span class="p">))</span> <span class="p">;</span><span class="c1">//max_amplitude/(float)DECAY_TIME ;</span>
+
     <span class="c1">// === build the sine lookup table =======</span>
     <span class="c1">// scaled to produce values between 0 and 4096</span>
     <span class="kt">int</span> <span class="n">ii</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sine_table_size</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">){</span>
-         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
+         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">float2fix15</span><span class="p">(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
     <span class="p">}</span>
 
     <span class="c1">// Claim and initialize a spinlock</span>
@@ -13619,6 +13860,9 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
 
     <span class="c1">// Launch core 1</span>
     <span class="n">multicore_launch_core1</span><span class="p">(</span><span class="n">core1_entry</span><span class="p">);</span>
+
+    <span class="c1">// Desyncrhonize the beeps</span>
+    <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span> <span class="p">;</span>
 
     <span class="c1">// Create a repeating timer that calls </span>
     <span class="c1">// repeating_timer_callback (defaults core 0)</span>
