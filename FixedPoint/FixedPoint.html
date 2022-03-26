@@ -13108,6 +13108,7 @@ div#notebook {
 </li>
 <li><a href="#Random-number-generation-in-fixed-point">Random number generation in <code>fixed point</code></a></li>
 <li><a href="#stdfix.h"><code>stdfix.h</code></a></li>
+<li><a href="#Demonstration">Demonstration</a></li>
 </ul>
 </blockquote>
 
@@ -13530,6 +13531,29 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If you <code>#include &lt;stdfix.h&gt;</code>, you gain access to compiler-understood fixed-point data types. For example, you get access to type <code>_Accum</code>, which is a 16.15 fixed point <em>exactly</em> like the one that we've been considering above. That means that you can use all the ordinary symbols for arithmetic, and fixed point arithmetic will just be applied behind the scenes. If your application supports the range and resolution offered by one of these types, use them! Then you don't need to write all the routines considered above.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2><p>In the video below, each core of the RP2040 computes half of the Mandelbrot set. One core computes the top half of the set using fixed point, and the other core computes the bottom half using floating point. On this particular system, there is an approximately 5.3x speedup using fixed point.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ySxg6M0f0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
