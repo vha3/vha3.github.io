@@ -13148,7 +13148,7 @@ div#notebook {
 <li>Please make these parameters easy to change in your code! For class-wide synchronization, we may want a longer chirp repeat interval.</li>
 </ul>
 <h4 id="Week-3">Week 3<a class="anchor-link" href="#Week-3">&#182;</a></h4><ul>
-<li>In <a href="https://vanhunteradams.com/Pico/VGA/FFT.html">this example code</a>, the ADC is used to sample audio and then the RP2040 calculates/visualizes an FFT.</li>
+<li>In <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Cricket_Lab_Week_3">this example code</a>, the ADC is used to sample audio and then the RP2040 calculates/visualizes an FFT.</li>
 <li>Run this demo code while sampling the microphone. Confirm functionality with a tone generator. The demo code uses analog input 0. Adjust the gain potentiometer on the back until you get good response at the chirp frequency.</li>
 <li>Modify this code such that it detects one (and only one!) chirp each time a cricket chirps. Print out "Chirp!" to a serial terminal each time you hear one. You can test with the synthesized crickets on the cricket synthesis webpage linked above.</li>
 <li>Merge this code with your cricket synthesis code. Your system should produce a cricket chirp from each core. Each core should detect <em>the other core's chirps</em> but <em>not it's own chirps.</em></li>
