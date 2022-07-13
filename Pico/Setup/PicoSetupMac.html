@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>PicoSetup</title>
+<title>PicoSetupMac</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,29 +13077,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Setting-up-the-Raspberry-Pi-Pico-for-C/C++-Development-on-Windows">Setting up the Raspberry Pi Pico for C/C++ Development on Windows<a class="anchor-link" href="#Setting-up-the-Raspberry-Pi-Pico-for-C/C++-Development-on-Windows">&#182;</a></h1>
+<h1 id="Setting-up-the-Raspberry-Pi-Pico-for-C/C++-Development-on-Mac">Setting up the Raspberry Pi Pico for C/C++ Development on Mac<a class="anchor-link" href="#Setting-up-the-Raspberry-Pi-Pico-for-C/C++-Development-on-Mac">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+<h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Everything in this file comes from the <a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">Getting started with Raspberry Pi Pico for C/C++ development guide</a>. This webpage contains all of the same content, just organized into an enumerated list.</p>
-<p>This webpage walks you through installing the toolchain, SDK, Raspberry Pi examples, and Hunter's examples on your Windows machine. It then describes how to build those examples and load them onto the RP2040.</p>
+<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><p>Everything in this file comes from the <a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">Getting started with Raspberry Pi Pico for C/C++ development guide</a>. This webpage contains all the same content, just organized into an enumerated list.</p>
+<p>This webpage walks you through installing the toolchain, SDK, Raspberry Pi examples, and Hunter's examples on your Mac. It then describes how to build those examples and load them onto the RP2040.</p>
 
 </div>
 </div>
@@ -13107,72 +13100,36 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installing-the-toolchain-and-VSCode">Installing the toolchain and VSCode<a class="anchor-link" href="#Installing-the-toolchain-and-VSCode">&#182;</a></h2><h4 id="NOTE:-Nikhil-Dabas-has-created-an-easy-to-use-automated-installer-(here)-which-automates-the-intallation-of-all-the-software-described-in-this-section.">NOTE: <a href="https://github.com/ndabas">Nikhil Dabas</a> has created an easy-to-use automated installer (<a href="https://github.com/ndabas/pico-setup-windows">here</a>) which automates the intallation of all the software described in this section.<a class="anchor-link" href="#NOTE:-Nikhil-Dabas-has-created-an-easy-to-use-automated-installer-(here)-which-automates-the-intallation-of-all-the-software-described-in-this-section.">&#182;</a></h4><h4 id="NOTE:-If-you-are-an-ECE-4760-student-at-Cornell,-the-toolchain-is-already-installed-on-the-laboratory-PC's-in-Phillips-238.">NOTE: If you are an ECE 4760 student at Cornell, the toolchain is already installed on the laboratory PC's in Phillips 238.<a class="anchor-link" href="#NOTE:-If-you-are-an-ECE-4760-student-at-Cornell,-the-toolchain-is-already-installed-on-the-laboratory-PC's-in-Phillips-238.">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Install the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">ARM GCC compiler</a>.<blockquote><ul>
-<li>During installation, make sure to tick the box to register the path to the ARM compiler as an environment veraible in the Windows shell when prompted to do so. See the image below.</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<figure>
-    <img align="center" width="500" height="500" src="arm.png" alt='missing' />
-    <center><figcaption>Third checkbox is checked, adding path to environment variable</figcaption></center>
-</figure><ol>
-<li>Install <a href="https://cmake.org/download/">CMake</a>.<blockquote><ul>
-<li>When prompted, add CMake to the system <code>PATH</code> for all users.</li>
-</ul>
-</blockquote>
-</li>
-<li>Install <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio Code</a></li>
-<li>Install <a href="https://visualstudio.microsoft.com/downloads/">Build Tools for Visual Studio 2019</a><blockquote><ul>
-<li>When prompted by the Built Tools for Visual Studio installer, you need to install the C++ build tools only.</li>
-<li>You must install the full "Windows 10 SDK" package as the SDK will need to build the <code>pioasm</code> and <code>elf2uf2</code> tools locally. Removing it from the list of installed items will mean that you will be unable to build Raspberry Pi Pico binaries.</li>
-<li>This takes a while.<figure>
-<img align="center" width="500" height="500" src="tools.png" alt='missing' />
-<center><figcaption>Note checkboxes on right side of image during Build Tools install</figcaption></center>
-</figure></li>
-</ul>
-</blockquote>
-</li>
-<li>Install <a href="https://www.python.org/downloads/windows/">Python 3.7</a><blockquote><ul>
-<li>When prompted by the installer, add Python 3.7 to the system <code>PATH</code> for all users. <figure>
-<img align="center" width="500" height="500" src="tools.png" alt='missing' />
-<center><figcaption>4th checkbox from top</figcaption></center>
-</figure></li>
-</ul>
-</blockquote>
-</li>
-</ol>
+<h2 id="Install-the-toolchain">Install the toolchain<a class="anchor-link" href="#Install-the-toolchain">&#182;</a></h2><ol>
+<li><p>Install Homebrew (if it's not already installed).</p>
 <blockquote><ul>
-<li>You should be additionally disable the <code>MAX_PATH</code> length when prompted at the end of the installation.</li>
-<li>When installing, choose 'Custom installation,' click through 'Optional Features' and then under 'Advanced Features' choose 'Install for all users'</li>
-<li>It is <em>possible</em> that you will need to make a symbolic link so that the Makefile can find Python 3. To do so, type <code>cmd</code> in the Run Window so that the Developer Command Prompt icon appears in the Start Menu. Select the small arrow to the right of the icon, and then select "Run as administrator." Navigate to <code>C:\Program Files\Python37</code> and make a symlink by running<br><br>
-<code>C:\Program Files\Python37 &gt; mklink python3.exe python.exe</code><br><br>
-Only do this if your build fails because Make can't find your python installation.</li>
-</ul>
-<ol>
-<li>Install <a href="https://git-scm.com/download/win">Git</a>.</li>
-</ol>
-<ul>
-<li><p>When prompted by the installer, make sure that you change the default editor away from <code>vim</code> (see below)</p>
-<figure>
-  <img align="center" width="500" height="500" src="git.png" alt='missing' />
-  <center><figcaption>Setting default editor to Notepad++ instead of vim</figcaption></center>
-</figure></li>
-<li><p>Tick the checkbox to allow Git to be used from third-party tools.</p>
-</li>
-<li>Check the box "Checkout as is, commit as-is" (unless you have a strong reason not to)</li>
-<li>Select "Use Windows' default console window"</li>
-<li>Select "Enable experimental support for pseudo consoles"</li>
+<li>Open up a Terminal and run <br><br><blockquote><ul>
+<li><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"</code></li>
 </ul>
 </blockquote>
+</li>
+<li>You will need to add Homebrew to your PATH. Do so by running the following two commands:<br><br><blockquote><ul>
+<li><code>echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' &gt;&gt; /Users/USERNAME/.zprofile</code> (remembering to substitute your username)</li>
+<li><code>eval "$(/opt/homebrew/bin/brew shellenv)"</code></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Install the toolchain</p>
+<blockquote><ul>
+<li>Open up a Terminal and run <br><br><blockquote><ul>
+<li><code>brew install cmake</code></li>
+<li><code>brew tap ArmMbed/homebrew-formulae</code></li>
+<li><code>brew install arm-none-eabi-gcc</code></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ol>
 
 </div>
 </div>
@@ -13181,12 +13138,39 @@ Only do this if your build fails because Make can't find your python installatio
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Install-the-SDK">Install the SDK<a class="anchor-link" href="#Install-the-SDK">&#182;</a></h2><ol>
-<li>Open Windows PowerShell, and create a directory where you'd like to store all the Pico examples and the SDK. I put mine in <code>C:\Users\vha3\Pico</code></li>
-<li>Run the following set of commands:<br><br>
-<code>C:\Users\vha3\Pico&gt; git clone -b master https://github.com/raspberrypi/pico-sdk.git</code> <br>
-<code>C:\Users\vha3\Pico&gt; cd pico-sdk</code><br>
-<code>C:\Users\vha3\Pico\pico-sdk&gt; git submodule update --init</code> <br>
-<code>C:\Users\vha3\Pico\pico-sdk&gt; cd ..</code><br></li>
+<li><p>Create a directory in which you will store the SDK and your projects. I put mine in <code>~/Pico</code>.</p>
+<blockquote><ul>
+<li><code>$ mkdir Pico</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Navigate into the directory you just created</p>
+<blockquote><ul>
+<li><code>$ cd ./Pico/</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Clone the SDK</p>
+<blockquote><ul>
+<li><code>$ git clone -b master https://github.com/raspberrypi/pico-sdk.git</code></li>
+<li><code>$ cd pico-sdk</code></li>
+<li><code>$ git submodule update --init</code></li>
+<li><code>$ cd ..</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Clone the Raspberry Pi company's examples</p>
+<blockquote><ul>
+<li><code>$ git clone -b master https://github.com/raspberrypi/pico-examples.git</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Clone Hunter's examples</p>
+<blockquote><ul>
+<li><code>$ git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Examples.git</code></li>
+</ul>
+</blockquote>
+</li>
 </ol>
 
 </div>
@@ -13195,45 +13179,81 @@ Only do this if your build fails because Make can't find your python installatio
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install-the-Examples">Install the Examples<a class="anchor-link" href="#Install-the-Examples">&#182;</a></h2><ol>
-<li>Within the Windows PowerShell, run the following commands:<br><br>
-<code>C:\Users\vha3\Pico&gt; git clone -b master https://github.com/raspberrypi/pico-examples.git</code><br>
-<code>C:\Users\vha3\Pico&gt; git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Demos.git</code><br><br></li>
+<h2 id="Build-the-examples">Build the examples<a class="anchor-link" href="#Build-the-examples">&#182;</a></h2><h4 id="Examples-from-Raspberry-Pi-company">Examples from Raspberry Pi company<a class="anchor-link" href="#Examples-from-Raspberry-Pi-company">&#182;</a></h4><ol>
+<li><p>Navigate into the <code>pico-examples</code> directory</p>
+<blockquote><ul>
+<li><code>$ cd ~/Pico/pico-examples/</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Create a directory called <code>build</code></p>
+<blockquote><ul>
+<li><code>$ mkdir build</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Navigate into the new <code>build</code> directory</p>
+<blockquote><ul>
+<li><code>$ cd ~/Pico/pico-examples/build/</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Specify the <code>PICO_SDK_PATH</code></p>
+<blockquote><ul>
+<li><code>$ export PICO_SDK_PATH=../../pico-sdk</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Prepare your cmake build directory</p>
+<blockquote><ul>
+<li><code>$ cmake ..</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Make all the Raspberry Pi company examples</p>
+<blockquote><ul>
+<li><code>$ make</code></li>
+</ul>
+</blockquote>
+</li>
 </ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Building-the-example-projects-from-the-Command-Line">Building the example projects from the Command Line<a class="anchor-link" href="#Building-the-example-projects-from-the-Command-Line">&#182;</a></h2><ol>
-<li>From the Windows Menu, select <code>Windows &gt; Visual Studio 2019 &gt; Developer Command Prompt</code></li>
-<li>Navigate to the directory where you've installed the Pico examples and SDK. For me, it was <code>C:\Users\vha3\Pico</code>.</li>
-<li>Set the path to the SDK by running the following:<br><br>
-<code>C:\Users\vha3\Pico &gt; setx PICO_SDK_PATH "..\..\pico-sdk"</code><br><br></li>
-<li>Close the current command prompt window.</li>
-<li>Open a new Command Prompt window by again navigating from the Windows Menu to <code>Windows &gt; Visual Studio 2019 &gt; Developer Command Prompt</code>. Closing/re-opening will set the environment variable that we configured above.</li>
-</ol>
-<h4 id="Building-the-Raspberry-Pi-company-examples">Building the Raspberry Pi company examples<a class="anchor-link" href="#Building-the-Raspberry-Pi-company-examples">&#182;</a></h4><ol>
-<li>Navigate to the <code>pico-examples</code> folder. For me, this was in the directory <code>C:\Users\vha3\Pico\pico-examples</code></li>
-<li>Build the "Hello World" example by running: <br><br>
-<code>C:\Users\vha3\Pico&gt; cd pico-examples</code><br>
-<code>C:\Users\vha3\Pico\pico-examples&gt; mkdir build</code><br>
-<code>C:\Users\vha3\Pico\pico-examples&gt; cd build</code><br>
-<code>C:\Users\vha3\Pico\pico-examples\build&gt; cmake -G "NMake Makefiles" ..</code><br>
-<code>C:\Users\vha3\Pico\pico-examples\build&gt; nmake</code><br><br></li>
-<li>Within the <code>build</code> directory, you will now find a <code>hello_world</code> directory. You will find directories for each of the other example projects too. These folders will contain the ELF, <code>bin</code>, and <code>uf2</code> target files for each project. The <code>uf2</code> target file can be dragged-and-dropped directly onto an RP2040 board attached to your PC via USB, as explained in the next section.</li>
-</ol>
-<h4 id="Building-Hunter's-examples">Building Hunter's examples<a class="anchor-link" href="#Building-Hunter's-examples">&#182;</a></h4><ol>
-<li>Navigate to the <code>Hunter-Adams-RP2040-Demos</code> folder. For me, this was in the directory <code>C:\Users\vha3\Pico\Hunter-Adams-RP2040-Demos</code></li>
-<li>Build the examples by running: <br><br>
-<code>C:\Users\vha3\Pico&gt; cd Hunter-Adams-RP2040-Demos</code><br>
-<code>C:\Users\vha3\Pico\Hunter-Adams-RP2040-Demos&gt; mkdir build</code><br>
-<code>C:\Users\vha3\Pico\Hunter-Adams-RP2040-Demos&gt; cd build</code><br>
-<code>C:\Users\vha3\Pico\Hunter-Adams-RP2040-Demos\build&gt; cmake -G "NMake Makefiles" ..</code><br>
-<code>C:\Users\vha3\Pico\Hunter-Adams-RP2040-Demos\build&gt; nmake</code><br><br></li>
-<li>Within the <code>build</code> directory, you will now find a directory for each example project.  These folders will contain the ELF, <code>bin</code>, and <code>uf2</code> target files for each project. The <code>uf2</code> target file can be dragged-and-dropped directly onto an RP2040 board attached to your PC via USB, as explained in the next section.</li>
+<h4 id="Examples-from-Hunter">Examples from Hunter<a class="anchor-link" href="#Examples-from-Hunter">&#182;</a></h4><ol>
+<li><p>Navigate into the <code>Hunter-Adams-RP2040-Demos</code> directory</p>
+<blockquote><ul>
+<li><code>$ cd ~/Pico/Hunter-Adams-RP2040-Demos/</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Create a directory called <code>build</code></p>
+<blockquote><ul>
+<li><code>$ mkdir build$</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Navigate into the new <code>build</code> directory</p>
+<blockquote><ul>
+<li><code>$ cd ~/Pico/Hunter-Adams-RP2040-Demos/build/</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Specify the <code>PICO_SDK_PATH</code> <em>if you haven't already done this previously</em></p>
+<blockquote><ul>
+<li><code>$ export PICO_SDK_PATH=../../pico-sdk</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Prepare your cmake build directory</p>
+<blockquote><ul>
+<li><code>$ cmake ..</code></li>
+</ul>
+</blockquote>
+</li>
+<li><p>Make all Hunter's examples</p>
+<blockquote><ul>
+<li><code>$ make</code></li>
+</ul>
+</blockquote>
+</li>
 </ol>
 
 </div>
@@ -13243,58 +13263,10 @@ Only do this if your build fails because Make can't find your python installatio
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Programming-the-Pico">Programming the Pico<a class="anchor-link" href="#Programming-the-Pico">&#182;</a></h2><ol>
-<li><em>While holding down the <code>BOOTSEL</code> button</em>, plug the Pico into a USB port.</li>
-<li>The Pico will appear as a mass storage device in your file navigator.</li>
-<li>Drag-and-drop <code>C:\Users\vha3\Pico\pico-examples\build\blink.uf2</code> to the Pico, as you would if you were moving a file to a flash drive.</li>
-<li>The Pico will automatically reboot, and start running the Blink example, flashing the LED.</li>
+<li>The build process creates a whole bunch of files within the <code>build</code> directory. Look in particular for the .uf2 file for whichever project you'd like to program.</li>
+<li>Press the button on the Pico while plugging it into the computer. This will make it appear as a flash drive to the computer.</li>
+<li>Drag/drop the .uf2 file onto the Pico.</li>
 </ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Building-the-example-projects-from-Visual-Studio-Code">Building the example projects from Visual Studio Code<a class="anchor-link" href="#Building-the-example-projects-from-Visual-Studio-Code">&#182;</a></h2><h4 id="NOTE:-You-are-welcome-to-make-these-configurations-on-your-own-machine,-but-in-the-Phillips-238-laboratory-we-will-build-from-the-command-line,-as-explained-above.">NOTE: You are welcome to make these configurations on your own machine, but in the Phillips 238 laboratory we will build from the command line, as explained above.<a class="anchor-link" href="#NOTE:-You-are-welcome-to-make-these-configurations-on-your-own-machine,-but-in-the-Phillips-238-laboratory-we-will-build-from-the-command-line,-as-explained-above.">&#182;</a></h4><ol>
-<li>Navigate via the Windows Menu to <code>Windows &gt; Visual Studio 2019 &gt; Developer Command Prompt</code></li>
-<li>When the command prompt window opens, type <code>C:\Users\vha3\Pico &gt; code</code>. This will open Visual Studio Code with all of the correct environment variables set so that the toolchain is correctly configured.</li>
-<li><strong>Note from the guide</strong>: If you start Visual Studio Code by clicking on its desktop icon, or directly from the Start Menu, then the build environment will not be correctly configured. This can be done manually later in the CMake Tools Settings, but the easiest way to configure the Visual Studio Code environment is just to open it from a Developer Command Prompt Window where these environment variables are already set.</li>
-<li>Click on the Extensions icon in the left-hend toolbar (or type <code>Ctrl + Shift + X</code>) and search for "CMake Tools"</li>
-<li>Click the "CMake Tools" entry in the list, and then click the install button</li>
-<li>Click the Cog Wheel at the bottom of the navigation bar on the left-hand side of the interface and select "Settings"</li>
-<li>In the Settings pange, click on "Extensions" and the "CMake Tools configuration."</li>
-<li>Scroll down to "Cmake: Configure Environment" and click on "Add Item"</li>
-<li>Set the Item to <code>PICO_SDK_PATH</code> and set the Value to <code>..\..\pico-sdk</code> as shown below<figure>
- <img align="center" width="500" height="500" src="vs.png" alt='missing' />
- <center><figcaption>Cmake: Configure Environment</figcaption></center>
-</figure></li>
-<li>Scroll down to "Cmake: Generator" and enter "NMake Makefiles" into the box.</li>
-<li>Close the Settings panel.</li>
-<li>Navigate to <code>File &gt; Open Folder</code> and navigate to the <code>pico-examples</code> repo, then hit "Okay."</li>
-<li>You will be prompted to configure the project, as shown below. Click "Yes" and then select "GCC for arm-none-eabi" for your compiler.<figure>
-<img align="center" width="500" height="500" src="vs2.png" alt='missing' />
-<center><figcaption>See lower-right corner prompt to configure the project</figcaption></center>
-</figure></li>
-<li>Click the "Build" button (with a cog wheel) in the blue bottom bar of the window. This will create the build directory and run CMake and build the example projects.</li>
-<li>Program the Pico by navigating to an example project directory within the build directory and drag/dropping onto the Pico, as explained in the previous section.</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
 
 </div>
 </div>
