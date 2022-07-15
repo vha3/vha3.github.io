@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>UsingPicoSDK</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,27 +13077,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Using-the-Raspberry-Pi-Pico-C/C++-SDK">Using the Raspberry Pi Pico C/C++ SDK<a class="anchor-link" href="#Using-the-Raspberry-Pi-Pico-C/C++-SDK">&#182;</a></h1><h3 id="A-dissection-of-the-Blinky-example-code">A dissection of the Blinky example code<a class="anchor-link" href="#A-dissection-of-the-Blinky-example-code">&#182;</a></h3><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)"><a href="https://vanhunteradams.com">V. Hunter Adams</a> (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Purpose-of-this-webpage">Purpose of thiw webpage</a></li>
+<li><a href="#What-is-an-SDK,-and-why-do-we-need-one?">What is an SDK, and why do we need one?</a></li>
+<li><a href="#A-brief-summary-of-the-SDK-architecture">A brief summary of the SDK architecture</a></li>
+<li><a href="#A-brief-description-of-CMake">A brief description of CMake</a></li>
+<li><a href="#How-do-you-interact-with-the-SDK?">How do you interact with the SDK?</a></li>
+<li><a href="#Dissecting-Blinky">Dissecting Blinky</a></li>
+<li><a href="#Building-Blinky">Building Blinky</a></li>
 </ul>
 </blockquote>
 
@@ -13115,65 +13109,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
+<h2 id="Purpose-of-this-webpage">Purpose of this webpage<a class="anchor-link" href="#Purpose-of-this-webpage">&#182;</a></h2><p>The purpose of this webpage is to provide a <em>brief</em> and <em>practical</em> introduction to the Raspberry Pi Pico SDK. The focus of this webpage is to describe how to <em>use</em> the SDK. Please see <a href="https://vanhunteradams.com/Pico/Setup/SDKArchitecture.html">this webpage</a> and (even better) the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">SDK guide</a> for a description of how it works.</p>
 
 </div>
 </div>
@@ -13189,63 +13125,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK architecture</a></li>
-</ol>
+<h2 id="What-is-an-SDK,-and-why-do-we-need-one?">What is an SDK, and why do we need one?<a class="anchor-link" href="#What-is-an-SDK,-and-why-do-we-need-one?">&#182;</a></h2><p>The RP2040 microcontroller, like nearly all microcontrollers, contains a CPU (or, in the case of the RP2040, two CPU's) and a whole collection of <em>hardware peripherals</em>. These hardware peripherals include circuits and simple processors that are <em>separate from</em> the main CPU, but that can be configured to communicate with the main CPU. Programming a microcontroller is an exercise in hardware/software co-design, where "hardware" not only includes that which you build and interface with the GPIO ports, but also includes the internal peripherals.</p>
+<p>The program that we write for the microcontroller not only describes the set of instructions that the CPU should execute, it also <em>configures the CPU, and configures/controls the hardware peripherals</em>. Performing these configurations, for nearly all microcontrollers, means setting the values of registers.</p>
+<p>The <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a> describes every register in the RP2040 and it's various configurations. For example, see page 111. The register <code>CH0_READ_ADDR</code>, which is at address 0x50000000, sets the read address for DMA channel 0. On page 542 of the datasheet, you can see that the register <code>TIMERLR</code>, located at 0x4005400c, contains the lower 32 bits of a 64-bit internal timer. There are a <em>ton</em> of registers, and the functions of many of the registers are coupled. For CPU's as configurable as the Arm Cortex-M0's in the RP2040, getting all these register settings right could get very cumbersome indeed.</p>
+<p>So, the Raspberry Pi company has created an SDK (Software Development Kit). This SDK is a library of C macros and functions that abstract register settings into function calls. This makes configuring and programming the RP2040 <em>way</em> easier. This webpage is intended to give you a practical understanding of how to use the Raspberry Pi Pico C/C++ SDK. A <a href="https://vanhunteradams.com/Pico/Setup/SDKArchitecture.html">separate webpage</a> describes how the SDK works in more technical detail. All information on this webpage comes from the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a>.</p>
 
 </div>
 </div>
@@ -13261,155 +13144,162 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
+<h2 id="A-brief-summary-of-the-SDK-architecture">A brief summary of the SDK architecture<a class="anchor-link" href="#A-brief-summary-of-the-SDK-architecture">&#182;</a></h2><p>The SDK for the Pico is arranged heirarchically. This structure is described in detail on <a href="https://vanhunteradams.com/Pico/Setup/SDKArchitecture.html">this webpage</a> and in <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">chapter 2 of the C SDK guide</a>, but let me briefly summarize that heirarchy here.</p>
+<h4 id="Registers">Registers<a class="anchor-link" href="#Registers">&#182;</a></h4><p>At the bottom of this heirarchy are the registers. In the SDK, the <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2040/hardware_regs/include/hardware/regs"><code>hardware_regs</code></a> library is a complete set of include files for all the RP2040 registers. If you click through some of the files in this library, you'll find long lists of <code>#define</code> statements which name each register. For example, <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/include/hardware/regs/timer.h">here</a> are the registers which configure and control the timers. Compare the registers described in this file with the list of registers on page 540 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>. You can see that they are all represented.</p>
+<h4 id="Registers-are-organized-into-structs">Registers are organized into structs<a class="anchor-link" href="#Registers-are-organized-into-structs">&#182;</a></h4><p>The SDK organizes all of these registers into structs. <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2040/hardware_structs/include/hardware/structs">Here</a> are all the structs. And <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_structs/include/hardware/structs/timer.h">here</a> is the particular struct that organizes timer registers, called <code>timer_hw_t</code>. Note that this struct organizes these registers in precisely the same order that they are organized in the datasheet. How thoughtful!</p>
+<h4 id="Structs-have-their-fields-manipulated-by-hardware-support-libraries">Structs have their fields manipulated by hardware support libraries<a class="anchor-link" href="#Structs-have-their-fields-manipulated-by-hardware-support-libraries">&#182;</a></h4><p>The SDK contains a collection of <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2_common">C libraries</a> which define functions that manipulate the fields of these structs. These libraries abstract low-level register manipulations into function calls. So, the programmer can perform these configurations using code that looks like this:</p>
+<p><code>dma_timer_set_fraction(uint timer, uint16_t numerator, uint16_t denominator);</code></p>
+<p>rather than this:</p>
+<p><code>dma_hw-&gt;timer[timer] = (((uint32_t)numerator) &lt;&lt; DMA_TIMER0_X_LSB) | (((uint32_t)denominator) &lt;&lt; DMA_TIMER0_Y_LSB);</code></p>
+<h4 id="High-level-API's-include-a-collection-of-hardware-support-libraries">High-level API's include a collection of hardware support libraries<a class="anchor-link" href="#High-level-API's-include-a-collection-of-hardware-support-libraries">&#182;</a></h4><p>For convenience, the SDK has some high-level API's which include a collection of the hardware support libraries. All of these high-level API's have names that look like <code>pico_xxxx</code> (e.g. <code>pico_multicore</code> or <code>pico_stdlib</code>). You could individually include each of the hardware support libraries into your project instead of including a high-level API, but they can make your code more tidy.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design. Started in Spring, 2021.<br></p>
-<blockquote><p><strong>Raspberry Pi Pico (RP2040)</strong></p>
-<ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-</ul>
 <hr>
-<p><strong>PIC32</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-brief-description-of-CMake">A brief description of CMake<a class="anchor-link" href="#A-brief-description-of-CMake">&#182;</a></h2><p>The SDK uses CMake to manage project builds. Each project will contain a file called <code>CMakeLists.txt</code>, and that file specifies the the header files to which the project should link, any source files that it should include, and other build specifications. The primary modifications that you will make to example CMakeLists.txt files will include modifications to the <code>target_link_libraries</code> arguments, modifications to the executable names, and modifications to the <code>target_sources</code> arguments. We will demonstrate all these via an example in the <a href="#Dissecting-Blinky">Dissecting Blinky</a> section.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="How-do-you-interact-with-the-SDK?">How do you interact with the SDK?<a class="anchor-link" href="#How-do-you-interact-with-the-SDK?">&#182;</a></h2><p>The SDK levels of abstraction with which you will interact are the hardware support libraries and the high-level API's. To you as the application programmer, these appear as <code>#include's</code> in your C program and as linked libraries in your CMakeLists.txt file (we'll look at an example in just a moment). But how do you know which hardware support libraries and high-level API's to include? In general, you'll go through the following process:</p>
+<ol>
+<li>Read the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a> to learn the details of a particular system feature or hardware peripheral.</li>
+<li>Open the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">RP2040 C SDK guide</a> table of contents, and find the hardware support library associated with your peripheral or system feature of interest.</li>
+<li>Read the associated section of the SDK guide! And read through the available functions for that particular peripheral.</li>
+<li>To include a hardware support library in your project, add a <code>#include "hardware/peripheralname.h</code> to your C file, and add <code>hardware_peripheralname</code> to the list of linked libraries in your CMakeLists.txt file. For instance, if we wanted to include the SPI hardware support library, we would add <code>#include hardware/spi.h</code> to our C file and we would include <code>hardware_spi</code> to our list of linked libraries in CMakeLists.txt.</li>
+<li>Use the functions from the SDK in your program!</li>
+</ol>
+<p>The best way to illustrate this is via an example.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dissecting-Blinky">Dissecting Blinky<a class="anchor-link" href="#Dissecting-Blinky">&#182;</a></h2><p>The best way to introduce the SDK is via an example, and the simplest example to consider is one which simply blinks the onboard LED. The program which accomplishes this (available <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_1_Incremental/a_Blinky_Demo">here</a>) consists of a single C file and a CMakeLists.txt file. Both are shown in their entirety below. We will consider each, one line at a time.</p>
+<h3 id="Full-Program">Full Program<a class="anchor-link" href="#Full-Program">&#182;</a></h3><h4 id="C-Program">C Program<a class="anchor-link" href="#C-Program">&#182;</a></h4><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * V. Hunter Adams (vha3@cornell.edu)</span>
+<span class="cm"> */</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+
+<span class="c1">// The LED is connected to GPIO 25</span>
+<span class="cp">#define LED_PIN 25</span>
+
+<span class="c1">// Main (runs on core 0)</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialize the LED pin</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">);</span>
+    <span class="c1">// Configure the LED pin as an output</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+    <span class="c1">// Loop</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Set high</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="c1">// Sleep</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+        <span class="c1">// Set low</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="c1">// Sleep</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="CMakeLists.txt">CMakeLists.txt<a class="anchor-link" href="#CMakeLists.txt">&#182;</a></h4><div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">blinky</span><span class="p">)</span>
+
+<span class="nb">target_sources</span><span class="p">(</span><span class="s">blinky</span> <span class="s">PRIVATE</span> <span class="s">blinky.c</span><span class="p">)</span>
+
+<span class="c"># Pull in our pico_stdlib which pulls in commonly used features</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">blinky</span> <span class="s">pico_stdlib</span><span class="p">)</span>
+
+<span class="c"># create map/bin/hex file etc.</span>
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">blinky</span><span class="p">)</span>
+</pre></div>
+<h3 id="Dissecting-Blinky-C-Code">Dissecting Blinky C Code<a class="anchor-link" href="#Dissecting-Blinky-C-Code">&#182;</a></h3><h4 id="Includes">Includes<a class="anchor-link" href="#Includes">&#182;</a></h4><p><code>#include "pico/stdlib.h"</code></p>
+<p>The first line of the C program includes a high-level API called <code>pico/stdlib</code>. This high-level API library includes about 40 other source files to be compiled, including (among others) the <code>hardware/gpio.h</code> library (which gives us access to <code>gpio_init()</code> and <code>gpio_put</code>) and <code>pico/time.h</code> (which gives us access to <code>sleep_ms()</code>).</p>
+<h4 id="Defines">Defines<a class="anchor-link" href="#Defines">&#182;</a></h4><p><code>#define LED_PIN 25</code></p>
+<p>The next line of code uses a <code>#define</code> to allow for us to substitute the text <code>LED_PIN</code> for the text <code>25</code> in the rest of our code. This is for readability. On the Pico, the onboard LED is attached to GPIO number 25.</p>
+<h4 id="Main()">Main()<a class="anchor-link" href="#Main()">&#182;</a></h4><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialize the LED pin</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">);</span>
+    <span class="c1">// Configure the LED pin as an output</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+    <span class="c1">// Loop</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Set high</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="c1">// Sleep</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+        <span class="c1">// Set low</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="c1">// Sleep</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>As with nearly all C programs, your code starts executing at <code>main()</code>. The first thing that occurs in <code>main()</code> is that we call <code>gpio_init(LED_PIN)</code>. As described on page 118 of the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">SDK manual</a>, <code>gpio_init()</code> initializes a GPI0, sets it as an input, and clears any output value. Because <code>gpio_init()</code> sets the GPIO as an input, the next line of the C program specifies that it should be an <code>output</code>. Then, within a while loop that never exits, we set the pin high, wait 250 ms, set it low, and then wait another 250 ms. This blinks the LED on and off.</p>
+<p>Note that the <code>gpio_init</code> and <code>gpio_put</code> functions come from the <code>hardware/gpio.h</code> library, which was included by <code>pico/stdlib.h</code>. And note that <code>sleep_ms</code> comes from <code>pico/time.h</code> which was also included by <code>pico/stdlib.h</code>.</p>
+<h3 id="Dissecting-Blinky-CMakeLists.txt">Dissecting Blinky CMakeLists.txt<a class="anchor-link" href="#Dissecting-Blinky-CMakeLists.txt">&#182;</a></h3><p>The SDK uses CMake to manage the build. CMake allows for all sorts of build configuration, but on this webpage I'm just going to talk about the configurations that will be most critical to your productivity.</p>
+<h4 id="Executable">Executable<a class="anchor-link" href="#Executable">&#182;</a></h4><p><code>add_executable(blinky)</code></p>
+<p>The first line of the <code>CMakeLists.txt</code> file declares that a program called <code>blinky</code> should be built from the C files that will be specified in the <code>target_sources</code>. This is also the name that will be used to build the program. In the <code>Hunter-Adams-RP2040 Demos/build</code> directory you can run <code>make blinky</code> and this particular project will build. For this reason, every project in a repository like <a href="https://github.com/raspberrypi/pico-examples">pico-examples</a> or <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Hunter-Adams-RP2040-Demos</a> should have a <em>different</em> executable name. When you add your own projects to the demos repository, you will need to change the executable name.</p>
+<h4 id="Sources">Sources<a class="anchor-link" href="#Sources">&#182;</a></h4><p><code>target_sources(blinky PRIVATE blinky.c)</code></p>
+<p>The next line in the CMakeLists.txt file specifies the source files from which the project should be built. The first argument is the name of the project executable, <code>PRIVATE</code> specifies the scope of compiler definitions to be limited to this particular project, and then all the source files are listed. For <code>blinky</code>, there is only one source file. However, if we were to create a library for a sensor, or a VGA display, or an actuator that included its own header and source files, then we would add the associated source files to this list. For example, see the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/VGA_Graphics/VGA_Graphics_Primitives/CMakeLists.txt">CMakeLists.txt file for the VGA library demo</a>.</p>
+<h4 id="Libraries">Libraries<a class="anchor-link" href="#Libraries">&#182;</a></h4><p><code>target_link_libraries(blinky pico_stdlib)</code></p>
+<p>Anytime that we include an SDK library in the C program, we must also link it in the <code>CMakeLists.txt</code> file for our project. For this particular project, we only include <code>pico/stdlib.h</code>. If we were to include other hardware support libraries or high-level API's, they would be added to this list. For example, see the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/VGA_Graphics/VGA_Graphics_Primitives/CMakeLists.txt">CMakeLists.txt file for the VGA library demo</a>.</p>
+<h4 id="Creating-uf2-for-programming-via-USB">Creating <code>uf2</code> for programming via USB<a class="anchor-link" href="#Creating-uf2-for-programming-via-USB">&#182;</a></h4><p><code>pico_add_extra_outputs(blinky)</code></p>
+<p>If we ended the CMake file without including the above line, then it would  create an ELF (executable linkable format) file which would be loaded onto the RP2040 through the Serial Wire Debug port with a debugger. Often, however, it's more convenient to load programs through the USB connection. To do this, we need a <code>uf2</code> file. Including the above line in the CMakeLists.txt file tells the compiler to create a <code>uf2</code> file for USB.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Building-Blinky">Building Blinky<a class="anchor-link" href="#Building-Blinky">&#182;</a></h2><p>The precise process by which you build a project depends on whether you're working on a Windows, Mac, or Linux machine. Please see the <a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">Getting Started with Raspberry Pi Pico</a> document. The two pages linked below provide explicit instructions for Windows and Mac users. For Linux users, setup and build is easy (see chapters 1 and 2 of the Getting Started document linked previously).</p>
 <blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
+<li><a href="https://vanhunteradams.com/Pico/Setup/PicoSetup.html">Setting up toolchain and building on Windows</a></li>
+<li><a href="https://vanhunteradams.com/Pico/Setup/PicoSetupMac.html">Setting up toolchain and building on Mac</a></li>
 </ul>
 </blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
 
 </div>
 </div>
