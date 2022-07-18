@@ -13094,7 +13094,6 @@ div#notebook {
 <blockquote><ul>
 <li><a href="#Objective-and-page-organization">Objective and page organization</a></li>
 <li><a href="#Download">Download</a></li>
-<li><a href="#Documentation">Documentation</a></li>
 <li><a href="#All-the-code">All the code</a></li>
 <li><a href="#Stepping-thru-the-code">Stepping thru the code</a><blockquote><ul>
 <li><a href="#Includes">Includes</a></li>
@@ -13112,6 +13111,7 @@ div#notebook {
 </li>
 <li><a href="#Expected-and-actual-results">Expected and actual results</a></li>
 <li><a href="#CMakeLists.txt">CMakeLists.txt</a></li>
+<li><a href="#Documentation">Documentation</a></li>
 <li><a href="#Open-questions">Open questions</a></li>
 </ul>
 </blockquote>
@@ -13129,7 +13129,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This project was meant to provide an objective thru which to build understanding of multicore capabilities on the RP2040. For this project, I instantiated a timer interrupt on both core 0 and core 1. <a href="https://vha3.github.io/DDS/DDS.html">Direct digital synthesis</a> is performed separately on each core, and each core writes to a separate channel of the SPI DAC. The consequence is that the A output of the DAC is an an 800 Hz sine wave being generated on core 1, and the B output of the DAC is a 400 Hz sine wave being generated on core 0. A simple state machine amplitude-modulates these sine waves to 1Hz "beeps." Because the RP2040 buffers SPI writes, no spinlock is required to control each core's access to the SPI channel.</p>
+<p>This project was meant to provide an objective thru which to build understanding of multicore capabilities on the RP2040. For this project, I instantiated a timer interrupt on both core 0 and core 1. <a href="https://vha3.github.io/DDS/DDS.html">Direct digital synthesis</a> is performed separately on each core, and each core writes to a separate channel of the SPI DAC. The consequence is that the A output of the DAC is an an 800 Hz sine wave being generated on core 1, and the B output of the DAC is a 400 Hz sine wave being generated on core 0. A simple state machine amplitude-modulates these sine waves to 1Hz "beeps" using <a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html">Fixed Point arithmetic</a>. Because the RP2040 buffers SPI writes, no spinlock is required to control each core's access to the SPI channel.</p>
 <p>A spinlock is used in the main program of each core to control access to a global variable. Each core locks the variable, increments it by 10 (printing as it does so), and then unlocks it so that the other core can lock/increment. Experimentation shows that a small delay is required after unlocking for the other core to reliably take control of the spinlock.</p>
 <p>All of the code is provided in a listing in the first section of this page. The rest of the page walks through the C source file from top to bottom, explaining each line of code. Lastly, I've included some plots output plots from the oscilloscope and compared the measured output frequencies to the expected output frequencies.</p>
 
@@ -13140,21 +13140,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Download">Download<a class="anchor-link" href="#Download">&#182;</a></h2><p>Project available <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_1_Incremental/c_Multicore_DDS_Demo">here</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Please see the <a href="https://vha3.github.io/Pico/DAC/PicoCSDK.pdf">C SDK guide</a> and the <a href="https://vha3.github.io/Pico/DAC/RPData.pdf">RP2040 datasheet</a>.</p>
 
 </div>
 </div>
@@ -13937,22 +13922,27 @@ For debugging purposes, the current state of all 32 spinlocks can be observed vi
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.13</span><span class="p">)</span>
-
-<span class="nb">include</span><span class="p">(</span><span class="s">pico_sdk_import.cmake</span><span class="p">)</span>
-
-<span class="nb">project</span><span class="p">(</span><span class="s">multitest_project</span><span class="p">)</span>
-
-<span class="nb">pico_sdk_init</span><span class="p">()</span>
-
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">multitest</span> <span class="s">multitest.c</span><span class="p">)</span>
+<p>Note that we've linked the high-level API for multicore, and the hardware libraries for sync and spi!</p>
+<div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">multicore_dds</span> <span class="s">multicore_dds.c</span><span class="p">)</span>
 
 <span class="c"># Add pico_multicore which is required for multicore functionality</span>
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">multitest</span> <span class="s">pico_stdlib</span> <span class="s">pico_multicore</span> <span class="s">hardware_sync</span> <span class="s">hardware_spi</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">multicore_dds</span> <span class="s">pico_stdlib</span> <span class="s">pico_multicore</span> <span class="s">hardware_sync</span> <span class="s">hardware_spi</span><span class="p">)</span>
 
 <span class="c"># create map/bin/hex file etc.</span>
-<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">multitest</span><span class="p">)</span>
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">multicore_dds</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><ul>
+<li>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</li>
+<li>Please see the <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a> webpage</li>
+<li>Please see the <a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html">Fixed Point Arithmetic</a> webpage</li>
+</ul>
 
 </div>
 </div>
