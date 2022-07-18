@@ -13132,7 +13132,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This project contains a simple example of setting up a timer interrupt and an SPI channel on the RP2040. In particular, the RP2040 communicates with an <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20002249B.pdf">SPI DAC</a>, and uses <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a> to generate an 800Hz sine thru the DAC.</p>
+<p>This project contains a simple example of setting up a timer interrupt and an <a href="https://vanhunteradams.com/Protocols/SPI/SPI.html">SPI channel</a> on the RP2040. In particular, the RP2040 communicates with an <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20002249B.pdf">SPI DAC</a>, and uses <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a> to generate an 800Hz sine thru the DAC.</p>
 <p>All of the code is provided in a listing in the first section of this page. The rest of the page walks through the C source file from top to bottom, explaining each line of code.</p>
 <p>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</p>
 
@@ -13398,7 +13398,7 @@ div#notebook {
 <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
 <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </pre></div>
-<p>To setup the SPI channel, we first call <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>, and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code.</p>
+<p>To setup the SPI channel, we first call <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>, and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code. For more information about SPI, please see <a href="https://vanhunteradams.com/Protocols/SPI/SPI.html">here</a>.</p>
 <p><code>spi_set_format</code> configures the SPI channel to whichever mode the device with which the RP2040 is communicating requires. <code>static void spi_set_format (spi_inst_t \*spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)</code> takes 4 arguments. The first is the SPI instance specifier. The second is the number of data bits per transfer. Since the DAC expects 16 bit transfers, this is configured to 16. CPOL and CPHA set the SPI clock polarity and phase (i.e. the "mode"). Finally order is not presently configurable, but sets the endianness of the transfer. Sends MSB first.</p>
 <h5 id="GPIO-Mapping">GPIO Mapping<a class="anchor-link" href="#GPIO-Mapping">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Map SPI signals to GPIO ports</span>
 <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
@@ -13490,7 +13490,12 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><p>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</p>
+<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><ul>
+<li>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</li>
+<li>Please see the <a href="https://vanhunteradams.com/DDS/DDS.html">DDS webpage</a></li>
+<li>Please see the <a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html">Fixed point webpage</a></li>
+<li>Please see the <a href="https://vanhunteradams.com/Protocols/SPI/SPI.html">SPI webpage</a></li>
+</ul>
 
 </div>
 </div>
