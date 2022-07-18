@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>SPI_DDS</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,267 +13077,47 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Direct-Digital-Synthesis-(DDS)-in-a-Timer-Interrupt-on-the-RP2040">Direct Digital Synthesis (DDS) in a Timer Interrupt on the RP2040<a class="anchor-link" href="#Direct-Digital-Synthesis-(DDS)-in-a-Timer-Interrupt-on-the-RP2040">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
+<h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) on RP2040</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">DDS via Timer Interrupt on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design. Started in Spring, 2021.<br></p>
-<blockquote><p><strong>Raspberry Pi Pico (RP2040)</strong></p>
-<ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-</ul>
-<hr>
-<p><strong>PIC32</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
+<li><a href="#Objective-and-page-organization">Objective and page organization</a></li>
+<li><a href="#All-the-code">All the code</a></li>
+<li><a href="#Stepping-thru-the-code">Stepping thru the code</a><blockquote><ul>
+<li><a href="#Includes">Includes</a></li>
+<li><a href="#DDS-globals">DDS globals</a></li>
+<li><a href="#SPI-globals">SPI globals</a></li>
+<li><a href="#Timer-callback-function">Timer callback function</a></li>
+<li><a href="#Main">Main</a><blockquote><ul>
+<li><a href="#Initialize-UART">Initialize UART</a></li>
+<li><a href="#SPI-initialization-and-configuration">SPI initialization and configuration</a></li>
+<li><a href="#GPIO-Mapping">GPIO Mapping</a></li>
+<li><a href="#Building-the-sine-table">Building the sine table</a></li>
+<li><a href="#Declare-a-repeating-timer">Declare a repeating timer</a></li>
+<li><a href="#Add-repeating-timer-to-alarm-pool">Add repeating timer to alarm pool</a></li>
+<li><a href="#Spin-forever">Spin forever</a></li>
 </ul>
 </blockquote>
 </li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li><a href="#CMakeLists.txt">CMakeLists.txt</a></li>
+<li><a href="#Download">Download</a></li>
+<li><a href="#Documentation">Documentation</a></li>
 </ul>
 </blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
 
 </div>
 </div>
@@ -13345,7 +13125,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="Objective-and-page-organization">Objective and page organization<a class="anchor-link" href="#Objective-and-page-organization">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This project contains a simple example of setting up a timer interrupt and an SPI channel on the RP2040. In particular, the RP2040 communicates with an <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20002249B.pdf">SPI DAC</a>, and uses <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a> to generate an 800Hz sine thru the DAC.</p>
+<p>All of the code is provided in a listing in the first section of this page. The rest of the page walks through the C source file from top to bottom, explaining each line of code.</p>
+<p>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</p>
 
 </div>
 </div>
@@ -13353,37 +13142,110 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
+<h2 id="All-the-code">All the code<a class="anchor-link" href="#All-the-code">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * V. Hunter Adams</span>
+<span class="cm"> * DDS of sine wave on MCP4822 DAC w/ ISR</span>
+<span class="cm"> * </span>
+<span class="cm"> * Modified example code from Raspberry Pi</span>
+<span class="cm"> * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.</span>
+<span class="cm"> *</span>
+<span class="cm"> * SPDX-License-Identifier: BSD-3-Clause</span>
+<span class="cm"> *</span>
+<span class="cm">   GPIO 5 (pin 7) Chip select</span>
+<span class="cm">   GPIO 6 (pin 9) SCK/spi0_sclk</span>
+<span class="cm">   GPIO 7 (pin 10) MOSI/spi0_tx</span>
+<span class="cm">   3.3v (pin 36) -&gt; VCC on DAC </span>
+<span class="cm">   GND (pin 3)  -&gt; GND on DAC </span>
+<span class="cm"> */</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/spi.h&quot;</span><span class="cp"></span>
+
+<span class="c1">//DDS parameters</span>
+<span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
+<span class="cp">#define Fs 40000</span>
+<span class="c1">// the DDS units:</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_accum_main</span><span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_incr_main</span> <span class="o">=</span> <span class="p">(</span><span class="mf">800.0</span><span class="o">*</span><span class="n">two32</span><span class="p">)</span><span class="o">/</span><span class="n">Fs</span> <span class="p">;</span><span class="c1">//</span>
+
+<span class="c1">// DDS sine table</span>
+<span class="cp">#define sine_table_size 256</span>
+<span class="k">volatile</span> <span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+
+<span class="c1">// SPI data</span>
+<span class="kt">uint16_t</span> <span class="n">DAC_data</span> <span class="p">;</span> <span class="c1">// output value</span>
+
+<span class="c1">//DAC parameters</span>
+<span class="c1">// A-channel, 1x, active</span>
+<span class="cp">#define DAC_config_chan_A 0b0011000000000000</span>
+<span class="c1">// B-channel, 1x, active</span>
+<span class="cp">#define DAC_config_chan_B 0b1011000000000000</span>
+
+<span class="c1">//SPI configurations</span>
+<span class="cp">#define PIN_MISO 4</span>
+<span class="cp">#define PIN_CS   5</span>
+<span class="cp">#define PIN_SCK  6</span>
+<span class="cp">#define PIN_MOSI 7</span>
+<span class="cp">#define SPI_PORT spi0</span>
+
+<span class="c1">// Timer ISR</span>
+<span class="kt">bool</span> <span class="nf">repeating_timer_callback</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// DDS phase and sine table lookup</span>
+    <span class="n">phase_accum_main</span> <span class="o">+=</span> <span class="n">phase_incr_main</span>  <span class="p">;</span>
+    <span class="n">DAC_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+    <span class="c1">// Write data to DAC</span>
+    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialize stdio</span>
+    <span class="n">stdio_init_all</span><span class="p">();</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, DAC!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Initialize SPI channel (channel, baud rate set to 20MHz)</span>
+    <span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
+    <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// Map SPI signals to GPIO ports</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MOSI</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_CS</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// === build the sine lookup table =======</span>
+    <span class="c1">// scaled to produce values between 0 and 4096</span>
+    <span class="kt">int</span> <span class="n">ii</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sine_table_size</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">){</span>
+         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
+    <span class="c1">// If the delay is &gt;0 then this is the delay between the previous callback ending and the next starting.</span>
+    <span class="c1">// If the delay is negative then the next call to the callback will be exactly x us after the</span>
+    <span class="c1">// start of the call to the last callback</span>
+    <span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+
+    <span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
+    <span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
+    <span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 </div>
 </div>
@@ -13391,7 +13253,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h2 id="Stepping-thru-the-code">Stepping thru the code<a class="anchor-link" href="#Stepping-thru-the-code">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us step through each section of code, explaining and justifying each line.</p>
 
 </div>
 </div>
@@ -13399,18 +13268,229 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
+<h3 id="Includes">Includes<a class="anchor-link" href="#Includes">&#182;</a></h3><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/spi.h&quot;</span><span class="cp"></span>
+</pre></div>
+<p>The first lines of code in the C source file include some header files. Two of these are standard C headers (<code>stdio.h</code> and <code>math.h</code>) and the others are headers which come from the C SDK for the Raspberry Pi Pico. The first of these, <code>pico/stdlib.h</code> is what the SDK calls a "High-Level API." These high-level API's "provide higher level functionality that isn’t hardware related or provides a richer set of functionality above the basic hardware interfaces." The architecture of this SDK is described at length in the SDK manual. All libraries within the SDK are <code>INTERFACE</code> libraries. <code>pico/stdlib.h</code> in particular pulls in a number of lower-level hardware libraries, listed on page 196 of the C SDK guide.</p>
+<p>The next include pulls in the hardware interface library for the SPI hardware peripheral. This hardware interface library is not included in <code>pico/stdlib.h</code> and must therefore be included separately. <em>Don't forget to link these in the CMakeLists.txt file!</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="DDS-globals">DDS globals<a class="anchor-link" href="#DDS-globals">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">//DDS parameters</span>
+<span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
+<span class="cp">#define Fs 40000</span>
+
+<span class="c1">// the DDS units:</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_accum_main</span><span class="p">;</span>
+<span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_incr_main</span> <span class="o">=</span> <span class="p">(</span><span class="mf">800.0</span><span class="o">*</span><span class="n">two32</span><span class="p">)</span><span class="o">/</span><span class="n">Fs</span> <span class="p">;</span><span class="c1">//</span>
+
+<span class="c1">// DDS sine table</span>
+<span class="cp">#define sine_table_size 256</span>
+<span class="k">volatile</span> <span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+</pre></div>
+<p>The next chunk of code defines and declares a series of variables which will be used for Direct Digital Synthesis. For an extended explanation of the DDS algorithm, please see <a href="https://vha3.github.io/DDS/DDS.html">this webpage</a>. The sine table is populated in <code>main()</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SPI-globals">SPI globals<a class="anchor-link" href="#SPI-globals">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// SPI data</span>
+<span class="kt">uint16_t</span> <span class="n">DAC_data</span> <span class="p">;</span> <span class="c1">// output value</span>
+
+<span class="c1">//DAC parameters</span>
+<span class="c1">// A-channel, 1x, active</span>
+<span class="cp">#define DAC_config_chan_A 0b0011000000000000</span>
+<span class="c1">// B-channel, 1x, active</span>
+<span class="cp">#define DAC_config_chan_B 0b1011000000000000</span>
+
+<span class="c1">//SPI configurations</span>
+<span class="cp">#define PIN_MISO 4</span>
+<span class="cp">#define PIN_CS   5</span>
+<span class="cp">#define PIN_SCK  6</span>
+<span class="cp">#define PIN_MOSI 7</span>
+<span class="cp">#define SPI_PORT spi0</span>
+</pre></div>
+<p>We declare a <code>uint16_t</code> variable which will be used to communicate over the SPI channel to the DAC (the DAC expects 16-bit transfers, hence the type <code>uint16_t</code>). The next lines of code sets the top 4 DAC configuration bits for both channels A and B. You can read about these configuration bits in the <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20002249B.pdf">DAC datasheet</a>, but note that the bottom 12 bits of <code>DAC_config_chan_A</code> and <code>DAC_config_chan_B</code> are all 0's. In the Timer ISR, we will mask the DAC data into these bottom 12 bits, maintaining the top 4 control bits.</p>
+<p>The next chunk of code gives some names to a handful of GPIO ports for later association with the SPI channel. Note that the numbers in these lines of code correspond to GPIO port number and <em>not</em> to pin numbers. Note also that these pins are not chosen arbitrarily. We've chosen a particular set of GPIO ports which are all associated with the same SPI channel (SPI0), and named each according to its available function on that SPI channel (MISO/RX, MOSI/TX, CS, SCK). We could have chosen different GPIO ports for each of these functions, but not arbitrary ports, only those with the same signals mapped to them. We can determine which GPIO's are available for mapping to which hardware peripherals by looking at Fig. 2 of the <a href="https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf">Raspberry Pi Pico datasheet</a> (also included below) or at the Function Select Table on page 111 of the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK manual</a>.</p>
+<figure>
+    <img align="center" width="900" height="500" src="pinout.png" alt='missing' />
+    <center><figcaption>Output waveforms from DAC</figcaption></center>
+</figure><p>The final line in this chunk specifies the SPI channel which we are using, which is <code>spi0</code>. <code>spi0</code> is declared in the <code>spi.h</code> header file (<code>pico-sdk\src\rp2_common\hardware_spi\include\hardware\spi.h</code>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Timer-callback-function">Timer callback function<a class="anchor-link" href="#Timer-callback-function">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Timer ISR</span>
+<span class="kt">bool</span> <span class="nf">repeating_timer_callback</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// DDS phase and sine table lookup</span>
+    <span class="n">phase_accum_main</span> <span class="o">+=</span> <span class="n">phase_incr_main</span>  <span class="p">;</span>
+    <span class="n">DAC_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
+
+    <span class="c1">// Write data to DAC</span>
+    <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Above is a callback function associated with the timer alarms on core 0. In this callback, the phase accumulator is incremented and used to index into the sine table and a single SPI write is performed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Main">Main<a class="anchor-link" href="#Main">&#182;</a></h3><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Initialize stdio</span>
+    <span class="n">stdio_init_all</span><span class="p">();</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, DAC!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+    <span class="c1">// Initialize SPI channel (channel, baud rate set to 20MHz)</span>
+    <span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
+    <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// Map SPI signals to GPIO ports</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MOSI</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_CS</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// === build the sine lookup table =======</span>
+    <span class="c1">// scaled to produce values between 0 and 4096</span>
+    <span class="kt">int</span> <span class="n">ii</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sine_table_size</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">){</span>
+         <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
+    <span class="c1">// If the delay is &gt;0 then this is the delay between the previous callback ending and the next starting</span>
+    <span class="c1">// If the delay is negative then the next call to the callback will be exactly x us after the</span>
+    <span class="c1">// start of the call to the last callback</span>
+    <span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+
+    <span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
+    <span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
+    <span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h5 id="Initialize-UART">Initialize UART<a class="anchor-link" href="#Initialize-UART">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Initialize stdio</span>
+<span class="n">stdio_init_all</span><span class="p">();</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, DAC!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</pre></div>
+<p>The entry point for core 0 is <code>main()</code>. This function calls <code>stdio_init_all()</code> to setup stdio/uart on the RP2040 and prints a greeting.</p>
+<h5 id="SPI-initialization-and-configuration">SPI initialization and configuration<a class="anchor-link" href="#SPI-initialization-and-configuration">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Initialize SPI channel (channel, baud rate set to 20MHz)</span>
+<span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
+<span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</pre></div>
+<p>To setup the SPI channel, we first call <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>, and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code.</p>
+<p><code>spi_set_format</code> configures the SPI channel to whichever mode the device with which the RP2040 is communicating requires. <code>static void spi_set_format (spi_inst_t \*spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)</code> takes 4 arguments. The first is the SPI instance specifier. The second is the number of data bits per transfer. Since the DAC expects 16 bit transfers, this is configured to 16. CPOL and CPHA set the SPI clock polarity and phase (i.e. the "mode"). Finally order is not presently configurable, but sets the endianness of the transfer. Sends MSB first.</p>
+<h5 id="GPIO-Mapping">GPIO Mapping<a class="anchor-link" href="#GPIO-Mapping">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Map SPI signals to GPIO ports</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MOSI</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_CS</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<p>The next chunk of code is a series of calls to <code>gpio_set_function()</code>. Each of these calls maps a particular GPIO port (#define'd above) to a particular function. This takes two arguments. The first is the GPIO number, and the second specifies the function. The function specifier comes from the enum listed below:</p>
+<div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">gpio_function</span> <span class="p">{</span> <span class="n">GPIO_FUNC_XIP</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GPIO_FUNC_UART</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">GPIO_FUNC_I2C</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GPIO_FUNC_PWM</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">GPIO_FUNC_SIO</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">GPIO_FUNC_PIO0</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">GPIO_FUNC_PIO1</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="n">GPIO_FUNC_GPCK</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">GPIO_FUNC_USB</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">GPIO_FUNC_NULL</span> <span class="o">=</span> <span class="mh">0xf</span> <span class="p">}</span>
+</pre></div>
+<p><em>Something to note!</em> We are mapping the chip select line here. If instead we made the chip select line a digital output pin, we would need to toggle it in software before and after each SPI transmission. Configured as shown here, the SPI channel is setup in a way that is very similar to "Framed SPI Mode" for the PIC32." That is, the RP2040 will automatically toggle the chip select line if it is mapped using <code>gpio_set_function</code>. Not every pin can be mapped to every function! Double check the datasheet and pinout!</p>
+<h5 id="Building-the-sine-table">Building the sine table<a class="anchor-link" href="#Building-the-sine-table">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// === build the sine lookup table =======</span>
+<span class="c1">// scaled to produce values between 0 and 4096</span>
+<span class="kt">int</span> <span class="n">ii</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ii</span> <span class="o">&lt;</span> <span class="n">sine_table_size</span><span class="p">;</span> <span class="n">ii</span><span class="o">++</span><span class="p">){</span>
+     <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>This chunk of code populates the <code>sin_table</code> array. For convenience, this sine table is scaled to [-2047, 2047]. In the Timer ISR, we add 2047 to this sine table to send a value to the DAC that is in the range [0, 4096].</p>
+<h5 id="Declare-a-repeating-timer">Declare a repeating timer<a class="anchor-link" href="#Declare-a-repeating-timer">&#182;</a></h5><p>The next line of code in <code>main()</code> declares an object of type <code>repeating_timer</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
+<span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+</pre></div>
+<p>The timer peripheral on the RP2040 has four alarms. Each of these alarms interrupt on a match of the lower 32 bits of the 64-bit counter. Each alarm outputs a separate interrupt. The particular interrupt that fires for a particular alarm is (it seems) whichever timer interrupt is associated with that alarm (<code>TIMER_IRQ_0</code>, <code>TIMER_IRQ_1</code>, <code>TIMER_IRQ_2</code>, <code>TIMER_IRQ_3</code>). Note that there may be more than one alarm associated with each of these underlying hardware alarms - so you can have up to four alarm pools. The callbacks for a particular alarm pool take place on the core from which the alarm pool was created, and they are called from the hardware alarm IRQ handler. Note that the <code>repeating_timer</code> library uses the default alarm pool. Unless the default configurations are changed, the default alarm pool is on core 0, allows for up to 16 separate concurrent timers (this could be configured up to 256), and utilizes hardware alarm 3.</p>
+<p>Note that these callbacks are configured to take, as an argument, an object of type <code>repeating_timer</code>. The declaration of the <code>repeating_timer</code> struct is shown below, copied from the source code. Note also that the function which sets up these callbacks, described in the next section, is <code>alarm_pool_add_repeating_timer_us()</code>, as documented on page 217 of the C SDK guide.</p>
+<div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * \brief Information about a repeating timer</span>
+<span class="cm"> * \ingroup repeating_timer</span>
+<span class="cm"> * \return</span>
+<span class="cm"> */</span>
+<span class="k">struct</span> <span class="n">repeating_timer</span> <span class="p">{</span>
+    <span class="kt">int64_t</span> <span class="n">delay_us</span><span class="p">;</span>
+    <span class="n">alarm_pool_t</span> <span class="o">*</span><span class="n">pool</span><span class="p">;</span>
+    <span class="n">alarm_id_t</span> <span class="n">alarm_id</span><span class="p">;</span>
+    <span class="n">repeating_timer_callback_t</span> <span class="n">callback</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">user_data</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<h5 id="Add-repeating-timer-to-alarm-pool">Add repeating timer to alarm pool<a class="anchor-link" href="#Add-repeating-timer-to-alarm-pool">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
+<span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
+<span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
+</pre></div>
+<p>We then add the repeating timer to the alarm pool which has just been created. As arguments, the function <code>add_repeating_timer_us()</code> function takes:</p>
+<ol>
+<li>The delay time in microsec. Note that a negative delay time means that the callback function will be called again in 25 us, regardless of how long the callback took to execute. If this were a positive value, the callback would be called again 25 us from the time that it exits the the callback on the previous call.</li>
+<li>The repeating timer callback function</li>
+<li>Any user data. to pass to store in the repeating_timer structure for use by the callback</li>
+<li>A pointer to the user owned structure to store the repeating timer info in. Beware this storage location must outlive the repeating timer, so be careful of using stack space.</li>
+</ol>
+<h5 id="Spin-forever">Spin forever<a class="anchor-link" href="#Spin-forever">&#182;</a></h5><p>Finally, we enter a <code>while(1)</code> loop from which we never exit.</p>
+<div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+<p>It’s quite common for the main() function not to return. The return code of <code>main()</code> is ignored by the SDK runtime, and the default behavior is to hang the processor on exit.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CMakeLists.txt">CMakeLists.txt<a class="anchor-link" href="#CMakeLists.txt">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that we have added <code>hardware_spi</code> to the linked libraries!</p>
+<div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">dactest</span> <span class="s">dactest.c</span><span class="p">)</span>
+
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">dactest</span><span class="p">)</span>
+
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">dactest</span> <span class="s">pico_stdlib</span> <span class="s">hardware_spi</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Download">Download<a class="anchor-link" href="#Download">&#182;</a></h2><p>Project available <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_1_Incremental/b_Timer_Interrupt_DDS_Demo">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><p>Please see the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">C SDK guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</p>
 
 </div>
 </div>
