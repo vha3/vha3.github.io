@@ -13093,7 +13093,6 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><ul>
 <li><a href="#Objective-and-page-organization">Objective and page organization</a></li>
-<li><a href="#Documentation">Documentation</a></li>
 <li><a href="#All-the-code">All the code</a></li>
 <li><a href="#Stepping-thru-the-code">Stepping thru the code</a><blockquote><ul>
 <li><a href="#Includes">Includes</a></li>
@@ -13107,7 +13106,6 @@ div#notebook {
 <li><a href="#Obtaining-DMA-channels">Obtaining DMA channels</a></li>
 <li><a href="#Configuring-the-control-DMA-channel">Configuring the control DMA channel</a></li>
 <li><a href="#Associating-the-configured-channel-with-the-DMA-control-channel">Associating the configured channel with the DMA control channel</a></li>
-<li><a href="#Verify-memory-alignment-of-DAC_data-array">Verify memory alignment of <code>DAC_data</code> array</a></li>
 <li><a href="#Configure-the-data-DMA-channel">Configure the data DMA channel</a></li>
 <li><a href="#Associating-the-configured-channel-with-the-DMA-data-channel">Associating the configured channel with the DMA data channel</a></li>
 <li><a href="#Start-the-control-channel">Start the control channel</a></li>
@@ -13119,6 +13117,7 @@ div#notebook {
 </li>
 <li><a href="#Expected-and-actual-results">Expected and actual results</a></li>
 <li><a href="#CMakeLists.txt">CMakeLists.txt</a></li>
+<li><a href="#Documentation">Documentation</a></li>
 </ul>
 </blockquote>
 
@@ -13136,23 +13135,9 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This project was meant to provide an objective thru which to build understanding of DMA and SPI channels on the RP2040. For this project, I chained two DMA channels. One of those channels is triggered by a timer which is configured to overflow at audio-rate ($\approx 44$ kHz). This channel moves data from a sine table to the SPI transmit buffer. The SPI channel is configured to automatically transmit any new data which appears in its transmit buffer.</p>
-<p>The other DMA channel is chained to the first. When the first DMA channel finishes traversing the sine table, it triggers the second channel. This channel writes to the <em>control registers</em> of the first DMA channel. In particular, it writes to the <code>AL3_TRANS_COUNT_TRIG</code> register associated with the other DMA channel. This control register sets the number of transactions that the first DMA channel should execute (the length of the sine table). Because it is a trigger register, writing any non-zero value to this register automatically triggers the DMA channel to start. So, these two channels ping-pong off one another. The first finishes and triggers the second, the second writes to the control/trigger register of the first. The consequence is a persistent sine wave output from the DAC, with no code executing.</p>
+<p>The other DMA channel is chained to the first. When the first DMA channel finishes traversing the sine table, it triggers the second channel. This channel writes to the <em>control registers</em> of the first DMA channel. In particular, it writes to the <code>READ_ADDR</code> register associated with the other DMA channel. This control register sets the address from which the data channel should start reading.</p>
+<p>Because the data channel is chained to the control channel (and vice versa), each starts as soon as the other finishes. So, these two channels ping-pong off one another. The first finishes and triggers the second, the second finishes and triggers the first. The consequence is a persistent sine wave output from the DAC, with no code executing. (Note that the same could be accomplished by writing to the DMA channels' trigger registers, but chaining is easier).</p>
 <p>All of the code is provided in a listing in the first section of this page. The rest of the page walks through the C source file from top to bottom, explaining each line of code. Lastly, I've included some plots output plots from the oscilloscope and compared the measured output frequency to the expected output frequency. The two agree.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The resources for this project include the <a href="./PicoCSDK.pdf">RP2040 C SDK user's guide</a> and the <a href="./RPData.pdf">RP2040 datasheet</a>.</p>
 
 </div>
 </div>
@@ -13170,28 +13155,14 @@ div#notebook {
 <div class="highlight"><pre><span></span><span class="cm">/**</span>
 <span class="cm"> *  V. Hunter Adams (vha3)</span>
 <span class="cm">    Code based on examples from Raspberry Pi Co</span>
-
 <span class="cm">    Sets up two DMA channels. One sends samples at audio rate to the DAC,</span>
 <span class="cm">    (data_chan), and the other writes to the data_chan DMA control registers (ctrl_chan).</span>
-
 <span class="cm">    The control channel writes to the data channel, sending one period of</span>
 <span class="cm">    a sine wave thru the DAC. The control channel is chained to the data</span>
-<span class="cm">    channel, so it is re-triggered after the data channel is finished. The control</span>
-<span class="cm">    channel then rewrites and restarts the data channel, etc.</span>
-
-<span class="cm">    NOTE: in order to configure the data channel read addresses to </span>
-<span class="cm">    wrap properly, the DAC data buffer must be naturally aligned in memory.</span>
-<span class="cm">    My hacky solution was to generate a few extra periods of the sine wave,</span>
-<span class="cm">    and then find an index which was naturally aligned.</span>
-
-<span class="cm">    The better solution, implemented next, was to use the ((aligned())) attribute</span>
-
-<span class="cm">    Configuring the data DMA channel to the DAC to be triggered off an audio-rate</span>
-<span class="cm">    timer required a function that changes the value of a DMA control register.</span>
-<span class="cm">    The SDK didn&#39;t have any functions that changed this particular register, but</span>
-<span class="cm">    it contained others upon which I could model the one below. The documentation</span>
-<span class="cm">    for the RP2040 is written well enough that this wasn&#39;t too troublesome.</span>
-
+<span class="cm">    channel, so it is re-triggered after the data channel is finished. The data</span>
+<span class="cm">    channel is chained to the control channel, so it is restarted as soon as the control</span>
+<span class="cm">    channel finishes. The data channel is paced by a timer to perform transactions</span>
+<span class="cm">    at audio rate.</span>
 <span class="cm"> */</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
@@ -13203,9 +13174,14 @@ div#notebook {
 <span class="c1">// Number of samples per period in sine table</span>
 <span class="cp">#define sine_table_size 256</span>
 
-<span class="c1">// Align DAC data</span>
+<span class="c1">// Sine table</span>
 <span class="kt">int</span> <span class="n">raw_sin</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
-<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">DAC_data</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span><span class="p">(</span><span class="mi">2048</span><span class="p">)))</span> <span class="p">;</span>
+
+<span class="c1">// Table of values to be sent to DAC</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">DAC_data</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+
+<span class="c1">// Pointer to the address of the DAC data table</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="o">*</span> <span class="n">address_pointer</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">;</span>
 
 <span class="c1">// A-channel, 1x, active</span>
 <span class="cp">#define DAC_config_chan_A 0b0011000000000000</span>
@@ -13220,20 +13196,16 @@ div#notebook {
 <span class="c1">// Number of DMA transfers per event</span>
 <span class="k">const</span> <span class="kt">uint32_t</span> <span class="n">transfer_count</span> <span class="o">=</span> <span class="n">sine_table_size</span> <span class="p">;</span>
 
-<span class="cm">/*! Added by Hunter</span>
-<span class="cm">    Modifies the TIMER0 register of the dma channel</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">dma_channel_set_timer0</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">timerval</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">timerval</span><span class="p">;</span>
-<span class="p">}</span>
-
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Initidalize stdio</span>
     <span class="n">stdio_init_all</span><span class="p">();</span>
 
     <span class="c1">// Initialize SPI channel (channel, baud rate set to 20MHz)</span>
     <span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
-    <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
+
+    <span class="c1">// Format SPI channel (channel, data bits per transfer, polarity, phase, order)</span>
     <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
     <span class="c1">// Map SPI signals to GPIO ports, acts like framed SPI with this CS mapping</span>
@@ -13242,64 +13214,54 @@ div#notebook {
     <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
     <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MOSI</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
 
-    <span class="c1">// Build sine table</span>
+    <span class="c1">// Build sine table and DAC data table</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="p">(</span><span class="n">sine_table_size</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
         <span class="n">raw_sin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span> <span class="o">*</span> <span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">i</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2047</span><span class="p">);</span> <span class="c1">//12 bit</span>
         <span class="n">DAC_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">(</span><span class="n">raw_sin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0x0fff</span><span class="p">)</span> <span class="p">;</span>
     <span class="p">}</span>
 
-
-    <span class="c1">// Get a free channel, panic() if there are none</span>
-    <span class="kt">int</span> <span class="n">data_chan</span> <span class="o">=</span> <span class="n">dma_claim_unused_channel</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">ctrl_chan</span> <span class="o">=</span> <span class="n">dma_claim_unused_channel</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+    <span class="c1">// Select DMA channels</span>
+    <span class="kt">int</span> <span class="n">data_chan</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ctrl_chan</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
     <span class="c1">// Setup the control channel</span>
-    <span class="n">dma_channel_config</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">ctrl_chan</span><span class="p">);</span> <span class="c1">// default configs</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span> <span class="c1">// 32-bit txfers</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span> <span class="c1">// no read incrementing</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span> <span class="c1">// no write incrementing</span>
+    <span class="n">dma_channel_config</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">ctrl_chan</span><span class="p">);</span>   <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>             <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                       <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                      <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">data_chan</span><span class="p">);</span>                         <span class="c1">// chain to data channel</span>
 
     <span class="n">dma_channel_configure</span><span class="p">(</span>
-        <span class="n">ctrl_chan</span><span class="p">,</span>
-        <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
-        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">data_chan</span><span class="p">].</span><span class="n">al1_transfer_count_trig</span><span class="p">,</span> <span class="c1">// txfer to transfer count trigger</span>
-        <span class="o">&amp;</span><span class="n">transfer_count</span><span class="p">,</span>
-        <span class="mi">1</span><span class="p">,</span>
-        <span class="nb">false</span>
+        <span class="n">ctrl_chan</span><span class="p">,</span>                          <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>                                 <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">data_chan</span><span class="p">].</span><span class="n">read_addr</span><span class="p">,</span>   <span class="c1">// Write address (data channel read address)</span>
+        <span class="o">&amp;</span><span class="n">address_pointer</span><span class="p">,</span>                   <span class="c1">// Read address (POINTER TO AN ADDRESS)</span>
+        <span class="mi">1</span><span class="p">,</span>                                  <span class="c1">// Number of transfers</span>
+        <span class="nb">false</span>                               <span class="c1">// Don&#39;t start immediately</span>
     <span class="p">);</span>
 
-    <span class="c1">// Confirm memory alignment</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">Beginning: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">First: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Second: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-
-    <span class="c1">// 16 bit transfers. Read address increments after each transfer.</span>
-    <span class="c1">// DREQ to Timer 0 is selected, so the DMA is throttled to audio rate</span>
-    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">data_chan</span><span class="p">);</span>
-    <span class="c1">// 16 bit transfers</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_16</span><span class="p">);</span>
-    <span class="c1">// increment the read adddress, don&#39;t increment write address</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="c1">// Setup the data channel</span>
+    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">data_chan</span><span class="p">);</span>  <span class="c1">// Default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_16</span><span class="p">);</span>            <span class="c1">// 16-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>                       <span class="c1">// yes read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                     <span class="c1">// no write incrementing</span>
     <span class="c1">// (X/Y)*sys_clk, where X is the first 16 bytes and Y is the second</span>
-    <span class="c1">// sys_clk is 125 MHz unless changed in code</span>
-    <span class="n">dma_channel_set_timer0</span><span class="p">(</span><span class="mh">0x0017ffff</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// sys_clk is 125 MHz unless changed in code. Configured to ~44 kHz</span>
+    <span class="n">dma_timer_set_fraction</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0x0017</span><span class="p">,</span> <span class="mh">0xffff</span><span class="p">)</span> <span class="p">;</span>
     <span class="c1">// 0x3b means timer0 (see SDK manual)</span>
-    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">);</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">);</span>                                 <span class="c1">// DREQ paced by timer 0</span>
     <span class="c1">// chain to the controller DMA channel</span>
-    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">ctrl_chan</span><span class="p">);</span>
-    <span class="c1">// set wrap boundary. This is why we needed alignment!</span>
-    <span class="n">channel_config_set_ring</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span> <span class="c1">// 1 &lt;&lt; 9 byte boundary on read ptr</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">ctrl_chan</span><span class="p">);</span>                        <span class="c1">// Chain to control channel</span>
 
 
     <span class="n">dma_channel_configure</span><span class="p">(</span>
-        <span class="n">data_chan</span><span class="p">,</span>          <span class="c1">// Channel to be configured</span>
-        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>            <span class="c1">// The configuration we just created</span>
-        <span class="o">&amp;</span><span class="n">spi_get_hw</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dr</span><span class="p">,</span> <span class="c1">// write address</span>
-        <span class="n">DAC_data</span><span class="p">,</span> <span class="c1">// The initial read address (AT NATURAL ALIGNMENT POINT)</span>
-        <span class="n">sine_table_size</span><span class="p">,</span> <span class="c1">// Number of transfers; in this case each is 2 byte.</span>
-        <span class="nb">false</span>           <span class="c1">// Don&#39;t start immediately.</span>
+        <span class="n">data_chan</span><span class="p">,</span>                  <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>                        <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">spi_get_hw</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dr</span><span class="p">,</span>  <span class="c1">// write address (SPI data register)</span>
+        <span class="n">DAC_data</span><span class="p">,</span>                   <span class="c1">// The initial read address</span>
+        <span class="n">sine_table_size</span><span class="p">,</span>            <span class="c1">// Number of transfers</span>
+        <span class="nb">false</span>                       <span class="c1">// Don&#39;t start immediately.</span>
     <span class="p">);</span>
 
 
@@ -13364,9 +13326,14 @@ div#notebook {
 <div class="highlight"><pre><span></span><span class="c1">// Number of samples per period in sine table</span>
 <span class="cp">#define sine_table_size 256</span>
 
-<span class="c1">// Align DAC data</span>
+<span class="c1">// Sine table</span>
 <span class="kt">int</span> <span class="n">raw_sin</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
-<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">DAC_data</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="n">__attribute__</span> <span class="p">((</span><span class="n">aligned</span><span class="p">(</span><span class="mi">2048</span><span class="p">)))</span> <span class="p">;</span>
+
+<span class="c1">// Table of values to be sent to DAC</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">DAC_data</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
+
+<span class="c1">// Pointer to the address of the DAC data table</span>
+<span class="kt">unsigned</span> <span class="kt">short</span> <span class="o">*</span> <span class="n">address_pointer</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">;</span>
 
 <span class="c1">// A-channel, 1x, active</span>
 <span class="cp">#define DAC_config_chan_A 0b0011000000000000</span>
@@ -13388,78 +13355,17 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The next section of code <code>#define</code>'s some parameter values, and declares some variables and arrays in global space. <code>sine_table_size</code> represents the number of elements in our sine table. The sine table will contain amplitudes for a single period of a sine wave, <code>sine_table_size</code> sets the number of samples that we will store. Note that, for reasons that will become apparent farther down in the code, it is convenient to make the length of this table a power of two.</p>
-<p>We next declare two arrays with lengths equal to <code>sine_table_size</code>. We will populate these arrays in <code>main()</code>, but note that <code>raw_sin</code> is an array of <code>ints</code> and <code>DAC_data</code> is an array of <code>unsigned shorts</code>. As the names suggest, we will store raw sine wave amplitudes in <code>raw_sin</code>, and we will store the formatted bits that will be send to the DAC through the SPI channel in <code>DAC_data</code>. As described in the DAC datasheet, the DAC expects 16-bit packets through the SPI channel. The most significant 4 of these bits are configuration and control bits, and the least significant 12 are data (i.e. the 12-bit number in the range [0, 4096] that we want for the DAC to convert to a voltage). So, each element in the <code>DAC_data</code> array will contain a formatted version of the corresponding element in the <code>raw_sin</code> array. In particular, the sine wave amplitudes will be truncated to 12 bits, and the DAC control bits will be masked to the top 4 bits of each element in the array. The result will be that each element in the <code>DAC_data</code> array will be an <code>unsigned short</code>, the top 4 bits of which are DAC control bits, and the bottom 12 bits of which are data.</p>
-<p>Furthermore, note that we have aligned the <code>DAC_data</code> array in memory. The reason for this will become obvious later in the code, but this is so that we can use the <code>channel_config_set_ring</code> option for the DMA channel, so that it will wrap its read address at the end of the array and start reading again at the beginning. For this to work, we need a naturally aligned array.</p>
+<p>The next section of code <code>#define</code>'s some parameter values, and declares some variables and arrays in global space. <code>sine_table_size</code> represents the number of elements in our sine table. The sine table will contain amplitudes for a single period of a sine wave, <code>sine_table_size</code> sets the number of samples that we will store.</p>
+<p>We next declare two arrays with lengths equal to <code>sine_table_size</code>. We will populate these arrays in <code>main()</code>, but note that <code>raw_sin</code> is an array of <code>ints</code> and <code>DAC_data</code> is an array of <code>unsigned shorts</code>. As the names suggest, we will store raw sine wave amplitudes in <code>raw_sin</code>, and we will store the formatted bits that will be send to the DAC through the SPI channel in <code>DAC_data</code>. As described in the <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20002249B.pdf">DAC datasheet</a>, the DAC expects 16-bit packets through the SPI channel. The most significant 4 of these bits are configuration and control bits, and the least significant 12 are data (i.e. the 12-bit number in the range [0, 4096] that we want for the DAC to convert to a voltage). So, each element in the <code>DAC_data</code> array will contain a formatted version of the corresponding element in the <code>raw_sin</code> array. In particular, the sine wave amplitudes will be truncated to 12 bits, and the DAC control bits will be masked to the top 4 bits of each element in the array. The result will be that each element in the <code>DAC_data</code> array will be an <code>unsigned short</code>, the top 4 bits of which are DAC control bits, and the bottom 12 bits of which are data.</p>
+<p>Note that, in <a href="https://vanhunteradams.com/Pico/Multi/MultiCore.html">another example</a>, we masked the DAC configuration bits onto the data when we did the SPI transaction in the ISR. The DMA channel requires that all the data that it shuffles to the SPI transmit buffer be <em>already formatted</em>.</p>
+<p>The next line of code creates a pointer to the address of the start of the DAC array. As we'll see later on, this is passed to the DMA channel as its starting read address.</p>
 <p>The next line of code sets the top 4 DAC configuration bits. You can read about these configuration bits in the DAC datasheet, but note that the bottom 12 bits of <code>DAC_config_chan_A</code> are all 0's. In <code>main()</code>, we will mask the DAC data into these bottom 12 bits, maintaining the top 4 control bits.</p>
 <p>The next chunk of code gives some names to a handful of GPIO ports for later association with the SPI channel. Note that the numbers in these lines of code correspond to GPIO port number and <em>not</em> to pin numbers. See the GPIO port numbers in the image below. Note also that these pins are not chosen arbitrarily. We've chosen a particular set of GPIO ports which are all associated with the same SPI channel (SPI0), and named each according to its available function on that SPI channel (MISO/RX, MOSI/TX, CS, SCK). We could have chosen different GPIO ports for each of these functions, but not arbitrary ports, only those with the same signals mapped to them. The final line in this chunk specifies the SPI channel which we are using, which is <code>spi0</code>. <code>spi0</code> is declared in the <code>spi.h</code> header file (<code>pico-sdk\src\rp2_common\hardware_spi\include\hardware\spi.h</code>).</p>
 <p>Lastly, we declare a <code>const</code> unsigned int in which we store the length of the array. This will be necessary for configuring the DMA channel.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <figure>
     <img align="center" width="900" height="500" src="pins.png" alt='missing' />
     <center><figcaption>GPIO port names and functions</figcaption></center>
 </figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Function-for-manipulating-DMA-timer-register">Function for manipulating DMA timer register<a class="anchor-link" href="#Function-for-manipulating-DMA-timer-register">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The SDK function <code>channel_config_set_dreq(dma_channel_config *c, uint dreq)</code> allows the programmer to select a transfer request signal for a particular DMA channel. This is described on page 98 of the SDK guide and summarized here.</p>
-<p>The first argument is a pointer to channel configuration data, and the second is the <code>dreq</code> source. To quote the SDK guide: "Sources for TREQ signals are internal (TIMERS) or external (DREQ, a Data Request from the system). 0x0 to 0x3a → select DREQ n as TREQ 0x3b → Select Timer 0 as TREQ 0x3c → Select Timer 1 as TREQ 0x3d → Select Timer 2 as TREQ (Optional) 0x3e → Select Timer 3 as TREQ (Optional) 0x3f → Permanent request, for unpaced transfers."</p>
-<p>At present, there is no SDK function for manipulating the TIMER0, TIMER1, TIMER2, or TIMER3 registers. However, these registers are described on page 109 of the RP2040 datasheet, and they are mapped to the <code>dma_hw_t</code> struct in <code>pico-sdk\src\rp2040\hardware_structs\include\hardware\structs\dma.h</code>. The struct which organizes the DMA control registers is copied below from that document:</p>
-<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="n">dma_channel_hw_t</span> <span class="n">ch</span><span class="p">[</span><span class="n">NUM_DMA_CHANNELS</span><span class="p">];</span>
-    <span class="kt">uint32_t</span> <span class="n">_pad0</span><span class="p">[</span><span class="mi">16</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="n">NUM_DMA_CHANNELS</span><span class="p">)];</span>
-    <span class="n">io_ro_32</span> <span class="n">intr</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">inte0</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">intf0</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">ints0</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">_pad1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="n">io_rw_32</span> <span class="n">inte1</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">intf1</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">ints1</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">timer</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-    <span class="n">io_wo_32</span> <span class="n">multi_channel_trigger</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">sniff_ctrl</span><span class="p">;</span>
-    <span class="n">io_rw_32</span> <span class="n">sniff_data</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">_pad2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-    <span class="n">io_ro_32</span> <span class="n">fifo_levels</span><span class="p">;</span>
-    <span class="n">io_wo_32</span> <span class="n">abort</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">dma_hw_t</span><span class="p">;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can manipulate each of the TIMER registers by touching the <code>timer[4]</code> array in this struct. The next chunk of code creates a function for doing this, and is listed below:</p>
-<div class="highlight"><pre><span></span><span class="cm">/*! Added by Hunter</span>
-<span class="cm">    Modifies the TIMER0 register of the dma channel</span>
-<span class="cm"> */</span>
-<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">dma_channel_set_timer0</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">timerval</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">timerval</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-<p>This modifies TIMER0 in particular. So, we'll configure the transfer request signal for the DMA channel to be TIMER0 by setting the <code>dreq</code> source to 0x3b, as described in the SDK manual and the text above. Page 108 of the RP2040 datasheet describes the TIMER0 registers as follows:</p>
-<p>"Pacing (X/Y) Fractional Timer. The pacing timer produces TREQ assertions at a rate set by ((X/Y) * sys_clk). This equation is evaluated every sys_clk cycles and therefore can only generate TREQs at a rate of 1 per sys_clk (i.e. permanent TREQ) or less."</p>
-<p>Note that, by default, the sys_clk for the RP2040 is 125 MHz.</p>
-
 </div>
 </div>
 </div>
@@ -13481,7 +13387,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="SPI-initialization-and-configuration">SPI initialization and configuration<a class="anchor-link" href="#SPI-initialization-and-configuration">&#182;</a></h4><p>The next two lines are copied below. The first of these is a call to <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>, and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code.</p>
+<h4 id="SPI-initialization-and-configuration">SPI initialization and configuration<a class="anchor-link" href="#SPI-initialization-and-configuration">&#182;</a></h4><p>The next two lines are copied below. The first of these is a call to <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>), and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code.</p>
 <p><code>spi_set_format</code> configures the SPI channel to whichever mode the device with which the RP2040 is communicating requires. <code>static void spi_set_format (spi_inst_t *spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)</code> takes 4 arguments. The first is the SPI instance specifier. The second is the number of data bits per transfer. Since the DAC expects 16 bit transfers, this is configured to 16. <code>CPOL</code> and <code>CPHA</code> set the SPI clock polarity and phase (i.e. the "mode"). Finally <code>order</code> is not presently configurable, but sets the endianness of the transfer. Sends MSB first.</p>
 <div class="highlight"><pre><span></span><span class="c1">// Initialize SPI channel (channel, baud rate set to 20MHz)</span>
     <span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
@@ -13527,11 +13433,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Obtaining-DMA-channels">Obtaining DMA channels<a class="anchor-link" href="#Obtaining-DMA-channels">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// Get a free channel, panic() if there are none</span>
-    <span class="kt">int</span> <span class="n">data_chan</span> <span class="o">=</span> <span class="n">dma_claim_unused_channel</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">ctrl_chan</span> <span class="o">=</span> <span class="n">dma_claim_unused_channel</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<h4 id="Obtaining-DMA-channels">Obtaining DMA channels<a class="anchor-link" href="#Obtaining-DMA-channels">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// Select DMA channels</span>
+    <span class="kt">int</span> <span class="n">data_chan</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ctrl_chan</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </pre></div>
-<p>We claim two DMA channels by making calls to <code>dma_claim_unused_channel(true)</code>. By making the argument to this call true, the function will <code>panic</code> if no DMA channels are available. Each call will return the name of a channel (an int) which we store in <code>data_chan</code> and <code>ctrl_chan</code>, respectively.</p>
+<p>We claim two DMA channels. There are 12 DMA channels in total, we are choosing to use channels 0 and 1.</p>
 
 </div>
 </div>
@@ -13540,10 +13446,11 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Configuring-the-control-DMA-channel">Configuring the control DMA channel<a class="anchor-link" href="#Configuring-the-control-DMA-channel">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// Setup the control channel</span>
-    <span class="n">dma_channel_config</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">ctrl_chan</span><span class="p">);</span> <span class="c1">// default configs</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span> <span class="c1">// 32-bit txfers</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span> <span class="c1">// no read incrementing</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span> <span class="c1">// no write incrementing</span>
+    <span class="n">dma_channel_config</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">ctrl_chan</span><span class="p">);</span>   <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>             <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                       <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                      <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="n">data_chan</span><span class="p">);</span>                         <span class="c1">// chain to data channel</span>
 </pre></div>
 <p>We declare an object of type <code>dma_channel_config</code> and name that object <code>c</code>. This object is a struct and, initially, the fields of that struct are populated with those provided by the call to <code>dma_channel_get_default_config(ctrl_chan)</code>. This function is defined in <code>pico-sdk\src\rp2_common\hardware_dma\include\hardware\dma.h</code>, and copied below:</p>
 <div class="highlight"><pre><span></span><span class="cm">/*! \brief  Get the default channel configuration for a given channel</span>
@@ -13580,7 +13487,7 @@ div#notebook {
     <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
-<p>In the remainder of this code chunk, we make calls to a series of SDK functions to change some of these default channel configurations. Not all of these are strictly necessary (since they configure the channel to default settings), but are included for clarity. In particular, we set the transfer data size to 32 bits and turn off read/write incrementing.</p>
+<p>In the remainder of this code chunk, we make calls to a series of SDK functions to change some of these default channel configurations. Not all of these are strictly necessary (since they configure the channel to default settings), but are included for clarity. In particular, we set the transfer data size to 32 bits and turn off read/write incrementing. We also chain this channel to the data channel.</p>
 
 </div>
 </div>
@@ -13596,15 +13503,15 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="highlight"><pre><span></span><span class="n">dma_channel_configure</span><span class="p">(</span>
-        <span class="n">ctrl_chan</span><span class="p">,</span>
-        <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>
-        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">data_chan</span><span class="p">].</span><span class="n">al1_transfer_count_trig</span><span class="p">,</span> <span class="c1">// txfer to transfer count trigger</span>
-        <span class="o">&amp;</span><span class="n">transfer_count</span><span class="p">,</span>
-        <span class="mi">1</span><span class="p">,</span>
-        <span class="nb">false</span>
+        <span class="n">ctrl_chan</span><span class="p">,</span>                          <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span>                                 <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">data_chan</span><span class="p">].</span><span class="n">read_addr</span><span class="p">,</span>   <span class="c1">// Write address (data channel read address)</span>
+        <span class="o">&amp;</span><span class="n">address_pointer</span><span class="p">,</span>                   <span class="c1">// Read address (POINTER TO AN ADDRESS)</span>
+        <span class="mi">1</span><span class="p">,</span>                                  <span class="c1">// Number of transfers</span>
+        <span class="nb">false</span>                               <span class="c1">// Don&#39;t start immediately</span>
     <span class="p">);</span>
 </pre></div>
-<p>We now have a claimed dma channel (<code>ctrl_chan</code>) and we have a configured channel (<code>c</code>). We need to associate the two, and do the remaining DMA configurations for this channel. We do that with a call to <code>dma_channel_configure</code>. The first argument is the channel. The second is a pointer the the dma config structure. The third is the source address (for this channel, we are writing to the <code>AL1_TRANSFER_COUNT_TRIG</code> register of the other DMA channel). The fourth argument is the source address, which is a pointer to the int which contains the length of the sine table. The fifth argument specifies the number of transfers to execute (1), and the last argument being false means <em>don't</em> start the channel right away.</p>
+<p>We now have a claimed dma channel (<code>ctrl_chan</code>) and we have a configured channel (<code>c</code>). We need to associate the two, and do the remaining DMA configurations for this channel. We do that with a call to <code>dma_channel_configure</code>. The first argument is the channel. The second is a pointer the the dma config structure. The third is the source address (for this channel, we are writing to the <code>READ_ADDR</code> register of the other DMA channel). The fourth argument is the source address, which is a pointer to the address of the beginning of the DAC data array. The fifth argument specifies the number of transfers to execute (1), and the last argument being false means <em>don't</em> start the channel right away.</p>
 
 </div>
 </div>
@@ -13612,54 +13519,25 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Verify-memory-alignment-of-DAC_data-array">Verify memory alignment of <code>DAC_data</code> array<a class="anchor-link" href="#Verify-memory-alignment-of-DAC_data-array">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="c1">// Confirm memory alignment</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">Beginning: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">First: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Second: %x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
-</pre></div>
-<p>We print out the memory addresses of the first few elements of the <code>DAC_data</code> array, just to confirm that it is indeed naturally aligned. The output from Putty, pictured below, shows these addresses are aligned.</p>
-<figure>
-    <img align="center" width="200" height="100" src="Putty.png" alt='missing' />
-    <center><figcaption>First few memory addresses of DAC_data array</figcaption></center>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Configure-the-data-DMA-channel">Configure the data DMA channel<a class="anchor-link" href="#Configure-the-data-DMA-channel">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// 16 bit transfers. Read address increments after each transfer.</span>
-    <span class="c1">// DREQ to Timer 0 is selected, so the DMA is throttled to audio rate</span>
-    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">data_chan</span><span class="p">);</span>
-    <span class="c1">// 16 bit transfers</span>
-    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_16</span><span class="p">);</span>
-    <span class="c1">// increment the read adddress, don&#39;t increment write address</span>
-    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
-    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<h4 id="Configure-the-data-DMA-channel">Configure the data DMA channel<a class="anchor-link" href="#Configure-the-data-DMA-channel">&#182;</a></h4><div class="highlight"><pre><span></span><span class="c1">// Setup the data channel</span>
+    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">data_chan</span><span class="p">);</span>  <span class="c1">// Default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_16</span><span class="p">);</span>            <span class="c1">// 16-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>                       <span class="c1">// yes read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                     <span class="c1">// no write incrementing</span>
     <span class="c1">// (X/Y)*sys_clk, where X is the first 16 bytes and Y is the second</span>
-    <span class="c1">// sys_clk is 125 MHz unless changed in code</span>
-    <span class="n">dma_channel_set_timer0</span><span class="p">(</span><span class="mh">0x0017ffff</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// sys_clk is 125 MHz unless changed in code. Configured to ~44 kHz</span>
+    <span class="n">dma_timer_set_fraction</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0x0017</span><span class="p">,</span> <span class="mh">0xffff</span><span class="p">)</span> <span class="p">;</span>
     <span class="c1">// 0x3b means timer0 (see SDK manual)</span>
-    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">);</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="mh">0x3b</span><span class="p">);</span>                                 <span class="c1">// DREQ paced by timer 0</span>
     <span class="c1">// chain to the controller DMA channel</span>
-    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">ctrl_chan</span><span class="p">);</span>
-    <span class="c1">// set wrap boundary. This is why we needed alignment!</span>
-    <span class="n">channel_config_set_ring</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span> <span class="c1">// 1 &lt;&lt; 9 byte boundary on read ptr</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">ctrl_chan</span><span class="p">);</span>                        <span class="c1">// Chain to control channel</span>
 </pre></div>
 <p>Similarly to before, we declare an object of type <code>dma_channel_config</code> and name this one <code>c2</code>. We start with the default configurations, and then change some of these configurations with subsequent calls to various <code>channel_config</code> functions from the SDK.</p>
 <p>We set the transfer data size to 16 bits, since that's what the DAC expects.</p>
 <p>We enable read incrementing, and disable write incrementing. This means that the DMA channel will increment from one read address to the next between subsequent transfers, but it will always write to the same write address.</p>
-<p>We call the function that we created to configure the DMA timer 0. In this case, we call it with the value 0x0017ffff. This will configure the timer to overflow at (0x0017/0xffff)*sys_clk Hz, or (23/65535)*sys_clk Hz. With a default sys_clk of 125MHz, this gives us (3.51e-4)*(125MHz) $\approx$ 43,870 Hz.</p>
-<p>We set the transfer request signal to Timer 0 by making the second argument of <code>channel_config_set_dreq</code> 0x3b (see the SDK guide).</p>
+<p>We configure the DMA timer 0 with a call to <code>dma_timer_set_fraction(0, 0x0017, 0xffff) ;</code>. As described in the SDK, the first argument specifies which DMA timer we are configuring (there are four from which we can select), the second argument is the numerator, and the third argument is the denominator. The timer runs at <code>system_clock_freq*numerator/demonominator</code>. In this case, we call it with the value <code>0x0017</code> for the numerator and <code>ffff</code> for the denominator. This will configure the timer to overflow at (0x0017/0xffff)*sys_clk Hz, or (23/65535)*sys_clk Hz. With a default sys_clk of 125MHz, this gives us (3.51e-4)*(125MHz) $\approx$ 43,870 Hz.</p>
+<p>We set the transfer request signal to Timer 0 by making the second argument of <code>channel_config_set_dreq</code> 0x3b (see the SDK guide). There exists a whole library of DREQ signals from a variety of peripherals that can be used to pace DMA channels.</p>
 <p>We <em>chain the control channel to the data channel</em>. By calling <code>channel_config_set_chain_to(&amp;c2, ctrl_chan);</code>, the control dma channel will start <em>automatically</em> when the data channel finishes.</p>
-<p>Finally, we call <code>channel_config_set_ring(&amp;c2, false, 9);</code>. The first argument is a pointer to the dma config structure <code>c2</code>. The second argument being <code>false</code> means that we are configuring <em>read addresses</em> (<code>true</code> here would instead configure a wrap boundary for write addresses). And finally, we specify a 1&lt;&lt;9 byte boundary on the read pointer. This means that the read address wraps on a (512-byte) boundary, so that the data channel reads the same array from beginning to end when it is next triggered. Why 512 bytes? The sine table is 256 elements long, each element is a 16-bit short, which is 2 bytes.</p>
 
 </div>
 </div>
@@ -13668,12 +13546,12 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Associating-the-configured-channel-with-the-DMA-data-channel">Associating the configured channel with the DMA data channel<a class="anchor-link" href="#Associating-the-configured-channel-with-the-DMA-data-channel">&#182;</a></h4><div class="highlight"><pre><span></span><span class="n">dma_channel_configure</span><span class="p">(</span>
-        <span class="n">data_chan</span><span class="p">,</span>          <span class="c1">// Channel to be configured</span>
-        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>            <span class="c1">// The configuration we just created</span>
-        <span class="o">&amp;</span><span class="n">spi_get_hw</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dr</span><span class="p">,</span> <span class="c1">// write address</span>
-        <span class="n">DAC_data</span><span class="p">,</span> <span class="c1">// The initial read address (AT NATURAL ALIGNMENT POINT)</span>
-        <span class="n">sine_table_size</span><span class="p">,</span> <span class="c1">// Number of transfers; in this case each is 2 byte.</span>
-        <span class="nb">false</span>           <span class="c1">// Don&#39;t start immediately.</span>
+        <span class="n">data_chan</span><span class="p">,</span>                  <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>                        <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">spi_get_hw</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">dr</span><span class="p">,</span>  <span class="c1">// write address (SPI data register)</span>
+        <span class="n">DAC_data</span><span class="p">,</span>                   <span class="c1">// The initial read address</span>
+        <span class="n">sine_table_size</span><span class="p">,</span>            <span class="c1">// Number of transfers</span>
+        <span class="nb">false</span>                       <span class="c1">// Don&#39;t start immediately.</span>
     <span class="p">);</span>
 </pre></div>
 <p>Very similar to before. The first argument is the channel to be configured. The second is a pointer to the dma config structure <code>c2</code>. The third is the destination address which, for the data channel, is the SPI channel 0 write buffer. The fourth argument is the initial source address, which points to the beginning of the <code>DAC_data</code> array (remember that we've configured this channel to increment thru read addresses, wrapping at the end of the array). The fifth argument is the number of transfers to execute (the size of the array). The final argument prevents the DMA channel from starting instantly.</p>
@@ -13728,21 +13606,72 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.13</span><span class="p">)</span>
+<p>We linked the DMA and SPI hardware libraries.</p>
+<div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">dma-demo</span> <span class="s">dma-demo.c</span><span class="p">)</span>
 
-<span class="nb">include</span><span class="p">(</span><span class="s">pico_sdk_import.cmake</span><span class="p">)</span>
-
-<span class="nb">project</span><span class="p">(</span><span class="s">dma-testing-project</span><span class="p">)</span>
-
-<span class="nb">pico_sdk_init</span><span class="p">()</span>
-
-<span class="nb">add_executable</span><span class="p">(</span><span class="s">dma-test</span> <span class="s">dma-test.c</span><span class="p">)</span>
-
-<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">dma-test</span> <span class="s">pico_stdlib</span> <span class="s">hardware_dma</span> <span class="s">hardware_spi</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">dma-demo</span> <span class="s">pico_stdlib</span> <span class="s">hardware_dma</span> <span class="s">hardware_spi</span><span class="p">)</span>
 
 <span class="c"># create map/bin/hex file etc.</span>
-<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">dma-test</span><span class="p">)</span>
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">dma-demo</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Documentation">Documentation<a class="anchor-link" href="#Documentation">&#182;</a></h2><p>The resources for this project include the <a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf">RP2040 C SDK user's guide</a> and the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="By-the-way">By the way<a class="anchor-link" href="#By-the-way">&#182;</a></h2><p>When this example was first assembled, there did not yet exist an SDK function for manipulating timer 0. But, the SDK is organized well enough that it's not too difficult to write a custom function. Here's how that's done.</p>
+<h3 id="Custom-function-for-manipulating-DMA-timer-register">Custom function for manipulating DMA timer register<a class="anchor-link" href="#Custom-function-for-manipulating-DMA-timer-register">&#182;</a></h3><p>The SDK function <code>channel_config_set_dreq(dma_channel_config *c, uint dreq)</code> allows the programmer to select a transfer request signal for a particular DMA channel. This is described on page 98 of the SDK guide and summarized here.</p>
+<p>The first argument is a pointer to channel configuration data, and the second is the <code>dreq</code> source. To quote the SDK guide: "Sources for TREQ signals are internal (TIMERS) or external (DREQ, a Data Request from the system). 0x0 to 0x3a → select DREQ n as TREQ 0x3b → Select Timer 0 as TREQ 0x3c → Select Timer 1 as TREQ 0x3d → Select Timer 2 as TREQ (Optional) 0x3e → Select Timer 3 as TREQ (Optional) 0x3f → Permanent request, for unpaced transfers."</p>
+<p>At present, there is no SDK function for manipulating the TIMER0, TIMER1, TIMER2, or TIMER3 registers. However, these registers are described on page 109 of the RP2040 datasheet, and they are mapped to the <code>dma_hw_t</code> struct in <code>pico-sdk\src\rp2040\hardware_structs\include\hardware\structs\dma.h</code>. The struct which organizes the DMA control registers is copied below from that document:</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">dma_channel_hw_t</span> <span class="n">ch</span><span class="p">[</span><span class="n">NUM_DMA_CHANNELS</span><span class="p">];</span>
+    <span class="kt">uint32_t</span> <span class="n">_pad0</span><span class="p">[</span><span class="mi">16</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="n">NUM_DMA_CHANNELS</span><span class="p">)];</span>
+    <span class="n">io_ro_32</span> <span class="n">intr</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">inte0</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">intf0</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">ints0</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">_pad1</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">io_rw_32</span> <span class="n">inte1</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">intf1</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">ints1</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">timer</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">io_wo_32</span> <span class="n">multi_channel_trigger</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">sniff_ctrl</span><span class="p">;</span>
+    <span class="n">io_rw_32</span> <span class="n">sniff_data</span><span class="p">;</span>
+    <span class="kt">uint32_t</span> <span class="n">_pad2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">io_ro_32</span> <span class="n">fifo_levels</span><span class="p">;</span>
+    <span class="n">io_wo_32</span> <span class="n">abort</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">dma_hw_t</span><span class="p">;</span>
+</pre></div>
+<p>We can manipulate each of the TIMER registers by touching the <code>timer[4]</code> array in this struct. The next chunk of code creates a function for doing this, and is listed below:</p>
+<div class="highlight"><pre><span></span><span class="cm">/*! Added by Hunter</span>
+<span class="cm">    Modifies the TIMER0 register of the dma channel</span>
+<span class="cm"> */</span>
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">dma_channel_set_timer0</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">timerval</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">timer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">timerval</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>This modifies TIMER0 in particular. So, we'll configure the transfer request signal for the DMA channel to be TIMER0 by setting the <code>dreq</code> source to 0x3b, as described in the SDK manual and the text above. Page 108 of the RP2040 datasheet describes the TIMER0 registers as follows:</p>
+<p>"Pacing (X/Y) Fractional Timer. The pacing timer produces TREQ assertions at a rate set by ((X/Y) * sys_clk). This equation is evaluated every sys_clk cycles and therefore can only generate TREQs at a rate of 1 per sys_clk (i.e. permanent TREQ) or less."</p>
+<p>Note that, by default, the sys_clk for the RP2040 is 125 MHz.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
