@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>ReactionWheel</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,29 +13077,69 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="PID-Control-of-an-Inverted-Pendulum-with-a-Reaction-Wheel">PID Control of an Inverted Pendulum with a Reaction Wheel<a class="anchor-link" href="#PID-Control-of-an-Inverted-Pendulum-with-a-Reaction-Wheel">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>When the James Webb Space Telescope (or nearly any other modern spacecraft, for that matter) wants to change its orientation, how does it do so? It's not obvious how to turn something around in space where there's nothing (not even air) to push against. You might consider using thrusters, but those come at a cost! They require propellant. Propellant weighs a lot, and you can run out of it! A thruster shoots material into space when it fires, which can interfere with sensitive instrumentation. Furthermore, thruster fires tend to be impulsive in nature, which can excite vibrational modes in the spacecraft and don't allow for the ultra-precise control required to point at a distant star. Fortunately, thrusters aren't the only option for changing a spacecraft's orientation!</p>
+<p>For changing the <em>orbit</em> of a spacecraft, you must have an external force (like a thruster) acting on the spacecraft. But to change the <em>orientation</em> of a spacecraft, we just need a torque! That torque <em>might</em> come from a thruster exerting a force, since $\bf{\tau} = \bf{F} \times \bf{r}$, but it can also come from a change in angular momentum, since $\tau = \frac{d \bf{L}}{dt}$. A spacecraft can change its orientation by <em>storing</em> angular momentum in an internal device, and then <em>exchanging</em> angular momentum between that device and the spacecraft body. Often, that device is a <a href="https://en.wikipedia.org/wiki/Reaction_wheel#James_Webb_Space_Telescope">reaction wheel</a>.</p>
+<p>A reaction wheel is a heavy, spinning disc rigidly mounted inside the spacecraft. The reaction wheel + spacecraft is a closed system which must conserve angular momentum. So, if we make the reaction wheel spin slightly faster in the clockwise direction, the spacecraft body will compensate by spinning in the counterclockwise direction. Point a reaction wheel in each direction, and you've got 3-axis control! If you care to dive into the physics, please see <a href="https://vanhunteradams.com/5160/ADCS/Supplements/ADCS.html">here</a>.</p>
+<p>In this lab, we will use a PID controller to modulate the speed of a reaction wheel at the end of an inverted pendulum. The torque that the reaction wheel exerts on the pendulum will balance it. In order for this to work, we must close the loop around a measurement of the pendulum angle. This angle will be estimated using a complementary filter of accelerometer and gyroscope measurements from an IMU.</p>
+<figure>
+    <img align="center" width="300" height="500" src="Webb.png" alt='missing' />
+    <center><figcaption>James Webb Space Telescope</figcaption></center>
+</figure><p><strong>Key concepts</strong>: PID control, PWM, electrical isolation, complementary filters and sensor fusion, I2C, timers, timer interrupts, digital low-pass filtering, gyroscopes, accelerometers, UART, threading, VGA, fixed-point arithmetic</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2><p>Please see demo video below.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1x1sSMSw6X4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h2><p>Experience shows that students prefer these webpages short. For that reason, please find the reading and background materials on the webpages linked below. <em>Please note that the information in these readings will be critical for completing the lab.</em></p>
+<h3 id="Engineering-background">Engineering background<a class="anchor-link" href="#Engineering-background">&#182;</a></h3><ul>
+<li><a href="./Pendulum_construction.html"><strong>Mechanical construction of the inverted pendulum</strong></a>: Procedure for building the inverted pendulum.</li>
+<li><a href="./Digital_Lowpass_Filters.html"><strong>Data display</strong></a>: Describes the data that you must visualize in realtime, and some strategies for visualizing that data (digital lowpass filters).</li>
+<li><a href="./HBridgeCircuit.html"><strong>Motor circuit and PWM</strong></a>: This webpage describes the circuit that you will construct to safely drive the DC motor, and how to generate PWM.</li>
+<li><strong>Tuning the reaction wheel PID controller</strong></li>
+<li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage.</li>
+<li><a href="https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf"><strong>MPU-6050 datasheet</strong></a>: The datasheet for the accelerometer/gyro that we'll be using.</li>
+<li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: See sections on PWM and I2C.</li>
+<li><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf"><strong>RP2040 C SDK</strong></a>: See sections on PWM and I2C.</li>
 </ul>
-</blockquote>
+<h3 id="Mathematical-background">Mathematical background<a class="anchor-link" href="#Mathematical-background">&#182;</a></h3><ul>
+<li><a href="./Complementary_Filters.html"><strong>Complementary filters</strong></a>: A method for estimating angle from gyroscope and accelerometer measurements. This is a <em>great</em> algorithm for your toolbox. Quick, easy, and effective.</li>
+<li><a href="https://vanhunteradams.com/PID/PID.html"><strong>Phenomenological introduction to PID controllers</strong></a>: This webpage provides a phenomenological introduction to PID controllers, using a system that is different from this one.</li>
+<li><a href="https://vanhunteradams.com/PID/PID_Analytical.html"><strong>Analytical introduction to PID controllers</strong></a>: This webpage provides an analytical introduction to PID controllers, using a system that is different from this one.</li>
+<li><a href="https://vanhunteradams.com/5160/ADCS/Supplements/ADCS.html"><strong>Reaction wheel attitude dynamics</strong></a>: The physics of spacecraft attitude dynamics and determination. Not required reading, but of potential interest.</li>
+</ul>
 
 </div>
 </div>
@@ -13115,233 +13155,30 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch a Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch a Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Modified Monarch for vineyard and cattle monitoring</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<p><strong>Artistic projects</strong></p>
-<ol>
-<li><a href="./Paint/Paint.html">Paint and clay</a></li>
-</ol>
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-</ol>
-<!-- Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students. These webpages don't stand alone *quite* as well as the ones above. Each was intended to be read by the student in the same week that the material was presented in lecture.
-1.  [Basic math of astronomy, Kepler's Laws](./Astro1101/Section1.html)
-2. [Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law](./Astro1101/Section2.html)
-3. [Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler](./Astro1101/Section3.html)
-4. [Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler](./Astro1101/Section4.html)
-5. [Half lives, dating curves, and mass spectroscopy](./Astro1101/Section5.html)
-6. [Equilibrium temperature of the Earth](./Astro1101/Section6.html) -->
-<!-- 7. [Review of topics so far](./Astro1101/Section7.html) -->
-<!-- 8. [Proton-proton chain, life cycle of a star](./Astro1101/Section8.html)
-9. [Venus atmosphere and geology](./Astro1101/Section9.html)
-10. [Martian surface processes, gas escape, RADAR imaging](./Astro1101/Section10.html) -->
-<!-- 11. [Review of topics so far](./Astro1101/Section11.html) -->
-<!-- 12. [Rings and the Roche Limit, RADAR depth sounding, the gas giants](./Astro1101/Section12.html)
-13. [Comets and Trans-Neptunian objects](./Astro1101/Section13.html) -->
-
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design. Started in Spring, 2021.<br></p>
-<blockquote><p><strong>Raspberry Pi Pico (RP2040)</strong></p>
+<h2 id="Program-organization">Program organization<a class="anchor-link" href="#Program-organization">&#182;</a></h2><p>You may organize your program however you like. Here is a suggestion:</p>
 <ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-</ul>
-<hr>
-<p><strong>PIC32</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures</a></li>
-<li><a href="http://people.ece.cornell.edu/land/courses/ece4760/">Course website</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
+<li><strong>Protothreads</strong> maintains the ISR-driven, millisecond-scale timing as part of the supplied system. Use this for all low-precision timing (can have several milliseconds jitter).</li>
+<li><strong>PID ISR</strong> uses a timer or PWM interrupt to ensure an exact 1kHz control rate.<blockquote><ul>
+<li>Clears the interrupt flag</li>
+<li>Reads the MPU-6050 for accelerometer and gyro measurements</li>
+<li>Uses these measurements in a complementary filter to compute arm angle.</li>
+<li>Runs the PID control loop at 1000/sec using the angle measurements from the complementary filter and the desired angle</li>
+<li>Sets a hardware PWM signals using output-compare units to control the motor using the command: <code>pwm_set_chan_level(slice_num, PWM_CHAN_X[A or B], pwm_on_time);</code>.</li>
 </ul>
 </blockquote>
 </li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
+<li><strong>Main</strong> sets up peripherals and protothreads then just schedules tasks, round-robin</li>
+<li><strong>Thread 1</strong><blockquote><ul>
+<li>Takes user input from the serial interface to setup PID parameters and the desired angle.</li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
+<li><strong>Thread 2</strong><blockquote><ul>
+<li>Diplays accelerometer angle, gyro angle, complementary angle, and low-passed control input on VGA display</li>
 </ul>
 </blockquote>
 </li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
 </ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
 
 </div>
 </div>
@@ -13357,38 +13194,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
+<h2 id="Weekly-checkpoints">Weekly checkpoints<a class="anchor-link" href="#Weekly-checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
+<h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4><h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4><h4 id="Week-three-assignment">Week three assignment<a class="anchor-link" href="#Week-three-assignment">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13403,17 +13210,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<h2 id="Lab-report">Lab report<a class="anchor-link" href="#Lab-report">&#182;</a></h2><p>Your written lab report should include all the sections mentioned on the <a href="https://vanhunteradams.com/Pico/CourseMaterials/Policy.html">policy page</a>, and:</p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>, <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
+<li>A schematic of the circuit you built</li>
+<li>How you selected the PID gains</li>
+<li>An image of your VGA display (showing control input and estimated angle) during balancing</li>
+<li>An image of your VGA display (showing control input and estimated angle) after an impulse (i.e. after smacking it with a pencil).</li>
+<li>A heavily commented listing of your code.</li>
 </ul>
 
 </div>
