@@ -13128,7 +13128,7 @@ div#notebook {
 <li><a href="./Pendulum_construction.html"><strong>Mechanical construction of the inverted pendulum</strong></a>: Procedure for building the inverted pendulum.</li>
 <li><a href="./Digital_Lowpass_Filters.html"><strong>Data display</strong></a>: Describes the data that you must visualize in realtime, and some strategies for visualizing that data (digital lowpass filters).</li>
 <li><a href="./HBridgeCircuit.html"><strong>Motor circuit and PWM</strong></a>: This webpage describes the circuit that you will construct to safely drive the DC motor, and how to generate PWM.</li>
-<li><strong>Tuning the reaction wheel PID controller</strong></li>
+<li><a href="./Tuning.html"><strong>Tuning the reaction wheel PID controller</strong></a>: This webpage describes a strategy for tuning your PID controller.</li>
 <li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage.</li>
 <li><a href="https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Datasheet1.pdf"><strong>MPU-6050 datasheet</strong></a>: The datasheet for the accelerometer/gyro that we'll be using.</li>
 <li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: See sections on PWM and I2C.</li>
@@ -13195,7 +13195,38 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Weekly-checkpoints">Weekly checkpoints<a class="anchor-link" href="#Weekly-checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
-<h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4><h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4><h4 id="Week-three-assignment">Week three assignment<a class="anchor-link" href="#Week-three-assignment">&#182;</a></h4>
+<h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4><p>By the end of the lab section in week one of the lab you must have:</p>
+<ul>
+<li>The <a href="./Pendulum_construction.html">mechanical assembly finished</a>.</li>
+<li>The <a href="./HBridgeCircuit.html">H-bridge motor circuit</a> built. </li>
+<li>You must be able to control the motor speed open-loop through a command line interface. Start from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_3/PWM_Demo">this demo code</a>.</li>
+<li>Display of the actual tilt angle (as calculated by a <a href="./Complementary_Filters.html">complementary filter</a> of the accelerometer and gyro measurements) and the <a href="./Digital_Lowpass_Filters.html">low-passed motor command signal</a> on the VGA display. <em>This is <strong>critical</strong> for debugging</em>.</li>
+</ul>
+<h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4><p>By the end of the lab secton in week two of the lab you must have:</p>
+<ul>
+<li>Full closed-loop control of the motor (just <a href="./Tuning.html">proportional control</a> is fine).</li>
+<li>A serial command line interface to set PID parameters.</li>
+</ul>
+<h4 id="Week-three-assignment">Week three assignment<a class="anchor-link" href="#Week-three-assignment">&#182;</a></h4><ul>
+<li>Estimate the tilt angle of the inverted pendulum using a <a href="./Complementary_Filters.html">complementary filter</a>, display the angle on the VGA screen..</li>
+<li>Format the set angle and PID parameters to display appropriate messages on the VGA display or the serial console.</li>
+<li>At any time, take commands from the serial interface to:<blockquote><ul>
+<li>Set the desired tilt angle</li>
+<li>Set the PID proportional gain</li>
+<li>Set the PID differential gain</li>
+<li>Set the PID integral gain</li>
+<li>The new values should take effect immediately</li>
+<li>One set of coefficients should produce balancing and minor disturbance rejection.</li>
+</ul>
+</blockquote>
+</li>
+<li>Use a PID control algorithm to control the speed of the motor by producing a PWM drive to the optoisolators in the <a href="./HBridgeCircuit.html">H-bridge motor circuit</a>. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_3/PWM_Demo">PWM demo code here.</a></li>
+<li><a href="./Tuning.html">Tune the PID algorithm</a> so that the arm balances.</li>
+<li>Display the motor control value (not the raw PWM signal) on the VGA. Noise control on this signal is essential. If you cannot see the shape of the control signal, you will not get credit for this feature! You may need to combine DSP and analog filtering, depending on exactly how you build the circuit. <a href="./Digital_Lowpass_Filters.html">See here.</a></li>
+<li>Display the actual tilt angle, from the complementary filter, on the VGA. If this signal is noisy, you need to find out why! A noisy input makes the control PID algorithm very hard to tune.</li>
+</ul>
+<p>You will demo all of the features above to a course staff member. You program should not need to be reset during the demo.</p>
+
 </div>
 </div>
 </div>
