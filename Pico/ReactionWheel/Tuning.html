@@ -13175,11 +13175,9 @@ div#notebook {
 <span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&gt;</span><span class="n">Imax</span><span class="p">)</span> <span class="n">error_accumulation</span><span class="o">=</span><span class="n">Imax</span> <span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&lt;</span><span class="p">(</span><span class="o">-</span><span class="n">Imax</span><span class="p">))</span> <span class="n">error_accumulation</span><span class="o">=-</span><span class="n">Imax</span> <span class="p">;</span>
 
-<span class="c1">// Approximate the rate of change of the error</span>
-<span class="n">error_deriv</span> <span class="o">=</span> <span class="p">(</span><span class="n">error</span> <span class="o">-</span> <span class="n">prev_error</span><span class="p">)</span> <span class="p">;</span>
 
 <span class="c1">// Compute duty cycle with PID controller</span>
-<span class="n">duty_cycle</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Ki</span> <span class="o">*</span> <span class="n">error_accumulation</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Kd</span> <span class="o">*</span> <span class="n">error_deriv</span><span class="p">)</span> <span class="p">;</span> 
+<span class="n">duty_cycle</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Ki</span> <span class="o">*</span> <span class="n">error_accumulation</span><span class="p">)</span> <span class="p">;</span> 
 
 <span class="c1">// Update prev_error</span>
 <span class="n">prev_error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">;</span>
