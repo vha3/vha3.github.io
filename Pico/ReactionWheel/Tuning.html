@@ -13108,7 +13108,10 @@ div#notebook {
 </pre></div>
 <p>Use your hand to gently move the pendulum back and forth. Do you see the reaction wheel speed increase in one direction when you move the arm right, and in the other direction when you move it left? Do you feel the arm fighting against your rotation, or trying to make the arm rotate faster? If it feels like the wheel is trying to pull the arm faster, then switch the sign on $K_p$.</p>
 <p>Your calculation of the duty cycle may yield a negative number. Remember that the sign of the duty cycle just indicates the <em>direction</em> that the motor should turn. In other words, the sign tells you which of the two PWM channels which drive the H-bridge you should command, and which you should set to zero.</p>
-<h3 id="3.-Add-integral-control">3. Add integral control<a class="anchor-link" href="#3.-Add-integral-control">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WL5ycezPkIo?start=16" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h3 id="3.-Add-integral-control">3. Add integral control<a class="anchor-link" href="#3.-Add-integral-control">&#182;</a></h3><p>Once proportional control is working as expected, add some integral control. The integral term of the PID controller computes a control input to the motors by <em>integrating the error over time</em>. To prevent <a href="https://vanhunteradams.com/PID/PID.html#Integrator-windup">integrator windup</a>, we will clamp the integral error at a maximum value. This maximum value is a tunable parameter, but start at about a 50% duty cycle.</p>
+<p>Recall that the proportional term of the PID controller only scales the instantaneous error, while the integral term scales the <em>integral</em> of the error. The integral of the error may be orders of magnitude <em>larger</em> than the instantaneous error! We'd like for the P term and the I term of the PID controller to both contribute to the control input, so we'll make $K_i$ a few orders of magnitude <em>smaller</em> than $K_p$. Start with 7-8.</p>
+<p>If you then start the pendulum balanced, you will likely see it correct itself once, then slowly increase its rotation speed until it tips over (as shown below). We'll solve that problem in the next step.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
 <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">desired_angle</span> <span class="o">-</span> <span class="n">complementary_angle</span><span class="p">)</span> <span class="p">;</span>
 
 <span class="c1">// Integrate the error</span>
@@ -13121,26 +13124,10 @@ div#notebook {
 <span class="c1">// Compute duty cycle with PI controller</span>
 <span class="n">duty_cycle</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Ki</span> <span class="o">*</span> <span class="n">error_accumulation</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
-<h3 id="4.-Add-derivative-control">4. Add derivative control<a class="anchor-link" href="#4.-Add-derivative-control">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
-<span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">desired_angle</span> <span class="o">-</span> <span class="n">complementary_angle</span><span class="p">)</span> <span class="p">;</span>
-
-<span class="c1">// Integrate the error</span>
-<span class="n">error_accumulation</span> <span class="o">+=</span> <span class="n">error</span> <span class="p">;</span>
-
-<span class="c1">// Clamp the integrated error (start with Imax = max_duty_cycle/2)</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&gt;</span><span class="n">Imax</span><span class="p">)</span> <span class="n">error_accumulation</span><span class="o">=</span><span class="n">Imax</span> <span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&lt;</span><span class="p">(</span><span class="o">-</span><span class="n">Imax</span><span class="p">))</span> <span class="n">error_accumulation</span><span class="o">=-</span><span class="n">Imax</span> <span class="p">;</span>
-
-<span class="c1">// Approximate the rate of change of the error</span>
-<span class="n">error_deriv</span> <span class="o">=</span> <span class="p">(</span><span class="n">error</span> <span class="o">-</span> <span class="n">prev_error</span><span class="p">)</span> <span class="p">;</span>
-
-<span class="c1">// Compute duty cycle with PID controller</span>
-<span class="n">duty_cycle</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Ki</span> <span class="o">*</span> <span class="n">error_accumulation</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Kd</span> <span class="o">*</span> <span class="n">error_deriv</span><span class="p">)</span> <span class="p">;</span> 
-
-<span class="c1">// Update prev_error</span>
-<span class="n">prev_error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">;</span>
-</pre></div>
-<h3 id="5.-Add-dithering">5. Add dithering<a class="anchor-link" href="#5.-Add-dithering">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WL5ycezPkIo?start=32" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h3 id="5.-Add-dithering">5. Add dithering<a class="anchor-link" href="#5.-Add-dithering">&#182;</a></h3><p>Recall that we only get <a href="https://vanhunteradams.com/5160/ADCS/Supplements/ADCS.html">torque from a reaction wheel</a> from <em>changes</em> in its angular momentum. That is to say, when its rotation rate is increasing or decreasing. If the inverted pendulum is just off from its desired tilt angle, then the integral term of the PID controller will cause the wheel to <em>slowly</em> ramp up in speed. A slow ramp up means very little torque, which means it continues to tip over!</p>
+<p>A simple way to solve this problem is with <em>dithering</em>. We constantly move the desired tilt angle very slightly <em>away</em> from the measured tilt angle, as shown in the code below. This way, the integrated error increases more quickly, so the I contribution to the PID controller increases more quickly, and the pendulum corrects itself.</p>
+<p>Once you add dithering, you may be able to get the pendulum to balance (as shown below)! Now you'll want to continue to tune your controller to make it as snappy and robust as possible.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
 <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">desired_angle</span> <span class="o">-</span> <span class="n">complementary_angle</span><span class="p">)</span> <span class="p">;</span>
 
 <span class="c1">// Start with angle_increment = 0.0001</span>
@@ -13167,7 +13154,37 @@ div#notebook {
 <span class="c1">// Update prev_error</span>
 <span class="n">prev_error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">;</span>
 </pre></div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WL5ycezPkIo?start=63" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><h3 id="4.-Add-derivative-control">4. Add derivative control<a class="anchor-link" href="#4.-Add-derivative-control">&#182;</a></h3><p>The way to make your system faster is to increase the values for $K_p$ and $K_i$. But! This will <em>destabilize</em> your system. If you make these gains too large, the arm will overcorrect and fall over.</p>
+<p>You can mitigate overcorrection by adding the <em>derivative</em> term of the PID controller. This term scales the <em>rate of change</em> of the error. If the error is getting smaller very quickly (i.e. the arm is moving quickly toward vertical), the D term of the PID controller <em>slows it down</em>. Likewise, if the error is increasing quickly (the arm is falling over), then the D term <em>speeds it up</em>.</p>
+<p>You can increase the snappiness and responsiveness of your PID controller by increasing $K_p$ and $K_i$, and combat the instability that this causes by adding a derivative term. Remember that the rate of change of the error will be orders of magnitude <em>smaller</em> than the instantaneous error, so $K_d$ will be orders of magnitude <em>larger</em> than $K_p$. Start with about 10000. <em>Look out for sign errors!</em></p>
+<div class="highlight"><pre><span></span><span class="c1">// Compute the error</span>
+<span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="n">desired_angle</span> <span class="o">-</span> <span class="n">complementary_angle</span><span class="p">)</span> <span class="p">;</span>
 
+<span class="c1">// Start with angle_increment = 0.0001</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">desired_angle</span> <span class="o">-=</span> <span class="n">angle_increment</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="n">desired_angle</span> <span class="o">+=</span> <span class="n">angle_increment</span> <span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Integrate the error</span>
+<span class="n">error_accumulation</span> <span class="o">+=</span> <span class="n">error</span> <span class="p">;</span>
+
+<span class="c1">// Clamp the integrated error (start with Imax = max_duty_cycle/2)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&gt;</span><span class="n">Imax</span><span class="p">)</span> <span class="n">error_accumulation</span><span class="o">=</span><span class="n">Imax</span> <span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">error_accumulation</span><span class="o">&lt;</span><span class="p">(</span><span class="o">-</span><span class="n">Imax</span><span class="p">))</span> <span class="n">error_accumulation</span><span class="o">=-</span><span class="n">Imax</span> <span class="p">;</span>
+
+<span class="c1">// Approximate the rate of change of the error</span>
+<span class="n">error_deriv</span> <span class="o">=</span> <span class="p">(</span><span class="n">error</span> <span class="o">-</span> <span class="n">prev_error</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Compute duty cycle with PID controller</span>
+<span class="n">duty_cycle</span> <span class="o">=</span> <span class="p">(</span><span class="n">Kp</span> <span class="o">*</span> <span class="n">error</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Ki</span> <span class="o">*</span> <span class="n">error_accumulation</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">Kd</span> <span class="o">*</span> <span class="n">error_deriv</span><span class="p">)</span> <span class="p">;</span> 
+
+<span class="c1">// Update prev_error</span>
+<span class="n">prev_error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">;</span>
+</pre></div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/WL5ycezPkIo?start=96" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
 </div>
