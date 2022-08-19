@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Johnson</title>
+<title>Building_Demos</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,29 +13077,108 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Test-embed-of-3D-model">Test embed of 3D model<a class="anchor-link" href="#Test-embed-of-3D-model">&#182;</a></h1>
+<h1 id="Building-RP2040-Demo-Code-in-the-Lab">Building RP2040 Demo Code in the Lab<a class="anchor-link" href="#Building-RP2040-Demo-Code-in-the-Lab">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="sketchfab-embed-wrapper"> <iframe title="Altar" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="640" height="480" src="https://sketchfab.com/models/7c169b391446461a8dfd55f577d0d406/embed"> </iframe> </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<p>This webpage is for students enrolled in <a href="https://ece4760.github.io">ECE 4760/5730</a> at Cornell. It walks you through downloading the RP2040 C SDK and course demo code, and building that demo code.</p>
+<p>This document assumes that the build environment has already been setup on the computer (as it is in the computer lab). For information about setting this build environment up on your own machine, please see:</p>
+<blockquote><ul>
+<li><a href="https://vanhunteradams.com/Pico/Setup/PicoSetup.html">Setting up C/C++ build environent for Raspberry Pi Pico on Windows</a></li>
+<li><a href="https://vanhunteradams.com/Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
+<li><a href="https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf">Setting up C/C++ build environment on Linux (see chapters 1 and 2)</a></li>
+</ul>
+</blockquote>
 
-    </div>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Video">Video<a class="anchor-link" href="#Video">&#182;</a></h2><p>The video below demonstrates the entire procedure described on this webpage.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nColD4YyaEw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Procedure">Procedure<a class="anchor-link" href="#Procedure">&#182;</a></h2><h3 id="First-time">First time<a class="anchor-link" href="#First-time">&#182;</a></h3><ol>
+<li>Login to a lab PC using your netid and password</li>
+<li>Navigate to <code>Start menu --&gt; Visual Studio 2019 --&gt; Developer PowerShell for VS 2019</code></li>
+<li>In the Developer powershell that opens, navigate to your own Documents directory by running:<br>
+<code>PS C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools&gt; cd C:\Users\NETID\Documents</code></li>
+<li>Create a new directory in your documents folder called <code>Pico</code> by running:<br>
+<code>PS C:\Users\NETID\Documents&gt; mkdir Pico</code></li>
+<li>Navigate into the Pico directory by running:<br>
+<code>PS C:\Users\NETID\Documents&gt; cd Pico</code></li>
+<li>Clone the RP2040 C SDK from Raspberry Pi's github by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico&gt; git clone -b master https://github.com/raspberrypi/pico-sdk.git</code></li>
+<li>Navigate into the <code>pico-sdk</code> directory by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico&gt; cd pico-sdk</code></li>
+<li>Update the SDK libraries by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\pico-sdk&gt; git submodule update --init</code></li>
+<li>Navigate back to the <code>Pico</code> directory by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\pico-sdk&gt; cd ..</code></li>
+<li>Clone the course demo code by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico&gt; git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Demos.git</code></li>
+<li>Set the value of the <code>PICO_SDK_PATH</code> path variable by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico&gt; setx PICO_SDK_PATH "..\..\pico-sdk"</code></li>
+<li>Set the value of the <code>PICO_TOOLCHAIN_PATH</code> path variable by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico&gt; setx PICO_TOOLCHAIN_PATH "C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\</code></li>
+<li><strong>Close the Developer PowerShell for VS 2019 window.</strong> This is required for the path variable changes to take effect.</li>
+<li>Reopen a Developer PowerShell for VS 2019 window by navigating to <code>Start menu --&gt; Visual Studio 2019 --&gt; Developer PowerShell for VS 2019</code></li>
+<li>Navigate to the demos directory by running:<br>
+<code>PS C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools&gt; cd C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos\</code></li>
+<li>Create a new directory in the demos folder called <code>build</code> by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos&gt; mkdir build</code></li>
+<li>Navigate into the new <code>build</code> directory by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos&gt; cd build</code></li>
+<li>Prepare the build folder by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos\build&gt; cmake -G "NMake Makefiles" ..</code></li>
+<li>Build all demos by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos\build&gt; nmake</code></li>
+<li>In a Folder Explorer window, navigate into <code>Documents/Pico/Hunter-Adams-RP2040-Demos/build</code>. There, you will find a folder for each project in the demo repository. Each folder contains the executables for that particular project. To program the RP2040 with one of those executables, press the <code>BOOTSEL</code> button, plug it into the PC, and drag/drop the uf2 file for that project onto the external memory device that appears.</li>
+</ol>
+<h3 id="Every-subsequent-time">Every subsequent time<a class="anchor-link" href="#Every-subsequent-time">&#182;</a></h3><ol>
+<li>Navigate to <code>Start menu --&gt; Visual Studio 2019 --&gt; Developer PowerShell for VS 2019</code></li>
+<li>In the Developer powershell that opens, navigate to the build directory in the demonstrations foler by running:<br>
+<code>PS C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools&gt; cd C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos\build\</code></li>
+<li>Build all demos by running:<br>
+<code>PS C:\Users\NETID\Documents\Pico\Hunter-Adams-RP2040-Demos\build&gt; nmake</code></li>
+<li>In a Folder Explorer window, navigate into <code>Documents/Pico/Hunter-Adams-RP2040-Demos/build</code>. There, you will find a folder for each project in the demo repository. Each folder contains the executables for that particular project. To program the RP2040 with one of those executables, press the <code>BOOTSEL</code> button, plug it into the PC, and drag/drop the uf2 file for that project onto the external memory device that appears.</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
 </div>
     </div>
   </div>
