@@ -13109,7 +13109,8 @@ div#notebook {
 </blockquote>
 </li>
 <li>You will need to add Homebrew to your PATH. Do so by running the following two commands:<br><br><blockquote><ul>
-<li><code>echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' &gt;&gt; /Users/USERNAME/.zprofile</code> (remembering to substitute your username)</li>
+<li><code>which brew</code> (this tells you where homebrew lives on your machine)</li>
+<li><code>echo 'eval "$([path to homebrew from command above] shellenv)"' &gt;&gt; /Users/USERNAME/.zprofile</code> (remembering to substitute your username)</li>
 <li><code>eval "$(/opt/homebrew/bin/brew shellenv)"</code></li>
 </ul>
 </blockquote>
@@ -13176,7 +13177,7 @@ div#notebook {
 </li>
 <li><p>Clone Hunter's examples</p>
 <blockquote><ul>
-<li><code>$ git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Examples.git</code></li>
+<li><code>$ git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Demos.git</code></li>
 </ul>
 </blockquote>
 </li>
