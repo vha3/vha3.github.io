@@ -13582,9 +13582,6 @@ default <code>biasval</code>: 0.001 (user-changeable, or updated dynamically)<br
     <span class="c1"># Zero all accumulator variables (can&#39;t do this in one line in C)</span>
     <span class="n">xpos_avg</span><span class="p">,</span> <span class="n">ypos_avg</span><span class="p">,</span> <span class="n">xvel_avg</span><span class="p">,</span> <span class="n">yvel_avg</span><span class="p">,</span> <span class="n">neighboring_boids</span><span class="p">,</span> <span class="n">close_dx</span><span class="p">,</span> <span class="n">close_dy</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="c1"># ECE 5730 students only, also zero accumulator variables associated with predator</span>
-    <span class="n">num_predators</span><span class="p">,</span> <span class="n">predator_dx</span><span class="p">,</span> <span class="n">predator_dy</span> <span class="o">=</span> <span class="mi">0</span>
-
     <span class="c1"># For every other boid in the flock . . .</span>
     <span class="k">for</span> <span class="n">each</span> <span class="n">other</span> <span class="n">boid</span> <span class="p">(</span><span class="n">otherboid</span><span class="p">):</span>
 
@@ -13684,7 +13681,7 @@ default <code>biasval</code>: 0.001 (user-changeable, or updated dynamically)<br
     <span class="c1"># Enforce min and max speeds</span>
     <span class="k">if</span> <span class="n">speed</span> <span class="o">&lt;</span> <span class="n">minspeed</span><span class="p">:</span>
         <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">minspeed</span>
-        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
+        <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">minspeed</span>
     <span class="k">if</span> <span class="n">speed</span> <span class="o">&gt;</span> <span class="n">maxspeed</span><span class="p">:</span>
         <span class="n">boid</span><span class="o">.</span><span class="n">vx</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vx</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
         <span class="n">boid</span><span class="o">.</span><span class="n">vy</span> <span class="o">=</span> <span class="p">(</span><span class="n">boid</span><span class="o">.</span><span class="n">vy</span><span class="o">/</span><span class="n">speed</span><span class="p">)</span><span class="o">*</span><span class="n">maxspeed</span>
