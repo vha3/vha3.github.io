@@ -13106,6 +13106,7 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
+<li><a href="#AM-Radio-Beacon">AM Radio Beacon</a></li>
 </ul>
 </blockquote>
 
@@ -13364,6 +13365,37 @@ div#notebook {
 <span class="c"># create map/bin/hex file etc.</span>
 <span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">am_demo</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="AM-Radio-Beacon">AM Radio Beacon<a class="anchor-link" href="#AM-Radio-Beacon">&#182;</a></h2><p>We can generate pure tones by simply turning the PWM channel on and off (rather than modulating its duty cycle with an audio waveform). The simplified code <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/More_Demos/AM_Radio_Beacon">available here</a> generates a 1KHz tone at ~41.6 MHz for one second, then generates just the carrier wave for 1 second. The video below shows an FFT/waterfall plot of these transmissions.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/N4RBTerf0uI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Executable-for-jonshouse1-on-YouTube">Executable for jonshouse1 on YouTube<a class="anchor-link" href="#Executable-for-jonshouse1-on-YouTube">&#182;</a></h3><p>Please download uf2 file <a href="am_beacon.uf2">here</a>. PWM generated on GPIO 4 (physical pin 6).</p>
 
 </div>
 </div>
