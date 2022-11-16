@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>AM</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,28 +13077,35 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="AM-Radio-Transmitter-Implemented-with-PWM-on-Raspberry-Pi-Pico">AM Radio Transmitter Implemented with PWM on Raspberry Pi Pico<a class="anchor-link" href="#AM-Radio-Transmitter-Implemented-with-PWM-on-Raspberry-Pi-Pico">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Description-and-demonstration-video">Description and demonstration video</a></li>
+<li><a href="#Overview-of-code">Overview of code</a></li>
+<li><a href="#Stepping-thru-the-code">Stepping thru the code</a><blockquote><ul>
+<li><a href="#Includes,-macros,-and-global-variables">Includes, macros, and global variables</a></li>
+<li><a href="#Main">Main</a><blockquote><ul>
+<li><a href="#System-configuration-and-initialization">System configuration and initialization</a></li>
+<li><a href="#PWM-configuration">PWM configuration</a></li>
+<li><a href="#ADC-configuration">ADC configuration</a></li>
+<li><a href="#DMA-configuration">DMA configuration</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Code-listings">Code listings</a><blockquote><ul>
+<li><a href="#Source-file">Source file</a></li>
+<li><a href="#CMakeLists.txt">CMakeLists.txt</a></li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </blockquote>
 
@@ -13116,63 +13123,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
+<h2 id="Description-and-demonstration-video">Description and demonstration video<a class="anchor-link" href="#Description-and-demonstration-video">&#182;</a></h2><p>An AM radio operates by modulating the amplitude of a carrier wave with a lower-frequency message-carrying wave. Often, that message-carrying wave is an audio waveform. In this project, the carrier wave is approximated by a PWM signal generated by the RP2040, and the audio waveform modulates its average amplitude by modifying its duty cycle. Over short ranges, the fields generated by these PWM waves in a short jumper cable can be picked up and demodulated by an AM radio, as shown below.</p>
 
 </div>
 </div>
@@ -13180,7 +13131,33 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iu6m7moJ86U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Overview-of-code">Overview of code<a class="anchor-link" href="#Overview-of-code">&#182;</a></h2><p>This application uses zero CPU-time, making use exclusively of peripherals. The ADC is configured to free-running mode, and gathers new samples at 10kHz. Each of these samples is truncated to 8 bits, and put into the ADC FIFO. A DMA channel, paced by <code>DREQ_ADC</code>, moves each of these samples as it appears from the FIFO to the first index of a 4-element character array (all other elements zero). This DMA channel chains to a second DMA channel, which moves the character array to the counter compare register for the PWM channel.</p>
+<p>The PWM channel is configured with a clock divider of 1, and a wrapval of 255. The RP2040 is overclocked to 250MHz, so the frequency of the square wave is ~980kHz. When the DMA channel moves an 8-bit (0-255) value from the ADC FIFO to the counter compare register, the duty cycle for the square wave will be adjusted on the next rising edge. A wrapval of 255 was chosen so that the ADC samples could set the duty cycle directly.</p>
+<p>This second DMA channel then chains back to the first, which waits for a new sample to appear in the ADC FIFO.</p>
+<figure>
+    <img align="center" width="700" height="500" src="overview.png" alt='missing' />
+    <center><figcaption>Overview of software</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Stepping-thru-the-code">Stepping thru the code<a class="anchor-link" href="#Stepping-thru-the-code">&#182;</a></h2><p>A listing of all of the code is provided at the bottom of this webpage, and available in <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/More_Demos/AM_Radio_Voice">this repository</a>. This section provides a brief commentary on each section.</p>
+<h3 id="Includes,-macros,-and-global-variables">Includes, macros, and global variables<a class="anchor-link" href="#Includes,-macros,-and-global-variables">&#182;</a></h3><p>The project includes three standard C libraries, two high-level SDK libraries, and three hardware interface libraries. In particular, it includes the interface libraries to the PWM peripheral, the ADC, and the DMA. Macros are used to associate names with parameter values, and a couple of global variables are declared. <code>slice_num</code> is an unsigned int which will store the slice number for the PWM channel that we are using, and <code>new_duty</code> is a character array into which one DMA channel will place ADC samples, and from which a second DMA channel will move data to the counter compare register.</p>
+<p>Why is <code>new_duty</code> a four-element character array? I was experimenting with the consequences of having a mismatch between DMA transfer data size and destination data size. In order to perform DMA transfers out of the ADC FIFO, the channel must be configured for a transfer data size of 8 bits. Experimentation shows that pointing this DMA channel to a 32-bit wide <code>unsigned int</code> works (the data ends up in the bottom 8 bits of that variable). But! If one specifies the destination address to be a register, then those 8 bits are <em>copied</em> four times into the 32-bit register. I deduced this by printing the value contained at a register (in particular, the CC register for PWM slice 2) before and after a DMA transaction. Alternatively, a 32-bit transaction from an 8-bit source put some garbage data (from adjacent memory?) into the register. Experimentation showed that a 32-bit transaction from a character array worked. An 8-bit DMA transfer from the ADC FIFO to an unsigned int, then a 32-bit transaction from the unsigned int to the register, would also work.</p>
+<h3 id="Main">Main<a class="anchor-link" href="#Main">&#182;</a></h3><h4 id="System-configuration-and-initialization">System configuration and initialization<a class="anchor-link" href="#System-configuration-and-initialization">&#182;</a></h4><p>The first line in main overclocks the system PLL to 250 MHz. This is because I knew that I wanted for the PWM wrapval to be 255, so I needed for the system clock to be fast enough for a PWM channel with a 255 wrapval to still be in the AM radio frequency range. The default clock rate of 125MHz would have made the PWM frequency ~490kHz, which is a little low.</p>
+<h4 id="PWM-configuration">PWM configuration<a class="anchor-link" href="#PWM-configuration">&#182;</a></h4><p>The PWM channel is configured with a wrapval of 255 (so that it can be set directly from the ADC samples) and a clock divider of 1 (so that it runs as fast as possible). I experimented a bit with modifying the drive strength and slew rate of the GPIO toggled by the PWM peripheral, to no discernable effect. I thought perhaps that modifying the slew rate would be a mechanism by which I could implement FM transmissions on one of the higher-frequency harmonics of the square wave. Doesn't seem to work for that though.</p>
+<h4 id="ADC-configuration">ADC configuration<a class="anchor-link" href="#ADC-configuration">&#182;</a></h4><p>The ADC is configured per datasheet specifications for interaction with a DMA channel. In particular, it is configured to write gathered samples to the FIFO, enable the DMA DREQ when any sample appears in the FIFO, disable the error bit, and truncate to 8 bit samples. The ADC clock is configured to overflow at 10 MHz, but the ADC is <strong>not started</strong> until after the DMA channels are configured and started. Order for these operations matters!</p>
+<h4 id="DMA-configuration">DMA configuration<a class="anchor-link" href="#DMA-configuration">&#182;</a></h4><p>Two DMA channels are configured, each of which chains to the other. The first DMA channel moves data from the ADC FIFO to the first element of the <code>new_duty</code> character array. This channel is paced by <code>DREQ_ADC</code>, so that a transaction occurs each time a new sample appears in the FIFO. After each transaction, the second DMA channel is triggered to move the ADC data from the character array to the counter compare register for the PWM channel, and then restart the first channel to wait for the next sample. As such, the duty cycle for the PWM wave adjusts automatically each time the ADC generates a sample.</p>
 
 </div>
 </div>
@@ -13188,179 +13165,205 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
+<h2 id="Code-listings">Code listings<a class="anchor-link" href="#Code-listings">&#182;</a></h2><h3 id="Source-file">Source file<a class="anchor-link" href="#Source-file">&#182;</a></h3><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * V. Hunter Adams (vha3@cornell.edu)</span>
+<span class="cm"> * </span>
+<span class="cm"> * AM Radio transmission with PWM</span>
+<span class="cm"> * </span>
+<span class="cm"> * This demonstration uses a PWM channel</span>
+<span class="cm"> * to generate an AM radio transmission modulated</span>
+<span class="cm"> * by an ADC input (probably a mic or aux cable).</span>
+<span class="cm"> * </span>
+<span class="cm"> * HARDWARE CONNECTIONS</span>
+<span class="cm"> *   - GPIO 4 ---&gt; PWM output</span>
+<span class="cm"> *   - GPIO 25 --&gt; ADC input</span>
+<span class="cm"> * </span>
+<span class="cm"> * RESOURCES CONSUMED</span>
+<span class="cm"> *   - ADC</span>
+<span class="cm"> *   - 2 DMA channels</span>
+<span class="cm"> *   - 1 PWM channel</span>
+<span class="cm"> * </span>
+<span class="cm"> */</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<span class="c1">////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">///////////////////////// INCLUDES /////////////////////////////////////</span>
+<span class="c1">//////////////////////////////////////////////////////////////////////// </span>
+<span class="c1">// standard libraries</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
+<span class="c1">// high-level libraries</span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/multicore.h&quot;</span><span class="cp"></span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<span class="c1">// hardware-interface libraries</span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/pwm.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/dma.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/adc.h&quot;</span><span class="cp"></span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
+<span class="c1">////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">///////////////////////// MACROS ///////////////////////////////////////</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// PWM wrap value and clock divide value</span>
+<span class="c1">// For a CPU rate of 250 MHz, this gives</span>
+<span class="c1">// a PWM frequency of ~980kHz</span>
+<span class="cp">#define WRAPVAL 255</span>
+<span class="cp">#define CLKDIV 1.0f</span>
+
+<span class="c1">// ADC Mux input 0, on GPIO 26</span>
+<span class="c1">// Sample rate of 10KHz, ADC clock rate of 48MHz</span>
+<span class="cp">#define ADC_CHAN 0</span>
+<span class="cp">#define ADC_PIN 26</span>
+<span class="cp">#define Fs 10000.0</span>
+<span class="cp">#define ADCCLK 48000000.0</span>
+
+<span class="c1">// PWM pin</span>
+<span class="cp">#define PWM_PIN 4</span>
+
+<span class="c1">////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">///////////////////////// GLOBALS //////////////////////////////////////</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// Variable to hold PWM slice number</span>
+<span class="n">uint</span> <span class="n">slice_num</span> <span class="p">;</span>
+
+<span class="c1">// Array for shuffling ADC sample</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">new_duty</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">64</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}</span> <span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">////////////// SYSTEM CONFIGURATION AND INTIALIZATION //////////////////</span>
+    <span class="c1">////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// Overclock to 250MHz</span>
+    <span class="n">set_sys_clock_khz</span><span class="p">(</span><span class="mi">250000</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+
+    <span class="c1">// Initialize stdio</span>
+    <span class="n">stdio_init_all</span><span class="p">();</span>
+
+    <span class="c1">////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">///////////////////////// PWM CONFIGURATION ////////////////////////////</span>
+    <span class="c1">////////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// Tell GPIO 4 that it is allocated to the PWM, max slew rate and </span>
+    <span class="c1">// drive strength</span>
+    <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">,</span> <span class="n">GPIO_FUNC_PWM</span><span class="p">);</span>
+    <span class="n">gpio_set_drive_strength</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="n">gpio_set_slew_rate</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="c1">// Find out which PWM slice is connected to GPIO 4 (it&#39;s slice 2)</span>
+    <span class="n">slice_num</span> <span class="o">=</span> <span class="n">pwm_gpio_to_slice_num</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">);</span>
+
+    <span class="c1">// This section configures the period of the PWM signals</span>
+    <span class="n">pwm_set_wrap</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">WRAPVAL</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">pwm_set_clkdiv</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// This sets duty cycle. Will be modified by the DMA channel</span>
+    <span class="n">pwm_set_chan_level</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">PWM_CHAN_A</span><span class="p">,</span> <span class="mi">128</span><span class="p">);</span>
+
+    <span class="c1">// Start the channel</span>
+    <span class="n">pwm_set_mask_enabled</span><span class="p">((</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">slice_num</span><span class="p">));</span>
+
+    <span class="c1">///////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// ==================== ADC CONFIGURATION =========================</span>
+    <span class="c1">///////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// Init GPIO for analogue use: hi-Z, no pulls, disable </span>
+    <span class="c1">// digital input buffer.</span>
+    <span class="n">adc_gpio_init</span><span class="p">(</span><span class="n">ADC_PIN</span><span class="p">);</span>
+
+    <span class="c1">// Initialize the ADC harware</span>
+    <span class="c1">// (resets it, enables the clock, spins until the hardware is ready)</span>
+    <span class="n">adc_init</span><span class="p">()</span> <span class="p">;</span>
+
+    <span class="c1">// Select analog mux input (0...3 are GPIO 26, 27, 28, 29; 4 is temp sensor)</span>
+    <span class="n">adc_select_input</span><span class="p">(</span><span class="n">ADC_CHAN</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Setup the FIFO</span>
+    <span class="n">adc_fifo_setup</span><span class="p">(</span>
+        <span class="nb">true</span><span class="p">,</span>    <span class="c1">// Write each completed conversion to the sample FIFO</span>
+        <span class="nb">true</span><span class="p">,</span>    <span class="c1">// Enable DMA data request (DREQ)</span>
+        <span class="mi">1</span><span class="p">,</span>       <span class="c1">// DREQ (and IRQ) asserted when at least 1 sample present</span>
+        <span class="nb">false</span><span class="p">,</span>   <span class="c1">// We won&#39;t see the ERR bit because of 8 bit reads; disable.</span>
+        <span class="nb">true</span>     <span class="c1">// Shift each sample to 8 bits when pushing to FIFO</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Divisor of 0 -&gt; full speed. Free-running capture with the divider is</span>
+    <span class="c1">// equivalent to pressing the ADC_CS_START_ONCE button once per `div + 1`</span>
+    <span class="c1">// cycles (div not necessarily an integer). Each conversion takes 96</span>
+    <span class="c1">// cycles, so in general you want a divider of 0 (hold down the button</span>
+    <span class="c1">// continuously) or &gt; 95 (take samples less frequently than 96 cycle</span>
+    <span class="c1">// intervals). This is all timed by the 48 MHz ADC clock. This is setup</span>
+    <span class="c1">// to grab a sample at 10kHz (48Mhz/10kHz - 1)</span>
+    <span class="n">adc_set_clkdiv</span><span class="p">(</span><span class="n">ADCCLK</span><span class="o">/</span><span class="n">Fs</span><span class="p">);</span>
+
+    <span class="c1">///////////////////////////////////////////////////////////////////////</span>
+    <span class="c1">// ============================== DMA CONFIGURATION ===================</span>
+    <span class="c1">///////////////////////////////////////////////////////////////////////</span>
+
+    <span class="c1">// DMA channels for sampling ADC. Using 2 and 3 in case I want to add</span>
+    <span class="c1">// the VGA driver to this project</span>
+    <span class="kt">int</span> <span class="n">sample_chan</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">;</span>
+    <span class="kt">int</span> <span class="n">control_chan</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">;</span>
+
+    <span class="c1">// Channel configurations (start with the default)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">sample_chan</span><span class="p">);</span>
+    <span class="n">dma_channel_config</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">control_chan</span><span class="p">);</span>
+
+    <span class="c1">// Setup the ADC sample channel</span>
+    <span class="c1">// Reading from constant address, in 8-bit chunks, writing to constant address</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="c1">// Pace transfers based on availability of ADC samples</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DREQ_ADC</span><span class="p">);</span>
+    <span class="c1">// Chain to control channel</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">control_chan</span><span class="p">);</span>
+    <span class="c1">// Configure the channel</span>
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">sample_chan</span><span class="p">,</span>        <span class="c1">// channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>                <span class="c1">// channel config</span>
+        <span class="o">&amp;</span><span class="n">new_duty</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>       <span class="c1">// dst</span>
+        <span class="o">&amp;</span><span class="n">adc_hw</span><span class="o">-&gt;</span><span class="n">fifo</span><span class="p">,</span>      <span class="c1">// src</span>
+        <span class="mi">1</span><span class="p">,</span>                  <span class="c1">// transfer count</span>
+        <span class="nb">false</span>               <span class="c1">// don&#39;t start immediately</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Setup the control channel</span>
+    <span class="c1">// 32-bit txfers, no read or write incrementing, chain to sample chan</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>  
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>            
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>          
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">sample_chan</span><span class="p">);</span>  
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">control_chan</span><span class="p">,</span>                  <span class="c1">// channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span>                           <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pwm_hw</span><span class="o">-&gt;</span><span class="n">slice</span><span class="p">[</span><span class="n">slice_num</span><span class="p">].</span><span class="n">cc</span><span class="p">,</span>  <span class="c1">// dst (PWM counter compare reg)</span>
+        <span class="o">&amp;</span><span class="n">new_duty</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>                  <span class="c1">// src (where the other DMA put the data)</span>
+        <span class="mi">1</span><span class="p">,</span>                             <span class="c1">// transfer count</span>
+        <span class="nb">false</span>                          <span class="c1">// don&#39;t start immediately</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Start the DMA channel (before the ADC!)</span>
+    <span class="n">dma_start_channel_mask</span><span class="p">(</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">sample_chan</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Start the ADC</span>
+    <span class="n">adc_run</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Exit main :)</span>
+
+<span class="p">}</span>
+</pre></div>
+<h3 id="CMakeLists.txt">CMakeLists.txt<a class="anchor-link" href="#CMakeLists.txt">&#182;</a></h3><div class="highlight"><pre><span></span><span class="nb">add_executable</span><span class="p">(</span><span class="s">am_demo</span><span class="p">)</span>
+
+<span class="c"># must match with executable name and source file names</span>
+<span class="nb">target_sources</span><span class="p">(</span><span class="s">am_demo</span> <span class="s">PRIVATE</span> <span class="s">am-demo.c</span><span class="p">)</span>
+
+<span class="c"># Add pico_multicore which is required for multicore functionality</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">am_demo</span> <span class="s">pico_stdlib</span> <span class="s">pico_multicore</span> <span class="s">hardware_pwm</span> <span class="s">hardware_dma</span> <span class="s">hardware_adc</span><span class="p">)</span>
+
+<span class="c"># create map/bin/hex file etc.</span>
+<span class="nb">pico_add_extra_outputs</span><span class="p">(</span><span class="s">am_demo</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
@@ -13369,101 +13372,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
