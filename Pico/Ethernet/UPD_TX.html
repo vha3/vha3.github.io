@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>UPD_TX</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,28 +13077,37 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Non-blocking-UDP-ethernet-transmitter-implemented-on-RP2040">Non-blocking UDP ethernet transmitter implemented on RP2040<a class="anchor-link" href="#Non-blocking-UDP-ethernet-transmitter-implemented-on-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Objective">Objective</a></li>
+<li><a href="#TLDR,-how-do-I-use-it?">TLDR, how do I use it?</a></li>
+<li><a href="#System-overview">System overview</a></li>
+<li><a href="Initializing-the-UDP-packet-information">Initializing the UDP packet information</a></li>
+<li><a href="#Generating-the-Normal-Link-Pulse">Generating the Normal Link Pulse</a><blockquote><ul>
+<li><a href="#PWM-based-watchdog">PWM-based watchdog</a></li>
+<li><a href="#PIO-state-machine">PIO state machine</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Generating-and-transmitting-the-UDP-packet">Generating and transmitting the UDP packet</a><blockquote><ul>
+<li><a href="#Disabling-the-PWM-watchdog">Disabling the PWM watchdog</a></li>
+<li><a href="#Reset-the-sniffer-accumulator">Reset the sniffer accumulator</a></li>
+<li><a href="#Reset-the-packet-read-pointer">Reset the packet read pointer</a></li>
+<li><a href="#Send-the-preamble/SFD">Send the preamble/SFD</a></li>
+<li><a href="#Send-the-packet">Send the packet</a></li>
+<li><a href="#Move-checksum-to-byte-array">Move checksum to byte array</a></li>
+<li><a href="#Send-the-checksum">Send the checksum</a></li>
+<li><a href="#Trigger-TP_IDL">Trigger TP_IDL</a></li>
+<li><a href="#Re-enabling-the-PWM-watchdog">Re-enabling the PWM watchdog</a></li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </blockquote>
 
@@ -13116,64 +13125,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
+<h2 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h2><p>The objective for this project was to implement a UDP transmitter for use on the RP2040 that would consume <em>zero</em> CPU time. The system described on this webpage is implemented with 3 PIO state machines, 12 DMA channels, and 1 PWM channel. It generates an NLP, performs packet checksum calculations, and performs packet transactions with no CPU interaction beyond specifying the data which should be transmitted. It uses the unique ID for the flash chip to generate a MAC address for the RP2040.</p>
+<p>For applications which don't require additional DMA channels (since they're all consumed by the UDP machine described below), the exclusive use of peripherals for UDP transactions should make for particularly simple integration into application code, and maximizes the data rate out of the RP2040. This was constructed as a piece of course infrastructure for <a href="https://ece4760.github.io">ECE 4760</a> at Cornell, for use in student projects.</p>
+<p><strong><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Ethernet/UDP_Transmitter">Link to git repo which contains all code</a></strong></p>
 
 </div>
 </div>
@@ -13189,13 +13143,58 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
+<h2 id="TLDR,-how-do-I-use-it?">TLDR, how do I use it?<a class="anchor-link" href="#TLDR,-how-do-I-use-it?">&#182;</a></h2><p>Please find some demo code <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Ethernet/UDP_Transmitter">here</a>, and see the video below for a demonstration.</p>
 <ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
+<li>Navigate to <code>udp_tx_parameters.h</code> and modify the UDP payload size, ethernet source/destination addresses, IP source/destination addresses, and source/destination ports, as necessary.</li>
 </ol>
+<!-- 
+```c
+// The size of the UDP payload (measured in bytes, set at compile time).
+// This is what establishes the length of the udp_payload character array.
+#define DEF_UDP_PAYLOAD_SIZE    (18)
+
+// UDP payload (modified at runtime! this is just an initialization)
+char udp_payload[DEF_UDP_PAYLOAD_SIZE] = "Hello from Pico: 0" ;
+
+// Ethernet destination address (MAC)
+unsigned char ethernet_destination[6] = {0x8c, 0xae, 0x4c, 0xde, 0x72, 0x91};
+// Ethernet source address (auto-generated from Pico's unique flash ID)
+// If you want to specify this, comment out GenerateUniqueMAC() from AssemblePacket().
+unsigned char ethernet_source[6]      = {} ;
+
+// IP source and destination addresses. Source address will be that of the Pico
+unsigned char ip_source[4]  = {169, 254, 123, 101};
+unsigned char ip_dest[4]    = {169, 254, 177, 93};
+
+// UPD source and destination ports (set to a default of 1024)
+unsigned char udp_src_port[2] = {0x04, 0x00} ; // 1024
+unsigned char udp_dst_port[2] = {0x04, 0x00} ; // 1024
+``` -->
+
+<ol>
+<li>In <code>main</code> for your application code, overclock to 240MHz <em>before you do anything else</em>. This is required to get the PIO state machine timing right.</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="n">set_sys_clock_khz</span><span class="p">(</span><span class="mi">240000</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<ol>
+<li><p>Call <code>initUDP(unsigned int txminus_in, irq_handler_t handler)</code>. The first argument specifies the GPIO number which should be associated with the TX- line (the TX+ line will be mapped to this GPIO number, plus one). The second argument is the name of the interrupt service routine which should be called upon transmission completion.</p>
+</li>
+<li><p>Call <code>SEND_PACKET ;</code> to send a packet! You can modify the UDP data by modifying the values in the <code>udp_payload</code> array, and then calling <code>SEND_PACKET</code> again will transmit this new data. Each call to <code>SEND_PACKET</code> is non-blocking. Transmit complete will be signalled by entering the ISR that you specified in step 3.</p>
+</li>
+<li><p>Plug TX+ into pin 1 of an <a href="https://www.sparkfun.com/products/13021">RJ45 connector</a>, and TX- into pin 2. Plug an ethernet cable into this connector, and connect the other end to a device or switch.</p>
+</li>
+<li><p>For testing on your own computer, you can use this Python code (just make sure to change the IP and port number to whatever you specified in step 1, and the argument to sock.recv to whatever you specified as the <code>DEF_UDP_PAYLOAD_SIZE</code> in step 1)</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;169.254.177.93&#39;</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>  <span class="c1"># (host, port) because AF_INET</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening...&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">18</span><span class="p">))</span> <span class="c1"># buffer size</span>
+</pre></div>
 
 </div>
 </div>
@@ -13211,230 +13210,352 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
+<h2 id="System-overview">System overview<a class="anchor-link" href="#System-overview">&#182;</a></h2><p>Though the UDP transmitter described on this webpage supports dynamic modification of the source and destination addresses for transactions, it is optimized for static source address, destination address, and payload size. The user configures these parameters, and the only portion of the packet which is modified by the user application code during runtime is the UDP data (which can be done as quickly as the system can modify the values in an array). The user application code modifies this data, and starts DMA channel 2. This initiates a sequence of DMA events that will:</p>
 <ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
+<li>Stop the PWM channel, so that no normal link pulses are generated during the transaction.</li>
+<li>Zero the PWM counter, so that it counts back up from zero when re-enabled after the transaction (like a watchdog)</li>
+<li>Initializes the DMA sniffer data register.</li>
+<li>Resets the read pointer for the DMA channel which will send the UDP Ethernet packet to PIO state machine 0.</li>
+<li>Sends the preamble/SFD to PIO state machine 0, which serializes it out to the TX+ and TX- pins.</li>
+<li>Sends the UDP Ethernet packet to PIO state machine 0, which serializes it out to the TX+/TX- pins. Note that the DMA sniffer is attached to this channel! So the Ethernet checksum is automatically computed during this transaction, and stored in the <code>sniffer data</code> register.</li>
+<li>Moves the checksum (32 bits) to a buffer character array.</li>
+<li>Sends this checksum character array to PIO state machine 0, which serializes it out to PIO state machine 0.</li>
+<li>Sends a delay time to PIO state machine 2, which will wait for the specified amount of time (for the checksum transaction to complete), and then generate the TP_IDL signal. This PIO state machine will also generate an interrupt to signal to the processors that the transaction is complete.</li>
+<li>Re-enables the PWM channel to resume generating the normal link pulse.</li>
 </ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
+<p>This sequence of events is illustrated in the diagram below. Each of the red arrows reads as "chains to." So, you can follow the sequence of events by following the red arrows. Note that DMA channels 0 and 1, which are responsible for interacting with the PIO state machine which generates the normal link pulse, are independent from the other channels. They only see the <code>DREQ</code> generated by the PWM channel. So, this PWM channel is the sole mechanism for interaction between the NLP state machine and the UDP ethernet state machines.</p>
+<p>The advantage of all this DMA footwork is that the ethernet transactions are <em>completely non-blocking</em>. For long payloads, this is a really nice feature! User application code can generate the next packet (gather sensor data, perform computations, etc.) while the previous packet is being transmitted. This maximizes the data rate out of the RP2040.</p>
+<figure>
+    <img align="center" width="800" height="500" src="overview.png" alt='missing' />
+    <center><figcaption> </figcaption></center>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<h2 id="Initializing-the-UDP-packet-information">Initializing the UDP packet information<a class="anchor-link" href="#Initializing-the-UDP-packet-information">&#182;</a></h2><p>There's a lot of information in a UDP packet, most of which does not need to change from one transmission to the next. The parameters that the user will need to modify are consolidated in <code>udp_tx_parameters.h</code>. The rest of the parameters (which some users may wish to modify for niche applications) are at the very top of <code>udp_tx.h</code>. During initialization, a helper function uses all these parameters to populate an array which includes the ethernet information, IP information, UDP information, and UDP payload in the correct order. The full packet includes:</p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
+<li>Destination MAC address (user specified) - 6 bytes</li>
+<li>Source MAC address (user specified or generated from flash ID) - 6 bytes</li>
+<li>Ethernet type (set to "IP") - 2 bytes</li>
+<li>IP version (v4) and header length (5, for 20 bytes, which is 5 32-bit increments) - 1 byte</li>
+<li>IP type of service - 1 byte</li>
+<li>IP total length - 2 bytes</li>
+<li>IP identifier - 2 bytes</li>
+<li>IP flags and fragmentation settings - 2 bytes</li>
+<li>IP time to live - 1 byte</li>
+<li>IP protocol - 1 byte</li>
+<li>IP checksum - 2 bytes</li>
+<li>IP source address (user specified) - 4 bytes</li>
+<li>IP destination address (user specified) - 4 bytes</li>
+<li>UDP source port (user specified) - 2 bytes</li>
+<li>UDP payload port (user specified) - 2 bytes</li>
+<li>UDP payload length (user specified) - 2 bytes</li>
+<li>UDP checksum (unused, set to 0) - 2 bytes</li>
+<li>UDP payload (user specified data and length)</li>
 </ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
+<p>The checksum is 4 bytes, and is computed from the entire packet above. A DMA sniffer is used to compute this checksum at runtime, and without CPU interaction. In the user application code, the UDP payload can be changed and the checksum will automatically be recomputed during transmission for no overhead.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Generating-the-Normal-Link-Pulse">Generating the Normal Link Pulse<a class="anchor-link" href="#Generating-the-Normal-Link-Pulse">&#182;</a></h2><p>For a 10BASE-T connection, in the absence of network traffic, a pulse must be sent every 16ms +/- 8ms to keep the link alive. In order to implement this, we want <em>something like</em> a watchdog timer. That is, we want for a timer to count down from 16ms and, in the event that it reaches 0, it should trigger an NLP. However, we should have this timer be <em>reset</em> every time we finish sending a packet.</p>
+<p>We will use a PIO state machine to generate these pulses, and the state machine will stall on a <code>pull</code> command until a DMA channel moves data into its TX FIFO. The watchdog timer peripheral does not have a <code>DREQ</code> signal visible to the DMA channels, so we'll use a PWM channel as a watchdog!</p>
+<h3 id="PWM-based-watchdog">PWM-based watchdog<a class="anchor-link" href="#PWM-based-watchdog">&#182;</a></h3><p>The PWM channel is configured with a clock divider of 64 and a wrapval of 60,000. With the system overclocked to 240MHz, this gives a period of 16ms. A DMA channel is configured with <code>DREQ_PWM_WRAP</code> as its DREQ, and it writes to the TX FIFO of the PIO state machine that generates the NLP. This state machine stalls on an <code>out</code> command (with autopull enabled) until the DMA channel puts some dummy data into the FIFO. A second DMA channel is configured to re-enable the first.</p>
+<p>To stop the NLP for a transaction, another DMA channel need only to disable the PWM channel. As soon as it is re-enabled and the <code>DREQ</code> starts again, the DMA channel will start triggering NLP's as before.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Wrapval and clock div for 16ms PWM period</span>
+    <span class="cp">#define WRAPVAL 60000</span>
+    <span class="cp">#define CLKDIV  64</span>
+
+    <span class="c1">// Slice number chosen arbitrarily</span>
+    <span class="kt">int</span> <span class="n">slice_num</span> <span class="o">=</span> <span class="mi">7</span> <span class="p">;</span>
+
+    <span class="c1">// Experimentation shows we don&#39;t need to map this to a GPIO</span>
+    <span class="c1">// or configure a particular duty cycle. Configured for a wraptime</span>
+    <span class="c1">// of 16ms (NLP interval)</span>
+    <span class="n">pwm_set_wrap</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">WRAPVAL</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">pwm_set_clkdiv</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">pwm_set_enabled</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">///////////////////////////////////////////////////////////////////</span>
+    <span class="c1">////////////////////////// DMA NLP SETUP //////////////////////////</span>
+    <span class="c1">///////////////////////////////////////////////////////////////////</span>
+
+    <span class="c1">// Triggers the NLP machine, started by PWM watchdog channel</span>
+    <span class="n">dma_channel_config</span> <span class="n">c0</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_0</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>        <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="n">DREQ_PWM_WRAP7</span><span class="p">)</span> <span class="p">;</span>                  <span class="c1">// DREQ_PWM_WRAP7 pacing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="n">chan_1</span><span class="p">);</span>                       <span class="c1">// chain to chan 1</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_0</span><span class="p">,</span>                <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span>                   <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">sm_nlp</span><span class="p">],</span>     <span class="c1">// write address (NLP PIO TX FIFO)</span>
+        <span class="o">&amp;</span><span class="n">nlp_dummy</span><span class="p">,</span>            <span class="c1">// The initial read address (dummy value)</span>
+        <span class="mi">1</span><span class="p">,</span>                     <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                  <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Channel One (resets NLP pulse machine)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_1</span><span class="p">);</span>  <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>         <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                   <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="n">chan_0</span><span class="p">);</span>                        <span class="c1">// chain back to chan 0</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_1</span><span class="p">,</span>            <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span>               <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dummy_dest</span><span class="p">,</span>       <span class="c1">// write address (dummy)</span>
+        <span class="o">&amp;</span><span class="n">dummy_source</span><span class="p">,</span>     <span class="c1">// The initial read address (dummy)</span>
+        <span class="mi">1</span><span class="p">,</span>                 <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>              <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="PIO-state-machine">PIO state machine<a class="anchor-link" href="#PIO-state-machine">&#182;</a></h3><p>The NLP PIO state machine simply stalls on an <code>out</code> command, then sets the TX+/TX- pins for 100ns, and puts the lines back to idle. <code>irq 0</code> is used to prevent the packet serializing state machine from attempting to take control of the data lines in the middle of a normal link pulse.</p>
+
+<pre><code>    out x, 32           ;   32 bits from OSR to x scratch (autopull enabled, stalls here)
+    irq 0               ;   Assert interrupt 0
+    set pins, 2 [5]     ;   Pulse for 100 ns
+    set pins, 0 [5]     ;   End pulse (both lines idle)
+    irq clear 0         ;   Clear interrupt 0</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Transmitting-the-UDP-packet">Transmitting the UDP packet<a class="anchor-link" href="#Transmitting-the-UDP-packet">&#182;</a></h2><p>When the user initiates a UDP transfer, a sequence of DMA events occur which move the preamble, SFD, ethernet information, IP information, UDP information, UDP data, and ethernet checksum from memory to a PIO state machine which manchester encodes each bit and puts it out onto the TX+ and TX- pins. All of this happens separately from the ARM processors (i.e., it's non-blocking) so that the user's application code can start computing the next packet while the previous one is being transmitted.</p>
+<p>This section briefly summarizes this sequence of DMA events.</p>
+<h3 id="Disabling-the-PWM-watchdog">Disabling the PWM watchdog<a class="anchor-link" href="#Disabling-the-PWM-watchdog">&#182;</a></h3><p>When the user initiates a transfer, disabling and resetting the PWM watchdog is the first thing that happens. This prevents the NLP from being generated during a transmission. To disable the watchdog, DMA channel 2 writes to the <code>csr</code> register of the particular PWM slice that is being used to generate <code>DREQ</code> signals. It writes all zeroes to this register, which disables <em>all</em> PWM channels. For a user application that required a PWM channel to remain active, the value written to this register would be modified to only turn off one slice in particular.</p>
+<p>DMA channel 2 chains to DMA channel 3, which writes to the <code>ctr</code> register of the PWM slice which was just disabled. It zeroes the counter so that, when the PWM is re-enabled after the UDP transmission, the counter begins counting up from zero rather than wherever it left off when we disabled the channel. DMA channel 3 then chains to channel 4, which resets the sniffer accumulator.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Disable the PWM channel</span>
+    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_2</span><span class="p">);</span>  <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>         <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                   <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">chan_3</span><span class="p">);</span>                        <span class="c1">// chain to channel 3</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_2</span><span class="p">,</span>                                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>                                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pwm_hw</span><span class="o">-&gt;</span><span class="n">slice</span><span class="p">[</span><span class="n">slice_num</span><span class="p">].</span><span class="n">csr</span><span class="p">,</span>          <span class="c1">// write address (csr reg of pwm)</span>
+        <span class="o">&amp;</span><span class="n">pwm_kill</span><span class="p">,</span>                              <span class="c1">// The initial read address (zero variable)</span>
+        <span class="mi">1</span><span class="p">,</span>                                      <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Zero PWM counter</span>
+    <span class="n">dma_channel_config</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_3</span><span class="p">);</span>  <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>         <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                   <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">chan_4</span><span class="p">);</span>                        <span class="c1">// chain to channel 4</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_3</span><span class="p">,</span>                                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span>                                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pwm_hw</span><span class="o">-&gt;</span><span class="n">slice</span><span class="p">[</span><span class="n">slice_num</span><span class="p">].</span><span class="n">ctr</span><span class="p">,</span>          <span class="c1">// write address (pwm counter register)</span>
+        <span class="o">&amp;</span><span class="n">pwm_counter_reset</span><span class="p">,</span>                     <span class="c1">// The initial read address (zero variable)</span>
+        <span class="mi">1</span><span class="p">,</span>                                      <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="Reset-the-sniffer-accumulator">Reset the sniffer accumulator<a class="anchor-link" href="#Reset-the-sniffer-accumulator">&#182;</a></h3><p>The DMA sniffer will compute a checksum on data that passes through the FIFO of a specified DMA channel. The checksum includes information about each byte as it passes through the FIFO and, as such, it must be reset between transactions. DMA channel 4 writes to the <code>sniff_data</code> register to initialize it for the next transaction. In particular, it initializes it with a value of <code>0xFFFFFFFF</code>. DMA channel 4 then chains to channel 5.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Reset the sniffer accumulator</span>
+    <span class="n">dma_channel_config</span> <span class="n">c4</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_4</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c4</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>        <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c4</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c4</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c4</span><span class="p">,</span> <span class="n">chan_5</span><span class="p">);</span>                       <span class="c1">// chain to channel 5</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_4</span><span class="p">,</span>                <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c4</span><span class="p">,</span>                   <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">sniff_data</span><span class="p">,</span>   <span class="c1">// write address (sniffer data reg)</span>
+        <span class="o">&amp;</span><span class="n">sniff_init</span><span class="p">,</span>           <span class="c1">// The initial read address (variable containing 0xffffffff)</span>
+        <span class="mi">1</span><span class="p">,</span>                     <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                  <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="Reset-the-packet-read-pointer">Reset the packet read pointer<a class="anchor-link" href="#Reset-the-packet-read-pointer">&#182;</a></h3><p>The UDP payload is of a user-specified (but fixed) length. As such, we cannot make any assumptions about its length. We cannot use the ring-wrap feature of the DMA channel to reset the read pointer of the DMA channel which moves the packet over to the PIO state machine which puts it onto the pins. We must therefore reset the read pointer of the DMA channel which moves the packet to the PIO state machine (DMA channel 7) between each transaction. DMA channel 5 accomplishes this by writing to the <code>read_addr</code> register of DMA channel 7. In particular, it writes a pointer to the address of the start of the Ethernet packet that we would like to transmit. DMA channel 5 chains to channel 6.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Reset packet read pointer</span>
+    <span class="n">dma_channel_config</span> <span class="n">c5</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_5</span><span class="p">);</span>  <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c5</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>         <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c5</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                   <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c5</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c5</span><span class="p">,</span> <span class="n">chan_6</span><span class="p">);</span>                        <span class="c1">// chain to channel 6</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_5</span><span class="p">,</span>                                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c5</span><span class="p">,</span>                                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">ch</span><span class="p">[</span><span class="n">chan_7</span><span class="p">].</span><span class="n">read_addr</span><span class="p">,</span>          <span class="c1">// write address (dma 7 read address)</span>
+        <span class="o">&amp;</span><span class="n">assembled_packet_pointer</span><span class="p">,</span>              <span class="c1">// The initial read address (pointer to address)</span>
+        <span class="mi">1</span><span class="p">,</span>                                      <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="Send-the-preamble/SFD">Send the preamble/SFD<a class="anchor-link" href="#Send-the-preamble/SFD">&#182;</a></h3><p>Channel 6 moves data from an 8-byte array in memory to the PIO state machine which manchester encodes each bit before moving it to the TX+/TX- pins. This array contains the preamble (alternating zeroes and ones), followed by the start frame delimiter. These bytes are stored separately from the rest of the packet for two reasons. The first is that they do not contribute to the ethernet checksum calculation, and so it's convenient to have them transmitted by a <em>separate</em> DMA channel (so that we don't need to toggle the sniffer on and off). Secondly, the preamble/SFD is 8 bytes long, so we can ring-wrap the DMA read pointer to save ourselves an additional DMA channel for resetting this pointer.</p>
+<p>Note that the DMA transactions are paced by the <code>DREQ_PIO0_TX0</code> data request flag. Channel 6 chains to channel 7.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Do preamble transaction (8 bytes long, ring wrap to avoid a read pointer reset)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c6</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_6</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>         <span class="c1">// 8-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>                   <span class="c1">// yes read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_ring</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="p">;</span>                        <span class="c1">// ring wrap read address!</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX0</span><span class="p">)</span> <span class="p">;</span>                   <span class="c1">// DREQ_PIO0_TX0 pacing (FIFO)</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span> <span class="n">chan_7</span><span class="p">);</span>                       <span class="c1">// chain to channel 7</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_6</span><span class="p">,</span>                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c6</span><span class="p">,</span>                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">sm_tx</span><span class="p">],</span>       <span class="c1">// write address (TX FIFO for packet serializer PIO)</span>
+        <span class="o">&amp;</span><span class="n">preamble</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>           <span class="c1">// The initial read address (pointer to character array)</span>
+        <span class="n">PREAMBLE_LEN</span><span class="p">,</span>           <span class="c1">// Number of transfers; in this case each is 1 byte.</span>
+        <span class="nb">false</span>                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<p>The same PIO state machine is used to manchester-encode and serialize the preamble/SFD, packet, and checksum. That state machine is included below. The machine will stall on the <code>out x, 1</code> command until data appears in the TX FIFO. That <code>out</code> command will then shift one bit from the OSR (autopull is enabled, so data automatically moves from the TX FIFO to the OSR) to the x scratch register. The state machine waits on an <code>irq</code> to confirm that there is not presently an NLP, then either jumps to either the <code>do_0</code> location or wraps to the <code>do_1</code> location depending if the value of the bit is a zero or a one. If it is a zero, then the state machine puts a high to low transmission on the TX+/TX- lines. Otherwise, it puts a low-to-high transmission on the lines. Thus, the state machine manchester encodes all bits that it receives, and puts them out differentially on TX+ and TX-.</p>
+
+<pre><code>.wrap_target
+do_1:
+    nop         side 0b01 [3] ; Low for 3 cycles (2 delay, +1 for nop)
+    jmp get_bit side 0b10     ; High for 1 cycles. 'get_bit' takes another 2 cycles
+do_0:
+    nop         side 0b10 [3] ; Output high for 3 cycles
+    nop         side 0b01     ; Output low for 1 cycles
+public start:
+get_bit:
+    out x, 1               ; Always shift out one bit from OSR to X, so we can
+    wait 0 irq 0           ; Make sure pulse is not active
+    jmp !x do_0            ; branch on it. Autopull refills the OSR when empty.
+.wrap</code></pre>
+<h3 id="Send-the-packet">Send the packet<a class="anchor-link" href="#Send-the-packet">&#182;</a></h3><p>Channel 7 steps through the UPD ethernet packet stored in memory and sends it, byte by byte, to the PIO state machine which manchester encodes it and serializes it out to the TX+/TX- pins. The sniffer is enabled for this channel, so that a checksum is computed on all the bytes communicated by this channel to the PIO state machine. This sniffer is highly configurable, and finding the correct configuration took some trial and error. I used <a href="https://github.com/raspberrypi/pico-feedback/issues/247">this webpage</a> as a resource.</p>
+<p>The particular set of sniffer settings that ended up working involved inverting the output bits, and reversing the output bits. This led to the correct checksum being computed and stored in the <code>sniff_data</code> register, but in byte-reversed order. DMA channel 8, chained to by channel 7, solved that problem.</p>
+<div class="highlight"><pre><span></span><span class="n">dma_channel_config</span> <span class="n">c7</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_7</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>         <span class="c1">// 8-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>                   <span class="c1">// yes read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX0</span><span class="p">)</span> <span class="p">;</span>                   <span class="c1">// DREQ_PIO0_TX0 pacing (FIFO)</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span> <span class="n">chan_8</span><span class="p">);</span>                       <span class="c1">// chain to channel 8</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_7</span><span class="p">,</span>                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c7</span><span class="p">,</span>                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">sm_tx</span><span class="p">],</span>       <span class="c1">// write address (TX FIFO for packet serializer PIO)</span>
+        <span class="o">&amp;</span><span class="n">assembled_packet</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>   <span class="c1">// The initial read address (pointer to packet array)</span>
+        <span class="n">PACKET_LEN</span><span class="p">,</span>             <span class="c1">// Number of transfers; in this case each is 1 byte.</span>
+        <span class="nb">false</span>                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Configure the sniffer! Rather tricky setup, this is what worked.</span>
+    <span class="n">dma_sniffer_enable</span><span class="p">(</span><span class="n">chan_7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="n">hw_set_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">sniff_ctrl</span><span class="p">,</span> <span class="p">(</span><span class="n">DMA_SNIFF_CTRL_OUT_INV_BITS</span> <span class="o">|</span> <span class="n">DMA_SNIFF_CTRL_OUT_REV_BITS</span><span class="p">));</span>
+</pre></div>
+<h3 id="Move-checksum-to-byte-array">Move checksum to byte array<a class="anchor-link" href="#Move-checksum-to-byte-array">&#182;</a></h3><p>The sniffed checksum appears in the 32-bit <code>sniff_data</code> register, but we want to communicate the checksum to the PIO state machine one byte at a time. In order to do this, it's convenient to move the checksum to a 4-element character array before moving it from the character array to the PIO. DMA channel 8 performs a 32-bit transaction from the <code>sniff_data</code> register to the first element of the character array. Because we are doing a 32-bit transaction to an array of 4 chars, this reverses the bytes (solving the byte reversal problem from earlier).</p>
+<div class="highlight"><pre><span></span><span class="c1">// Send sniffed CRC to character array </span>
+    <span class="n">dma_channel_config</span> <span class="n">c8</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_8</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>        <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                  <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_bswap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                           <span class="c1">// not necessary b/c char array</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span> <span class="n">chan_9</span><span class="p">);</span>                       <span class="c1">// chain to channel 9</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_8</span><span class="p">,</span>                <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c8</span><span class="p">,</span>                   <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">crc_dest</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>          <span class="c1">// write address (checksum buffer character array)</span>
+        <span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">sniff_data</span><span class="p">,</span>   <span class="c1">// The initial read address (DMA sniffer data)</span>
+        <span class="mi">1</span><span class="p">,</span>                     <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                  <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="Send-the-checksum">Send the checksum<a class="anchor-link" href="#Send-the-checksum">&#182;</a></h3><p>DMA channel 9, chained to by channel 8, moves the checksum from the character array to the PIO state machine. Ring wrapping is used for this DMA channel also, since the byte array is of length 4 (a power of two), saving us an additional DMA channel for resetting a read pointer.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Send sniffed character array to PIO (use ring wrap to avoid a reset channel)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c9</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_9</span><span class="p">);</span> <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>         <span class="c1">// 8-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>                   <span class="c1">// yes read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                 <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_ring</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">;</span>                        <span class="c1">// ring wrap read addrsses!</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX0</span><span class="p">)</span> <span class="p">;</span>                   <span class="c1">// DREQ_PIO0_TX0 pacing (FIFO)</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span> <span class="n">chan_10</span><span class="p">);</span>                      <span class="c1">// chain to channel 10</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_9</span><span class="p">,</span>                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c9</span><span class="p">,</span>                    <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">sm_tx</span><span class="p">],</span>       <span class="c1">// write address (TX FIFO for packet serializer PIO)</span>
+        <span class="o">&amp;</span><span class="n">crc_dest</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>           <span class="c1">// The initial read address (pointer to checksum array)</span>
+        <span class="n">CRC_LEN</span><span class="p">,</span>                <span class="c1">// Number of transfers; in this case each is 1 byte.</span>
+        <span class="nb">false</span>                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<h3 id="Trigger-TP_IDL">Trigger TP_IDL<a class="anchor-link" href="#Trigger-TP_IDL">&#182;</a></h3><p>Each transmission ends with a TP_IDL signal (a positive pulse of about 3 bit-times, followed by an idle period). A separate PIO state machine generates this signal.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Trigger a TP_IDL pulse (another PIO machine)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c10</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_10</span><span class="p">);</span>   <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>           <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                     <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                    <span class="c1">// no write incrementing</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX2</span><span class="p">)</span> <span class="p">;</span>                      <span class="c1">// DREQ_PIO0_TX2 pacing</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span> <span class="n">chan_11</span><span class="p">);</span>                         <span class="c1">// chain to channel 11</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_10</span><span class="p">,</span>                <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c10</span><span class="p">,</span>                   <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">sm_idl</span><span class="p">],</span>      <span class="c1">// write address (TP_IDL PIO state machine TX fifo)</span>
+        <span class="o">&amp;</span><span class="n">idl_delay</span><span class="p">,</span>             <span class="c1">// The initial read address (variable holding wait time)</span>
+        <span class="mi">1</span><span class="p">,</span>                      <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                   <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
+<p>This PIO state machine stalls on an <code>out</code> command until DMA channel 10, chained to by DMA channel 9, puts some data into its TX FIFO. The state machine then waits for the checksum to complete before generating the TP_IDL signal. It stalls in the <code>pause</code> state while decrementing scratch register x, then generates the pulse, and sets the pins to an idle state for about 64 bit times. The state machine then uses <code>irq 1</code> to send an interrupt back to the CPU, signalling that the transmission has completed.</p>
+
+<pre><code>start:
+    out x, 32          ;   32 bits from OSR to x scratch (autopull enabled, stalls here)
+pause:
+    jmp x-- pause      ;
+
+set pins, 2    [23] ;   Pulse high for 3 bit times (8 cycles per bit)
+set pins, 0    [31] ;   Pulse low for idle time
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+set pins, 0    [31] ;
+irq 1               ;   Signal transaction complete to CPU</code></pre>
+<h3 id="Re-enabling-the-PWM-watchdog">Re-enabling the PWM watchdog<a class="anchor-link" href="#Re-enabling-the-PWM-watchdog">&#182;</a></h3><p>Finally, DMA channel 11 revives the PWM watchdog by writing to the <code>csr</code> register. The PWM channel will resume generating <code>DREQ</code> signals which will be consumed by DMA channel 0 to initiate NLP's.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Revive the PWM channel after packet transaction</span>
+    <span class="n">dma_channel_config</span> <span class="n">c11</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">chan_11</span><span class="p">);</span>   <span class="c1">// default configs</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c11</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>           <span class="c1">// 32-bit txfers</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c11</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                     <span class="c1">// no read incrementing</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c11</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>                    <span class="c1">// no write incrementing</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">chan_11</span><span class="p">,</span>                           <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c11</span><span class="p">,</span>                              <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pwm_hw</span><span class="o">-&gt;</span><span class="n">slice</span><span class="p">[</span><span class="n">slice_num</span><span class="p">].</span><span class="n">csr</span><span class="p">,</span>     <span class="c1">// write address (pwm csr register)</span>
+        <span class="o">&amp;</span><span class="n">pwm_revive</span><span class="p">,</span>                       <span class="c1">// The initial read address (1 variable)</span>
+        <span class="mi">1</span><span class="p">,</span>                                 <span class="c1">// Number of transfers; in this case each is 4 byte.</span>
+        <span class="nb">false</span>                              <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+</pre></div>
 
 </div>
 </div>
@@ -13443,28 +13564,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
