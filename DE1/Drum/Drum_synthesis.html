@@ -13800,14 +13800,13 @@ G_{tension} &amp;\approx 2^{-3} \rightarrow 2^{-5}\\
   <center><figcaption>ModelSim output for a single node with zero boundary conditions</figcaption></center>
 </figure><br><br></li>
 </ul>
-</blockquote>
 <ol>
 <li>Use synthesizable Verilog running in ModelSim to simulate a single <em>column of nodes</em> of length ~30 and with zero boundary conditions on the edges and on either end. You may find <a href="./Drum.pdf">these slides</a> helpful.<figure>
  <img align="center" width="60" height="500" src="colgraphic.png" alt='missing' />
  <center><figcaption>Column of nodes</figcaption></center>
 </figure></li>
 </ol>
-<blockquote><ul>
+<ul>
 <li>Store the initial amplitudes for the $n$ and $n-1$ timesteps in M10k memory blocks.</li>
 <li>Create a state machine that reads a node amplitudes from M10k memory, computes their updated amplitudes, and writes those updated amplitudes back to M10k memory. The state machine will start at the bottom of the column and move to the top.</li>
 <li>Remember that node updates <em>must be synchronous.</em> Otherwise your drum will be unconditionally unstable.</li>
@@ -13853,10 +13852,11 @@ G_{tension} &amp;\approx 2^{-3} \rightarrow 2^{-5}\\
 </li>
 <li><p>Add computation time to your ModelSim simulation.</p>
 </li>
-<li><p>Download the <em>Audio output bus_master</em> example from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">Bus Master webpage</a>.</p>
+<li><p>Download the <em>Audio output bus_master</em> example from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 page.</a>.</p>
 <blockquote><ul>
 <li>This example performs direct digital synthesis of a sine wave, with frequency controlled by the switches</li>
 <li>Get it running and listen to it.</li>
+<li>Integrate a drum of <em>any size</em> with this example (a column is fine, or a small square drum)</li>
 </ul>
 </blockquote>
 </li>
@@ -13870,7 +13870,7 @@ G_{tension} &amp;\approx 2^{-3} \rightarrow 2^{-5}\\
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 <h3 id="Week-Three">Week Three<a class="anchor-link" href="#Week-Three">&#182;</a></h3><ol>
-<li>Integrate your drum synthesizer into the <em>Audio output bus_master</em> example from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">Bus Master webpage</a>.<blockquote><ul>
+<li>Integrate your drum synthesizer into the <em>Audio output bus_master</em> example from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 page</a>.<blockquote><ul>
 <li>Use hardcoded parameters</li>
 <li>Use a 30x30 drum</li>
 <li>Compile time will be approximately 9 minutes</li>
