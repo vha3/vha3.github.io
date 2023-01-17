@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>CAN</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,28 +13077,42 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="CAN-2.0-driver-using-PIO-coprocessors-on-the-RP2040">CAN 2.0 driver using PIO coprocessors on the RP2040<a class="anchor-link" href="#CAN-2.0-driver-using-PIO-coprocessors-on-the-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams---Go-back-to-homepage">V. Hunter Adams - <a href="https://vanhunteradams.com">Go back to homepage</a><a class="anchor-link" href="#V.-Hunter-Adams---Go-back-to-homepage">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
+<hr>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Summary,-demonstration,-and-link-to-code">Summary, demonstration, and link to code</a></li>
+<li><a href="#System-overview">System overview</a><blockquote><ul>
+<li><a href="#Transmitter">Transmitter</a></li>
+<li><a href="#Receiver">Receiver</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#API-and-programmer&#39;s-model">API and programmer's model</a><blockquote><ul>
+<li><a href="#Application-program-structure">Application program structure</a></li>
+<li><a href="#API">API</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#CAN-driver-in-PIO-assembly">CAN driver in PIO assembly</a><blockquote><ul>
+<li><a href="#CAN-transmitter">CAN transmitter</a></li>
+<li><a href="#Idle-check">Idle check</a></li>
+<li><a href="#CAN-receiver">CAN receiver</a></li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </blockquote>
 
@@ -13116,326 +13130,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<h2 id="Summary,-demonstration,-and-link-to-code">Summary, demonstration, and link to code<a class="anchor-link" href="#Summary,-demonstration,-and-link-to-code">&#182;</a></h2><p>This project implements the CAN 2.0 protocol using the PIO coprocessors on the RP2040. Features and specifications include:</p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
+<li>The CAN transmitter and receiver are implemented on separate ARM cores, separate PIO blocks, and utilize separate DMA channels. As such, they are <em>wholly</em> independent. The execution of one has no effect on the execution of the other.</li>
+<li>The CAN transmitter supports arbitrary and variable payload lengths.</li>
+<li>The CAN transmitter supports user-specified and run-time-modifiable idle-time between packets.</li>
+<li>The CAN transmitter performs bus idle checks before transmission, and performs priority arbitration among nodes.</li>
+<li>The CAN receiver re-synchronizes on every change of polarity in a received bitstring.</li>
+<li>Each packet contains a checksum for error catching.</li>
+<li>Each packet contains a flexible reserve bit for future utilization (routing? data requests?).</li>
+<li>All aspects of the physical and packet layer are easily modifiable. (E.g. baud rate, packet rate, and packet structure).</li>
+<li>Program code consumes ~27kB of flash memory</li>
+<li>There is no measurable bit error rate with present configurations. </li>
+<li>A test infrastructure is built to study bit error rate changes with changes to the physical layout of the bus. If errors manifest under different conditions (e.g. extremely long bus cables), then mitigating action can be taken (e.g. decreasing baud rate, or increasing idle time between packets).</li>
 </ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
+<p>A video demonstration of the driver is embedded below.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lKjpeEYxVU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><p><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/More_Demos/CAN"><strong>Please find all code at this link.</strong></a></p>
 
 </div>
 </div>
@@ -13451,21 +13161,516 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
+<h2 id="System-overview">System overview<a class="anchor-link" href="#System-overview">&#182;</a></h2><p>The diagrams below provide a high-level overview of the transmitter/receiver architecture. Each lives on separate cores and separate co-processors, so that there is no interaction whatsoever between them. In each of the diagrams, green arrows can be read as "triggers," red arrows can be red as "terminates," and black arrows indicate the flow of data.</p>
+<p>In anticipation of the addition of sensors and other peripherals, user code is currently arranged using the threading library ProtoThreads. This makes user code highly modular and easy to augment.</p>
+<h3 id="Transmitter">Transmitter<a class="anchor-link" href="#Transmitter">&#182;</a></h3><p>User code specifies packet information (arbitration ID, reserve byte value, payload length, and payload), and then calls a function called <code>sendPacket()</code>. This function computes a checksum over the user-specified data, and populates a complete packet (bit stuffing as it does so). Once the packet is assembled, this function then starts DMA channel 0, which shuffles the packet (16 bits at a time) over to the PIO state machine. This state machine is described in detail in a later section but, in short, it makes sure that the bus is idle, performs arbitration, and then communicates the payload. The PIO state machine sends an interrupt back to the CPU to indicate that it has finished with transmission and is ready for the next packet. In the meantime, user code may be calculating the next packet to send.</p>
+<figure>
+    <img align="center" width="900" height="500" src="tx_overview.png" alt='missing' />
+    <center><figcaption>Overview of CAN transmitter</figcaption></center>
+</figure><h3 id="Receiver">Receiver<a class="anchor-link" href="#Receiver">&#182;</a></h3><p>The receiving PIO program sits and waits for a start bit. When it sees one, it samples the bus once per bit time (re-synchronizing at each change in polarity). These data are autopushed 8 bits at a time to the array <code>rx_packet_stuffed.</code> When the PIO state machine encounters the end of frame bit sequence, it throws an interrupt to the CPU and stalls until the CPU clears that interrupt. The CPU enters an interrupt service routine, aborts the DMA channel which moves data from the PIO machine to the buffer, and calls the function <code>attemptPacketReceive( )</code>. This function un-bitstuffs the received packet into <code>rx_packet_unstuffed</code>, and computes a checksum over the data that it finds. The function will return 0 if it finds an arbitration identification mismatch, a checksum mismatch, or an out-of-bounds payload length. Otherwise, it will return a 1 to indicate a valid packet. The ISR may then perform some computation or routing on that received data, or signal a user thread to run. It then resets the write address for the DMA channel, restarts it, and clears the PIO interrupt to un-stall the state machine.</p>
+<figure>
+    <img align="center" width="900" height="500" src="rx_overview.png" alt='missing' />
+    <center><figcaption>Overview CAN receiver</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="API-and-programmer's-model">API and programmer's model<a class="anchor-link" href="#API-and-programmer's-model">&#182;</a></h2><h3 id="Application-program-structure">Application program structure<a class="anchor-link" href="#Application-program-structure">&#182;</a></h3><p>Please find an example program at <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/More_Demos/CAN/can_demo.c"><strong>this link.</strong></a> This example follows the general structure for a user program that uses this driver, which is:</p>
+<ul>
+<li>Includes for necessary libraries</li>
+<li>Declaration of user global variables</li>
+<li>Definition of transmit complete ISR<blockquote><ul>
+<li>Calls <code>resetTransmitter()</code></li>
+<li>Signals to a thread that it is safe to transmit again</li>
+</ul>
+</blockquote>
+</li>
+<li>Definition of packet receive ISR<blockquote><ul>
+<li>Calls <code>resetReceiver()</code></li>
+<li>Calls <code>attemptPacketReceive()</code></li>
+<li>Does whatever user wants with received packet</li>
+<li>Calls <code>acceptNewPacket()</code> to un-stall PIO machine</li>
+</ul>
+</blockquote>
+</li>
+<li>Definition of user threads<blockquote><ul>
+<li>Probably one which sets payload data, waits for signal from tx isr, then calls <code>sendPacket()</code></li>
+<li>Probably another which pets a watchdog timer</li>
+<li>Any others that are required for a particular application (reading sensors? routing?)</li>
+</ul>
+</blockquote>
+</li>
+<li><code>main()</code> for core 1<blockquote><ul>
+<li>Calls <code>setupCANTX(tx_isr_name)</code></li>
+<li>Adds threads to core 1 scheduler, and starts it</li>
+</ul>
+</blockquote>
+</li>
+<li><code>main()</code> for core 0<blockquote><ul>
+<li>Overclocks the CPU to 160MHz</li>
+<li>Performs user initializations and checks</li>
+<li>Starts core 1</li>
+<li>Calls <code>setupCANRX(rx_isr_name)</code></li>
+<li>Adds threads to core 0 scheduler, and starts it</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="API">API<a class="anchor-link" href="#API">&#182;</a></h3><p>This section describes the API functions that the user will call in their application code. Note that there are additional helper functions which are called by these functions (to stuff/unstuff packets, reset the receive DMA channel in the event of a bus error, etc.). Because these are abstracted away from the user, they are not documented here. However, they are well documented in the source code.</p>
+<h4 id="setupCANTX(irq_handler_t-handler)"><code>setupCANTX(irq_handler_t handler)</code><a class="anchor-link" href="#setupCANTX(irq_handler_t-handler)">&#182;</a></h4><p>This function should be called in <code>main()</code> on whichever core the transmitter will be running. It first initializes a GPIO port labeled <code>TRANSCIEVER_EN</code> as an output and sets it low. This GPIO is attached to the base of an NPN BJT transistor which is used as a switch for turning on the CAN transceiver. To avoid startup transients, the RP2040 only turns on the transceiver when it has finished with initializations.</p>
+<p>This function then calls <code>setupIdleCheck()</code>, which is described in the next section. In short, this function sets up the idle checking PIO state machine and associated DMA channels.</p>
+<p>The function then computes an offset for the <code>can_tx</code> pio program on PIO block 0, and initializes it. This initialization function is defined in the .pio file for the driver. It associates two GPIO ports with the PIO function and sets up the PIO clock divider, among other initializations.</p>
+<p>The function then sets up interrupts for the transmit PIO machine. In particular, it clears <code>irq 0</code> for PIO block 0, masks <code>irq 0</code> onto the PIO interrupt vector, associates the handler named as an argument with to the function with that interrupt, and enables that interrupt in the Nested Vector Interrupt Controller on the ARM.</p>
+<p>The function then configures DMA channel 0 to shuffle data from <code>tx_packet_stuffed</code> to the PIO state machine 16 bits at a time, paced by <code>DREQ_PIO0_TX0</code>. This DMA machine is configured to send as many packets as there are indices in the <code>tx_packet_stuffed</code> array, but it will be aborted early by the PIO machine when an end of frame bit sequence is encountered.</p>
+<p>The function then enables the transmit PIO machine, rests for a millisecond to allow for all GPIO outputs to stabilize, and finally turns on the the CAN transceiver.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Function which sets up CAN TX machine. Adds and initializes the PIO program</span>
+<span class="c1">// to PIO 0, associates the interrupt handler with irq 0, and configures the DMA</span>
+<span class="c1">// channel for moving data to the transmit PIO.</span>
+<span class="kt">void</span> <span class="nf">setupCANTX</span><span class="p">(</span><span class="n">irq_handler_t</span> <span class="n">handler</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Power off transciever (avoids transients on bus)</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">TRANSCIEVER_EN</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">TRANSCIEVER_EN</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">TRANSCIEVER_EN</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Setup the idle checking system</span>
+    <span class="n">setupIdleCheck</span><span class="p">()</span> <span class="p">;</span>
+
+    <span class="c1">// Load PIO programs onto PIO0</span>
+    <span class="n">uint</span> <span class="n">can_tx_offset</span> <span class="o">=</span> <span class="n">pio_add_program</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">can_tx_program</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Initialize the PIO program</span>
+    <span class="n">can_tx_program_init</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">can_tx_sm</span><span class="p">,</span> <span class="n">can_tx_offset</span><span class="p">,</span> <span class="n">CAN_TX</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Setup interrupts for TX machine</span>
+    <span class="n">pio_interrupt_clear</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">pio_set_irq0_source_enabled</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">pis_interrupt0</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">PIO0_IRQ_0</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">PIO0_IRQ_0</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Channel Zero (sends data to TX PIO machine)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c0</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">dma_chan_0</span><span class="p">);</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="n">DMA_SIZE_16</span><span class="p">);</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX0</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">dma_chan_0</span><span class="p">,</span>                     <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c0</span><span class="p">,</span>                            <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio_0</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">can_tx_sm</span><span class="p">],</span>         <span class="c1">// write address (transmit PIO TX FIFO)</span>
+        <span class="n">tx_packet_stuffed_pointer</span><span class="p">,</span>      <span class="c1">// read address (start of stuffed packet)</span>
+        <span class="k">sizeof</span><span class="p">(</span><span class="n">tx_packet_stuffed</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">,</span>   <span class="c1">// Number of transfers (aborts early!)</span>
+        <span class="nb">false</span>                           <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Start the TX PIO program (sets output high, among other things)</span>
+    <span class="n">pio_sm_set_enabled</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">can_tx_sm</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Brief delay to allow GPIO to stabilize</span>
+    <span class="n">sleep_ms</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Power on transciever</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">TRANSCIEVER_EN</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="setupIdleCheck()"><code>setupIdleCheck()</code><a class="anchor-link" href="#setupIdleCheck()">&#182;</a></h4><p>This function is called by <code>setupCANTX()</code>, and so the user will likely not need to call it in their application code.</p>
+<p>This function computes an offset for the <code>idle_check</code> PIO program on PIO block 0, then initizializes that PIO program and adds it to block 0. It clears <code>irq 1</code> on PIO block 0, which is used for signalling between the <code>can_tx</code> and <code>idle_check</code> state machines. It then starts the PIO program.</p>
+<p>Next, this function configures DMA channel 2 to shuffle the value contained in the variable <code>tx_idle_time</code> to the <code>idle_check</code> state machine, paced by <code>DREQ_PIO0_TX1</code>. And it configures DMA channel 3 to reconfigure and restart channel 2. This variable contains the amount of time (measured in bit times) that the bus must be idle between subsequent transactions. It can by changed dynamically.</p>
+<div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">setupIdleCheck</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Load PIO program onto PIO0</span>
+    <span class="n">uint</span> <span class="n">can_idle_offset</span> <span class="o">=</span> <span class="n">pio_add_program</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">idle_check_program</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Initialize the PIO program</span>
+    <span class="n">idle_check_program_init</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">can_idle_check_sm</span><span class="p">,</span> <span class="n">can_idle_offset</span><span class="p">,</span> <span class="n">CAN_TX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Zero the irq 1</span>
+    <span class="n">pio_interrupt_clear</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Start the PIO program</span>
+    <span class="n">pio_sm_set_enabled</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">can_idle_check_sm</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Channel Two (sends data to TX PIO machine)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">dma_chan_2</span><span class="p">);</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">DREQ_PIO0_TX1</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span> <span class="n">dma_chan_3</span><span class="p">);</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">dma_chan_2</span><span class="p">,</span>                     <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c2</span><span class="p">,</span>                            <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">pio_0</span><span class="o">-&gt;</span><span class="n">txf</span><span class="p">[</span><span class="n">can_idle_check_sm</span><span class="p">],</span> <span class="c1">// write address (idle check PIO TX FIFO)</span>
+        <span class="o">&amp;</span><span class="n">tx_idle_time</span><span class="p">,</span>                  <span class="c1">// read address (variable containing idle time)</span>
+        <span class="mi">1</span><span class="p">,</span>                              <span class="c1">// Number of transfers (aborts early!)</span>
+        <span class="nb">false</span>                           <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Channel Three (resets channel 2)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">dma_chan_3</span><span class="p">);</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">DMA_SIZE_32</span><span class="p">);</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_chain_to</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span> <span class="n">dma_chan_2</span><span class="p">);</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">dma_chan_3</span><span class="p">,</span>                     <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c3</span><span class="p">,</span>                            <span class="c1">// The configuration we just created</span>
+        <span class="o">&amp;</span><span class="n">dummy_dest</span><span class="p">,</span>                    <span class="c1">// write address (dummy)</span>
+        <span class="o">&amp;</span><span class="n">dummy_source</span><span class="p">,</span>                  <span class="c1">// read address (dummy)</span>
+        <span class="mi">1</span><span class="p">,</span>                              <span class="c1">// Number of transfers</span>
+        <span class="nb">true</span>                            <span class="c1">// Start immediately.</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="setupCANRX(irq_handler_t-handler)"><code>setupCANRX(irq_handler_t handler)</code><a class="anchor-link" href="#setupCANRX(irq_handler_t-handler)">&#182;</a></h4><p>This function should be called in <code>main()</code> on whichever core the receiver will be running.</p>
+<p>If first computes an offset for the <code>can_rx</code> pio program on PIO block 1, and initializes it. This initialization function is defined in the .pio file for the driver. It associates a GPIO port with the PIO function and sets up the PIO clock divider, among other initializations.</p>
+<p>The function then sets up interrupts for the receive PIO machine. In particular, it clears <code>irq 0</code> for PIO block 1, masks <code>irq 0</code> onto the PIO interrupt vector, associates the handler named as an argument with to the function with that interrupt, and enables that interrupt in the Nested Vector Interrupt Controller on the ARM.</p>
+<p>The function then configures DMA channel 1 to shuffle data from PIO's RX fifo to the <code>rx_packet_stuffed</code> character buffer 8 bits at a time, paced by <code>DREQ_PIO1_RX0</code>. This DMA machine is configured to send as many packets as there are indices in the <code>rx_packet_stuffed</code> array, but it will be aborted early by the PIO machine when an end of frame bit sequence is encountered.</p>
+<p>This function then configures the interrupt vector <em>for the DMA channel.</em> In the event that the DMA channel is never aborted by the PIO state machine (which occurs if the bus is held low by some outside force), then the ISR associated with this interrupt reconfigures and restarts the DMA channel.</p>
+<p>Finally, the function starts the receive PIO state machine, and then starts the associated DMA channel.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Function which sets up CAN RX machine. Adds and initializes the PIO program</span>
+<span class="c1">// to PIO 1, associates the interrupt handler with irq 0, and configures the DMA</span>
+<span class="c1">// channel for moving data from the receive PIO.</span>
+<span class="kt">void</span> <span class="nf">setupCANRX</span><span class="p">(</span><span class="n">irq_handler_t</span> <span class="n">handler</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Load pio program onto PIO 1</span>
+    <span class="n">uint</span> <span class="n">can_rx_offset</span> <span class="o">=</span> <span class="n">pio_add_program</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">can_rx_program</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Initialize the PIO programs</span>
+    <span class="n">can_rx_program_init</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="n">can_rx_sm</span><span class="p">,</span> <span class="n">can_rx_offset</span><span class="p">,</span> <span class="n">CAN_TX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Setup interrupts for RX machine</span>
+    <span class="n">pio_interrupt_clear</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">pio_set_irq0_source_enabled</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="n">pis_interrupt0</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">PIO1_IRQ_0</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">PIO1_IRQ_0</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Channel One (gets data from RX PIO machine)</span>
+    <span class="n">dma_channel_config</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">);</span>
+    <span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>
+    <span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+    <span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+    <span class="n">channel_config_set_dreq</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="n">DREQ_PIO1_RX0</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="n">dma_channel_configure</span><span class="p">(</span>
+        <span class="n">dma_chan_1</span><span class="p">,</span>                 <span class="c1">// Channel to be configured</span>
+        <span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span>                        <span class="c1">// The configuration we just created</span>
+        <span class="n">rx_packet_stuffed_pointer</span><span class="p">,</span>  <span class="c1">// write address (receive buffer)</span>
+        <span class="o">&amp;</span><span class="n">pio_1</span><span class="o">-&gt;</span><span class="n">rxf</span><span class="p">[</span><span class="n">can_rx_sm</span><span class="p">],</span>     <span class="c1">// read address (receive PIO RX FIFO)</span>
+        <span class="k">sizeof</span><span class="p">(</span><span class="n">rx_packet_stuffed</span><span class="p">),</span>  <span class="c1">// Number of transfers (aborts early!!)</span>
+        <span class="nb">false</span>                       <span class="c1">// Don&#39;t start immediately.</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Tell DMA to rasie IRQ line 0 when channel 1 finished a block</span>
+    <span class="n">dma_channel_set_irq0_enabled</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+
+    <span class="c1">// Configure the processor to run dma_handler() when DMA IRQ 0 is asserted</span>
+    <span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">DMA_IRQ_0</span><span class="p">,</span> <span class="n">dma_handler</span><span class="p">);</span>
+    <span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">DMA_IRQ_0</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+
+    <span class="c1">// Start the RX PIO machine</span>
+    <span class="n">pio_sm_set_enabled</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="n">can_rx_sm</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Start the RX DMA channel</span>
+    <span class="n">dma_start_channel_mask</span><span class="p">((</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">dma_chan_1</span><span class="p">))</span> <span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
+<h4 id="resetTransmitter()"><code>resetTransmitter()</code><a class="anchor-link" href="#resetTransmitter()">&#182;</a></h4><p>This function is called in the interrupt service routine associated with the end of packet transmission. It aborts DMA channel 0, drains the TX FIFO to the <code>can_tx</code> PIO state machine, clears the PIO interrupt (un-stalls it), and resets the DMA channel 0 read address. When the user calls <code>sendPacket()</code>, this DMA channel will be re-started, which will begin a new packet transmission.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Call in the tx_handler interrupt service routine to reset the transmitter</span>
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">resetTransmitter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Abort the DMA channel sending data to the TX PIO (EOF found)</span>
+    <span class="n">dma_channel_abort</span><span class="p">(</span><span class="n">dma_chan_0</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Drain the TX FIFO</span>
+    <span class="n">pio_sm_drain_tx_fifo</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="n">can_tx_sm</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Unstall the PIO state machine</span>
+    <span class="n">pio_interrupt_clear</span><span class="p">(</span><span class="n">pio_0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Reset the DMA channel read address, don&#39;t start channel yet</span>
+    <span class="n">dma_channel_set_read_addr</span><span class="p">(</span><span class="n">dma_chan_0</span><span class="p">,</span> <span class="n">tx_packet_stuffed_pointer</span><span class="p">,</span> <span class="nb">false</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Short delay</span>
+    <span class="n">sleep_us</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="attemptPacketReceive()"><code>attemptPacketReceive()</code><a class="anchor-link" href="#attemptPacketReceive()">&#182;</a></h4><p>This function is called in the ISR associated with a packet being received. It first unstuffs the packet, and then it checks the arbitration bits, packet length, and computes a checksum. If there is an invalid packet length, a mismatch between computed and received checksums, or a mismatch in arbitration values, then the function returns 0. Otherwise it returns 1. Either way, the unstuffed packet lives in <code>rx_packet_unstuffed.</code></p>
+<div class="highlight"><pre><span></span><span class="c1">// Function assumes that a stuffed packet lives in rx_packet_stuffed.</span>
+<span class="c1">// It unpacks that packet, checks the arbitration bits, and checks the</span>
+<span class="c1">// checksum. If it is a valid packet (correct arbitration and checksum)</span>
+<span class="c1">// then the function returns 1. Else it returns 0. Valid packet will</span>
+<span class="c1">// remain in rx_packet_unstuffed for user to access.</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="nf">attemptPacketReceive</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="p">;</span>
+
+    <span class="c1">// Unstuff the received packet</span>
+    <span class="n">unBitStuff</span><span class="p">(</span><span class="n">rx_packet_stuffed</span><span class="p">,</span> <span class="n">rx_packet_unstuffed</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Check arbitration bits</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="p">((</span><span class="n">MY_ARBITRATION_VALUE</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">))</span><span class="o">&amp;&amp;</span>
+        <span class="p">(</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">!=</span><span class="p">((</span><span class="n">NETWORK_BROADCAST</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="p">((</span><span class="n">MY_ARBITRATION_VALUE</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">))</span><span class="o">&amp;&amp;</span>
+        <span class="p">(</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="p">((</span><span class="n">NETWORK_BROADCAST</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Check packet length</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">MAX_PAYLOAD_SIZE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Compute and check checksum</span>
+    <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">checksum</span> <span class="o">=</span> <span class="n">CRC_INIT</span><span class="p">;</span> <span class="c1">// Init value for CRC calculation</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">checksum</span> <span class="o">=</span> <span class="n">culCalcCRC</span><span class="p">((</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">,</span> <span class="n">checksum</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="p">((</span><span class="n">checksum</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+        <span class="p">(</span><span class="n">rx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="p">((</span><span class="n">checksum</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="acceptNewPacket()"><code>acceptNewPacket()</code><a class="anchor-link" href="#acceptNewPacket()">&#182;</a></h4><p>This function simpluy clears PIO block 0 <code>irq 0</code>, which un-stalls the receiving PIO state machine. User code should only call this function when the user is willing to overwrite data contained in <code>rx_packet_stuffed.</code> That is, when the user has finished processing the previous packet and is ready to receive a new one.</p>
+<div class="highlight"><pre><span></span><span class="c1">// At end of receive ISR, clear interrupt to accept new packets</span>
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">acceptNewPacket</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">pio_interrupt_clear</span><span class="p">(</span><span class="n">pio_1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="sendPacket()"><code>sendPacket()</code><a class="anchor-link" href="#sendPacket()">&#182;</a></h4><p>This function sends a packet, and should only be called by user code when the ISR associated with packet transmission indicates that it is safe to send the next packet. This function buffers the unstuffed packet in an array called <code>tx_packet_unstuffed</code>, computes a checksum, bitstuffs the packet into <code>tx_packet_stuffed</code>, and then starts DMA channel 0 which initiates a transmission. After this function returns, user code may start populating the next packet payload, just don't send it until the tx isr indicates that it is safe to do so.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Assemble the unstuffed packet for transmit using the global values for</span>
+<span class="c1">// arbitration, reserve byte, payload length, and the payload. This function</span>
+<span class="c1">// automatically computes and appends the checksum, then appends the EOF.</span>
+<span class="kt">void</span> <span class="nf">sendPacket</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Incrementer</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="p">;</span>
+    <span class="c1">// Load arbitration</span>
+    <span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">arbitration</span> <span class="p">;</span>
+    <span class="c1">// Load reserve byte and payload length</span>
+    <span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span>  <span class="p">(((((</span><span class="kt">unsigned</span> <span class="kt">short</span><span class="p">)</span><span class="n">reserve_byte</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF00</span><span class="p">)</span> <span class="o">|</span>
+                             <span class="p">(((</span><span class="kt">unsigned</span> <span class="kt">short</span><span class="p">)</span><span class="n">payload_len</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x00FF</span><span class="p">));</span>
+    <span class="c1">// Load payload</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">payload</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">payload_len</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Compute checksum</span>
+    <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">checksum</span> <span class="o">=</span> <span class="n">CRC_INIT</span><span class="p">;</span> <span class="c1">// Init value for CRC calculation</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">checksum</span> <span class="o">==</span> <span class="mh">0xFFFF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">^=</span> <span class="mh">0x8000</span> <span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">payload_len</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">checksum</span> <span class="o">=</span> <span class="n">culCalcCRC</span><span class="p">((</span><span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">,</span> <span class="n">checksum</span><span class="p">);</span>
+          <span class="n">checksum</span> <span class="o">=</span> <span class="n">culCalcCRC</span><span class="p">((</span><span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">,</span> <span class="n">checksum</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Load checksum</span>
+    <span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">checksum</span> <span class="p">;</span>
+    <span class="c1">// Load EOF</span>
+    <span class="n">tx_packet_unstuffed</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xFFFF</span> <span class="p">;</span>
+
+    <span class="c1">// Bit stuff the packet</span>
+    <span class="n">bitStuff</span><span class="p">(</span><span class="n">tx_packet_unstuffed</span><span class="p">,</span> <span class="n">tx_packet_stuffed</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// BEGIN TRANSMISSION</span>
+    <span class="n">dma_start_channel_mask</span><span class="p">((</span><span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">dma_chan_0</span><span class="p">))</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CAN-driver-in-PIO-assembly">CAN driver in PIO assembly<a class="anchor-link" href="#CAN-driver-in-PIO-assembly">&#182;</a></h2><p>There are three PIO assembly programs provided below. The first two (<code>can_tx</code> and <code>idle_check</code>) are loaded onto PIO block 0 and used for transmitting packets. The third (<code>can_rx</code>) is loaded onto PIO block 1 and used for receiving packets. All state machines assume 32 PIO cycles per bit. They are presently configured to run at 32MHz, for a baud rate of 1M, but this is configurable.</p>
+<p>All state machines assume and/or enforce that a new bit is communicated to the CAN transceiver at cycle 0 of 32, and the value on the bus is checked at cycle 24 of 32. The numbers in square brackets and the end of some lines represent the number of cycles <em>into</em> a particular bit the state machine is on that instruction.</p>
+<p>These programs are <em>not</em> executed linearly. They jump around depending on the status of the bus. To read these programs, start at the top of each. Read the instruction and the associated comment, and then move to the next line. If you encounter a <code>jmp</code> instruction, the program counter will either jump to the specified program label if the condition of the <code>jmp</code> is true (or unconditional), or it will fall through the <code>jmp</code> to the next instruction in the event that the condition is <em>not</em> true.</p>
+<h3 id="CAN-transmitter">CAN transmitter<a class="anchor-link" href="#CAN-transmitter">&#182;</a></h3><p>The PIO program provided below is loaded onto PIO block 0. It waits for the user to put the arbitration ID into the FIFO, then signals the <code>idle_check</code> state machine to stall until the bus is idle. This state machine then resumes, performs arbitration, and communicates the rest of the message out to the transceiver once arbitration is won. When the program discovers 16 consecutive 1's, it throws an interrupt to the CPU and stalls until it is cleared.</p>
+
+<pre><code>.program can_tx
+
+;;
+;; Standby portion of program, waiting for a message to transmit
+;; 
+
+standby:
+    pull block                          ; sits here until arbitration appears in the TX fifo (16 bits)
+    mov y, osr                          ; copy contents of osr to y scratch
+
+;;
+;; Message received, stalling until bus is idle
+;;
+
+reset_osr:
+    mov osr, y                          ; Copy contents of osr to y scratch
+    set x, 0                            ; Initialize x scratch to zero
+
+spin_wait:
+    irq wait 1                          ; Set irq 1, wait for it to clear
+    wait 1 irq 2                        ; Wait for irq 2, then clear it
+    jmp pin to_pins                     ; Start arbitration if pin is high
+    jmp spin_wait                       ; otherwise, try again
+
+;;
+;; Bus is idle, doing arbitration.
+;;
+
+check_collision:
+    jmp pin nextbit                     ; Value should be 1, else fall thru to collision [24]
+
+collision:
+    jmp reset_osr                       ; Go try again if there was a collision
+
+bitout:
+    out x, 1 [5]                        ; Shifts 1 bit from OSR to x scratch [26-31]
+
+to_pins:
+    mov pins, x                         ; Put bit out onto pin [0]
+    jmp x-- check_collision [22]        ; Put one on the pins, check if zero, else fall thru [1-23]
+    nop                                 ; Same path length for 0 and 1 [24]
+
+nextbit:
+    jmp !OSRE bitout                    ; Prepare to put next bit out onto pins [25]
+
+;;
+;; Won arbitration, sending rest of message. Stop at EOF indicator.
+;;
+
+message_data:
+    set y, RECESSIVE_EOF_THRESHOLD [2]  ; reset recessive EOF counter [26-28] (know x is zero here)
+
+pull_data:
+    pull block [1]                      ; Pull next 16 bits of data [29-30]
+
+another_bit_out:
+    out x, 1                            ; Shift 1 bit from OSR to x scratch [31]
+    mov pins, x                         ; Put that bit onto the bus [0]
+    jmp x-- recessive_out [24]          ; If bit was recessive, jump to recessive_out [1-25]
+    set y, RECESSIVE_EOF_THRESHOLD      ; Reset recessive EOF counter if bit was dominant [26]
+
+next_bit_again:
+    jmp !OSRE path_correction           ; If OSR is not empty, shift out another bit [27]
+    jmp pull_data                       ; Else pull data [28]
+
+path_correction:
+    jmp another_bit_out [2]             ; [28-30]
+
+recessive_out:
+    jmp y-- next_bit_again              ; EOF counter nonzero?, check OSR then pull or output a bit [26]
+
+transaction_complete:
+    irq wait 0                          ; Signal transaction complete to CPU, wait for ack
+                                        ; No jump required, loops back to standby</code></pre>
+<h3 id="Idle-check">Idle check<a class="anchor-link" href="#Idle-check">&#182;</a></h3><p>This PIO program is also loaded onto PIO block 0. The total number of instructions between this PIO state machine and the <code>can_tx</code> state machine is 32. This is the bus idle-checking state machine which is signaled in the <code>spin_wait</code> section of the <code>can_tx</code> state machine given above. This state machine pulls a number from the TX fifo and puts it into the x scratch register. This value represents the number of bit times that the bus should be idle before a packet is allowed to be sent. This is a user-specified parameter. The program then checks the status of the bus once per bit time, decrementing the value in the x scratch register if it is idle and resetting it if it is not. Once the x scratch register hits 0, it signals back to the <code>can_tx</code> machine that it may proceed with packet transmission. This state machine also runs at 32MHz.</p>
+
+<pre><code>.program idle_check
+
+entry:
+    wait 1 irq 1                      ; wait for irq 1, then clear it
+    out x, 32                         ; Shift 32 bits from OSR to x (autopull)
+
+idle_check:
+    jmp pin spin_wait                 ; if pin is high (idle), jump to decrementer
+    out x, 32                         ; Else do an autopull to reset x scratch register
+
+spin_wait:
+    jmp x-- idle_check [30]           ; wait a bit time, then go back to idle_check or fall thru
+
+finished:
+    irq wait 2                        ; set irq 2, wait for it to clear</code></pre>
+<h3 id="CAN-receiver">CAN receiver<a class="anchor-link" href="#CAN-receiver">&#182;</a></h3><p>This state machine is loaded onto PIO block 1. It waits for the bus to be idle for 8 bit times (to make sure it doesn't start gathering data in the middle of a packet), and then stalls until a start of frame bit appears. The state machine then gathers bits, re-synchronizing at every change in polarity of the gathered bit string. When the state machine encounters 16 consecutive 1's, it throws an interrupt to the CPU and stalls until the CPU clears the interrupt.</p>
+
+<pre><code>.program can_rx
+
+standby:
+    set x, RX_IDLE_BIT_TIME         ; How long must bus be stable before we're allowed to receive?
+
+idle_check:
+    jmp pin spin_wait               ; If bus is idle, jump to spin_wait [0-1]
+    set x, RX_IDLE_BIT_TIME         ; Otherwise reset the idle bit time
+
+spin_wait:
+    jmp x-- idle_check [30]         ; If bus is idle, go back to idle_check and decrement x.
+                                    ; Falls through when RX_IDLE_BIT_TIME has passed
+bus_idle:
+    jmp pin bus_idle                ; Stalls here until start of frame [0-1]
+
+glitch_check:
+    nop [20]                        ; Wait to check for a glitch [21-23]
+    jmp pin standby [1]             ; If pin is high again, this was a glitch, go back to standby [23-25]
+    jmp got_dominant                ; Otherwise, go start gathering a packet [25-26]
+
+got_recessive:
+    set y, EDGE_SEARCH_TIME         ; How long will we look for an edge? [26-27]
+    jmp x-- dom_edge_search         ; Did we receive 10 recessives? Else fall thru [27-28]
+
+EOF:
+    push block                      ; Push remaining bits to RX FIFO
+    irq wait 0                      ; Signal message available to CPU
+    jmp standby                     ; Wait for next message
+
+dom_edge_search:
+    jmp pin dom_edge_decrementer    ; Pin high? decrement edge search counter [28-29,30-31,0-1,2-3], [0-1]
+    jmp sync_delay                  ; Otherwise, go grab that dominant bit [1-2]
+
+dom_edge_decrementer:
+    jmp y-- dom_edge_search         ; Look for falling edge y times [29-30, 31-0, 1-2, 3-4]
+    jmp get_bit [19]                ; Else grab another recessive bit [23-24]
+
+recessive_delay:
+    nop                             ; Same path length for dominant/recessive edges [2-3]
+
+sync_delay:
+    nop [20]                        ; Delay after a synchronization event [23-24]
+
+get_bit:
+    in pins, 1                      ; Grab a bit, shift into ISR (autopush at 16) [24-25]
+    jmp pin got_recessive           ; Did we get a recessive bit? [25-26]
+
+got_dominant:
+    set x, RECESSIVE_EOF_THRESHOLD  ; If not, reset the recessive EOF counter [26-27]
+    set y, EDGE_SEARCH_TIME         ; How long will we look for an edge? [27-28]
+
+recessive_edge_search:
+    jmp pin recessive_delay         ; If pin goes high, go get a bit [28-29, 30-31, 0-1, 2-3], [0-1]
+    jmp y-- recessive_edge_search   ; Keep looking for an edge [29-30, 31-0, 1-2, 3-4]
+    jmp get_bit [19]                ; Go get another dominant bit [23-24]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
