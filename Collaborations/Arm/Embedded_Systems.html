@@ -13089,22 +13089,22 @@ div#notebook {
 <li><a href="#What-will-a-lesson-webpage-look-like?">What will a lesson webpage look like?</a></li>
 <li><a href="#Outline-of-lessons">Outline of lessons</a><blockquote><ul>
 <li><a href="#Lesson-1:-Course-introduction">Lesson 1: Course introduction</a></li>
-<li><a href="#Lesson-2:-Digital-output">Lesson 2: Digital output</a></li>
-<li><a href="#Lesson-3:-Digital-input">Lesson 3: Digital input</a></li>
-<li><a href="#Lesson-4:-GPIO-interrupts">Lesson 4: GPIO interrupts</a></li>
-<li><a href="#Lesson-5:-UART-communication">Lesson 5: UART communication</a></li>
-<li><a href="#Lesson-6:-Analog-input">Lesson 6: Analog input</a></li>
-<li><a href="#Lesson-7:-Filtering">Lesson 7: Filtering</a></li>
-<li><a href="#Lesson-8:-Timers,-and-timer-interrupts">Lesson 8: Timers, and timer interrupts</a></li>
-<li><a href="#Lesson-9:-Pulse-width-modulation">Lesson 9: Pulse-width modulation</a></li>
-<li><a href="#Lesson-10:-SPI">Lesson 10: SPI</a></li>
-<li><a href="#Lesson-11:-Direct-digital-synthesis">Lesson 11: Direct digital synthesis</a></li>
-<li><a href="#Lesson-12:-I2C">Lesson 12: I2C</a></li>
-<li><a href="#Lesson-13:-Motors">Lesson 13: Motors</a></li>
-<li><a href="#Lesson-14:-Direct-Memory-Access">Lesson 14: Direct Memory Access</a></li>
-<li><a href="#Lesson-15:-CAN-bus">Lesson 15: CAN bus</a></li>
-<li><a href="#Lesson-16:-Realtime-operating-systems">Lesson 16: Realtime operating systems</a></li>
-<li><a href="#Lesson-17:-Multicore-microcontrollers">Lesson 17: Multicore microcontrollers</a></li>
+<li><a href="#Lesson-2:-Digital-output-and-introduction-to-functional-problem-decomposition">Lesson 2: Digital output and introduction to functional problem decomposition</a></li>
+<li><a href="#Lesson-3:-Digital-input,-task-definition,-and-introduction-to-Agile">Lesson 3: Digital input, task definition, and introduction to Agile</a></li>
+<li><a href="#Lesson-4:-GPIO-interrupts-and-use-cases">Lesson 4: GPIO interrupts and use cases</a></li>
+<li><a href="#Lesson-5:-UART-communication-and-user-stories">Lesson 5: UART communication and user stories</a></li>
+<li><a href="#Lesson-6:-Analog-input-and-user-stories-(continued">Lesson 6: Analog input and user stories (continued)</a>)</li>
+<li><a href="#Lesson-7:-Filtering-and-functional-flow-block-diagrams">Lesson 7: Filtering and functional flow block diagrams</a></li>
+<li><a href="#Lesson-8:-Timers,-timer-interrupts,-and-functional-flow-block-diagrams-continued">Lesson 8: Timers, timer interrupts, and functional flow block diagrams (continued)</a></li>
+<li><a href="#Lesson-9:-Pulse-width-modulation,-interface-identification-and-specification">Lesson 9: Pulse-width modulation, interface identification and specification</a></li>
+<li><a href="#Lesson-10:-SPI-and-interface-requirements-and-testing">Lesson 10: SPI and interface requirements and testing</a></li>
+<li><a href="#Lesson-11:-Direct-digital-synthesis-and-interface-testing-continued">Lesson 11: Direct digital synthesis and interface testing continued</a></li>
+<li><a href="#Lesson-12:-I2C-and-making-changes-to-interface-and-other-design-documents">Lesson 12: I2C and making changes to interface and other design documents</a></li>
+<li><a href="#Lesson-13:-Motors-and-performance-criteria/metrics">Lesson 13: Motors and performance criteria/metrics</a></li>
+<li><a href="#Lesson-14:-Direct-Memory-Access-and-key-performance-parameters">Lesson 14: Direct Memory Access and key performance parameters</a></li>
+<li><a href="#Lesson-15:-CAN-bus-and-technical-performance-metrics">Lesson 15: CAN bus and technical performance metrics</a></li>
+<li><a href="#Lesson-16:-Realtime-operating-systems-and-project-updates">Lesson 16: Realtime operating systems and project updates</a></li>
+<li><a href="#Lesson-17:-Multicore-microcontrollers-and-project-decision-justifications">Lesson 17: Multicore microcontrollers and project decision justifications</a></li>
 </ul>
 </blockquote>
 </li>
@@ -13180,11 +13180,14 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Lesson-1:-Course-introduction">Lesson 1: Course introduction<a class="anchor-link" href="#Lesson-1:-Course-introduction">&#182;</a></h4><p>What is a microcontroller?</p>
 <ul>
-<li>A microcontroller is a small computer on a single integrated circuit that is designed to control specific functions or systems. The appropriate mental model for a microcontroller is <em>different</em> than that for a personal computer on which you read emails or watch movies. A microcontroller includes a processor, but often also includes a collection of <em>other</em> hardware peripherals with which that processor communicates. It is a tool<em>kit</em> rather than a tool, and a good microcontroller programmer thinks carefully about how best to use the various tools in that kit to accomplish a specific task.</li>
+<li>A microcontroller is a small computer on a single integrated circuit that is designed to control specific functions or systems. The appropriate mental model for a microcontroller is <em>different</em> than that for a personal computer on which you read emails or watch movies. A microcontroller includes a processor, but often also includes a collection of <em>other</em> hardware peripherals with which that processor communicates, like memory for storing informaiton, or input/output pins for interfacing with sensors and other devices. Microcontrollers are an entire tool<em>kit</em> rather than a singular tool, and a good microcontroller programmer thinks carefully about how best to use the various tools in that kit to accomplish a specific task.</li>
 </ul>
 <p>Where do we find microcontrollers?</p>
 <ul>
-<li>We find microcontrollers in places where we need a relatively simple task carried out <em>extremely</em> reliably, often subject to strict timing requirements. We find them communicating with sensors in robots and cars. We find them controlling motors in airplanes and medical equipment. We find them in keyfobs, security systems, spaceships, rockets, race cars, and rovers. In the future, we may even find them in brains and bodies. They are one of <em>the</em> foundational technologies for maintaining industrialized society.</li>
+<li><p>We find microcontrollers in places where we need a relatively simple task carried out <em>extremely</em> reliably, often subject to strict timing requirements. We find them communicating with sensors in robots and cars. We find them controlling motors in airplanes and medical equipment. We find them in keyfobs, security systems, spaceships, rockets, race cars, and rovers. In the future, we may even find them in brains and bodies. They are one of <em>the</em> foundational technologies for maintaining industrialized society.</p>
+</li>
+<li><p>Because microcontrollers are increasingly present in nearly every major industrial area, it is essential to learn how do develop with them as parts of larger devices and even systems of devices, programs, people, the environment, etc. Hence, this course will also introduce you to systems engineering concepts.</p>
+</li>
 </ul>
 <p>What makes embedded systems engineering and programming interesting?</p>
 <ul>
@@ -13193,9 +13196,18 @@ div#notebook {
 <li><p>Programming a microcontroller is also different from programming a personal computer in that (in my biased opinion) it is way more fun. A microcontroller forces the engineer to achieve objectives subject to <em>constraints</em>. You only have so much memory to spend. You only have so many cycles. You may only have so much power. These constraints require <em>cleverness</em>, and they require thinking deeply about about the problem that you're trying to solve and the device that you're using to solve it. Debugging these systems puts you in conversation with physics in a way that is very different than that which you get from a textbook, and that is deeply interesting.</p>
 </li>
 </ul>
-<p>What is the point of this course?</p>
+<p>For what role will this course prepare you?</p>
 <ul>
 <li>This course does not aim to make you an expert in embedded systems. Instead, it aims to help you work with embedded systems experts by familiarizing you with core concepts from embedded systems, and by describing <em>the way that embedded systems engineers think about problems</em>. The best way to introduce all of these concepts is by building something, and so this course will be structured around a project. In particular, we will make a digital theremin - a musical instrument that you'll play without touching.</li>
+</ul>
+<p>What is systems engineering and why should I be interested in it?</p>
+<ul>
+<li><p>Systems Engineering encompasses and formalizes many of the best design and organizational practices of the world’s leading technology companies and organizations. In fact, In a special meeting of numerous top Cornell alumni and industry contacts, Systems Engineering was ranked as the #1 skills set that all engineers should have – and not just to help them to have a good career start, but be able to continue to make a valuable difference in their jobs ten years from now. It may be part of the reason why so many top companies are willing to pay for their employees to come to Cornell.</p>
+</li>
+<li><p>Normally only taught at the graduate level, this course can offer undergrads and graduate students alike the opportunity to apply (not just learn about) some fundamental systems engineering tools that they can start making a difference with today. Graduate students who already have had an introduction to systems engineering, will be able to apply these skills even further as they develop both a systems design and implementation of their own embedded systems project.</p>
+</li>
+<li><p>With permission, students with limited systems engineering exposure may still take on the graduate challenge but will be required to review additional supplemental Systems Engineering materials on their own time.</p>
+</li>
 </ul>
 
 </div>
@@ -13204,7 +13216,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-2:-Digital-output">Lesson 2: Digital output<a class="anchor-link" href="#Lesson-2:-Digital-output">&#182;</a></h4><p>Project goal: Blink an LED</p>
+<h4 id="Lesson-2:-Digital-output-and-introduction-to-functional-problem-decomposition">Lesson 2: Digital output and introduction to functional problem decomposition<a class="anchor-link" href="#Lesson-2:-Digital-output-and-introduction-to-functional-problem-decomposition">&#182;</a></h4><p>Project goal: Blink an LED</p>
 <ul>
 <li>When a computer programming is learning a new programming language, the first thing that they do is write a program that prints "Hello, World!" onto the screen. When an embedded systems engineer gets a new microcontroller, the first thing they do is blink an LED. If you've never written a computer program that caused something to happen in the physical world, this will be an experience that you'll remember.</li>
 <li>In order to get an LED to blink, we must understand a few things about our microcontroller.<blockquote><ul>
@@ -13218,6 +13230,12 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Having a LED blink is a kinda fun first step. But even in this simple “Hello World!” example, as potential designers of larger systems, we want to start to think about what does this kind of capability offer us? Or said another way, what kind of functionality can this help us achieve by itself, and to help solve larger problems?</p>
+<p>In order to start to answer questions like these, we first have to start by understanding:</p>
+<ul>
+<li>The difference between functional vs. structural</li>
+<li>How to recognize the functionality a new technology could offer</li>
+</ul>
 
 </div>
 </div>
@@ -13225,7 +13243,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-3:-Digital-input">Lesson 3: Digital input<a class="anchor-link" href="#Lesson-3:-Digital-input">&#182;</a></h4><p>Project goal: Turn on an LED with a button press</p>
+<h4 id="Lesson-3:-Digital-input,-task-definition,-and-introduction-to-Agile">Lesson 3: Digital input, task definition, and introduction to Agile<a class="anchor-link" href="#Lesson-3:-Digital-input,-task-definition,-and-introduction-to-Agile">&#182;</a></h4><p>Project goal: Turn on an LED with a button press</p>
 <ul>
 <li>We've learned how to use a GPIO port to output a digital (high/low) voltage. We will now learn how to use a GPIO port to sense a digital voltage. In particular, to measure whether or not a button is pushed. In order to do this, we must understand a few things.<blockquote><ul>
 <li>Pullup/pulldown resistors</li>
@@ -13236,6 +13254,16 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>For small teams, like most of those you might experience in college, you can sometime get away with doing this informally. But college should be the time to practice skills on simpler problems so that you’re ready to take on more complex situations later. So for the relatively simple work that is being asked to be performed in this course, we will create formal tasks as if they were a part of a larger team’s development plan and offer ways to:</p>
+<ul>
+<li>Define task deliverables objectively so that we can . . .<blockquote><ul>
+<li>Recognize task dependency and define task deliverables to support this</li>
+<li>Estimate relative effort of a task</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>Furthermore, we’ll introduce the basic concepts of the Agile development process and discuss how the homeworks in the course do (and do not) follow this process</p>
 
 </div>
 </div>
@@ -13243,7 +13271,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-4:-GPIO-interrupts">Lesson 4: GPIO interrupts<a class="anchor-link" href="#Lesson-4:-GPIO-interrupts">&#182;</a></h4><p>Project goal: Toggle the LED with each button press</p>
+<h4 id="Lesson-4:-GPIO-interrupts-and-use-cases">Lesson 4: GPIO interrupts and use cases<a class="anchor-link" href="#Lesson-4:-GPIO-interrupts-and-use-cases">&#182;</a></h4><p>Project goal: Toggle the LED with each button press</p>
 <ul>
 <li>Rather than have the LED turn on when the button is pressed, and off when it is not, we'd like to toggle it on/off with presses. We can do this via a GPIO interrupt service routine.<blockquote><ul>
 <li>What is an interrupt service routine?</li>
@@ -13255,6 +13283,12 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>With the new ability to create interrupts, we can now begin to explore basics of use cases as a formally defined sets of functionality that must be achieved to develop a valid solution to a stakeholder’s needs. Developing a complete set of use cases early in the design process helps the entire design team better understand the problem scope and what is everything that needs to be accomplished to create a valid solution. In this lesson, we’ll go over:</p>
+<ul>
+<li>What is a use case and how we can define them</li>
+<li>How to decompose a simple problem into a set of use cases</li>
+<li>The importance of considering undesired use cases as well. </li>
+</ul>
 
 </div>
 </div>
@@ -13262,7 +13296,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-5:-UART-communication">Lesson 5: UART communication<a class="anchor-link" href="#Lesson-5:-UART-communication">&#182;</a></h4><p>Project goal: Print "Button pressed!" each time the user presses a button</p>
+<h4 id="Lesson-5:-UART-communication-and-user-stories">Lesson 5: UART communication and user stories<a class="anchor-link" href="#Lesson-5:-UART-communication-and-user-stories">&#182;</a></h4><p>Project goal: Print "Button pressed!" each time the user presses a button</p>
 <ul>
 <li>A common strategy for making information from a program available to the programmer is to print information to a serial terminal.<blockquote><ul>
 <li>What is UART, and how does it work?</li>
@@ -13272,6 +13306,11 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Like tasks and their deliverables, user stories provide a clear definition of a needed subset of functionality and how we will objectively verify that that functionality has been appropriately achieved. In this lesson we’ll:</p>
+<ul>
+<li>Define user story "cards” as a description of the needed subset of functionality.</li>
+<li>Define user story “confirmations” as our objective means of verifying that our target functionality has been appropriately achieved.</li>
+</ul>
 
 </div>
 </div>
@@ -13279,7 +13318,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-6:-Analog-input">Lesson 6: Analog input<a class="anchor-link" href="#Lesson-6:-Analog-input">&#182;</a></h4><p>Project goal: print distance measurements from an ultrasonic rangefinder</p>
+<h4 id="Lesson-6:-Analog-input-and-user-stories-(continued)">Lesson 6: Analog input and user stories (continued)<a class="anchor-link" href="#Lesson-6:-Analog-input-and-user-stories-(continued)">&#182;</a></h4><p>Project goal: print distance measurements from an ultrasonic rangefinder</p>
 <ul>
 <li>Generally speaking, the world is analog. If we are sensing something in the world, there is very often an <em>analog</em> device at the front-end of that sensor.<blockquote><ul>
 <li>What does analog mean?</li>
@@ -13289,6 +13328,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Building upon the embedded systems skills we’ve developed so far, we’ll also take a closer look at the “customer” aspect of user stories, helping use to formalize our stakeholder’s special requirements in developing a a kind of functionality.</p>
 
 </div>
 </div>
@@ -13296,7 +13336,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-7:-Filtering">Lesson 7: Filtering<a class="anchor-link" href="#Lesson-7:-Filtering">&#182;</a></h4><p>Project goal: Print filtered distance measurements from an ultrasonic rangefinder</p>
+<h4 id="Lesson-7:-Filtering-and-functional-flow-block-diagrams">Lesson 7: Filtering and functional flow block diagrams<a class="anchor-link" href="#Lesson-7:-Filtering-and-functional-flow-block-diagrams">&#182;</a></h4><p>Project goal: Print filtered distance measurements from an ultrasonic rangefinder</p>
 <blockquote><ul>
 <li>What does it mean for our distance measurements to be noisy? How do we mitigate this noise, without losing important information?</li>
 <li>Brief discussion of digital filtering</li>
@@ -13304,6 +13344,7 @@ div#notebook {
 <li>A peek down the rabbithole that is filtering and estimation</li>
 </ul>
 </blockquote>
+<p>We’re now at the point of performing multiple actions that need to come together in the right, logical order to make sure the end result will be what we desire. To help the entire team be able to see and iterate on how to do these actions, we’ll introduce the Functional Flow Block Diagram (FFBD).</p>
 
 </div>
 </div>
@@ -13311,7 +13352,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-8:-Timers,-and-timer-interrupts">Lesson 8: Timers, and timer interrupts<a class="anchor-link" href="#Lesson-8:-Timers,-and-timer-interrupts">&#182;</a></h4><p>Project goal: Toggle an LED within a timer interrupt</p>
+<h4 id="Lesson-8:-Timers,-timer-interrupts,-and-functional-flow-block-diagrams-continued">Lesson 8: Timers, timer interrupts, and functional flow block diagrams continued<a class="anchor-link" href="#Lesson-8:-Timers,-timer-interrupts,-and-functional-flow-block-diagrams-continued">&#182;</a></h4><p>Project goal: Toggle an LED within a timer interrupt</p>
 <blockquote><ul>
 <li>What is a timer, and how do we configure it?</li>
 <li>Why would we use a timer interrupt?</li>
@@ -13319,6 +13360,7 @@ div#notebook {
 <li>How do we write code that is fast enough to meet these deadlines?</li>
 </ul>
 </blockquote>
+<p>Systems engineers believe that everything can always be made better and this is true of our FFBDs too. As we add more complexity to our work, we don’t only want to represent the logical order of our function but relate what needs to be shared between these function for the both their design and operation.</p>
 
 </div>
 </div>
@@ -13326,7 +13368,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-9:-Pulse-width-modulation">Lesson 9: Pulse-width modulation<a class="anchor-link" href="#Lesson-9:-Pulse-width-modulation">&#182;</a></h4><p>Project goal: Generate tones from a buzzer that maps to the analog reading from the rangefinder.</p>
+<h4 id="Lesson-9:-Pulse-width-modulation,-interface-identification-and-specification">Lesson 9: Pulse-width modulation, interface identification and specification<a class="anchor-link" href="#Lesson-9:-Pulse-width-modulation,-interface-identification-and-specification">&#182;</a></h4><p>Project goal: Generate tones from a buzzer that maps to the analog reading from the rangefinder.</p>
 <ul>
 <li>In many applications, we need to generate a square wave with a specified (and perhaps dynamic) duty cycle. We might do this by directly manipulating the GPIO ports in software (as we did with the LED), but this would be an unwise use of the tools in our toolkit. Instead, we can use the PWM peripheral.</li>
 <li>The PWM peripheral connects a <em>tiny bit</em> of extra logic to an onboard timer, and maps to a GPIO port. With it, we can generate square waves of a specified period and duty cycle with <em>no</em> CPU interaction. That saves us cycles for other things!</li>
@@ -13338,6 +13380,12 @@ div#notebook {
 <li>How do we use the PWM peripheral in collaboration with the ADC?</li>
 </ul>
 </blockquote>
+<p>Using our FFBDs as a starting point, we’re going to formally identify the interfaces between our not only our functions but the structural components used to implement these functions. Very few professional solutions are built by an individual or even a small team, so keeping track of what every subteam needs from every other subteam to both design and operate their part of the solution is essential. So as we begin to send commands to other devices, like the buzzer, we’ll show how to:</p>
+<ul>
+<li>Track interfaces for any given subsystem</li>
+<li>Identify which other subsystems are these interfaces with</li>
+<li>Record what are the specific pieces of information that need to be shared across subteams</li>
+</ul>
 
 </div>
 </div>
@@ -13345,7 +13393,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-10:-SPI">Lesson 10: SPI<a class="anchor-link" href="#Lesson-10:-SPI">&#182;</a></h4><p>Project goal: Communicate a voltage to an SPI DAC that is a function of analog measurements from the rangefinder.</p>
+<h4 id="Lesson-10:-SPI-and-interface-requirements-and-testing">Lesson 10: SPI and interface requirements and testing<a class="anchor-link" href="#Lesson-10:-SPI-and-interface-requirements-and-testing">&#182;</a></h4><p>Project goal: Communicate a voltage to an SPI DAC that is a function of analog measurements from the rangefinder.</p>
 <ul>
 <li>Many sensors/devices do not have analog interfaces, but instead communicate with a microcontroller using a digital protocol. There are a variety of such protocols, but a common one is the Serial Peripheral Interface.</li>
 </ul>
@@ -13357,6 +13405,7 @@ div#notebook {
 <li>How do we debug an SPI connection?</li>
 </ul>
 </blockquote>
+<p>Communications between many Many modern problems are so complex that different parts of the solution might not only be developed by different departments within the same company, but by entirely different companies, potentially spread all around the world. To ensure what is delivered by each group is in fact what is needed, stricter requirements that can be tested are needed to be agreed upon by all parties. Building upon the formality we established in defining tasks and user stories, we’ll show how to specify and run tests for interfaces too.</p>
 
 </div>
 </div>
@@ -13364,7 +13413,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-11:-Direct-digital-synthesis">Lesson 11: Direct digital synthesis<a class="anchor-link" href="#Lesson-11:-Direct-digital-synthesis">&#182;</a></h4><p>Project goal: Generate a tone from a speaker using a DAC and Direct Digital Synthesis.</p>
+<h4 id="Lesson-11:-Direct-digital-synthesis-and-interface-testing-continued">Lesson 11: Direct digital synthesis and interface testing continued<a class="anchor-link" href="#Lesson-11:-Direct-digital-synthesis-and-interface-testing-continued">&#182;</a></h4><p>Project goal: Generate a tone from a speaker using a DAC and Direct Digital Synthesis.</p>
 <ul>
 <li>DDS is an <em>algorithm</em>. There's nothing about it that is specific to microcontrollers, but it's really useful to know about for a lot of microcontroller applications! We use it to generate a waveform of any shape that we'd like, and with any frequency that we'd like. That's useful for controlling motors, generating local (digital) oscillators, and generating sounds!</li>
 <li>DDS is a "rubber meets the road" algorithm in embedded systems.<blockquote><ul>
@@ -13374,6 +13423,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Here we’ll use our new skills to practice our ability to specify and check against tests further. Here you’ll create a test for a functionality that someone else needs to develop a solution for and show that they passed that test – and additionally, you’ll also develop and perform a test for a functionality someone else specified.</p>
 
 </div>
 </div>
@@ -13381,7 +13431,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-12:-I2C">Lesson 12: I2C<a class="anchor-link" href="#Lesson-12:-I2C">&#182;</a></h4><p>Project goal: Read data from an I2C accelerometer, use that data to change the frequency of the DDS-generated tone.</p>
+<h4 id="Lesson-12:-I2C-and-making-changes-to-interface-and-other-design-documents">Lesson 12: I2C and making changes to interface and other design documents<a class="anchor-link" href="#Lesson-12:-I2C-and-making-changes-to-interface-and-other-design-documents">&#182;</a></h4><p>Project goal: Read data from an I2C accelerometer, use that data to change the frequency of the DDS-generated tone.</p>
 <ul>
 <li>Just like SPI, I2C is <em>another</em> digital communication protocol common among sensors and devices with which we interface the microcontroller.<blockquote><ul>
 <li>How does I2C work, and how is it different from SPI?</li>
@@ -13391,6 +13441,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>In performing testing, it’s not uncommon to recognize that we need to make changes to our design or even our overall approach to a problem. Here, we’ll introduce good practices for reviewing and updating our designs based upon new information or even changes in stakeholders’ needs! And we’ll use this lesson’s knowledge of a new digital communication protocol to practice how to do this.</p>
 
 </div>
 </div>
@@ -13398,7 +13449,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-13:-Motors">Lesson 13: Motors<a class="anchor-link" href="#Lesson-13:-Motors">&#182;</a></h4><ul>
+<h4 id="Lesson-13:-Motors-and-performance-criteria/metrics">Lesson 13: Motors and performance criteria/metrics<a class="anchor-link" href="#Lesson-13:-Motors-and-performance-criteria/metrics">&#182;</a></h4><ul>
 <li>What are DC motors, stepper motors, servo motors, and other methods of actuation? For which sorts of application is each appropriate?</li>
 <li>How do we <em>safely</em> interface a microcontroller with a motor?<blockquote><ul>
 <li>Why do motors generate so much noise?</li>
@@ -13408,6 +13459,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Just as there are many different kinds of motors to choose from, there may be several products that meet a customer’s needs, but in the end the customer somehow determines that one is better than the rest. Defining performance criteria to objectively evaluate how well our potential solution meets a stakeholder’s needs is essential for helping to justify design decisions both to our stakeholders as well as to our internal teams.</p>
 
 </div>
 </div>
@@ -13415,7 +13467,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-14:-Direct-Memory-Access">Lesson 14: Direct Memory Access<a class="anchor-link" href="#Lesson-14:-Direct-Memory-Access">&#182;</a></h4><ul>
+<h4 id="Lesson-14:-Direct-Memory-Access-and-key-performance-parameters">Lesson 14: Direct Memory Access and key performance parameters<a class="anchor-link" href="#Lesson-14:-Direct-Memory-Access-and-key-performance-parameters">&#182;</a></h4><ul>
 <li>Direct memory access is (arguably) <em>the</em> most powerful peripheral available in a microcontroller.<blockquote><ul>
 <li>What is DMA?</li>
 <li>Why is DMA useful, and why is it so powerful? In a memory-mapped device, peripherals have associated memory addresses. A DMA channel can whisk data from memory to memory, memory to peripheral, peripheral to memory, or peripheral to peripheral with <em>no CPU interaction</em>.</li>
@@ -13424,6 +13476,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Keeping track of our demonstrated performance, and making updates to our estimated performance based on progress and testing, is a critical means of helping to track the overall progress in developing a new product. However, sometimes it can be costly in terms of both time and resources to do as extensive performance testing as we would like along the way. Here we’ll discuss the pros and cons of the key performance parameter approach and let you try it out to make decisions related to your course project work.</p>
 
 </div>
 </div>
@@ -13431,7 +13484,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-15:-CAN-bus">Lesson 15: CAN bus<a class="anchor-link" href="#Lesson-15:-CAN-bus">&#182;</a></h4><ul>
+<h4 id="Lesson-15:-CAN-bus-and-technical-performance-metrics">Lesson 15: CAN bus and technical performance metrics<a class="anchor-link" href="#Lesson-15:-CAN-bus-and-technical-performance-metrics">&#182;</a></h4><ul>
 <li>We see the CAN bus being used in large, complicated systems (automobiles, planes, robots, etc).<blockquote><ul>
 <li>Where is the CAN bus used?</li>
 <li>How does the CAN bus work?</li>
@@ -13439,6 +13492,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Your stakeholders (or even your boss) may not be as technically savvy as you might hope when it comes to your project. However, you still need an objective way to communicate about the progress (and problems) you might have in your technology’s development. Building off of everything we’ve discussed on task definition, interface requirements, and performance metrics, you’ll get the chance try out technical performance measures (TPM) that you’ll use to track your progress on your next assignment.</p>
 
 </div>
 </div>
@@ -13446,7 +13500,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-16:-Realtime-operating-systems">Lesson 16: Realtime operating systems<a class="anchor-link" href="#Lesson-16:-Realtime-operating-systems">&#182;</a></h4><ul>
+<h4 id="Lesson-16:-Realtime-operating-systems-and-project-updates">Lesson 16: Realtime operating systems and project updates<a class="anchor-link" href="#Lesson-16:-Realtime-operating-systems-and-project-updates">&#182;</a></h4><ul>
 <li>As applications grow in complexity, it becomes impractical to use interrupt-based state machines. Instead, we use realtime operating systems to write concurrent programs.</li>
 </ul>
 <blockquote><ul>
@@ -13455,6 +13509,7 @@ div#notebook {
 <li>What does preemptive vs. non-preemptive mean?</li>
 </ul>
 </blockquote>
+<p>No one every works in a bubble. Utilizing many of your past tools, you’ll how get some practice in using the 4-quadrant method to make an update describing your accomplishments, your next steps, your issues, and provide supporting information as part of the critical role of keeping your fellow teammates and your boss well-informed. In fact, you’ll be presenting your current project assignment as your upcoming next steps!</p>
 
 </div>
 </div>
@@ -13462,7 +13517,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-17:-Multicore-microcontrollers">Lesson 17: Multicore microcontrollers<a class="anchor-link" href="#Lesson-17:-Multicore-microcontrollers">&#182;</a></h4><ul>
+<h4 id="Lesson-17:-Multicore-microcontrollers-and-project-decision-justifications">Lesson 17: Multicore microcontrollers and project decision justifications<a class="anchor-link" href="#Lesson-17:-Multicore-microcontrollers-and-project-decision-justifications">&#182;</a></h4><ul>
 <li>The RP2040 contains <em>two</em> Arm Cortex-M0's.<blockquote><ul>
 <li>How do we parallelize across two cores?</li>
 <li>How do we synchronize across cores?</li>
@@ -13471,6 +13526,7 @@ div#notebook {
 </blockquote>
 </li>
 </ul>
+<p>Pulling together all of our tools, you’ll need to make an objective, defendable argument on decision to what you would do to take your project forward beyond the course!</p>
 
 </div>
 </div>
