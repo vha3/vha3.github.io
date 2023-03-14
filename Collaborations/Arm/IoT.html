@@ -13092,6 +13092,43 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="#What-will-the-course-webpage-look-like?">What will the course webpage look like?</a></li>
+<li><a href="#What-will-a-lesson-webpage-look-like?">What will a lesson webpage look like?</a></li>
+<li><a href="#Outline-of-lessons">Outline of lessons</a><blockquote><ul>
+<li><a href="#Lesson-1:-Course-introduction">Lesson 1: Course introduction</a></li>
+<li><a href="#Lesson-2:-Power-management">Lesson 2: Power management</a></li>
+<li><a href="#Lesson-3:-Power-management-continued">Lesson 3: Power management continued</a></li>
+<li><a href="#Lesson-4:-Power-harvesting">Lesson 4: Power harvesting</a></li>
+<li><a href="#Lesson-5:-Power-storage">Lesson 5: Power storage</a></li>
+<li><a href="#Lesson-6:-Interfacing-with-sensors">Lesson 6: Interfacing with sensors</a></li>
+<li><a href="#Lesson-7:-Communicating-data-via-WiFi-(possibly-2-lessons">Lesson 7: Communicating data via WiFi (possibly 2 lessons)</a>)</li>
+<li><a href="#Lesson-8:-Communicating-data-via-Bluetooth-(possibly-2-lessons">Lesson 8: Communicating data via Bluetooth (possibly 2 lessons)</a>)</li>
+<li><a href="#Lesson-9:-Communicating-data-via-ISM-band-radio,-and-LoRa">Lesson 9: Communicating data via ISM-band radio, and LoRa</a></li>
+<li><a href="#Lesson-10:-Unconventional-communication-strategies">Lesson 10: Unconventional communication strategies</a></li>
+<li><a href="#Lesson-11:-Maximizing-communication-distance-(possibly-2-lessons">Lesson 11: Maximizing communication distance (possibly 2 lessons)</a>)</li>
+<li><a href="#Lesson-12:-Data-encoding-and-data-privacy">Lesson 12: Data encoding and data privacy</a></li>
+<li><a href="#Lesson-13:-Conceptual-introduction-to-Bayesian-analysis">Lesson 13: Conceptual introduction to Bayesian analysis</a></li>
+<li><a href="#Lesson-14:-Mechanical-engineering-and-IoT-devices">Lesson 14: Mechanical engineering and IoT devices</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="What-will-the-course-webpage-look-like?">What will the course webpage look like?<a class="anchor-link" href="#What-will-the-course-webpage-look-like?">&#182;</a></h2><p>The course homepage will contain a collection of links to each of the lesson webpages. It will look similar to the ECE 4760 website linked below.</p>
 <ul>
 <li><a href="https://ece4760.github.io">ECE 4760: Digital systems design with microcontrollers</a></li>
@@ -13145,13 +13182,41 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Course-introduction">Course introduction<a class="anchor-link" href="#Course-introduction">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Lesson-1:-Course-introduction">Lesson 1: Course introduction<a class="anchor-link" href="#Lesson-1:-Course-introduction">&#182;</a></h4><ul>
 <li>High-level architecture of an IoT system</li>
 <li>Discussion of constraints which are often present in these systems (power, memory)</li>
 <li>Discussion of requirements that are often associated with these systems (data rate, lifetime)</li>
 <li>Overview of the topics which will be covered in this course, contextualized by the high-level architecture of the system</li>
+<li>Overview of the project that we will construct (using the RP2040, featuring <code>two Arm Cortex M0's</code>.<blockquote><ul>
+<li><code>We will build a device that alerts you when mail has been placed in your mailbox. The device wakes when the mailbox door is opened (hall effect sensor), and then uses a beam-break sensor (laser diode + phototransistor) to detect the presence of mail in the mailbox.</code> </li>
+<li><code>Later, we'll add a "check for mail" feature, which allows the user to remotely activate the beam break sensor via WiFi to check for mail in the mailbox.</code></li>
+</ul>
+</blockquote>
+</li>
 </ul>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Power-harvesting,-storage,-and-management">Power harvesting, storage, and management<a class="anchor-link" href="#Power-harvesting,-storage,-and-management">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13162,12 +13227,13 @@ div#notebook {
 <li>How to develop a power budget</li>
 <li>Sleep/wake cycles vs. polling</li>
 <li>Achieving low-power sleep modes<blockquote><ul>
-<li>Deep dive thru datasheet</li>
+<li>Deep dive thru datasheet (<code>including the Arm Cortex M0 datasheet</code>)</li>
 <li>How to measure power consumption</li>
 <li>How to track down current leaks</li>
 </ul>
 </blockquote>
 </li>
+<li><strong>Project goal</strong>: Place microcontroller into low-power mode</li>
 </ul>
 
 </div>
@@ -13184,12 +13250,13 @@ div#notebook {
 </blockquote>
 </li>
 <li>How to transition between sleep/wake states<blockquote><ul>
-<li>Reminder about timer interrupts</li>
+<li>Reminder about timer interrupts, and <code>the Arm nested vector interrupt controller</code></li>
 <li>Introduction to latching circuits</li>
 <li>Only wake when you need to wake. This is application-specific.</li>
 </ul>
 </blockquote>
 </li>
+<li><strong>Project goal</strong>: Wake from low power mode using an internal timer, and a GPIO interrupt</li>
 </ul>
 
 </div>
@@ -13208,6 +13275,7 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
+<li><strong>Project goal</strong>: Power our existing system from a solar cell and a battery (using off-the-shelf components)</li>
 </ul>
 
 </div>
@@ -13224,8 +13292,24 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
+<li><strong>Project goal</strong>: Interface microcontroller with a phototransistor and a laser diode</li>
 </ul>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gathering-data">Gathering data<a class="anchor-link" href="#Gathering-data">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13235,6 +13319,7 @@ div#notebook {
 <h4 id="Lesson-6:-Interfacing-with-sensors">Lesson 6: Interfacing with sensors<a class="anchor-link" href="#Lesson-6:-Interfacing-with-sensors">&#182;</a></h4><ul>
 <li>One-lesson review of SPI, I2C, UART, analog sensing, etc.</li>
 <li>Using solar cells as light sensors</li>
+<li><strong>Project goal</strong>: Interface microcontroller a hall effect sensor. Use the hall effect sensor to wake from a low power sleep mode.</li>
 </ul>
 
 </div>
@@ -13243,10 +13328,26 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-7:-Communicating-data-via-WiFi">Lesson 7: Communicating data via WiFi<a class="anchor-link" href="#Lesson-7:-Communicating-data-via-WiFi">&#182;</a></h4><ul>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Communicating-data">Communicating data<a class="anchor-link" href="#Communicating-data">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Lesson-7:-Communicating-data-via-WiFi-(possibly-2-lessons)">Lesson 7: Communicating data via WiFi (possibly 2 lessons)<a class="anchor-link" href="#Lesson-7:-Communicating-data-via-WiFi-(possibly-2-lessons)">&#182;</a></h4><ul>
 <li>Overview of TCP/IP, UDP, and how packets are routed across the Internet</li>
 <li>Conceptual overview of the relationship between the IoT device, a server, and a webpage</li>
 <li>Discussion of applications for which WiFi communication is/isn't the right choice</li>
+<li><strong>Project goal</strong>: "Hello world" communication via WiFi to/from a Pi Pico W and a computer.</li>
 </ul>
 
 </div>
@@ -13255,9 +13356,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-8:-Communicating-data-via-Bluetooth">Lesson 8: Communicating data via Bluetooth<a class="anchor-link" href="#Lesson-8:-Communicating-data-via-Bluetooth">&#182;</a></h4><ul>
+<h4 id="Lesson-8:-Communicating-data-via-Bluetooth-(possibly-2-lessons)">Lesson 8: Communicating data via Bluetooth (possibly 2 lessons)<a class="anchor-link" href="#Lesson-8:-Communicating-data-via-Bluetooth-(possibly-2-lessons)">&#182;</a></h4><ul>
 <li>Overview of how Bluetooth works, and its limitations (range, bandwidth, etc.)</li>
 <li>Discussion of applications for which Bluetooth is/isn't the right choice</li>
+<li><strong>Project goal</strong>: "Hello world" communication via Bluetooth to/from a Pi Pico W and a computer or phone.</li>
 </ul>
 
 </div>
@@ -13271,6 +13373,7 @@ div#notebook {
 <li>Radio modulations and encodings</li>
 <li>Discussion of applications for which ISM-band radio is/isn't the right choice</li>
 <li>Discussion of LoRa</li>
+<li><strong>Project goal</strong>: Integration of WiFi/Bluetooth communication with hall effect sensor. Message sent when triggered by hall effect sensor.</li>
 </ul>
 
 </div>
@@ -13281,6 +13384,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Lesson-10:-Unconventional-communication-strategies">Lesson 10: Unconventional communication strategies<a class="anchor-link" href="#Lesson-10:-Unconventional-communication-strategies">&#182;</a></h4><ul>
 <li>Acoustic communication, optical communication, seismic communication, stigmergy (communication via modifications of a shared environment), communication via different kinds of physics</li>
+<li><strong>Project goal</strong>: Integration of phototransistor/laser diode with hall effect sensor + WiFi/Bluetooth. System is woken by hall effect sensor, takes beam-break measurement, and communicates result via WiFi/BLE.</li>
 </ul>
 
 </div>
@@ -13289,12 +13393,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-11:-Maximizing-communication-distance">Lesson 11: Maximizing communication distance<a class="anchor-link" href="#Lesson-11:-Maximizing-communication-distance">&#182;</a></h4><ul>
+<h4 id="Lesson-11:-Maximizing-communication-distance-(possibly-2-lessons)">Lesson 11: Maximizing communication distance (possibly 2 lessons)<a class="anchor-link" href="#Lesson-11:-Maximizing-communication-distance-(possibly-2-lessons)">&#182;</a></h4><ul>
 <li>Coding gain in radio transmissions</li>
 <li>The link budget equation</li>
 <li>Forward error correction</li>
 <li>Reed-Solomon encoding</li>
 <li>Hamming codes</li>
+<li><strong>Project goal</strong>: Implement a "check for mail" feature. The system activates the beam break sensor upon receipt of a WiFi message. Discuss how this affects power consumption.</li>
 </ul>
 
 </div>
@@ -13305,6 +13410,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Lesson-12:-Data-encoding-and-data-privacy">Lesson 12: Data encoding and data privacy<a class="anchor-link" href="#Lesson-12:-Data-encoding-and-data-privacy">&#182;</a></h4><ul>
 <li>Discussion of encoding and encryption strategies for data communication</li>
+<li><strong>Project goal</strong>: Mechanical integration.</li>
 </ul>
 
 </div>
@@ -13313,7 +13419,43 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lesson-13:-Mechanical-engineering-and-IoT-devices">Lesson 13: Mechanical engineering and IoT devices<a class="anchor-link" href="#Lesson-13:-Mechanical-engineering-and-IoT-devices">&#182;</a></h4><ul>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analyzing-data">Analyzing data<a class="anchor-link" href="#Analyzing-data">&#182;</a></h3><h4 id="Lesson-13:-Conceptual-introduction-to-Bayesian-analysis">Lesson 13: Conceptual introduction to Bayesian analysis<a class="anchor-link" href="#Lesson-13:-Conceptual-introduction-to-Bayesian-analysis">&#182;</a></h4><ul>
+<li>Frequentist vs. Bayesian philosophies</li>
+<li>Applying Bayesian analysis to sensor data, and data of all varieties</li>
+<li>Introduction to the concepts of estimation/control (covered in more detail in the robotics course)</li>
+<li><strong>Project goal</strong>: Augment the device in a way of your choosing (temperature sensor, humidity sensor, etc.).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mechanical-engineering-and-IoT-devices">Mechanical engineering and IoT devices<a class="anchor-link" href="#Mechanical-engineering-and-IoT-devices">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Lesson-14:-Mechanical-engineering-and-IoT-devices">Lesson 14: Mechanical engineering and IoT devices<a class="anchor-link" href="#Lesson-14:-Mechanical-engineering-and-IoT-devices">&#182;</a></h4><ul>
 <li>IoT devices are deployed in stressful environments. Their mechanical enclosures must protect them from those environments, without inhibiting the acquisition of accurate measurements</li>
 <li>Discussion of temperature sensing and Stevenson Screens</li>
 <li>Underwater devices</li>
