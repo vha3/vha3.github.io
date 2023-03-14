@@ -13221,7 +13221,11 @@ div#notebook {
 <li>When a computer programming is learning a new programming language, the first thing that they do is write a program that prints "Hello, World!" onto the screen. When an embedded systems engineer gets a new microcontroller, the first thing they do is blink an LED. If you've never written a computer program that caused something to happen in the physical world, this will be an experience that you'll remember.</li>
 <li>In order to get an LED to blink, we must understand a few things about our microcontroller.<blockquote><ul>
 <li>What is the general structure of a program?</li>
-<li>What does an embedded program "do" when it runs? (leads to a discussion of registers, memory map, and software abstractions)</li>
+<li>What does an embedded program "do" when it runs? (leads to a discussion of registers, memory map, and software abstractions)<blockquote><ul>
+<li><code>Arm is the case study for this discussion</code></li>
+</ul>
+</blockquote>
+</li>
 <li>What are the GPIO ports? How do they map to the hardware peripheral tools in the microcontroller?</li>
 <li>How do we attach an LED to a GPIO port on a breadboard?</li>
 <li>How do we write a program that makes this LED blink?</li>
@@ -13279,6 +13283,7 @@ div#notebook {
 <li>Why is a GPIO interrupt often advantageous over polling?</li>
 <li>Button debouncing</li>
 <li>Cacheing and volatile variables.</li>
+<li><code>Mention Arm nested vector interrupt controller</code></li>
 </ul>
 </blockquote>
 </li>
