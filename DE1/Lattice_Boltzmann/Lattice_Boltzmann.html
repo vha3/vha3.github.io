@@ -13084,6 +13084,53 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><ul>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="What-is-the-Lattice-Boltzmann-Algorithm?">What is the Lattice Boltzmann Algorithm?</a></li>
+<li><a href="#Representation">Representation</a><blockquote><ul>
+<li><a href="#Conceptual-overview-of-representation">Conceptual overview of representation</a></li>
+<li><a href="#Python/C-representation">Python/C representation</a></li>
+<li><a href="#Verilog-representation">Verilog representation</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Streaming">Streaming</a><blockquote><ul>
+<li><a href="#Conceptual-overview-of-streaming">Conceptual overview of streaming</a></li>
+<li><a href="#Python/C-streaming">Python/C streaming</a></li>
+<li><a href="#Verilog-streaming">Verilog streaming</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Bouncing">Bouncing</a><blockquote><ul>
+<li><a href="#Conceptual-overview-of-bouncing">Conceptual overview of bouncing</a></li>
+<li><a href="#Python/C-bouncing">Python/C bouncing</a></li>
+<li><a href="#Verilog-bouncing">Verilog bouncing</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Colliding">Colliding</a><blockquote><ul>
+<li><a href="#Conceptual-overview-of-colliding">Conceptual overview of colliding</a></li>
+<li><a href="#Python/C-colliding">Python/C colliding</a></li>
+<li><a href="#Verilog-colliding">Verilog colliding</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Animation">Animation</a><blockquote><ul>
+<li><a href="#Python-animation">Python animation</a></li>
+<li><a href="#C-animation">C animation</a></li>
+<li><a href="#Verilog-animation">Verilog animation</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 
 </div>
@@ -13159,16 +13206,10 @@ div#notebook {
 <td style="text-align:center">~360</td>
 <td style="text-align:center">~1230</td>
 </tr>
-<tr>
-<td style="text-align:left">Project zip</td>
-<td style="text-align:center"></td>
-<td style="text-align:center"><a href="./Lattice_Boltzmann_C.zip">Here</a></td>
-<td style="text-align:center"></td>
-<td style="text-align:center"><a href="./Lattice_Boltzmann_Verilog.zip">Here</a></td>
-</tr>
 </tbody>
 </table>
-
+<p><br><br><br></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/de33OTFvMXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
 </div>
@@ -13206,7 +13247,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Representation">Representation<a class="anchor-link" href="#Representation">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>Lattice-Boltzmann simulations can be generated for a variety of different lattices (cubic, triangular, etc.). We classify the particular version of the Lattice-Boltmann algorithm using the "DnQm" naming convention, where "Dn" represents the number of dimensions and "Qm" represents the number of directions that particles can move. A common flavor of Lattice-Boltzmann (and the particular version which we'll treat in this project) is D2Q9. This is a simulation on a two-dimensional lattice, and particles on that lattice can move in nine different directions. A visual representation of that lattice is shown in Fig. 1.</p>
+<h2 id="Representation">Representation<a class="anchor-link" href="#Representation">&#182;</a></h2><h3 id="Conceptual-overview-of-representation">Conceptual overview of representation<a class="anchor-link" href="#Conceptual-overview-of-representation">&#182;</a></h3><p>Lattice-Boltzmann simulations can be generated for a variety of different lattices (cubic, triangular, etc.). We classify the particular version of the Lattice-Boltmann algorithm using the "DnQm" naming convention, where "Dn" represents the number of dimensions and "Qm" represents the number of directions that particles can move. A common flavor of Lattice-Boltzmann (and the particular version which we'll treat in this project) is D2Q9. This is a simulation on a two-dimensional lattice, and particles on that lattice can move in nine different directions. A visual representation of that lattice is shown in Fig. 1.</p>
 <figure>
     <img align="center" width="300" height="300" src="lattice.png" alt='missing' />
     <center><figcaption>Fig. 1: Lattice for a D2Q9 Lattice-Boltmann simulation</figcaption></center>
@@ -13232,7 +13273,7 @@ div#notebook {
 <figure>
     <img align="center" width="300" height="300" src="barrier.png" alt='missing' />
     <center><figcaption>Fig. 3: Lattice with barrier</figcaption></center>
-</figure><h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>In both Python and C, the instantaneous state of the lattice is contained in 10 arrays. Each of these arrays contains as many elements as there are cells in the lattice. A particular index of the array corresponds to a particular cell in the lattice, and each array holds one of the 10 states for the cell (north, south, east, west, northeast, northwest, southeast, southwest, null, barrier). In both Python and C, one could certainly use 2D arrays to organize this information. I chose to use 1D arrays so that I could work out some of the array manipulations that would be required in Verilog. The mapping from cell to index is <code>index = (cell row number) * (number of cells per row) + (cell column number)</code>. The mapping from array index to lattice cell is shown in Fig. 4. The Python code is provided below, and the corresponding C code can be found <a href="./lb.c.txt">at this link</a>.</p>
+</figure><h3 id="Python/C-representation">Python/C representation<a class="anchor-link" href="#Python/C-representation">&#182;</a></h3><p>In both Python and C, the instantaneous state of the lattice is contained in 10 arrays. Each of these arrays contains as many elements as there are cells in the lattice. A particular index of the array corresponds to a particular cell in the lattice, and each array holds one of the 10 states for the cell (north, south, east, west, northeast, northwest, southeast, southwest, null, barrier). In both Python and C, one could certainly use 2D arrays to organize this information. I chose to use 1D arrays so that I could work out some of the array manipulations that would be required in Verilog. The mapping from cell to index is <code>index = (cell row number) * (number of cells per row) + (cell column number)</code>. The mapping from array index to lattice cell is shown in Fig. 4. The Python code is provided below, and the corresponding C code can be found <a href="./lb.c.txt">at this link</a>.</p>
 <figure>
     <img align="center" width="300" height="300" src="index.png" alt='missing' />
     <center><figcaption>Fig. 4: Mapping from array index to cell</figcaption></center>
@@ -13284,7 +13325,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>In the Verilog implementation, there are 10 independent memory blocks associated with <em>each</em> row of the lattice. Each of these memory blocks can be read/written independently and in parallel, and all memory blocks in separate rows can be read/written in parallel. The first element in the memory block for each row corresponds to column 0, the second element corresponds to column 1, and so on. Please find the Verilog <a href="lattice_boltzmann.v.txt">at this link</a>.</p>
+<h3 id="Verilog-representation">Verilog representation<a class="anchor-link" href="#Verilog-representation">&#182;</a></h3><p>In the Verilog implementation, there are 10 independent memory blocks associated with <em>each</em> row of the lattice. Each of these memory blocks can be read/written independently and in parallel, and all memory blocks in separate rows can be read/written in parallel. The first element in the memory block for each row corresponds to column 0, the second element corresponds to column 1, and so on. Please find the Verilog <a href="lattice_boltzmann.v.txt">at this link</a>.</p>
 <figure>
     <img align="center" width="800" height="300" src="vrep.png" alt='missing' />
     <center><figcaption>Fig. 5: Storing state information in Verilog</figcaption></center>
@@ -13303,7 +13344,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Streaming">Streaming<a class="anchor-link" href="#Streaming">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>In the streaming step of the update, particle densities move to adjacent lattice cells. The "East" particle density of a particular cell becomes the "East" density of the cell to its east. Likewise for all other directions. The stationary (or "naught") densities for each cell remain in those cells. This is represented visually in Fig. 5. Note that, at this step, density may stream <em>into</em> barrier cells. The gray cells around the perimeter represent boundary conditions which never change.</p>
+<h2 id="Streaming">Streaming<a class="anchor-link" href="#Streaming">&#182;</a></h2><h3 id="Conceptual-overview-of-streaming">Conceptual overview of streaming<a class="anchor-link" href="#Conceptual-overview-of-streaming">&#182;</a></h3><p>In the streaming step of the update, particle densities move to adjacent lattice cells. The "East" particle density of a particular cell becomes the "East" density of the cell to its east. Likewise for all other directions. The stationary (or "naught") densities for each cell remain in those cells. This is represented visually in Fig. 5. Note that, at this step, density may stream <em>into</em> barrier cells. The gray cells around the perimeter represent boundary conditions which never change.</p>
 <table>
 <thead><tr>
 <th>A</th>
@@ -13321,7 +13362,7 @@ div#notebook {
 </tr>
 </tbody>
 </table>
-<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>In Python/C, streaming can be accomplished in one traversal of the lattice. Some pointer footwork is required to make certain that no cell is overwritten before its previous values have streamed. This means moving through the lattice from each of the four corners. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+<h3 id="Python/C-streaming">Python/C streaming<a class="anchor-link" href="#Python/C-streaming">&#182;</a></h3><p>In Python/C, streaming can be accomplished in one traversal of the lattice. Some pointer footwork is required to make certain that no cell is overwritten before its previous values have streamed. This means moving through the lattice from each of the four corners. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
 
 </div>
 </div>
@@ -13371,7 +13412,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>All <em>rows</em> of the lattice are streamed in <em>parallel</em> on the FPGA. We do this by introducing a two-column pipeline to the memory block reads. We then scan from column 0 to the final column, and we rewrite the data in each memory block as we move. This is the first example of acceleration via parallelization on the FPGA. We needn't loop through every cell in the lattice, we need only loop through every column.</p>
+<h3 id="Verilog-streaming">Verilog streaming<a class="anchor-link" href="#Verilog-streaming">&#182;</a></h3><p>All <em>rows</em> of the lattice are streamed in <em>parallel</em> on the FPGA. We do this by introducing a two-column pipeline to the memory block reads. We then scan from column 0 to the final column, and we rewrite the data in each memory block as we move. This is the first example of acceleration via parallelization on the FPGA. We needn't loop through every cell in the lattice, we need only loop through every column.</p>
 <p>The full state machine is linked <a href="./lattice_boltzmann.v.txt">here</a>. Streaming occurs in states 20-23.</p>
 
 </div>
@@ -13388,7 +13429,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Bouncing">Bouncing<a class="anchor-link" href="#Bouncing">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>After all particle densities have moved to adjacent lattice cells, we do a subsequent pass through the lattice to bounce densities off of barriers. Any cell which contains a barrier reflects any densities that it contains after streaming <em>back</em> into the cell from which it streamed. When those densities are bounced back, they also reverse direction. So, if a cell streamed density eastward into a barrier, that density would bounce back and point westward after bouncing. This is illustrated in Fig. 6.</p>
+<h2 id="Bouncing">Bouncing<a class="anchor-link" href="#Bouncing">&#182;</a></h2><h3 id="Conceptual-overview-of-bouncing">Conceptual overview of bouncing<a class="anchor-link" href="#Conceptual-overview-of-bouncing">&#182;</a></h3><p>After all particle densities have moved to adjacent lattice cells, we do a subsequent pass through the lattice to bounce densities off of barriers. Any cell which contains a barrier reflects any densities that it contains after streaming <em>back</em> into the cell from which it streamed. When those densities are bounced back, they also reverse direction. So, if a cell streamed density eastward into a barrier, that density would bounce back and point westward after bouncing. This is illustrated in Fig. 6.</p>
 <table>
 <thead><tr>
 <th>A</th>
@@ -13409,7 +13450,7 @@ div#notebook {
 </tr>
 </tbody>
 </table>
-<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>As with streaming, we loop through all cells in the lattice (omitting those at the boundaries, where boundary conditions are enforced). If a particular cell contains a barrier, then any densities contained in that cell get pushed back from whence they came, reversing direction in the process. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+<h3 id="Python/C-bouncing">Python/C bouncing<a class="anchor-link" href="#Python/C-bouncing">&#182;</a></h3><p>As with streaming, we loop through all cells in the lattice (omitting those at the boundaries, where boundary conditions are enforced). If a particular cell contains a barrier, then any densities contained in that cell get pushed back from whence they came, reversing direction in the process. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
 
 </div>
 </div>
@@ -13459,7 +13500,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>As with streaming, the Verilog implements bouncing in parallel across all rows. Rather than moving through every cell in the lattice, we instead move through every column. <a href="./lattice_boltzmann.v.txt">See states 0-4</a>.</p>
+<h3 id="Verilog-bouncing">Verilog bouncing<a class="anchor-link" href="#Verilog-bouncing">&#182;</a></h3><p>As with streaming, the Verilog implements bouncing in parallel across all rows. Rather than moving through every cell in the lattice, we instead move through every column. <a href="./lattice_boltzmann.v.txt">See states 0-4</a>.</p>
 
 </div>
 </div>
@@ -13475,7 +13516,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Colliding">Colliding<a class="anchor-link" href="#Colliding">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p><strong>Note</strong>: For an approachable derivation of the equations presented in this section, please see <a href="https://physics.weber.edu/schroeder/javacourse/LatticeBoltzmann.pdf">Daniel Schroeder's writeup on the topic</a>.</p>
+<h2 id="Colliding">Colliding<a class="anchor-link" href="#Colliding">&#182;</a></h2><h3 id="Conceptual-overview-of-colliding">Conceptual overview of colliding<a class="anchor-link" href="#Conceptual-overview-of-colliding">&#182;</a></h3><p><strong>Note</strong>: For an approachable derivation of the equations presented in this section, please see <a href="https://physics.weber.edu/schroeder/javacourse/LatticeBoltzmann.pdf">Daniel Schroeder's writeup on the topic</a>.</p>
 <p>After streaming, each cell in the lattice has a new set of values for its nine densities. From those densities, we can compute the macroscopic density for that cell, and the average (macroscopic) cell velocities.</p>
 \begin{align}
 \rho &amp;= n_0 + n_N + n_E + n_S + n_W + n_{NE} + n_{SE} + n_{SW} + n_{NW} = \text{total density}\\
@@ -13509,7 +13550,7 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>The Python code which implements collisions is shown below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+<h3 id="Python/C-colliding">Python/C colliding<a class="anchor-link" href="#Python/C-colliding">&#182;</a></h3><p>The Python code which implements collisions is shown below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
 
 </div>
 </div>
@@ -13574,7 +13615,7 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>The particular FPGA that I'm using (a Cyclone V on a DE1-SoC) contains 74 DSP blocks. I'm using fixed-point, 3.17 arithmetic, which means that each row can use two multipliers in parallel. The arithmetic described above is implemented in a 13-stage state machine, which uses (at maximum) two multipliers per state. As with bouncing and streaming, collisions are row-wise parallel. <a href="./lattice_boltzmann.v.txt">See states 5-18 in the Verilog</a>.</p>
+<h3 id="Verilog-colliding">Verilog colliding<a class="anchor-link" href="#Verilog-colliding">&#182;</a></h3><p>The particular FPGA that I'm using (a Cyclone V on a DE1-SoC) contains 74 DSP blocks. I'm using fixed-point, 3.17 arithmetic, which means that each row can use two multipliers in parallel. The arithmetic described above is implemented in a 13-stage state machine, which uses (at maximum) two multipliers per state. As with bouncing and streaming, collisions are row-wise parallel. <a href="./lattice_boltzmann.v.txt">See states 5-18 in the Verilog</a>.</p>
 
 </div>
 </div>
@@ -13590,7 +13631,7 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h3><p>The Python code which initializes the lattice is given below. The corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+<h3 id="Python-initializations">Python initializations<a class="anchor-link" href="#Python-initializations">&#182;</a></h3><p>The Python code which initializes the lattice is given below. The corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
 
 </div>
 </div>
@@ -13639,7 +13680,7 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>Initialization occurs in <a href="./lattice_boltzmann.v.txt">state 19</a>.</p>
+<h3 id="Verilog-initializations">Verilog initializations<a class="anchor-link" href="#Verilog-initializations">&#182;</a></h3><p>Initialization occurs in <a href="./lattice_boltzmann.v.txt">state 19</a>.</p>
 
 </div>
 </div>
@@ -13656,7 +13697,7 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Animation">Animation<a class="anchor-link" href="#Animation">&#182;</a></h2><p>We animate the fluid motion over the barriers by repeatedly streaming, bouncing, and colliding the densities. One might choose to visualize any one of a number of macroscopic cell properties (x velocity, y velocity, density, curl, etc.). In these animations, we visualize the squared velocity of the fluid in each cell.</p>
-<h3 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h3><p>The code for generating an animation in Python is provided below. To generate each of the two animations shown in the embedded video took a few hours.</p>
+<h3 id="Python-animation">Python animation<a class="anchor-link" href="#Python-animation">&#182;</a></h3><p>The code for generating an animation in Python is provided below. To generate each of the two animations shown in the embedded video took a few hours.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/FB2ykB5bLnM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
@@ -13751,8 +13792,8 @@ n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="C">C<a class="anchor-link" href="#C">&#182;</a></h3><p>The C code animates to the VGA display by means of the <a href="./Video_core.pdf">Altera video core</a>. The Arm A9 communicates pixel data from L3 cache --&gt; Axi bus --&gt; Avalon bus --&gt; SDRAM. Then, the Altera video core scans through that SDRAM to gather pixel data for display. The full project download is available in the table at the top of this webpage, and the associated C code is available <a href="./lattice_boltzmann_de1.c.txt">here</a>.</p>
-<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>The Verilog uses a <a href="https://vanhunteradams.com/DE1/VGA_Driver/Driver.html">custom VGA driver</a> to avoid bottlenecks when writing to VGA memory. Each parallel solver writes to its own memory block (in parallel), and the custom VGA driver then multiplexes into those memory blocks to access pixel information. The memory blocks support read during write, so this eliminates all bottlenecks and avoids transactions over the Avalon bus.</p>
+<h3 id="C-animation">C animation<a class="anchor-link" href="#C-animation">&#182;</a></h3><p>The C code animates to the VGA display by means of the <a href="./Video_core.pdf">Altera video core</a>. The Arm A9 communicates pixel data from L3 cache --&gt; Axi bus --&gt; Avalon bus --&gt; SDRAM. Then, the Altera video core scans through that SDRAM to gather pixel data for display. The associated C code is available <a href="./lattice_boltzmann_de1.c.txt">here</a>.</p>
+<h3 id="Verilog-animation">Verilog animation<a class="anchor-link" href="#Verilog-animation">&#182;</a></h3><p>The Verilog uses a <a href="https://vanhunteradams.com/DE1/VGA_Driver/Driver.html">custom VGA driver</a> to avoid bottlenecks when writing to VGA memory. Each parallel solver writes to its own memory block (in parallel), and the custom VGA driver then multiplexes into those memory blocks to access pixel information. The memory blocks support read during write, so this eliminates all bottlenecks and avoids transactions over the Avalon bus.</p>
 
 </div>
 </div>
