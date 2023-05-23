@@ -1,0 +1,841 @@
+///////////////////////////////////////
+/// Lattice Boltzmann
+/// V. Hunter Adams
+/// vha3@cornell.edu
+///
+/// Compile with:
+/// gcc lattice_boltzmann.c -o gr -O2 -lm
+///
+/// Uses VGA graphics from Bruce Land
+/// https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html
+///////////////////////////////////////
+
+
+///////////////////////////////////////
+///////////// INCLUDES ////////////////
+///////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/ipc.h> 
+#include <sys/shm.h> 
+#include <sys/mman.h>
+#include <sys/time.h> 
+#include <math.h>
+
+
+///////////////////////////////////////
+////// IMMUTABLE MEMORY ADDRESSES /////
+///////////////////////////////////////
+// video display
+#define SDRAM_BASE            0xC0000000
+#define SDRAM_END             0xC3FFFFFF
+#define SDRAM_SPAN			  0x04000000
+// characters
+#define FPGA_CHAR_BASE        0xC9000000 
+#define FPGA_CHAR_END         0xC9001FFF
+#define FPGA_CHAR_SPAN        0x00002000
+/* Cyclone V FPGA devices */
+#define HW_REGS_BASE          0xff200000
+#define HW_REGS_SPAN          0x00005000 
+
+
+///////////////////////////////////////
+////// FIXED-POINT MACROS, ETC ////////
+///////////////////////////////////////
+// s3.17 format (FPGA memory size)
+typedef signed int Fix ;
+#define two18 131072.0
+#define mFix(a,b) ((Fix)((((signed long long)(a))*((signed long long)(b)))>>17)) 
+#define f2Fix(a) ((Fix)((a)*two18)) // 
+#define Fix2f(a) ((float)(a)/two18)
+#define i2Fix(a) ((Fix)((a)<<17)) // 
+#define Fix2i(a) ((int)(a)>>17)
+#define absFix(a) abs(a) 
+#define divFix(a,b) ((Fix)(((((signed long long)(a))<<17)/(b)))) 
+
+// some multiply macros 
+#define m3(a) ((a)+((a)<<1))
+#define m1_5(a) ((a)+((a)>>1))
+#define m4_5(a) (((a)<<2)+((a)>>1))
+
+// min and max
+#define min(X,Y) ((X) < (Y) ? (X) : (Y))
+#define max(X,Y) ((X) > (Y) ? (X) : (Y))
+
+
+///////////////////////////////////////
+////// LB PARAMS AND CONSTANTS ////////
+///////////////////////////////////////
+#define height 32 					// grid height
+#define width 512 					// grid width
+Fix omega = f2Fix(1./((3*0.002) + 0.5)) ;	// Relaxation parameter (funct. of viscosity)
+Fix u0 = f2Fix(0.1);				// Initial speed
+Fix four9ths = f2Fix(4./9.);		// 4/9
+Fix one9th   = f2Fix(1./9.);		// 1/9
+Fix one36th  = f2Fix(1./36.);		// 1/36
+Fix fixone   = f2Fix(1.0) ;
+
+#define times_omega(a) ((a<<1) - (a>>5))
+
+
+
+///////////////////////////////////////
+/// GRAPHICS PRIMITIVES DECLARATIONS //
+///////////////////////////////////////
+// graphics primitives
+void VGA_text (int, int, char *);
+void VGA_text_clear();
+void VGA_box (int, int, int, int, short);
+void VGA_rect (int, int, int, int, short);
+void VGA_line(int, int, int, int, short) ;
+void VGA_Vline(int, int, int, short) ;
+void VGA_Hline(int, int, int, short) ;
+void VGA_disc (int, int, int, short);
+void VGA_circle (int, int, int, int);
+// 16-bit primary colors
+#define red  (0+(0<<5)+(31<<11))
+#define dark_red (0+(0<<5)+(15<<11))
+#define green (0+(63<<5)+(0<<11))
+#define dark_green (0+(31<<5)+(0<<11))
+#define blue (31+(0<<5)+(0<<11))
+#define dark_blue (15+(0<<5)+(0<<11))
+#define yellow (0+(63<<5)+(31<<11))
+#define cyan (31+(63<<5)+(0<<11))
+#define magenta (31+(0<<5)+(31<<11))
+#define black (0x0000)
+#define gray (15+(31<<5)+(51<<11))
+#define white (0xffff)
+int colors[] = {red, dark_red, green, dark_green, blue, dark_blue, 
+		yellow, cyan, magenta, gray, black, white};
+// pixel macro
+#define VGA_PIXEL(x,y,color) do{\
+	int  *pixel_ptr ;\
+	pixel_ptr = (int*)((char *)vga_pixel_ptr + (((y)*640+(x))<<1)) ; \
+	*(short *)pixel_ptr = (color);\
+} while(0)
+
+
+
+
+///////////////////////////////////////
+/// VIRTUAL MEMORY ADDRESSES FOR MAP //
+///////////////////////////////////////
+// the light weight buss base
+void *h2p_lw_virtual_base;
+// pixel buffer
+volatile unsigned int * vga_pixel_ptr = NULL ;
+void *vga_pixel_virtual_base;
+// character buffer
+volatile unsigned int * vga_char_ptr = NULL ;
+void *vga_char_virtual_base;
+
+
+///////////////////////////////////////
+//////////////// GLOBALS //////////////
+///////////////////////////////////////
+// /dev/mem file id
+int fd;
+// measure time
+struct timeval t1, t2;
+double elapsedTime;
+
+
+///////////////////////////////////////
+////// LATTICE-BOLTZMANN GLOBALS //////
+///////////////////////////////////////
+// Microscopic densities
+Fix n0[height*width]  = {0} ;
+Fix nN[height*width]  = {0} ;
+Fix nS[height*width]  = {0} ;
+Fix nE[height*width]  = {0} ;
+Fix nW[height*width]  = {0} ;
+Fix nNW[height*width] = {0} ;
+Fix nNE[height*width] = {0} ;
+Fix nSE[height*width] = {0} ;
+Fix nSW[height*width] = {0} ;
+// Barriers
+Fix bar[height*width] = {0} ;
+
+
+void initialize(unsigned int xtop, unsigned int ytop, unsigned int yheight, Fix u0) {
+	
+	// Iterating variables
+	unsigned int xcoord = 0 ;
+	unsigned int ycoord = 0 ;
+
+	// Total number of cells
+	int num_cells = (height*width) ;
+
+	// Useful pre-computed contants
+	Fix u0sq 		= mFix(u0, u0) ;
+	Fix u0sq_1_5	= m1_5(u0sq) ;
+	Fix u0sq_4_5 	= m4_5(u0sq) ;
+	Fix u0_3 		= m3(u0) ;
+
+	// Iterating variable
+	int i ;
+
+	// Loop through the cells, initialize densities
+	for (i=0; i<num_cells; i++) {
+		*(n0 + i)  = mFix(four9ths, fixone - u0sq_1_5) ;
+		*(nN + i)  = mFix(one9th,   fixone - u0sq_1_5) ;
+		*(nS + i)  = mFix(one9th,   fixone - u0sq_1_5) ;
+		*(nE + i)  = mFix(one9th,   fixone + u0_3 + u0sq_4_5 - u0sq_1_5) ;
+		*(nW + i)  = mFix(one9th,   fixone - u0_3 + u0sq_4_5 - u0sq_1_5) ;
+		*(nNW + i) = mFix(one36th,  fixone - u0_3 + u0sq_4_5 - u0sq_1_5) ;
+		*(nNE + i) = mFix(one36th,  fixone + u0_3 + u0sq_4_5 - u0sq_1_5) ;
+		*(nSW + i) = mFix(one36th,  fixone - u0_3 + u0sq_4_5 - u0sq_1_5) ;
+		*(nSE + i) = mFix(one36th,  fixone + u0_3 + u0sq_4_5 - u0sq_1_5) ;
+
+		// And initialize the barrier
+		if (xcoord == xtop) {
+			if (ycoord >= ytop) {
+				if (ycoord < (ytop+yheight)) {
+					*(bar + ycoord*width + xcoord) = 1 ;
+				}
+			}
+		}
+
+		xcoord = (xcoord < (width-1)) ? (xcoord+1) : 0 ;
+		ycoord = (xcoord != 0) ? ycoord : (ycoord+1) ;
+	}
+}
+
+
+void stream() {
+	// Stream all internal cells
+    int x ;
+    int y ;
+    for (x=0; x<(width-1); x++) {
+    	for (y=0; y<(height-1); y++) {
+            // # Movement north (Northwest corner)
+            *(nN+(y*width) + x) = *(nN + (y*width) + x + width) ;
+            // # Movement northwest (Northwest corner)
+            *(nNW + y*width + x) = *(nNW + y*width + x + width + 1) ;
+            // # Movement west (Northwest corner)
+            *(nW + y*width + x) = *(nW + y*width + x + 1) ;
+            // # Movement south (Southwest corner)
+            *(nS + (height-y-1)*width + x) = *(nS + (height-y-2)*width + x) ;
+            // # Movement southwest (Southwest corner)
+            *(nSW + (height-y-1)*width + x) = *(nSW + (height-y-2)*width + x + 1) ;
+            // # Movement east (Northeast corner)
+            *(nE + y*width + (width-x-1)) = *(nE + y*width + (width-x-2)) ;
+            // # Movement northeast (Northeast corner)
+            *(nNE + y*width + (width-x-1)) = *(nNE + y*width + width + (width-x-2)) ;
+            // # Movement southeast (Southeast corner)
+            *(nSE + (height-y-1)*width + (width-x-1)) = *(nSE + (height-y-2)*width + (width-x-2)) ;
+        }
+    }
+            
+    // Tidy up the edges
+    x += 1 ;
+    for (y=1; y<(height-1); y++) {
+        // # Movement north on right boundary (Northwest corner)
+        *(nN + y*width + x) = *(nN + y*width + x + width) ;
+        // # Movement south on right boundary (Southwest corner)
+        *(nS + (height-y-1)*width + x) = *(nS + (height-y-1-1)*width + x) ;
+    }
+}
+
+void bounce() {
+	int x ;
+	int y ;
+	int cellnum ;
+	// # Loop through all interior cells
+	for (x=2; x<(width-2); x++) {
+		for (y=2; y<(height-2); y++) {
+
+			// Compute the cellnum
+			cellnum = y*width + x ;
+            
+            // # If the cell contains a boundary . . .
+            if (*(bar+cellnum)){
+                
+                // # Push densities back from whence they came, then clear the cell
+                *(nN + cellnum - width) = *(nS+cellnum) 		; *(nS+cellnum)  = 0 ;
+                *(nS + cellnum + width) = *(nN + cellnum) 		; *(nN+cellnum)  = 0 ;
+                *(nE + cellnum + 1) = *(nW + cellnum) 			; *(nW+cellnum)  = 0 ;
+                *(nW + cellnum - 1) = *(nE + cellnum) 			; *(nE+cellnum)  = 0 ;
+                *(nNE + cellnum - width + 1) = *(nSW + cellnum) ; *(nSW+cellnum) = 0 ;
+                *(nNW + cellnum - width - 1) = *(nSE + cellnum) ; *(nSE+cellnum) = 0 ;
+                *(nSE + cellnum + width + 1) = *(nNW + cellnum) ; *(nNW+cellnum) = 0 ;
+                *(nSW + cellnum + width - 1) = *(nNE + cellnum) ; *(nNE+cellnum) = 0 ;
+
+                // Clear zero density
+                *(n0+cellnum) = 0 ;
+            }
+        }
+    }
+}
+
+
+void collide() {
+
+	// Iterating/indexing variables
+	int x, y, i ;
+
+	// Local variables for density updates
+	Fix rho, rho_m_one_sq, rho_inv ;
+	Fix ux, uy ;
+	Fix vx3, vy3 ;
+	Fix one9th_rho, one36th_rho ;
+	Fix vx2, vy2, v2 ;
+	Fix vxvy2, v215 ;
+
+	Fix nNm, nEm, nWm, nSm, nNEm, nNWm, nSEm, nSWm ;
+	Fix vx2_4_5, vy2_4_5 ;
+	Fix v2_m_2vxvy_4_5, v2_p_2vyvy_4_5 ;
+
+	// Do not touch cells on top, bottom, left, or right
+    for (x=1; x<(width-1); x++) {
+        for(y=1; y<(height-1); y++) {
+            
+            // # What's our current index?
+            i = (y<<9) + x ;
+            
+            // # Skip over cells containing barriers                
+            if (*(bar+i)==0) {
+
+                // # Compute the macroscopic density
+                rho = (*(n0+i) + *(nN+i) + *(nE+i) + *(nS+i) + *(nW+i) +
+                	   *(nNE+i) + *(nSE+i) + *(nSW+i) + *(nNW+i) ) ;
+
+                // # Compute some convenient constants
+                one9th_rho 	= mFix(one9th, rho) ;	// 1/9 times rho
+                one36th_rho = mFix(one36th, rho) ;	// 1/36 times rho
+
+                // Taylor expand inverse of rho
+                rho_m_one_sq = mFix((rho-fixone), (rho-fixone)) ;
+                rho_inv = (fixone-(rho-fixone)+rho_m_one_sq) ;
+
+                // # Compute the macroscopic velocities (vx and vy)
+                if (rho > 0){
+                    ux  = mFix((*(nE+i) + *(nNE+i) + *(nSE+i) - *(nW+i) - *(nNW+i) - nSW[i]), rho_inv) ;
+					uy  = mFix((*(nN+i) + *(nNE+i) + *(nNW+i) - *(nS+i) - *(nSE+i) - nSW[i]), rho_inv) ;
+                }
+
+                // # Compute 3x those velocities
+                vx3 		= m3(ux) ;				// 3*vx
+                vy3 		= m3(uy) ;				// 3*vy
+                
+                // # Compute squares of velocities, and velocity cross-term
+                vx2 		= mFix(ux, ux) ;		// vx^2
+                vy2 		= mFix(uy, uy) ;		// vy^2
+                vxvy2 		= (mFix(ux, uy)) << 1 ;	// 2*vx*vy
+                
+                // # Compute convenient constants
+                v2 				= vx2 + vy2 ;		// (vx^2 + vy^2)
+                v215 			= m1_5(v2) ;		// 1.5*(vx^2 + vy^2)
+                vx2_4_5 		= m4_5(vx2) ; 		// 4.5*(vx^2)
+                vy2_4_5 		= m4_5(vy2) ; 		// 4.5*(vy^2)
+                v2_m_2vxvy_4_5 	= m4_5(v2-vxvy2) ; 	// 4.5*((vx^2 + vy^2) - 2*vx*vy)
+                v2_p_2vyvy_4_5 	= m4_5(v2+vxvy2) ;	// 4.5*((vx^2 + vy^2) + 2*vx*vy)
+             
+                // # Perform collision multiplies
+                nEm 	= mFix(one9th_rho,  (fixone + vx3 + vx2_4_5 - v215) ) ;
+                nWm 	= mFix(one9th_rho,  (fixone - vx3 + vx2_4_5 - v215) ) ;
+                nNm 	= mFix(one9th_rho,  (fixone + vy3 + vy2_4_5 - v215) ) ;
+                nSm 	= mFix(one9th_rho,  (fixone - vy3 + vy2_4_5 - v215) ) ;
+                nNEm 	= mFix(one36th_rho, (fixone + vx3 + vy3 + v2_p_2vyvy_4_5 - v215) ) ;
+                nNWm 	= mFix(one36th_rho, (fixone - vx3 + vy3 + v2_m_2vxvy_4_5 - v215) ) ;
+                nSEm 	= mFix(one36th_rho, (fixone + vx3 - vy3 + v2_m_2vxvy_4_5 - v215) ) ;
+                nSWm 	= mFix(one36th_rho, (fixone - vx3 - vy3 + v2_p_2vyvy_4_5 - v215) ) ;
+                
+                // # Update densities
+                *(nE+i)  += times_omega(   nEm - *(nE+i))  ;
+                *(nW+i)  += times_omega(   nWm - *(nW+i))  ;
+                *(nN+i)  += times_omega(   nNm - *(nN+i))  ;
+                *(nS+i)  += times_omega(   nSm - *(nS+i))  ;
+                *(nNE+i) += times_omega(  nNEm - *(nNE+i))  ;
+                *(nNW+i) += times_omega(  nNWm - *(nNW+i))  ;
+                *(nSE+i) += times_omega(  nSEm - *(nSE+i))  ;
+                *(nSW+i) += times_omega(  nSWm - *(nSW+i))  ;
+                
+                // # Conserve mass
+                *(n0+i)   = rho - (*(nE+i) + *(nW+i) + *(nN+i) + *(nS+i) + *(nNE+i) + *(nSE+i) + *(nNW+i) + *(nSW+i));
+
+                // Draw the pixel
+                VGA_PIXEL(x+50,y+100,((v2>>6) & 0x3F) << 5) ;
+
+            }
+        }
+    }
+}
+
+	
+int main(void)
+{   
+  
+	// === get FPGA addresses ==================
+    // Open /dev/mem
+	if( ( fd = open( "/dev/mem", ( O_RDWR | O_SYNC ) ) ) == -1 ) 	{
+		printf( "ERROR: could not open \"/dev/mem\"...\n" );
+		return( 1 );
+	}
+    
+    // get virtual addr that maps to physical
+	h2p_lw_virtual_base = mmap( NULL, HW_REGS_SPAN, ( PROT_READ | PROT_WRITE ), MAP_SHARED, fd, HW_REGS_BASE );	
+	if( h2p_lw_virtual_base == MAP_FAILED ) {
+		printf( "ERROR: mmap1() failed...\n" );
+		close( fd );
+		return(1);
+	}
+    
+
+	// === get VGA char addr =====================
+	// get virtual addr that maps to physical
+	vga_char_virtual_base = mmap( NULL, FPGA_CHAR_SPAN, ( 	PROT_READ | PROT_WRITE ), MAP_SHARED, fd, FPGA_CHAR_BASE );	
+	if( vga_char_virtual_base == MAP_FAILED ) {
+		printf( "ERROR: mmap2() failed...\n" );
+		close( fd );
+		return(1);
+	}
+    
+    // Get the address that maps to the FPGA LED control 
+	vga_char_ptr =(unsigned int *)(vga_char_virtual_base);
+
+	// === get VGA pixel addr ====================
+	// get virtual addr that maps to physical
+	vga_pixel_virtual_base = mmap( NULL, SDRAM_SPAN, ( PROT_READ | PROT_WRITE ), MAP_SHARED, fd, SDRAM_BASE);	
+	if( vga_pixel_virtual_base == MAP_FAILED ) {
+		printf( "ERROR: mmap3() failed...\n" );
+		close( fd );
+		return(1);
+	}
+    
+    // Get the address that maps to the FPGA pixel buffer
+	vga_pixel_ptr =(unsigned int *)(vga_pixel_virtual_base);
+
+	// ===========================================
+
+	// Messages/character arrays for display
+	char text_top_row[40] = "DE1-SoC ARM/FPGA\0";
+	char text_bottom_row[40] = "Cornell ece5760\0";
+	char text_next[40] = "Lattice-Boltzmann\0";
+	char num_string[20], time_string[20] ;
+
+	// clear the screen
+	VGA_box (0, 0, 639, 479, 0x0000);
+	// clear the text
+	VGA_text_clear();
+	// write text
+	VGA_text (10, 1, text_top_row);
+	VGA_text (10, 2, text_bottom_row);
+	VGA_text (10, 3, text_next);
+	
+	// // R bits 11-15 mask 0xf800
+	// // G bits 5-10  mask 0x07e0
+	// // B bits 0-4   mask 0x001f
+	// // so color = B+(G<<5)+(R<<11);
+
+	// Initialize the simulation
+	// initialize(25, 30, 20, u0) ;
+	initialize(25, 11, 10, u0) ;
+
+	// int j ;
+	// char junk[8] ;
+	
+	while(1) 
+	{
+
+		// Start timer
+		gettimeofday(&t1, NULL);
+
+		// printf("%08x\n", fixone) ;
+		// j = scanf("%2s", junk);
+
+		// Update all cells
+		stream() ;
+		bounce() ;
+		collide() ;
+	
+		// stop timer, display time
+		gettimeofday(&t2, NULL);
+		elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000000.0;      // sec to us
+		elapsedTime += (t2.tv_usec - t1.tv_usec) ;   // us 
+		sprintf(time_string, "T = %6.0f uSec  ", elapsedTime);
+		VGA_text (10, 4, time_string);
+		
+	} // end while(1)
+} // end main
+
+/****************************************************************************************
+ * Subroutine to send a string of text to the VGA monitor 
+****************************************************************************************/
+void VGA_text(int x, int y, char * text_ptr)
+{
+  	volatile char * character_buffer = (char *) vga_char_ptr ;	// VGA character buffer
+	int offset;
+	/* assume that the text string fits on one line */
+	offset = (y << 7) + x;
+	while ( *(text_ptr) )
+	{
+		// write to the character buffer
+		*(character_buffer + offset) = *(text_ptr);	
+		++text_ptr;
+		++offset;
+	}
+}
+
+/****************************************************************************************
+ * Subroutine to clear text to the VGA monitor 
+****************************************************************************************/
+void VGA_text_clear()
+{
+  	volatile char * character_buffer = (char *) vga_char_ptr ;	// VGA character buffer
+	int offset, x, y;
+	for (x=0; x<79; x++){
+		for (y=0; y<59; y++){
+	/* assume that the text string fits on one line */
+			offset = (y << 7) + x;
+			// write to the character buffer
+			*(character_buffer + offset) = ' ';		
+		}
+	}
+}
+
+/****************************************************************************************
+ * Draw a filled rectangle on the VGA monitor 
+****************************************************************************************/
+#define SWAP(X,Y) do{int temp=X; X=Y; Y=temp;}while(0) 
+
+void VGA_box(int x1, int y1, int x2, int y2, short pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col;
+
+	/* check and fix box coordinates to be valid */
+	if (x1>639) x1 = 639;
+	if (y1>479) y1 = 479;
+	if (x2>639) x2 = 639;
+	if (y2>479) y2 = 479;
+	if (x1<0) x1 = 0;
+	if (y1<0) y1 = 0;
+	if (x2<0) x2 = 0;
+	if (y2<0) y2 = 0;
+	if (x1>x2) SWAP(x1,x2);
+	if (y1>y2) SWAP(y1,y2);
+	for (row = y1; row <= y2; row++)
+		for (col = x1; col <= x2; ++col)
+		{
+			//640x480
+			//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+			// set pixel color
+			//*(char *)pixel_ptr = pixel_color;	
+			VGA_PIXEL(col,row,pixel_color);	
+		}
+}
+
+/****************************************************************************************
+ * Draw a outline rectangle on the VGA monitor 
+****************************************************************************************/
+#define SWAP(X,Y) do{int temp=X; X=Y; Y=temp;}while(0) 
+
+void VGA_rect(int x1, int y1, int x2, int y2, short pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col;
+
+	/* check and fix box coordinates to be valid */
+	if (x1>639) x1 = 639;
+	if (y1>479) y1 = 479;
+	if (x2>639) x2 = 639;
+	if (y2>479) y2 = 479;
+	if (x1<0) x1 = 0;
+	if (y1<0) y1 = 0;
+	if (x2<0) x2 = 0;
+	if (y2<0) y2 = 0;
+	if (x1>x2) SWAP(x1,x2);
+	if (y1>y2) SWAP(y1,y2);
+	// left edge
+	col = x1;
+	for (row = y1; row <= y2; row++){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;	
+		VGA_PIXEL(col,row,pixel_color);		
+	}
+		
+	// right edge
+	col = x2;
+	for (row = y1; row <= y2; row++){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;	
+		VGA_PIXEL(col,row,pixel_color);		
+	}
+	
+	// top edge
+	row = y1;
+	for (col = x1; col <= x2; ++col){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;	
+		VGA_PIXEL(col,row,pixel_color);
+	}
+	
+	// bottom edge
+	row = y2;
+	for (col = x1; col <= x2; ++col){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;
+		VGA_PIXEL(col,row,pixel_color);
+	}
+}
+
+/****************************************************************************************
+ * Draw a horixontal line on the VGA monitor 
+****************************************************************************************/
+#define SWAP(X,Y) do{int temp=X; X=Y; Y=temp;}while(0) 
+
+void VGA_Hline(int x1, int y1, int x2, short pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col;
+
+	/* check and fix box coordinates to be valid */
+	if (x1>639) x1 = 639;
+	if (y1>479) y1 = 479;
+	if (x2>639) x2 = 639;
+	if (x1<0) x1 = 0;
+	if (y1<0) y1 = 0;
+	if (x2<0) x2 = 0;
+	if (x1>x2) SWAP(x1,x2);
+	// line
+	row = y1;
+	for (col = x1; col <= x2; ++col){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;	
+		VGA_PIXEL(col,row,pixel_color);		
+	}
+}
+
+/****************************************************************************************
+ * Draw a vertical line on the VGA monitor 
+****************************************************************************************/
+#define SWAP(X,Y) do{int temp=X; X=Y; Y=temp;}while(0) 
+
+void VGA_Vline(int x1, int y1, int y2, short pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col;
+
+	/* check and fix box coordinates to be valid */
+	if (x1>639) x1 = 639;
+	if (y1>479) y1 = 479;
+	if (y2>479) y2 = 479;
+	if (x1<0) x1 = 0;
+	if (y1<0) y1 = 0;
+	if (y2<0) y2 = 0;
+	if (y1>y2) SWAP(y1,y2);
+	// line
+	col = x1;
+	for (row = y1; row <= y2; row++){
+		//640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10)    + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;	
+		VGA_PIXEL(col,row,pixel_color);			
+	}
+}
+
+
+/****************************************************************************************
+ * Draw a filled circle on the VGA monitor 
+****************************************************************************************/
+
+void VGA_disc(int x, int y, int r, short pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col, rsqr, xc, yc;
+	
+	rsqr = r*r;
+	
+	for (yc = -r; yc <= r; yc++)
+		for (xc = -r; xc <= r; xc++)
+		{
+			col = xc;
+			row = yc;
+			// add the r to make the edge smoother
+			if(col*col+row*row <= rsqr+r){
+				col += x; // add the center point
+				row += y; // add the center point
+				//check for valid 640x480
+				if (col>639) col = 639;
+				if (row>479) row = 479;
+				if (col<0) col = 0;
+				if (row<0) row = 0;
+				//pixel_ptr = (char *)vga_pixel_ptr + (row<<10) + col ;
+				// set pixel color
+				//*(char *)pixel_ptr = pixel_color;
+				VGA_PIXEL(col,row,pixel_color);	
+			}
+					
+		}
+}
+
+/****************************************************************************************
+ * Draw a  circle on the VGA monitor 
+****************************************************************************************/
+
+void VGA_circle(int x, int y, int r, int pixel_color)
+{
+	char  *pixel_ptr ; 
+	int row, col, rsqr, xc, yc;
+	int col1, row1;
+	rsqr = r*r;
+	
+	for (yc = -r; yc <= r; yc++){
+		//row = yc;
+		col1 = (int)sqrt((float)(rsqr + r - yc*yc));
+		// right edge
+		col = col1 + x; // add the center point
+		row = yc + y; // add the center point
+		//check for valid 640x480
+		if (col>639) col = 639;
+		if (row>479) row = 479;
+		if (col<0) col = 0;
+		if (row<0) row = 0;
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10) + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;
+		VGA_PIXEL(col,row,pixel_color);	
+		// left edge
+		col = -col1 + x; // add the center point
+		//check for valid 640x480
+		if (col>639) col = 639;
+		if (row>479) row = 479;
+		if (col<0) col = 0;
+		if (row<0) row = 0;
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10) + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;
+		VGA_PIXEL(col,row,pixel_color);	
+	}
+	for (xc = -r; xc <= r; xc++){
+		//row = yc;
+		row1 = (int)sqrt((float)(rsqr + r - xc*xc));
+		// right edge
+		col = xc + x; // add the center point
+		row = row1 + y; // add the center point
+		//check for valid 640x480
+		if (col>639) col = 639;
+		if (row>479) row = 479;
+		if (col<0) col = 0;
+		if (row<0) row = 0;
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10) + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;
+		VGA_PIXEL(col,row,pixel_color);	
+		// left edge
+		row = -row1 + y; // add the center point
+		//check for valid 640x480
+		if (col>639) col = 639;
+		if (row>479) row = 479;
+		if (col<0) col = 0;
+		if (row<0) row = 0;
+		//pixel_ptr = (char *)vga_pixel_ptr + (row<<10) + col ;
+		// set pixel color
+		//*(char *)pixel_ptr = pixel_color;
+		VGA_PIXEL(col,row,pixel_color);	
+	}
+}
+
+// =============================================
+// === Draw a line
+// =============================================
+//plot a line 
+//at x1,y1 to x2,y2 with color 
+//Code is from David Rodgers,
+//"Procedural Elements of Computer Graphics",1985
+void VGA_line(int x1, int y1, int x2, int y2, short c) {
+	int e;
+	signed int dx,dy,j, temp;
+	signed int s1,s2, xchange;
+     signed int x,y;
+	char *pixel_ptr ;
+	
+	/* check and fix line coordinates to be valid */
+	if (x1>639) x1 = 639;
+	if (y1>479) y1 = 479;
+	if (x2>639) x2 = 639;
+	if (y2>479) y2 = 479;
+	if (x1<0) x1 = 0;
+	if (y1<0) y1 = 0;
+	if (x2<0) x2 = 0;
+	if (y2<0) y2 = 0;
+        
+	x = x1;
+	y = y1;
+	
+	//take absolute value
+	if (x2 < x1) {
+		dx = x1 - x2;
+		s1 = -1;
+	}
+
+	else if (x2 == x1) {
+		dx = 0;
+		s1 = 0;
+	}
+
+	else {
+		dx = x2 - x1;
+		s1 = 1;
+	}
+
+	if (y2 < y1) {
+		dy = y1 - y2;
+		s2 = -1;
+	}
+
+	else if (y2 == y1) {
+		dy = 0;
+		s2 = 0;
+	}
+
+	else {
+		dy = y2 - y1;
+		s2 = 1;
+	}
+
+	xchange = 0;   
+
+	if (dy>dx) {
+		temp = dx;
+		dx = dy;
+		dy = temp;
+		xchange = 1;
+	} 
+
+	e = ((int)dy<<1) - dx;  
+	 
+	for (j=0; j<=dx; j++) {
+		//video_pt(x,y,c); //640x480
+		//pixel_ptr = (char *)vga_pixel_ptr + (y<<10)+ x; 
+		// set pixel color
+		//*(char *)pixel_ptr = c;
+		VGA_PIXEL(x,y,c);			
+		 
+		if (e>=0) {
+			if (xchange==1) x = x + s1;
+			else y = y + s2;
+			e = e - ((int)dx<<1);
+		}
+
+		if (xchange==1) y = y + s2;
+		else x = x + s1;
+
+		e = e + ((int)dy<<1);
+	}
+}

@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Lattice_Boltzmann</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,33 +13077,34 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Lattice-Boltzmann-in-Python,-C,-and-Verilog">Lattice-Boltzmann in Python, C, and Verilog<a class="anchor-link" href="#Lattice-Boltzmann-in-Python,-C,-and-Verilog">&#182;</a></h1><h3 id="An-example-of-hardware-acceleration-via-FPGA">An example of hardware acceleration via FPGA<a class="anchor-link" href="#An-example-of-hardware-acceleration-via-FPGA">&#182;</a></h3><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
+<hr>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13116,358 +13117,650 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Birds-serial/Birdsong_keypad.html">Birdsong synthesizer on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>This webpage introduces the Lattice-Boltmann algorithm and then demonstrates and compares implementations in Python, C, and Verilog. Please note that the Python implementation is not particularly "Pythonic." It was assembled in a way that maps more directly to C and Verilog. For its readability, Python is used for introducing the algorithm. At the relevant places, links are provided to the C and Verilog implementations.</p>
+<p>The takeaway is that the Verilog implementation requires about 3.5x the number of lines of HDL as the C implementation requires lines of code, but rewards us with <em>way</em> faster execution. I put this together as a potential lab exercise for <a href="https://people.ece.cornell.edu/land/courses/ece5760/">ECE 5760</a> at Cornell, but I think it's a bit too much to ask in the time dedicated to a single laboratory assignment. So, it'll become an in-class example of hardware acceleration via FPGA's.</p>
+<p>The table below summarizes the performance for a variety of Lattice Boltzmann implementations. Note that the clock rates for Python and both C implementations are <em>faster</em> than that for the Verilog implementation (the PLL used by the Verilog is only 100MHz). The speedup associated with the Verilog implementation is due to the row-wise parallelism that it implements across the lattice. Note also that the rate of computation for the Verilog implementation is not affected by adding graphics because the FPGA makes use of <a href="https://vanhunteradams.com/DE1/VGA_Driver/Driver.html">a custom VGA driver</a> which avoids VGA memory write bottlenecks.</p>
+<p><strong>Looking for the code?</strong> Please see the links in the top row of the table below.</p>
+<table>
 <thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
+<th style="text-align:left">$\hspace{1mm}$</th>
+<th style="text-align:center">Python<br>(Mac M1)</th>
+<th style="text-align:center">C<br>(Arm A9 on DE1-SoC)</th>
+<th style="text-align:center">C<br>(Mac M1)</th>
+<th style="text-align:center">Verilog <br>(Cyclone V on DE1-SoC)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
+<td style="text-align:left">Code</td>
+<td style="text-align:center">On this webpage</td>
+<td style="text-align:center"><a href="./lattice_boltzmann_de1.c.txt">Link</a></td>
+<td style="text-align:center"><a href="./lb.c.txt">Link</a></td>
+<td style="text-align:center"><a href="./lattice_boltzmann.v.txt">Link</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Time for frame update<br>(no graphics)</td>
+<td style="text-align:center">370ms</td>
+<td style="text-align:center">14.5ms</td>
+<td style="text-align:center">1.23ms</td>
+<td style="text-align:center">0.087ms</td>
+</tr>
+<tr>
+<td style="text-align:left">Time for frame update<br>(+ graphics)</td>
+<td style="text-align:center">452ms</td>
+<td style="text-align:center">18.2ms</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0.087ms</td>
+</tr>
+<tr>
+<td style="text-align:left">Lines of code <br>(no graphics)</td>
+<td style="text-align:center">~165</td>
+<td style="text-align:center">~360</td>
+<td style="text-align:center">~360</td>
+<td style="text-align:center">~1230</td>
+</tr>
+<tr>
+<td style="text-align:left">Project zip</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="./Lattice_Boltzmann_C.zip">Here</a></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="./Lattice_Boltzmann_Verilog.zip">Here</a></td>
 </tr>
 </tbody>
 </table>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-the-Lattice-Boltzmann-Algorithm?">What is the Lattice-Boltzmann Algorithm?<a class="anchor-link" href="#What-is-the-Lattice-Boltzmann-Algorithm?">&#182;</a></h2><p>The Lattice-Boltzmann algorithm provides a method for doing computational fluid dynamics which does not require solving or discretizing the Navier-Stokes equations. Instead, we think about the fluid as a collection of molecules which exists on a grid (or "lattice"). For each generation of the simulation, we imagine that these particles move to adjacent cells on that lattice, and then they collide with other particles. The macroscopic properties of the fluid in each cell of the lattice (density, velocity, etc.) can then be computed from the particles that it contains. So, in short, the algorithm involves:</p>
+<blockquote><ol>
+<li><strong>Streaming</strong>: All particle number densities move into adjacent/diagonal lattice cells.</li>
+<li><strong>Bouncing</strong>: Any particle number densities that have streamed into a cell containing a barrier are reflected back from whence they came.</li>
+<li><strong>Collisions</strong>: From the <em>new</em> set of number densities contained within each cell, we compute what the densities would be if the molecules in that cell were in thermal equilibrium. We then update all the densities in the cell toward this equilibrium state. The rate at which the cell moves toward its equilibrium state is related to the fluid's viscosity.</li>
+</ol>
+</blockquote>
+<p>This method has some nice properties. It can accomodate for complex boundaries in a straightforward way and it parallelizes really nicely. This makes the algorithm very well suited for implementation on an FPGA. A limitation of this algorithm is that it cannot be used to simulate fluid flow at speeds comparable to, or larger than, the speed of sound.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Representation">Representation<a class="anchor-link" href="#Representation">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>Lattice-Boltzmann simulations can be generated for a variety of different lattices (cubic, triangular, etc.). We classify the particular version of the Lattice-Boltmann algorithm using the "DnQm" naming convention, where "Dn" represents the number of dimensions and "Qm" represents the number of directions that particles can move. A common flavor of Lattice-Boltzmann (and the particular version which we'll treat in this project) is D2Q9. This is a simulation on a two-dimensional lattice, and particles on that lattice can move in nine different directions. A visual representation of that lattice is shown in Fig. 1.</p>
+<figure>
+    <img align="center" width="300" height="300" src="lattice.png" alt='missing' />
+    <center><figcaption>Fig. 1: Lattice for a D2Q9 Lattice-Boltmann simulation</figcaption></center>
+</figure><p>Each cell in this lattice contains ten states. Nine of those states represent the probability density for particles moving in the direction of each of the 8 adjacent cells (north, south, east, west, northeast, northwest, southeast, southwest) and of remaining on the current cell. These states are visually represented for the center cell in Fig. 2A, and labeled in Fig. 2B.</p>
+<table>
+<thead><tr>
+<th>A</th>
+<th>B </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img align="center" width="300" height="300" src="lattice_labeled.png" alt='missing' /><center><figcaption>Visual representation of states in each cell</figcaption></center></td>
+<td><img align="center" width="340" height="340" src="states.png" alt='missing' /><center><figcaption>States in each cell with names</figcaption></center></td>
+</tr>
+<tr>
+<td>Fig. 2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>A particular cell of the lattice may also contain a barrier. These barrier-containing cells are represented by the gray boxes in Fig. 3. This is the (boolean) 10th state for each cell. If that boolean is true, then the cell contains a barrier. If not, then it does not contain a barrier.</p>
+<figure>
+    <img align="center" width="300" height="300" src="barrier.png" alt='missing' />
+    <center><figcaption>Fig. 3: Lattice with barrier</figcaption></center>
+</figure><h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>In both Python and C, the instantaneous state of the lattice is contained in 10 arrays. Each of these arrays contains as many elements as there are cells in the lattice. A particular index of the array corresponds to a particular cell in the lattice, and each array holds one of the 10 states for the cell (north, south, east, west, northeast, northwest, southeast, southwest, null, barrier). In both Python and C, one could certainly use 2D arrays to organize this information. I chose to use 1D arrays so that I could work out some of the array manipulations that would be required in Verilog. The mapping from cell to index is <code>index = (cell row number) * (number of cells per row) + (cell column number)</code>. The mapping from array index to lattice cell is shown in Fig. 4. The Python code is provided below, and the corresponding C code can be found <a href="./lb.c.txt">at this link</a>.</p>
+<figure>
+    <img align="center" width="300" height="300" src="index.png" alt='missing' />
+    <center><figcaption>Fig. 4: Mapping from array index to cell</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Parameters</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">32</span>                      <span class="c1"># grid height</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mi">512</span>                      <span class="c1"># grid width</span>
+<span class="n">viscosity</span> <span class="o">=</span> <span class="mf">0.002</span>                <span class="c1"># viscosity</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">viscosity</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>   <span class="c1"># relaxation parameter (a function of viscosity)</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="mf">0.1</span>                         <span class="c1"># initial in-flow speed (eastward)</span>
+<span class="n">four9ths</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span>                 <span class="c1"># a constant</span>
+<span class="n">one9th</span>   <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">9.</span>                 <span class="c1"># a constant</span>
+<span class="n">one36th</span>  <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="mf">36.</span>                <span class="c1"># a constant</span>
+
+<span class="c1"># Microscopic densities</span>
+<span class="n">n0</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Naught</span>
+<span class="n">nN</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># North</span>
+<span class="n">nS</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># South</span>
+<span class="n">nE</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># East</span>
+<span class="n">nW</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># West</span>
+<span class="n">nNW</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Northwest</span>
+<span class="n">nNE</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Northeast</span>
+<span class="n">nSE</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Southeast</span>
+<span class="n">nSW</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Southwest</span>
+
+<span class="c1"># Barriers</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>  <span class="c1"># Barriers</span>
+
+<span class="c1"># Macroscopic density and velocity</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>    <span class="c1"># Cell density</span>
+<span class="n">ux</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>    <span class="c1"># Cell x-velocity</span>
+<span class="n">uy</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>    <span class="c1"># Cell y-velocity</span>
+<span class="n">speed2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">)</span> <span class="c1"># Cell squared velocity</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>In the Verilog implementation, there are 10 independent memory blocks associated with <em>each</em> row of the lattice. Each of these memory blocks can be read/written independently and in parallel, and all memory blocks in separate rows can be read/written in parallel. The first element in the memory block for each row corresponds to column 0, the second element corresponds to column 1, and so on. Please find the Verilog <a href="lattice_boltzmann.v.txt">at this link</a>.</p>
+<figure>
+    <img align="center" width="800" height="300" src="vrep.png" alt='missing' />
+    <center><figcaption>Fig. 5: Storing state information in Verilog</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Streaming">Streaming<a class="anchor-link" href="#Streaming">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>In the streaming step of the update, particle densities move to adjacent lattice cells. The "East" particle density of a particular cell becomes the "East" density of the cell to its east. Likewise for all other directions. The stationary (or "naught") densities for each cell remain in those cells. This is represented visually in Fig. 5. Note that, at this step, density may stream <em>into</em> barrier cells. The gray cells around the perimeter represent boundary conditions which never change.</p>
+<table>
+<thead><tr>
+<th>A</th>
+<th>B </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img align="center" width="340" height="340" src="stream1.png" alt='missing' /><center><figcaption>Before streaming</figcaption></center></td>
+<td><img align="center" width="340" height="340" src="stream2.png" alt='missing' /><center><figcaption>After streaming</figcaption></center></td>
+</tr>
+<tr>
+<td>Fig. 5: Visualizing streaming</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>In Python/C, streaming can be accomplished in one traversal of the lattice. Some pointer footwork is required to make certain that no cell is overwritten before its previous values have streamed. This means moving through the lattice from each of the four corners. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">stream</span><span class="p">():</span>
+    
+    <span class="c1"># Stream all internal cells</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Movement north (Northwest corner)</span>
+            <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">]</span>
+            <span class="c1"># Movement northwest (Northwest corner)</span>
+            <span class="n">nNW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nNW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># Movement west (Northwest corner)</span>
+            <span class="n">nW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># Movement south (Southwest corner)</span>
+            <span class="n">nS</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nS</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+            <span class="c1"># Movement southwest (Southwest corner)</span>
+            <span class="n">nSW</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nSW</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="c1"># Movement east (Northeast corner)</span>
+            <span class="n">nE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="c1"># Movement northeast (Northeast corner)</span>
+            <span class="n">nNE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nNE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="c1"># Movement southeast (Southeast corner)</span>
+            <span class="n">nSE</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nSE</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span>
+                                                        <span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>  
+            
+    <span class="c1"># Tidy up the edges</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># Movement north on right boundary (Northwest corner)</span>
+        <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">]</span>
+        <span class="c1"># Movement south on right boundary (Southwest corner)</span>
+        <span class="n">nS</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nS</span><span class="p">[(</span><span class="n">height</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>All <em>rows</em> of the lattice are streamed in <em>parallel</em> on the FPGA. We do this by introducing a two-column pipeline to the memory block reads. We then scan from column 0 to the final column, and we rewrite the data in each memory block as we move. This is the first example of acceleration via parallelization on the FPGA. We needn't loop through every cell in the lattice, we need only loop through every column.</p>
+<p>The full state machine is linked <a href="./lattice_boltzmann.v.txt">here</a>. Streaming occurs in states 20-23.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bouncing">Bouncing<a class="anchor-link" href="#Bouncing">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p>After all particle densities have moved to adjacent lattice cells, we do a subsequent pass through the lattice to bounce densities off of barriers. Any cell which contains a barrier reflects any densities that it contains after streaming <em>back</em> into the cell from which it streamed. When those densities are bounced back, they also reverse direction. So, if a cell streamed density eastward into a barrier, that density would bounce back and point westward after bouncing. This is illustrated in Fig. 6.</p>
+<table>
+<thead><tr>
+<th>A</th>
+<th>B</th>
+<th>C </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img align="center" width="340" height="340" src="stream1.png" alt='missing' /><center><figcaption>Before streaming</figcaption></center></td>
+<td><img align="center" width="340" height="340" src="stream2.png" alt='missing' /><center><figcaption>After streaming, before bouncing</figcaption></center></td>
+<td><img align="center" width="340" height="340" src="stream3.png" alt='missing' /><center><figcaption>After bouncing</figcaption></center></td>
+</tr>
+<tr>
+<td></td>
+<td>Fig. 6: Streaming and bouncing</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>As with streaming, we loop through all cells in the lattice (omitting those at the boundaries, where boundary conditions are enforced). If a particular cell contains a barrier, then any densities contained in that cell get pushed back from whence they came, reversing direction in the process. The Python code which implements this is given below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bounce</span><span class="p">():</span>
+    
+    <span class="c1"># Loop through all interior cells</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">width</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+            
+            <span class="c1"># If the cell contains a boundary . . .</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">bar</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]):</span>
+                
+                <span class="c1"># Push densities back from whence they came</span>
+                <span class="n">nN</span><span class="p">[(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nS</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nS</span><span class="p">[(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>    
+                <span class="n">nNE</span><span class="p">[(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nSW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nNW</span><span class="p">[(</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nSE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nSE</span><span class="p">[(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nNW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                <span class="n">nSW</span><span class="p">[(</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">nNE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span>
+                
+                <span class="c1"># Clear the densities in the barrier cells</span>
+                <span class="n">n0</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nN</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nS</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nNE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nNW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nSE</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">nSW</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>As with streaming, the Verilog implements bouncing in parallel across all rows. Rather than moving through every cell in the lattice, we instead move through every column. <a href="./lattice_boltzmann.v.txt">See states 0-4</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Colliding">Colliding<a class="anchor-link" href="#Colliding">&#182;</a></h2><h3 id="Conceptual">Conceptual<a class="anchor-link" href="#Conceptual">&#182;</a></h3><p><strong>Note</strong>: For an approachable derivation of the equations presented in this section, please see <a href="https://physics.weber.edu/schroeder/javacourse/LatticeBoltzmann.pdf">Daniel Schroeder's writeup on the topic</a>.</p>
+<p>After streaming, each cell in the lattice has a new set of values for its nine densities. From those densities, we can compute the macroscopic density for that cell, and the average (macroscopic) cell velocities.</p>
+\begin{align}
+\rho &amp;= n_0 + n_N + n_E + n_S + n_W + n_{NE} + n_{SE} + n_{SW} + n_{NW} = \text{total density}\\
+u_x &amp;= \frac{n_E + n_{NE} + n_{SE} - n_W - n_{NW} - n_{SW}}{\rho} = \text{average cell x velocity}\\
+u_y &amp;= \frac{n_N + n_{NE} + n_{NW} - n_S - n_{SE} - n_{SW}}{\rho} = \text{average cell y velocity}
+\end{align}<p>From the macroscopic density $\rho$ and velocity $\overline{u} = [u_x, u_y]$, we can compute what the nine densities <em>would be</em> if the system were in equilibrium.</p>
+\begin{align}
+n_i^{eq} &amp;= \rho w_i \left[ 1 + 3\overline{e}_i \cdot \overline{u} + \frac{9}{2} \left(\overline{e}_i \cdot \overline{u}\right)^2 - \frac{3}{2} |\overline{u}|^2\right]
+\end{align}<p>Each of those $w_i$'s is a weight.</p>
+\begin{align}
+\omega_0 = \frac{4}{9} &amp;&amp; \omega_N = \omega_E = \omega_S = \omega_W = \frac{1}{9} &amp;&amp; \omega_{NE} = \omega_{NW} = \omega_{SW} = \omega_{SE} = \frac{1}{36}
+\end{align}<p>From the general expression above, we can write down the specific expressions for each of the nine densitites.</p>
+\begin{align}
+n_0^{eq} &amp;= \rho \cdot \frac{4}{9} \left[1 - \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_N^{eq} &amp;= \rho \cdot \frac{1}{9} \left[1 + 3u_y + \frac{9}{2}u_y^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_S^{eq} &amp;= \rho \cdot \frac{1}{9} \left[1 - 3u_y + \frac{9}{2}u_y^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_E^{eq} &amp;= \rho \cdot \frac{1}{9} \left[1 + 3u_x + \frac{9}{2}u_x^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_W^{eq} &amp;= \rho \cdot \frac{1}{9} \left[1 - 3u_x + \frac{9}{2}u_x^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_{NE}^{eq} &amp;= \rho \cdot \frac{1}{36} \left[1 + 3(u_x+u_y) + \frac{9}{2}(u_x+u_y)^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_{SE}^{eq} &amp;= \rho \cdot \frac{1}{36} \left[1 + 3(u_x-u_y) + \frac{9}{2}(u_x-u_y)^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_{NW}^{eq} &amp;= \rho \cdot \frac{1}{36} \left[1 + 3(-u_x+u_y) + \frac{9}{2}(-u_x+u_y)^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+n_{SW}^{eq} &amp;= \rho \cdot \frac{1}{36} \left[1 + 3(-u_x-u_y) + \frac{9}{2}(-u_x-u_y)^2- \frac{3}{2}\left(u_x^2 + u_y^2\right)\right]\\
+\end{align}<p>In practice, we'll compute the total density, compute all eight nonzero densities, and then determine the zero vector density such that it conserves mass. If we wanted for the time scale for reaching equilibrium to match the timestep of the simulation, then we would simply set all the cell densities to these equilibrium values. But these two timescales needn't be identical, so we will instead relax the system toward equilibrium with the parameter $\omega$. This parameter is related to the viscosity of the fluid. A larger $\omega$ means that the collisions happen more quickly.</p>
+\begin{align}
+n_i^{new} &amp;= n_{i}^{old} + \omega\left(n_i^{eq} - n_i^{old}\right)
+\end{align}<p>Once all the new densities have been computed for each cell, we might draw an updated picture (of speed, or density, or curl), and then stream all particles and go through the process again.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Python/C">Python/C<a class="anchor-link" href="#Python/C">&#182;</a></h3><p>The Python code which implements collisions is shown below, and the corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">collide</span><span class="p">():</span>
+    
+    <span class="c1"># Do not touch cells on top, bottom, or left</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            
+            <span class="c1"># What&#39;s our current index?</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">x</span>
+            
+            <span class="c1"># Skip over cells containing barriers</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">bar</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                <span class="k">continue</span>
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Compute the macroscopic density</span>
+                <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">n0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="c1"># Compute the macroscopic velocities</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                    <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+                    <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+                    
+                <span class="c1"># Pre-compute some convenient constants</span>
+                <span class="n">one9th_rho</span> <span class="o">=</span> <span class="n">one9th</span> <span class="o">*</span> <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">one36th_rho</span> <span class="o">=</span> <span class="n">one36th</span> <span class="o">*</span> <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">vx3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">vy3</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">vx2</span> <span class="o">=</span> <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">vy2</span> <span class="o">=</span> <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">vxvy2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">v2</span> <span class="o">=</span> <span class="n">vx2</span> <span class="o">+</span> <span class="n">vy2</span>
+                <span class="n">speed2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v2</span>
+                <span class="n">v215</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">v2</span>
+                
+                <span class="c1"># Update densities</span>
+                <span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>   <span class="n">one9th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vx3</span>       <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="n">vx2</span>        <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>   <span class="n">one9th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">vx3</span>       <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="n">vx2</span>        <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>   <span class="n">one9th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vy3</span>       <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="n">vy2</span>        <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>   <span class="n">one9th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">vy3</span>       <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="n">vy2</span>        <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>  <span class="n">one36th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vx3</span> <span class="o">+</span> <span class="n">vy3</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">v2</span><span class="o">+</span><span class="n">vxvy2</span><span class="p">)</span> <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>  <span class="n">one36th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">vx3</span> <span class="o">+</span> <span class="n">vy3</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">v2</span><span class="o">-</span><span class="n">vxvy2</span><span class="p">)</span> <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>  <span class="n">one36th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">vx3</span> <span class="o">-</span> <span class="n">vy3</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">v2</span><span class="o">-</span><span class="n">vxvy2</span><span class="p">)</span> <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">omega</span> <span class="o">*</span> <span class="p">(</span>  <span class="n">one36th_rho</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">vx3</span> <span class="o">-</span> <span class="n">vy3</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">v2</span><span class="o">+</span><span class="n">vxvy2</span><span class="p">)</span> <span class="o">-</span> <span class="n">v215</span><span class="p">)</span> <span class="o">-</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                
+                <span class="c1"># Conserve mass</span>
+                <span class="n">n0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="o">=</span> <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>The particular FPGA that I'm using (a Cyclone V on a DE1-SoC) contains 74 DSP blocks. I'm using fixed-point, 3.17 arithmetic, which means that each row can use two multipliers in parallel. The arithmetic described above is implemented in a 13-stage state machine, which uses (at maximum) two multipliers per state. As with bouncing and streaming, collisions are row-wise parallel. <a href="./lattice_boltzmann.v.txt">See states 5-18 in the Verilog</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Initial-conditions">Initial conditions<a class="anchor-link" href="#Initial-conditions">&#182;</a></h2><p>For this particular simulation, all cells get initialized with a density of 1, and with an eastward macroscopic velocity $u_x$ of 0.1. From this macroscopic velocity, we compute all the equilibrium number densities. The initialization function also builds a linear boundary of user-specified height and location on the lattice.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h3><p>The Python code which initializes the lattice is given below. The corresponding C code can be viewed <a href="./lb.c.txt">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">xtop</span><span class="p">,</span> <span class="n">ytop</span><span class="p">,</span> <span class="n">yheight</span><span class="p">,</span> <span class="n">u0</span><span class="o">=</span><span class="n">u0</span><span class="p">):</span>
+    <span class="n">xcoord</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ycoord</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="o">*</span><span class="n">width</span><span class="p">):</span>
+        <span class="n">n0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">four9ths</span><span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">one9th</span>  <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">one9th</span>  <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">one9th</span>  <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">one9th</span>  <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">one36th</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">one36th</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">one36th</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span> <span class="n">one36th</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">u0</span> <span class="o">+</span> <span class="mf">4.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">u0</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        
+        <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="n">n0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">ux</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">nE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        <span class="n">uy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">=</span> <span class="p">(</span><span class="n">nN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nNW</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSE</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">nSW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mf">2.</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">xcoord</span><span class="o">==</span><span class="n">xtop</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ycoord</span> <span class="o">&gt;=</span> <span class="n">ytop</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ycoord</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">ytop</span><span class="o">+</span><span class="n">yheight</span><span class="p">)):</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">bar</span><span class="p">[</span><span class="n">ycoord</span><span class="o">*</span><span class="n">width</span> <span class="o">+</span> <span class="n">xcoord</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        
+        <span class="n">xcoord</span> <span class="o">=</span> <span class="p">(</span><span class="n">xcoord</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">xcoord</span><span class="o">&lt;</span><span class="p">(</span><span class="n">width</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="n">ycoord</span> <span class="o">=</span> <span class="n">ycoord</span> <span class="k">if</span> <span class="p">(</span><span class="n">xcoord</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">ycoord</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>Initialization occurs in <a href="./lattice_boltzmann.v.txt">state 19</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Animation">Animation<a class="anchor-link" href="#Animation">&#182;</a></h2><p>We animate the fluid motion over the barriers by repeatedly streaming, bouncing, and colliding the densities. One might choose to visualize any one of a number of macroscopic cell properties (x velocity, y velocity, density, curl, etc.). In these animations, we visualize the squared velocity of the fluid in each cell.</p>
+<h3 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h3><p>The code for generating an animation in Python is provided below. To generate each of the two animations shown in the embedded video took a few hours.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FB2ykB5bLnM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Frames per second, and number of seconds</span>
+<span class="n">fps</span> <span class="o">=</span> <span class="mi">600</span>
+<span class="n">nSeconds</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># First set up the figure, the axis, and the plot element we want to animate</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="c1"># Initialize the barriers (occurs in previous section)</span>
+<span class="n">initialize</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Don&#39;t animate first few frames</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">stream</span><span class="p">()</span>
+    <span class="n">bounce</span><span class="p">()</span>
+    <span class="n">collide</span><span class="p">()</span>
+
+<span class="c1"># Plot which we&#39;ll be animating</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">speed2</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span><span class="n">width</span><span class="p">))</span>
+
+<span class="c1"># Animation function (stream, bounce, collide, and update heatmap)</span>
+<span class="k">def</span> <span class="nf">animate_func</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">stream</span><span class="p">()</span>
+    <span class="n">bounce</span><span class="p">()</span>
+    <span class="n">collide</span><span class="p">()</span>
+    <span class="n">im</span><span class="o">.</span><span class="n">set_array</span><span class="p">(</span><span class="n">speed2</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">im</span><span class="p">]</span>
+
+<span class="c1"># Animation object</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span>
+                               <span class="n">fig</span><span class="p">,</span> 
+                               <span class="n">animate_func</span><span class="p">,</span> 
+                               <span class="n">frames</span> <span class="o">=</span> <span class="n">nSeconds</span> <span class="o">*</span> <span class="n">fps</span><span class="p">,</span>
+                               <span class="n">interval</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">/</span> <span class="n">fps</span><span class="p">,</span> <span class="c1"># in ms</span>
+                               <span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done!&#39;</span><span class="p">)</span>
+
+<span class="c1"># Generate an mp4 video of the animation</span>
+<span class="n">f</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;./animation4.mp4&quot;</span> 
+<span class="n">writervideo</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FFMpegWriter</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span> 
+<span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writervideo</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Done!
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="C">C<a class="anchor-link" href="#C">&#182;</a></h3><p>The C code animates to the VGA display by means of the <a href="./Video_core.pdf">Altera video core</a>. The Arm A9 communicates pixel data from L3 cache --&gt; Axi bus --&gt; Avalon bus --&gt; SDRAM. Then, the Altera video core scans through that SDRAM to gather pixel data for display. The full project download is available in the table at the top of this webpage, and the associated C code is available <a href="./lattice_boltzmann_de1.c.txt">here</a>.</p>
+<h3 id="Verilog">Verilog<a class="anchor-link" href="#Verilog">&#182;</a></h3><p>The Verilog uses a <a href="https://vanhunteradams.com/DE1/VGA_Driver/Driver.html">custom VGA driver</a> to avoid bottlenecks when writing to VGA memory. Each parallel solver writes to its own memory block (in parallel), and the custom VGA driver then multiplexes into those memory blocks to access pixel information. The memory blocks support read during write, so this eliminates all bottlenecks and avoids transactions over the Avalon bus.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
