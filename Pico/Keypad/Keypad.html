@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Keypad</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,28 +13077,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Projects">Projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<h1 id="Interfacing-a-3x4-matrix-keypad-with-RP2040">Interfacing a 3x4 matrix keypad with RP2040<a class="anchor-link" href="#Interfacing-a-3x4-matrix-keypad-with-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4><blockquote><ul>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Keypad-Layout">Keypad layout</a></li>
+<li><a href="#Reading-the-keypad">Reading the keypad</a><blockquote><ul>
+<li><a href="#Configuring-GPIO&#39;s">Configuring GPIO's</a></li>
+<li><a href="#Scanning-for-presses">Scanning for presses</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Debouncing">Debouncing</a></li>
 </ul>
 </blockquote>
 
@@ -13116,68 +13104,47 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projects">Projects<a class="anchor-link" href="#Projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>This webpage describes a method for interfacing a 3x4 matrix keypad, like the one pictured in Fig. 1, with an RP2040. Other methods for building this interface exist (this would be a nice application for the PIO coprocessors, for instance). The particular method described on this page is the one that I think is most educationally useful in <a href="https://ece4760.github.io">ECE 4760</a>.</p>
+<p><strong>This webpage explains what is happening in <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad">this example code</a>.</strong></p>
+<p><br></p>
+<figure>
+    <img align="center" width="200" height="300" src="keypad.jpeg" alt='missing' />
+    <center><figcaption>Fig. 1: 3x4 keypad</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Keypad-Layout">Keypad Layout<a class="anchor-link" href="#Keypad-Layout">&#182;</a></h2><p>The 3x4 keypad has 7 pinouts. Four of these pins are connected to each row of the keypad, and the remaining three pins are connected to each column of the keypad. Pressing a key shorts one of these pins to another of the pins. For example, pressing the 1 key shorts the pin attached to row 1 to the pin attached to column 1.</p>
+<p>Fig. 2 illustrates this internal layout, and indicates the particular RP2040 GPIO pins to which each pin is attached by default in the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad">keypad demo code</a>.</p>
+<p><br></p>
+<figure>
+    <img align="center" width="400" height="300" src="layout.png" alt='missing' />
+    <center><figcaption>Fig. 2: Internal layout for keypad</figcaption></center>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reading-the-keypad">Reading the keypad<a class="anchor-link" href="#Reading-the-keypad">&#182;</a></h2><h3 id="Configuring-GPIO's">Configuring GPIO's<a class="anchor-link" href="#Configuring-GPIO's">&#182;</a></h3><p>To scan the keypad for button presses, we will configure each of the GPIO's connected to the <em>rows</em> of the keypad (9-12, as shown in Fig. 2) as <em>outputs</em>, and we'll configure each of the GPIO's connected to the <em>columns</em> of the keypad (13-15, as shown in Fig. 2) as <em>inputs</em>. For each of the input pins, we will enable internal pullup resistors. To start, we'll set all the output GPIO's attached <em>low.</em></p>
+<p>Using the C SDK for the RP2040, all of these configurations look like the following:</p>
+<div class="highlight"><pre><span></span><span class="cp">#define BASE_KEYPAD_PIN 9</span>
 
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
+<span class="c1">// Initialize the keypad GPIO&#39;s</span>
+<span class="n">gpio_init_mask</span><span class="p">((</span><span class="mh">0x7F</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
+<span class="c1">// Set row-pins to output</span>
+<span class="n">gpio_set_dir_out_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
+<span class="c1">// Set all output pins to low</span>
+<span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span> <span class="p">(</span><span class="mh">0x0</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
+<span class="c1">// Turn on pulldown resistors for column pins (on by default)</span>
+<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span> <span class="p">;</span>
+</pre></div>
 
 </div>
 </div>
@@ -13185,291 +13152,334 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
+<h3 id="Scanning-for-presses">Scanning for presses<a class="anchor-link" href="#Scanning-for-presses">&#182;</a></h3><p>The RP2040 allows for us to get the state of <em>all</em> of the GPIO ports using <code>gpio_get_all()</code>. This returns a 32-bit unsigned int, each bit of which represents the state (high or low) of the associated GPIO port (bit 0 is GPIO 0, bit 1 is GPIO 1, etc.).</p>
+<p>We scan the keypad by setting the GPIO's attached to the columns of the matrix high one at a time, and then reading the states of all 7 GPIO's that are attached to the keypad. For convenience, we'll call <code>gpio_get_all()</code>, then shift the result right by 9 (so that the state of GPIO 9 is in bit 0), and then mask with 0x7f. This way, we're left with a 7-bit number, where each bit in that number represents one of the pins of the keypad. The first four are attached to the rows, and the next 3 are attached to the columns.</p>
+<div class="highlight"><pre><span></span><span class="n">keypad</span> <span class="o">=</span> <span class="p">((</span><span class="n">gpio_get_all</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<p>Suppose that we set GPIO 9, and we are not presssing any keys. Then none of the column pins are shorted to the row pins, and they'd all remain pulled low. The bit associated with GPIO 9 will be high (since we set it high), but none of the others. So, when we scan the keypad, we get a value of 0b0000001, or 0x01. This is the scancode that corresponds to "no press."</p>
+<p>Suppose instead that we set GPIO 9 high, and we press key 1. What value would we expect for the keypad? The bit associated with GPIO 9 will be high (since we set it high), and the bit associated with GPIO 13 will <em>also</em> be high, since pressing key 1 shorted it to GPIO 9. So, the binary value for <code>keypad</code> will be 0b0010001, or 0x11 in hex.</p>
+<p>Suppose that we had instead pressed 2. Then the bits of <code>keypad</code> associated with GPIO's 9 and 14 would be high. We would get a scancode of 0b0100001, or 0x21.</p>
+<p>And lastly, suppose that we had pressed 3. Then the bits of <code>keypad</code> associated with GPIO's 9 and 15 would be high. We would get a scancode of 0b1000001, or 0x41.</p>
+<p>If we had gotten any scancode <em>other than</em> 0x01, 0x11, 0x21, or 0x41, then that means the user had two keys pressed simultaneously. You could expand your keycodes to accomodate those cases, but for now we'll treat these as "invalid presses."</p>
+<p>The table below enumerates these cases for row 0, and expands to include the scancodes for the other three rows of the keypad.</p>
+<table>
 <thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
+<th style="text-align:center">GPIO 15</th>
+<th style="text-align:center">GPIO 14</th>
+<th style="text-align:center">GPIO 13</th>
+<th style="text-align:center">GPIO 12</th>
+<th style="text-align:center">GPIO 11</th>
+<th style="text-align:center">GPIO 10</th>
+<th style="text-align:center">GPIO 9</th>
+<th style="text-align:center">Control code</th>
+<th style="text-align:center">Scancode</th>
+<th style="text-align:center">Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0x1</td>
+<td style="text-align:center">0x01</td>
+<td style="text-align:center">No  press</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x11</td>
+<td style="text-align:center">Pressed 1</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x21</td>
+<td style="text-align:center">Pressed 2</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x41</td>
+<td style="text-align:center">Pressed 3</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">else</td>
+<td style="text-align:center">Invalid.</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0x2</td>
+<td style="text-align:center">0x02</td>
+<td style="text-align:center">No press</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x12</td>
+<td style="text-align:center">Pressed 4</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x22</td>
+<td style="text-align:center">Pressed 5</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x42</td>
+<td style="text-align:center">Pressed 6</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">else</td>
+<td style="text-align:center">Invalid.</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0x4</td>
+<td style="text-align:center">0x04</td>
+<td style="text-align:center">No press</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x14</td>
+<td style="text-align:center">Pressed 7</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x24</td>
+<td style="text-align:center">Pressed 8</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x44</td>
+<td style="text-align:center">Pressed 9</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">else</td>
+<td style="text-align:center">Invalid.</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0x8</td>
+<td style="text-align:center">0x08</td>
+<td style="text-align:center">Pressed *</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x18</td>
+<td style="text-align:center">Pressed *</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x28</td>
+<td style="text-align:center">Pressed 0</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0x48</td>
+<td style="text-align:center">Pressed #</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">else</td>
+<td style="text-align:center">Invalid.</td>
 </tr>
 </tbody>
 </table>
+<p>Note that we can do a quick check to see whether or not any button is pushed by masking <code>keypad</code> with 0x70, and checking if the result is nonzero. If the result is nonzero, it means one or more of the column GPIO's (15, 14, and/or 13) is pressed. We can then compare the full scancode against valid scancodes to determine which button was pressed.</p>
+<p>Encoded, this sequence of steps looks like the following:</p>
+<div class="highlight"><pre><span></span><span class="cp">#define BASE_KEYPAD_PIN 9</span>
+<span class="cp">#define KEYROWS         4</span>
+<span class="cp">#define NUMKEYS         12</span>
+
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">keycodes</span><span class="p">[</span><span class="n">NUMKEYS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span>
+                                     <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
+                                     <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">}</span> <span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">scancodes</span><span class="p">[</span><span class="n">KEYROWS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">}</span> <span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">button</span> <span class="o">=</span> <span class="mh">0x70</span> <span class="p">;</span>
+
+<span class="c1">// Scan the keypad!</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">KEYROWS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Set a row high</span>
+    <span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">scancodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
+    <span class="c1">// Small delay required</span>
+    <span class="n">sleep_us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="c1">// Read the keycode</span>
+    <span class="n">keypad</span> <span class="o">=</span> <span class="p">((</span><span class="n">gpio_get_all</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Break if button(s) are pressed</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="k">break</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// If we found a button . . .</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Look for a valid keycode.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUMKEYS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">==</span> <span class="n">keycodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">break</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// If we don&#39;t find one, report invalid keycode</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="n">NUMKEYS</span><span class="p">)</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Otherwise, indicate invalid/non-pressed buttons</span>
+<span class="k">else</span> <span class="p">(</span><span class="n">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<p>After the above code executes, the value of <code>i</code> will be -1 for no press or invalid press, and otherwise it will have the value of the key pressed (with 10 for * and 11 for #).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Debouncing">Debouncing<a class="anchor-link" href="#Debouncing">&#182;</a></h2><p>Each button on the keypad can be modeled as a spring-mass-damper system. When you press a key, you are closing a <em>mechanical</em> switch, and mechanical things bounce! As a consequence, the microcontroller might detect multiple button presses each time you press/release a key. In order to prevent this, you must implement a debouncing state machine. An example of one such state machine is illustrated in Fig. 3.</p>
+<figure>
+    <img align="center" width="600" height="300" src="sm.png" alt='missing' />
+    <center><figcaption>Fig. 3: Debouncing state machine</figcaption></center>
+</figure><p>We start in the <code>Not pressed</code> state and repeatedly scan the keypad for a button press. For as long as that scan returns no press or invalid press, we remain in the <code>Not pressed</code> state.</p>
+<p>When the scan returns a valid keypress, we transition to the <code>Maybe pressed</code> state and store the value of that keypress in a variable called <code>possible</code>. We then scan the keypad again, and compare the keycode to the value of <code>possible</code>. If they differ, then the key has bounced to a different state and we transition back to <code>Not pressed</code>. If they are the same, then we assume the key state to be stable and we transition from <code>Maybe pressed</code> to <code>Pressed</code>. If you want for a single event to occur <em>each time</em> a button is pressed, then that event should be triggered on this transition.</p>
+<p>Once we're in the <code>Pressed</code> state, we continue to scan the keypad. For as long as the keycode matches the value that we stored in <code>possible</code>, we remain in this state. If the value differs, we transition to <code>Maybe not pressed</code>.</p>
+<p>In <code>Maybe not pressed</code>, we scan the keypad again. If the keycode matches <code>possible</code>, we transition back to <code>Pressed</code>. Otherwise, we transition to <code>Not pressed</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
