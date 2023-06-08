@@ -13199,7 +13199,7 @@ div#notebook {
 <ul>
 <li>The <a href="./Pendulum_construction.html">mechanical assembly finished</a>.</li>
 <li>The <a href="./HBridgeCircuit.html">H-bridge motor circuit</a> built. </li>
-<li>You must be able to control the motor speed open-loop through a command line interface. Start from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_3/PWM_Demo">this demo code</a>.</li>
+<li>You must be able to control the motor speed open-loop through a command line interface. Start from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">this demo code</a>.</li>
 <li>Display of the actual tilt angle (as calculated by a <a href="./Complementary_Filters.html">complementary filter</a> of the accelerometer and gyro measurements) and the <a href="./Digital_Lowpass_Filters.html">low-passed motor command signal</a> on the VGA display. <em>This is <strong>critical</strong> for debugging</em>.</li>
 </ul>
 <h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4><p>By the end of the lab secton in week two of the lab you must have:</p>
@@ -13220,7 +13220,7 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
-<li>Use a PID control algorithm to control the speed of the motor by producing a PWM drive to the optoisolators in the <a href="./HBridgeCircuit.html">H-bridge motor circuit</a>. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_3/PWM_Demo">PWM demo code here.</a></li>
+<li>Use a PID control algorithm to control the speed of the motor by producing a PWM drive to the optoisolators in the <a href="./HBridgeCircuit.html">H-bridge motor circuit</a>. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">PWM demo code here.</a></li>
 <li><a href="./Tuning.html">Tune the PID algorithm</a> so that the arm balances.</li>
 <li>Display the motor control value (not the raw PWM signal) on the VGA. Noise control on this signal is essential. If you cannot see the shape of the control signal, you will not get credit for this feature! You may need to combine DSP and analog filtering, depending on exactly how you build the circuit. <a href="./Digital_Lowpass_Filters.html">See here.</a></li>
 <li>Display the actual tilt angle, from the complementary filter, on the VGA. If this signal is noisy, you need to find out why! A noisy input makes the control PID algorithm very hard to tune.</li>

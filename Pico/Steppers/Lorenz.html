@@ -13122,6 +13122,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Code-Organization">Code Organization<a class="anchor-link" href="#Code-Organization">&#182;</a></h2><p>This motor driver uses the PIO state machines and DMA channels on the RP2040 to offload driving two stepper motors (ULN2003's) from the CPU. The user sets each motor's direction, speed, and the number of steps to execute in code then starts the driver. The motor will execute the specified number of steps at the specified speed and in the specified direction, then throw an interrupt back to the CPU. This is all non-blocking, so the CPU can carry on while the motor is moving. The driver supports dynamic modification of speed and direction during a maneuver.</p>
+<p><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Stepper_Motors"><strong>Link to repository containing all code</strong></a></p>
 
 </div>
 </div>
@@ -13467,7 +13468,7 @@ out pins, 4             ; Put a pulse on the pins, AUTOPULL ENGAGED</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Strange-Attractor">Strange Attractor<a class="anchor-link" href="#Strange-Attractor">&#182;</a></h3><p>In this example, the <a href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Equations</a> are computed in a timer ISR. These equations are used to set the motor speed and direction for each motor, which is coupled via a geared belt to the knobs of an Etch-a-sketch. The trace on the etch a sketch thus represents the integral of these equations, yielding the famous Butterfly Curve. <a href="./Lorenz.zip">Project zip</a>.</p>
+<h3 id="Strange-Attractor">Strange Attractor<a class="anchor-link" href="#Strange-Attractor">&#182;</a></h3><p>In this example, the <a href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz Equations</a> are computed in a timer ISR. These equations are used to set the motor speed and direction for each motor, which is coupled via a geared belt to the knobs of an Etch-a-sketch. The trace on the etch a sketch thus represents the integral of these equations, yielding the famous Butterfly Curve. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Stepper_Motors/Stepper_Position_And_Speed_Control">Project code</a>.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_2FIVBfSSDg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
@@ -13475,7 +13476,7 @@ out pins, 4             ; Put a pulse on the pins, AUTOPULL ENGAGED</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="DDS-Circle-Drawing">DDS Circle Drawing<a class="anchor-link" href="#DDS-Circle-Drawing">&#182;</a></h3><p><a href="https://vha3.github.io/DDS/DDS.html">Direct Digital Synthesis</a> is used to set the motor speeds. The speed of one motor is set to 90 degrees out of phase with the other, creating a circle. The motor has slightly square edges due to slop in the etch a sketch mechanism. <a href="./DDS_circle.zip">Project zip</a>.</p>
+<h3 id="DDS-Circle-Drawing">DDS Circle Drawing<a class="anchor-link" href="#DDS-Circle-Drawing">&#182;</a></h3><p><a href="https://vha3.github.io/DDS/DDS.html">Direct Digital Synthesis</a> is used to set the motor speeds. The speed of one motor is set to 90 degrees out of phase with the other, creating a circle. The motor has slightly square edges due to slop in the etch a sketch mechanism. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Stepper_Motors/Stepper_Speed_Control">Project code</a>.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/u6iFI5F1J98" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 </div>
@@ -13483,7 +13484,7 @@ out pins, 4             ; Put a pulse on the pins, AUTOPULL ENGAGED</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Delta-Robot">Delta Robot<a class="anchor-link" href="#Delta-Robot">&#182;</a></h3><p>Three stepper motors use position control to move the armatures of a delta robot. The armatures are made from wooden dowels. Compliant joints are formed with heatshrink, and rotating joints are formed by passing the dowels through coffee stirrers. The total materials cost for this device is approximately \$15. <a href="./delta-robot.zip">Project zip</a></p>
+<h3 id="Delta-Robot">Delta Robot<a class="anchor-link" href="#Delta-Robot">&#182;</a></h3><p>Three stepper motors use position control to move the armatures of a delta robot. The armatures are made from wooden dowels. Compliant joints are formed with heatshrink, and rotating joints are formed by passing the dowels through coffee stirrers. The total materials cost for this device is approximately \$15. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Stepper_Motors/Delta_Robot_Demo">Project code</a></p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ulGznn-tz1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p><a href="https://www.ece.cornell.edu/faculty-directory/nils-napp">Nils Napp</a> provided a 3D printed armature:</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rqj9e87QnL8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -13543,18 +13544,13 @@ Slowest speed: 1 step/interrupt</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
-    </div>
 </div>
 </div>
-
 </div>
     </div>
   </div>

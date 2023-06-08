@@ -13181,7 +13181,7 @@ div#notebook {
 <h2 id="Weekly-checkpoints-and-lab-report">Weekly checkpoints and lab report<a class="anchor-link" href="#Weekly-checkpoints-and-lab-report">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
 <h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4><p>By the end of the lab session in week one of the lab you must have:</p>
 <ul>
-<li>The mechanical assembly finished and be able to control motor speed open loop, from the PWM output. <a href="./pwm-demo.zip">Here is some demo code</a> to get you started.</li>
+<li>The mechanical assembly finished and be able to control motor speed open loop, from the PWM output. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">Here is some demo code</a> to get you started.</li>
 <li>Display of the actual beam angle and the low-passed motor command signal using the two channel DAC <strong>or</strong> the VGA display. <em>This is critical for debugging.</em></li>
 <li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
 </ul>
@@ -13204,7 +13204,7 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
-<li>Use a PID control algorithm to control the speed of the motor by producing a PWM drive to the optoisolator. <a href="./pwm-demo.zip">PWM setup example</a>.</li>
+<li>Use a PID control algorithm to control the speed of the motor by producing a PWM drive to the optoisolator. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">PWM setup example</a>.</li>
 <li>Tune the PID algorithm so that you can change the angle of the beam quickly and accurately without excessive angle oscillations.</li>
 <li>The user should be able to enter a desired hover angle and the motor should quickly change the beam to the new angle. The initial angle of the beam should be around -1.57 radians (hanging straight down).</li>
 <li>Display the motor control value (not the raw PWM signal) on the scope or VGA. Noise control on this signal is essential. If you cannot see the shape of the control signal, you will not get credit for this feature! <em>You may need to combine DSP and analog filtering, depending on exactly how you build the circuit.</em></li>

@@ -13127,7 +13127,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Objective">Objective<a class="anchor-link" href="#Objective">&#182;</a></h2><p>The objective for this project was to implement a UDP transmitter for use on the RP2040 that would consume <em>zero</em> CPU time. The system described on this webpage is implemented with 3 PIO state machines, 12 DMA channels, and 1 PWM channel. It generates an NLP, performs packet checksum calculations, and performs packet transactions with no CPU interaction beyond specifying the data which should be transmitted. It uses the unique ID for the flash chip to generate a MAC address for the RP2040.</p>
 <p>For applications which don't require additional DMA channels (since they're all consumed by the UDP machine described below), the exclusive use of peripherals for UDP transactions should make for particularly simple integration into application code, and maximizes the data rate out of the RP2040. This was constructed as a piece of course infrastructure for <a href="https://ece4760.github.io">ECE 4760</a> at Cornell, for use in student projects.</p>
-<p><strong><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Ethernet/UDP_Transmitter">Link to git repo which contains all code</a></strong></p>
+<p><strong><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Networking/UDP_Transmitter">Link to git repo which contains all code</a></strong></p>
 
 </div>
 </div>
