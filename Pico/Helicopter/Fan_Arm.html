@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Complementary_Filters</title>
+<title>Fan_Arm</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,14 +13077,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Complementary-filters">Complementary filters<a class="anchor-link" href="#Complementary-filters">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+<h1 id="Mechanical-Construction-of-Lever-Arm">Mechanical Construction of Lever Arm<a class="anchor-link" href="#Mechanical-Construction-of-Lever-Arm">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A complementary filter is a quick and effective method for blending measurements from an accelerometer and a gyroscope to generate an estimate for orientation. This webpage briefly explains <em>why</em> such a filter is necessary, how it works, and then offers some alternative filters that you might consider. As a case-study problem, we will consider estimating the tilt angle of an inverted pendulum.</p>
+<hr>
 
 </div>
 </div>
@@ -13092,103 +13092,48 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="System-under-consideration">System under consideration<a class="anchor-link" href="#System-under-consideration">&#182;</a></h2><p>As a case study problem, let us consider an inverted pendulum (just like in the <a href="./ReactionWheel.html">reaction wheel laboratory assignment</a>). In order to control this pendulum, we must measure the angle $\theta$ shown below. In order to determine this angle, we will use an accelerometer and a gyroscope mounted on the pendulum arm.</p>
-<figure>
-    <img align="center" width="500" height="500" src="system.png" alt='missing' />
-    <center><figcaption>System under consideration</figcaption></center>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Demonstration-video">Demonstration video<a class="anchor-link" href="#Demonstration-video">&#182;</a></h2><iframe width="560" height="315" src="https://www.youtube.com/embed/6AoJ8wr8G6A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Accelerometer-vs.-Gyroscope">Accelerometer vs. Gyroscope<a class="anchor-link" href="#Accelerometer-vs.-Gyroscope">&#182;</a></h2><p>With an accelerometer and a gyroscope, we have two different methods for estimating the tilt angle of the inverted pendulum. Unfortunately, there's a problem with each method!</p>
-<h3 id="Computing-accelerometer-angle">Computing accelerometer angle<a class="anchor-link" href="#Computing-accelerometer-angle">&#182;</a></h3><p>The accelerometer measures the direction of gravity, which (in the laboratory) is always toward the center of the Earth. If the accelerometer is oriented on the arm as shown in the image below, then the tilt angle is given by:</p>
-\begin{align}
-\theta &amp;= \arctan{\frac{a_x}{a_y}}
-\end{align}<p>If we assume that the tilt angle is small (which we <em>can't</em> for the <a href="https://vanhunteradams.com/Pico/Helicopter/Helicopter.html">helicopter lab</a>, but we <em>can</em> for the <a href="https://vanhunteradams.com/Pico/ReactionWheel/ReactionWheel.html">reaction wheel lab</a>), then we can use a small angle approximation! Thus the tilt angle is given by:</p>
-\begin{align}
-\theta &amp;\approx \frac{a_x}{a_y}
-\end{align}<p><br><br></p>
-<figure>
-    <img align="center" width="500" height="500" src="accel.png" alt='missing' />
-    <center><figcaption>Accelerometer angle</figcaption></center>
-</figure><h3 id="What's-bad-about-the-accelerometer?">What's bad about the accelerometer?<a class="anchor-link" href="#What's-bad-about-the-accelerometer?">&#182;</a></h3><p>The problem with the accelerometer is that it is <em>noisy</em>. It becomes especially noisy in the presence of any sort of mechanical noise (e.g. a DC motor attached to the pendulum). In the <a href="#Demonstration-video">demonstration video</a>, you can see the accelerometer angle plotted on the VGA display as I move the inverted pendulum back and forth. When I turn on a DC motor attached to the pendulum arm, the noise increases. This is <em>much</em> too noisy to use in a feedback controller.</p>
-<h3 id="What's-good-about-the-accelerometer?">What's good about the accelerometer?<a class="anchor-link" href="#What's-good-about-the-accelerometer?">&#182;</a></h3><p>Because gravity always points in the same direction, the measurement error from the gyroscope <em>remains zero-mean</em>. The accelerometer does not accumulate any measurement <em>bias</em>, like the gyroscope does. The measured acceleration is equal to the <em>true</em> acceleration plus zero-mean Guassian noise, where the variance of that Gaussian noise can be quite large.</p>
-<h3 id="Computing-gyro-angle">Computing gyro angle<a class="anchor-link" href="#Computing-gyro-angle">&#182;</a></h3><p>The gyroscope directly measures rotation <em>rate</em>. So, if we know the initial angle for our system ($\theta_0$) and our sample rate ($\frac{1}{\Delta t}$), we can use the gyroscope to integrate that angle for all time.</p>
-\begin{align}
-\theta = \theta_0 + g_z \Delta t
-\end{align}<p><br><br></p>
-<figure>
-    <img align="center" width="500" height="500" src="gyro.png" alt='missing' />
-    <center><figcaption>Gyro angle</figcaption></center>
-</figure><h3 id="What's-bad-about-the-gyro?">What's bad about the gyro?<a class="anchor-link" href="#What's-bad-about-the-gyro?">&#182;</a></h3><p>By integrating the gyro measurements to maintain an estimate for angle, we are doing <em>dead reckoning</em>. This works great over short periods of time, but eventually leads to a large <em>bias</em> in our angle estimate. You can see this in the <a href="#Demonstration-video">demonstration video</a>. Even as I hold the pendulum at a constant angle, the gyroscope error continues to accumulate a bias. This bias is driven by a random process, so it may wander in any direction.</p>
-<h3 id="What's-good-about-the-gyro?">What's good about the gyro?<a class="anchor-link" href="#What's-good-about-the-gyro?">&#182;</a></h3><p>Over short periods of time, the amount of noise in the gyroscope measurements is <em>much</em> lower than that from the accelerometer. You can see this in the <a href="#Demonstration-video">demonstration video</a>. As I move the pendulum back and forth, note that there is very little noise on the (red) gyroscope measurements, and a lot of noise on the (white) accelerometer measurements.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Complementary-filter">Complementary filter<a class="anchor-link" href="#Complementary-filter">&#182;</a></h2><p>We desire the short-term accuracy of the gyro angle estimates, and the long-term stability of the accelerometer angle estimates. A complementary filter achieves this! A complementary filter <em>low-passes</em> the accelerometer measurements and <em>high-passes</em> the gyroscope measurements. This gives us the benefit of the gyro over short time periods, and the stability of the accelerometer over long time periods.</p>
-<p>The algorithm is summarized as follows:</p>
 <ol>
-<li>Gather a set of accelerometer and gyro measurements</li>
-<li>Compute the accelerometer angle</li>
-<li>Compute the <em>change</em> in angle that the gyro measures, by multiplying the raw measurement by the timestep (0.001 seconds in the example code below)</li>
-<li>Compute the new complementary angle estimate by performing a weighted average of the accelerometer angle and the <em>sum</em> of the previous complementary angle estimate and the change in angle measured by the gyro. </li>
+<li><p>Align the tabs on the ducted fan with the slots in the acrylic arm, and insert the ducted fan into the arm. You may need to gently "pop it" into place. Push it in until the fan's increasing radius prevents it from going any farther.</p>
+<figure>
+ <img align="center" width="300" height="500" src="acrylic_one.png" alt='missing' />
+ <center><figcaption></figcaption></center>
+</figure></li>
+<li><p>Put a rubber band between the tabs on ducted fan and the underside of the acrylic arm. This will prevent the fan from sliding out backwards.</p>
+</li>
 </ol>
 <figure>
-    <img align="center" width="900" height="500" src="complementary.png" alt='missing' />
+    <img align="center" width="300" height="500" src="acrylic_two.png" alt='missing' />
     <center><figcaption></figcaption></center>
-</figure><p>Choosing these weights is a part of your tuning process. The greater the weight on the accelerometer, the <em>less bias</em> and <em>more noise</em> you see in your angle estimates. Start with an accelerometer weight of ~0.01 and a gyro weight of ~0.99. You can initialize the complementary angle using the accelerometer angle. The snippet below encodes the algorithm above.</p>
-<div class="highlight"><pre><span></span><span class="c1">// Gather measurements</span>
-<span class="n">mpu6050_read_raw</span><span class="p">(</span><span class="n">acceleration</span><span class="p">,</span> <span class="n">gyro</span><span class="p">);</span>
-
-<span class="c1">// Accelerometer angle (degrees - 15.16 fixed point) </span>
-<span class="c1">// Only ONE of the two lines below will be used, depending whether or not a small angle approximation is appropriate</span>
-
-<span class="c1">// SMALL ANGLE APPROXIMATION</span>
-<span class="n">accel_angle</span> <span class="o">=</span> <span class="n">multfix15</span><span class="p">(</span><span class="n">divfix</span><span class="p">(</span><span class="n">acceleration</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">acceleration</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">oneeightyoverpi</span><span class="p">)</span> <span class="p">;</span>
-<span class="c1">// NO SMALL ANGLE APPROXIMATION</span>
-<span class="n">accel_angle</span> <span class="o">=</span> <span class="n">multfix15</span><span class="p">(</span><span class="n">float2fix15</span><span class="p">(</span><span class="n">atan2</span><span class="p">(</span><span class="o">-</span><span class="n">filtered_ax</span><span class="p">,</span> <span class="n">filtered_ay</span><span class="p">)</span> <span class="o">+</span> <span class="n">PI</span><span class="p">),</span> <span class="n">oneeightyoverpi</span><span class="p">);</span>
-
-<span class="c1">// Gyro angle delta (measurement times timestep) (15.16 fixed point)</span>
-<span class="n">gyro_angle_delta</span> <span class="o">=</span> <span class="n">multfix15</span><span class="p">(</span><span class="n">gyro</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">zeropt001</span><span class="p">)</span> <span class="p">;</span>
-
-<span class="c1">// Complementary angle (degrees - 15.16 fixed point)</span>
-<span class="n">complementary_angle</span> <span class="o">=</span> <span class="n">multfix15</span><span class="p">(</span><span class="n">complementary_angle</span> <span class="o">-</span> <span class="n">gyro_angle_delta</span><span class="p">,</span> <span class="n">zeropt999</span><span class="p">)</span> <span class="o">+</span> <span class="n">multfix15</span><span class="p">(</span><span class="n">accel_angle</span><span class="p">,</span> <span class="n">zeropt001</span><span class="p">);</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Quick-note!">Quick note!<a class="anchor-link" href="#Quick-note!">&#182;</a></h2><p>If you are not using a small angle approximation to compute the accelerometer angle (like in the <a href="https://vanhunteradams.com/Pico/Helicopter/Helicopter.html">helicopter lab</a>), you may need to <a href="https://vanhunteradams.com/Pico/ReactionWheel/Digital_Lowpass_Filters.html">low-pass</a> the raw accelerometer measurements before computing the accelerometer angle. Why? Think about how white noise propatates through the <code>atan2</code> function.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="What-are-the-alternatives?">What are the alternatives?<a class="anchor-link" href="#What-are-the-alternatives?">&#182;</a></h2><p>There are other methods for estimating attitude and other system states that are both more accurate and more complicated. See the links below.</p>
-<ul>
-<li><a href="https://vanhunteradams.com/Estimation/Estimation.html">Introduction to estimation</a></li>
-<li><a href="https://vanhunteradams.com/Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="https://vanhunteradams.com/Estimation/MUKF.html">Attitude estimation</a></li>
-</ul>
+</figure><ol>
+<li>Solder wires to each of the leads coming from the ducted fan, and protect your solder joints with heat shrink.</li>
+</ol>
+<figure>
+    <img align="center" width="300" height="500" src="acrylic_three.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><ol>
+<li>Using M2.5 nuts and bolts, attach the MPU6050 IMU to the base of the acrylic arm.</li>
+</ol>
+<table><tr>
+<td> <img src="acrylic_4a.png" alt="Drawing" style="width: 300px;"/> </td>
+<td> <img src="acrylic_4b.png" alt="Drawing" style="width: 300px;"/> </td>
+    </tr><caption></caption></table><ol>
+<li>Attach the hinge to the bottom of a piece of wood, with the pin facing outward.</li>
+</ol>
+<figure>
+    <img align="center" width="300" height="500" src="acrylic_5.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><ol>
+<li>Using M2.5 nuts and bolts, attach the assembled arm to the hinge.</li>
+</ol>
+<figure>
+    <img align="center" width="300" height="500" src="acrylic_6.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><ol>
+<li>Use a clamp to secure the assembly to the benchtop.<figure>
+ <img align="center" width="300" height="500" src="acrylic_7.png" alt='missing' />
+ <center><figcaption></figcaption></center>
+</figure></li>
+</ol>
 
 </div>
 </div>

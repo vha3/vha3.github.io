@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="PID-control-of-a-1D-helicopter">PID control of a 1D helicopter<a class="anchor-link" href="#PID-control-of-a-1D-helicopter">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4><p><strong>Note: This is a <em>minor</em> rewrite of an <a href="https://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_2019.html">existing PIC32 lab for ECE 4760 created by Bruce Land</a>.</strong></p>
+<h1 id="PID-control-of-a-1D-helicopter">PID control of a 1D helicopter<a class="anchor-link" href="#PID-control-of-a-1D-helicopter">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4><p><strong>Note: This is a <em>minor</em> rewrite of an <a href="https://people.ece.cornell.edu/land/courses/ece4760/labs/f2019/lab3_2019.html">existing PIC32 lab for ECE 4760 created by Bruce Land</a>.</strong></p>
 <blockquote><ul>
 <li><a href="#Introduction">Introduction</a></li>
 <li><a href="#Reading">Reading</a><blockquote><ul>
@@ -13105,7 +13105,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this lab, you will construct and control of a one-degree-of-freedom helicopter. A small drone motor is rigidly attached to the end of a lever-arm, the other end of which is attached to a low-torque potentiometer. The drone motor can lift the arm, and the angle of the arm is measured by the potentiometer. The user can select a target arm-angle and a PID controller will drive the arm to that angle.</p>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this lab, you will construct and control of a one-degree-of-freedom helicopter. A small ducted is rigidly attached to the end of a lever-arm, the other end of which is attached to a hinge. The drone motor can lift the arm, and the angle of the arm is estimated via a complementary filter of accelerometer and gyro measurements from an onboard IMU. The user can select a target arm-angle and a PID controller will drive the arm to that angle.</p>
 <p>The target and measured angle are displayed on the oscilloscope <em>or</em> the VGA screen and the user specifies new target angles through a serial interface to the RP2040. <br><br></p>
 <figure>
     <img align="center" width="600" height="500" src="system.png" alt='missing' />
@@ -13118,7 +13118,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2><p>A demo is shown below.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/TN1r8AcRNuk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tBG3TAfaHME" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
 </div>
@@ -13127,17 +13127,17 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h2><p>Experience shows that students prefer these webpages short. For that reason, please find the reading and background materials on the webpages linked below. <em>Please note that the information in these readings will be critical for completing the lab.</em></p>
 <h3 id="Theoretical-background">Theoretical background<a class="anchor-link" href="#Theoretical-background">&#182;</a></h3><blockquote><ul>
+<li><a href="https://vanhunteradams.com/Pico/ReactionWheel/Complementary_Filters.html"><strong>Complementary filters</strong></a>: A method for estimating angle from gyroscope and accelerometer measurements. This is a <em>great</em> algorithm for your toolbox. Quick, easy, and effective.</li>
 <li><a href="https://vanhunteradams.com/PID/PID.html"><strong>Phenomenological introduction to PID controllers</strong></a>: This document focuses on building a phenomenological understanding of PID controllers through demos. The hope is that this document will help you debug your system based on the behavior that you observe in lab, and the one below will help you understand that behavior.</li>
 <li><a href="https://vanhunteradams.com/PID/PID_Analytical.html"><strong>Analytical introduction to PID controllers</strong></a>: This document focuses on building an analytical understanding of these controllers. The hope is that the phenomenological document will help you debug your system based on the behavior that you observe in lab, and this one will help you understand that behavior.</li>
 </ul>
 </blockquote>
 <h3 id="Engineering-background">Engineering background<a class="anchor-link" href="#Engineering-background">&#182;</a></h3><blockquote><ul>
-<li><a href="./Arm.html"><strong>Mechanical contruction of the lever arm</strong></a>: This webpage provides instructions for the mechanical construction of the lever arm.</li>
-<li><a href="./MotorCircuit.html"><strong>Motor circuit and PWM</strong></a>: This webpage describes the circuit that you will construct to safely drive the DC motor, and how to generate PWM.</li>
-<li><a href="./Angle.html"><strong>Angle sensing circuit</strong></a>: This webpage describes the potentiometer circuit that you will use to measure the arm's position, and how to setup/read the ADC.</li>
+<li><a href="./Fan_Arm.html"><strong>Mechanical contruction of the lever arm</strong></a>: This webpage provides instructions for the mechanical construction of the lever arm.</li>
+<li><a href="./MotorCircuit.html"><strong>Motor circuit and PWM</strong></a>: This webpage describes the circuit that you will construct to safely drive the DC motor, and how to generate PWM.<!-- > - [**Angle sensing circuit**](./Angle.html): This webpage describes the potentiometer circuit that you will use to measure the arm's position, and how to setup/read the ADC. --></li>
 <li><a href="./Display.html"><strong>Data display</strong></a>: This webpage describes the data that you must visualize in realtime, and some strategies for visualizing that data.</li>
-<li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: See chapters on PWM and ADC.</li>
-<li><a href="https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf"><strong>RP2040 C SDK</strong></a>: See chapters on PWM and ADC.</li>
+<li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: See chapters on PWM and I2C.</li>
+<li><a href="https://www.raspberrypi.com/documentation/pico-sdk/hardware.html"><strong>RP2040 C SDK</strong></a>: See chapters on PWM and I2C.</li>
 </ul>
 </blockquote>
 
@@ -13152,8 +13152,10 @@ div#notebook {
 <li><strong>Protothreads</strong> maintains the ISR-driven, millisecond-scale timing as part of the supplied system. Use this for all low-precision timing (can have several milliseconds jitter).</li>
 <li><strong>PID ISR</strong> uses a timer or PWM interrupt to ensure an exact 1kHz control rate.<blockquote><ul>
 <li>Clears the interrupt flag</li>
-<li>Reads the ADC to get the actual beam angle</li>
-<li>Runs the PID control loop at 1000/sec using the angle measurements from the potentiometer</li>
+<li>Reads the IMU to get raw accelerometer/gyro measurements</li>
+<li>(Possibly, low-passes the accelerometer measurements)</li>
+<li>Estimates angle by menas of a complementary filter of accel/gyro measurements</li>
+<li>Runs the PID control loop at 1000/sec using the angle estimates from the complementary filter</li>
 <li>Sets a hardware PWM signal using output-compare unit to control the motor using the command: <code>pwm_set_chan_level(slice_num, PWM_CHAN_X[A or B], pwm_on_time);</code>.</li>
 <li>(possibly) communicates measured angle and low-passed control input to DAC</li>
 </ul>
@@ -13230,7 +13232,7 @@ div#notebook {
 <h4 id="Lab-report">Lab report<a class="anchor-link" href="#Lab-report">&#182;</a></h4><p>Your written lab report should include the sections mentioned on the <a href="https://people.ece.cornell.edu/land/courses/ece4760/EE4760_policy.html">policy page</a>, and:</p>
 <ul>
 <li>A schematic of the circuit you built</li>
-<li>Scope screen dumps of typical two-trace: (1) motor-control and (2) actual angle. Include the demo sequence of four angles, as shown below<figure>
+<li>Scope or VGA screen dumps of typical two-trace: (1) motor-control and (2) actual angle. Include the demo sequence of four angles, as shown below<figure>
   <img align="center" width="500" height="500" src="lab4_Four_steps_tek.png" alt='missing' />
   <center><figcaption></figcaption></center>
 </figure></li>
