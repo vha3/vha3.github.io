@@ -13161,6 +13161,7 @@ div#notebook {
 <span class="cm">   GPIO 5 (pin 7) Chip select</span>
 <span class="cm">   GPIO 6 (pin 9) SCK/spi0_sclk</span>
 <span class="cm">   GPIO 7 (pin 10) MOSI/spi0_tx</span>
+<span class="cm">   GPIO 2 (pin 4) GPIO output for timing ISR</span>
 <span class="cm">   3.3v (pin 36) -&gt; VCC on DAC </span>
 <span class="cm">   GND (pin 3)  -&gt; GND on DAC </span>
 <span class="cm"> */</span>
@@ -13168,15 +13169,21 @@ div#notebook {
 <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/timer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/irq.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;hardware/spi.h&quot;</span><span class="cp"></span>
+
+<span class="c1">// Low-level alarm infrastructure we&#39;ll be using</span>
+<span class="cp">#define ALARM_NUM 0</span>
+<span class="cp">#define ALARM_IRQ TIMER_IRQ_0</span>
 
 <span class="c1">//DDS parameters</span>
 <span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
-<span class="cp">#define Fs 40000</span>
+<span class="cp">#define Fs 50000</span>
+<span class="cp">#define DELAY 20 </span><span class="c1">// 1/Fs (in microseconds)</span>
 <span class="c1">// the DDS units:</span>
 <span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_accum_main</span><span class="p">;</span>
 <span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_incr_main</span> <span class="o">=</span> <span class="p">(</span><span class="mf">800.0</span><span class="o">*</span><span class="n">two32</span><span class="p">)</span><span class="o">/</span><span class="n">Fs</span> <span class="p">;</span><span class="c1">//</span>
-
 <span class="c1">// DDS sine table</span>
 <span class="cp">#define sine_table_size 256</span>
 <span class="k">volatile</span> <span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
@@ -13197,16 +13204,31 @@ div#notebook {
 <span class="cp">#define PIN_MOSI 7</span>
 <span class="cp">#define SPI_PORT spi0</span>
 
-<span class="c1">// Timer ISR</span>
-<span class="kt">bool</span> <span class="nf">repeating_timer_callback</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">//GPIO for timing the ISR</span>
+<span class="cp">#define ISR_GPIO 2</span>
+
+<span class="c1">// Alarm ISR</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">alarm_irq</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Assert a GPIO when we enter the interrupt</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Clear the alarm irq</span>
+    <span class="n">hw_clear_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">intr</span><span class="p">,</span> <span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">ALARM_NUM</span><span class="p">);</span>
+
+    <span class="c1">// Reset the alarm register</span>
+    <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">alarm</span><span class="p">[</span><span class="n">ALARM_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">timerawl</span> <span class="o">+</span> <span class="n">DELAY</span> <span class="p">;</span>
+
     <span class="c1">// DDS phase and sine table lookup</span>
     <span class="n">phase_accum_main</span> <span class="o">+=</span> <span class="n">phase_incr_main</span>  <span class="p">;</span>
     <span class="n">DAC_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// Write data to DAC</span>
+    <span class="c1">// Perform an SPI transaction</span>
     <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
 
-    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="c1">// De-assert the GPIO when we leave the interrupt</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -13218,6 +13240,11 @@ div#notebook {
     <span class="n">spi_init</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">20000000</span><span class="p">)</span> <span class="p">;</span>
     <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
     <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="c1">// Setup the ISR-timing GPIO</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
 
     <span class="c1">// Map SPI signals to GPIO ports</span>
     <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
@@ -13232,15 +13259,16 @@ div#notebook {
          <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
     <span class="p">}</span>
 
-    <span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
-    <span class="c1">// If the delay is &gt;0 then this is the delay between the previous callback ending and the next starting.</span>
-    <span class="c1">// If the delay is negative then the next call to the callback will be exactly x us after the</span>
-    <span class="c1">// start of the call to the last callback</span>
-    <span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+    <span class="c1">// Enable the interrupt for the alarm (we&#39;re using Alarm 0)</span>
+    <span class="n">hw_set_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">inte</span><span class="p">,</span> <span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">ALARM_NUM</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Associate an interrupt handler with the ALARM_IRQ</span>
+    <span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="n">alarm_irq</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Enable the alarm interrupt</span>
+    <span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Write the lower 32 bits of the target time to the alarm register, arming it.</span>
+    <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">alarm</span><span class="p">[</span><span class="n">ALARM_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">timerawl</span> <span class="o">+</span> <span class="n">DELAY</span> <span class="p">;</span>
 
-    <span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
-    <span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
-    <span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
+    <span class="c1">// Nothing happening here</span>
     <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -13271,10 +13299,27 @@ div#notebook {
 <h3 id="Includes">Includes<a class="anchor-link" href="#Includes">&#182;</a></h3><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/timer.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hardware/irq.h&quot;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&quot;hardware/spi.h&quot;</span><span class="cp"></span>
 </pre></div>
 <p>The first lines of code in the C source file include some header files. Two of these are standard C headers (<code>stdio.h</code> and <code>math.h</code>) and the others are headers which come from the C SDK for the Raspberry Pi Pico. The first of these, <code>pico/stdlib.h</code> is what the SDK calls a "High-Level API." These high-level API's "provide higher level functionality that isn’t hardware related or provides a richer set of functionality above the basic hardware interfaces." The architecture of this SDK is described at length in the SDK manual. All libraries within the SDK are <code>INTERFACE</code> libraries. <code>pico/stdlib.h</code> in particular pulls in a number of lower-level hardware libraries, listed on page 196 of the C SDK guide.</p>
-<p>The next include pulls in the hardware interface library for the SPI hardware peripheral. This hardware interface library is not included in <code>pico/stdlib.h</code> and must therefore be included separately. <em>Don't forget to link these in the CMakeLists.txt file!</em></p>
+<p>The next includes pull in the hardware interface library for the SPI hardware peripheral, the low-level timer interface, and the low-level interrupt interface. <em>Don't forget to link these in the CMakeLists.txt file!</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Alarms">Alarms<a class="anchor-link" href="#Alarms">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Low-level alarm infrastructure we&#39;ll be using</span>
+<span class="cp">#define ALARM_NUM 0</span>
+<span class="cp">#define ALARM_IRQ TIMER_IRQ_0</span>
+</pre></div>
+<p>There are actually a few different timers in the RP2040. There is a single 64-bit counter, which increments once per microsecond. The PWM also has 8x16-bit programmable counters, the PIO state machines can be setup as timers, and the DMA has four internal pacing timers. 
+The Alarm infrastructure uses that incrementing 64-bit counter.</p>
+<p>The least significant 32 of these 64 bits lives in one register, and the most significant 32 bits lives in another. There are four timer interrupts (TIMER_IRQ_0, TIMER_IRQ_1, TIMER_IRQ_2, TIMER_IRQ_3). Each of these interrupts fires when there is a match between the associated ALARM register and the lower 32 bits of the microsecond timer. See page 537 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">datasheet</a>.</p>
+<p>We are going to use Alarm register 0, which maps to TIMER_IRQ_0. In the associated timer interrupt, we'll re-write the alarm register so that the interrupt fires <em>again</em> at the specified amount of time in the future. We'll have the interrupt fire every 20us, for a 50kHz synthesis rate.</p>
 
 </div>
 </div>
@@ -13284,13 +13329,14 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="DDS-globals">DDS globals<a class="anchor-link" href="#DDS-globals">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">//DDS parameters</span>
 <span class="cp">#define two32 4294967296.0 </span><span class="c1">// 2^32 </span>
-<span class="cp">#define Fs 40000</span>
+<span class="cp">#define Fs 50000</span>
+<span class="cp">#define DELAY 20 </span><span class="c1">// 1/Fs (in microseconds)</span>
 
 <span class="c1">// the DDS units:</span>
 <span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_accum_main</span><span class="p">;</span>
 <span class="k">volatile</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">phase_incr_main</span> <span class="o">=</span> <span class="p">(</span><span class="mf">800.0</span><span class="o">*</span><span class="n">two32</span><span class="p">)</span><span class="o">/</span><span class="n">Fs</span> <span class="p">;</span><span class="c1">//</span>
-
 <span class="c1">// DDS sine table</span>
+
 <span class="cp">#define sine_table_size 256</span>
 <span class="k">volatile</span> <span class="kt">int</span> <span class="n">sin_table</span><span class="p">[</span><span class="n">sine_table_size</span><span class="p">]</span> <span class="p">;</span>
 </pre></div>
@@ -13331,19 +13377,41 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Timer-callback-function">Timer callback function<a class="anchor-link" href="#Timer-callback-function">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Timer ISR</span>
-<span class="kt">bool</span> <span class="nf">repeating_timer_callback</span><span class="p">(</span><span class="k">struct</span> <span class="n">repeating_timer</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+<h3 id="GPIO-for-ISR-timing">GPIO for ISR timing<a class="anchor-link" href="#GPIO-for-ISR-timing">&#182;</a></h3><div class="highlight"><pre><span></span><span class="cp">#define ISR_GPIO 2</span>
+</pre></div>
+<p>We'll use GPIO 2 to time our ISR entries. We'll toggle it high at the start of the ISR, and low at the end. This way we can use the oscilloscope to measure how much time we're spending in the interrupt, and to confirm that we're re-entering the interrupt with the desired timing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Timer-callback-function">Timer callback function<a class="anchor-link" href="#Timer-callback-function">&#182;</a></h3><div class="highlight"><pre><span></span><span class="c1">// Alarm ISR</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="nf">alarm_irq</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Assert a GPIO when we enter the interrupt</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Clear the alarm irq</span>
+    <span class="n">hw_clear_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">intr</span><span class="p">,</span> <span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">ALARM_NUM</span><span class="p">);</span>
+
+    <span class="c1">// Reset the alarm register</span>
+    <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">alarm</span><span class="p">[</span><span class="n">ALARM_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">timerawl</span> <span class="o">+</span> <span class="n">DELAY</span> <span class="p">;</span>
+
     <span class="c1">// DDS phase and sine table lookup</span>
     <span class="n">phase_accum_main</span> <span class="o">+=</span> <span class="n">phase_incr_main</span>  <span class="p">;</span>
     <span class="n">DAC_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">DAC_config_chan_A</span> <span class="o">|</span> <span class="p">((</span><span class="n">sin_table</span><span class="p">[</span><span class="n">phase_accum_main</span><span class="o">&gt;&gt;</span><span class="mi">24</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2048</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffff</span><span class="p">))</span>  <span class="p">;</span>
 
-    <span class="c1">// Write data to DAC</span>
+    <span class="c1">// Perform an SPI transaction</span>
     <span class="n">spi_write16_blocking</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">DAC_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
 
-    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="c1">// De-assert the GPIO when we leave the interrupt</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
 <span class="p">}</span>
 </pre></div>
-<p>Above is a callback function associated with the timer alarms on core 0. In this callback, the phase accumulator is incremented and used to index into the sine table and a single SPI write is performed.</p>
+<p>Above is a callback function associated with the timer alarms on core 0. In this callback, we raise the GPIO we're using for ISR timing, clear the interrupt, reset the alarm register, the phase accumulator is incremented and used to index into the sine table, and a single SPI write is performed.</p>
 
 </div>
 </div>
@@ -13361,6 +13429,11 @@ div#notebook {
     <span class="c1">// Format (channel, data bits per transfer, polarity, phase, order)</span>
     <span class="n">spi_set_format</span><span class="p">(</span><span class="n">SPI_PORT</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 
+    <span class="c1">// Setup the ISR-timing GPIO</span>
+    <span class="n">gpio_init</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">)</span> <span class="p">;</span>
+    <span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+    <span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
     <span class="c1">// Map SPI signals to GPIO ports</span>
     <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
     <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
@@ -13374,15 +13447,16 @@ div#notebook {
          <span class="n">sin_table</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="mi">2047</span><span class="o">*</span><span class="n">sin</span><span class="p">((</span><span class="kt">float</span><span class="p">)</span><span class="n">ii</span><span class="o">*</span><span class="mf">6.283</span><span class="o">/</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">sine_table_size</span><span class="p">));</span>
     <span class="p">}</span>
 
-    <span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
-    <span class="c1">// If the delay is &gt;0 then this is the delay between the previous callback ending and the next starting</span>
-    <span class="c1">// If the delay is negative then the next call to the callback will be exactly x us after the</span>
-    <span class="c1">// start of the call to the last callback</span>
-    <span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+    <span class="c1">// Enable the interrupt for the alarm (we&#39;re using Alarm 0)</span>
+    <span class="n">hw_set_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">inte</span><span class="p">,</span> <span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">ALARM_NUM</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Associate an interrupt handler with the ALARM_IRQ</span>
+    <span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="n">alarm_irq</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Enable the alarm interrupt</span>
+    <span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Write the lower 32 bits of the target time to the alarm register, arming it.</span>
+    <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">alarm</span><span class="p">[</span><span class="n">ALARM_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">timerawl</span> <span class="o">+</span> <span class="n">DELAY</span> <span class="p">;</span>
 
-    <span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
-    <span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
-    <span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
+    <span class="c1">// Nothing happening here</span>
     <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -13400,12 +13474,18 @@ div#notebook {
 </pre></div>
 <p>To setup the SPI channel, we first call <code>spi_init()</code>, which takes two arguments. The first is the name of the spi channel (which we'd previously defined to <code>spi0</code>, and the second is the baud rate for the channel. Per the DAC datasheet, this is configured to 20MHz. Note that an SPI channel must be initialized before it is configured, which is what happens in the second line of code. For more information about SPI, please see <a href="https://vanhunteradams.com/Protocols/SPI/SPI.html">here</a>.</p>
 <p><code>spi_set_format</code> configures the SPI channel to whichever mode the device with which the RP2040 is communicating requires. <code>static void spi_set_format (spi_inst_t \*spi, uint data_bits, spi_cpol_t cpol, spi_cpha_t cpha, __unused spi_order_t order)</code> takes 4 arguments. The first is the SPI instance specifier. The second is the number of data bits per transfer. Since the DAC expects 16 bit transfers, this is configured to 16. CPOL and CPHA set the SPI clock polarity and phase (i.e. the "mode"). Finally order is not presently configurable, but sets the endianness of the transfer. Sends MSB first.</p>
-<h5 id="GPIO-Mapping">GPIO Mapping<a class="anchor-link" href="#GPIO-Mapping">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Map SPI signals to GPIO ports</span>
+<h5 id="GPIO-Mapping">GPIO Mapping<a class="anchor-link" href="#GPIO-Mapping">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Setup the ISR-timing GPIO</span>
+<span class="n">gpio_init</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+<span class="n">gpio_put</span><span class="p">(</span><span class="n">ISR_GPIO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Map SPI signals to GPIO ports</span>
 <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MISO</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
 <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_SCK</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
 <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_MOSI</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">);</span>
 <span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PIN_CS</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
+<p>We next set up our GPIO's. We first initialize the ISR_GPIO (this maps it to the SIO) and set it as an output before setting its value to 0.</p>
 <p>The next chunk of code is a series of calls to <code>gpio_set_function()</code>. Each of these calls maps a particular GPIO port (#define'd above) to a particular function. This takes two arguments. The first is the GPIO number, and the second specifies the function. The function specifier comes from the enum listed below:</p>
 <div class="highlight"><pre><span></span><span class="k">enum</span> <span class="n">gpio_function</span> <span class="p">{</span> <span class="n">GPIO_FUNC_XIP</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">GPIO_FUNC_SPI</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GPIO_FUNC_UART</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">GPIO_FUNC_I2C</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">GPIO_FUNC_PWM</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">GPIO_FUNC_SIO</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">GPIO_FUNC_PIO0</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="n">GPIO_FUNC_PIO1</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="n">GPIO_FUNC_GPCK</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">GPIO_FUNC_USB</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">GPIO_FUNC_NULL</span> <span class="o">=</span> <span class="mh">0xf</span> <span class="p">}</span>
 </pre></div>
@@ -13418,36 +13498,19 @@ div#notebook {
 <span class="p">}</span>
 </pre></div>
 <p>This chunk of code populates the <code>sin_table</code> array. For convenience, this sine table is scaled to [-2047, 2047]. In the Timer ISR, we add 2047 to this sine table to send a value to the DAC that is in the range [0, 4096].</p>
-<h5 id="Declare-a-repeating-timer">Declare a repeating timer<a class="anchor-link" href="#Declare-a-repeating-timer">&#182;</a></h5><p>The next line of code in <code>main()</code> declares an object of type <code>repeating_timer</code>.</p>
-<div class="highlight"><pre><span></span><span class="c1">// Create a repeating timer that calls repeating_timer_callback.</span>
-<span class="k">struct</span> <span class="n">repeating_timer</span> <span class="n">timer</span><span class="p">;</span>
+<h5 id="Setup-the-alarm-interrupt">Setup the alarm interrupt<a class="anchor-link" href="#Setup-the-alarm-interrupt">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Enable the interrupt for the alarm (we&#39;re using Alarm 0)</span>
+<span class="n">hw_set_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">inte</span><span class="p">,</span> <span class="mi">1u</span> <span class="o">&lt;&lt;</span> <span class="n">ALARM_NUM</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Associate an interrupt handler with the ALARM_IRQ</span>
+<span class="n">irq_set_exclusive_handler</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="n">alarm_irq</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Enable the alarm interrupt</span>
+<span class="n">irq_set_enabled</span><span class="p">(</span><span class="n">ALARM_IRQ</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Write the lower 32 bits of the target time to the alarm register, arming it.</span>
+<span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">alarm</span><span class="p">[</span><span class="n">ALARM_NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer_hw</span><span class="o">-&gt;</span><span class="n">timerawl</span> <span class="o">+</span> <span class="n">DELAY</span> <span class="p">;</span>
 </pre></div>
-<p>The timer peripheral on the RP2040 has four alarms. Each of these alarms interrupt on a match of the lower 32 bits of the 64-bit counter. Each alarm outputs a separate interrupt. The particular interrupt that fires for a particular alarm is (it seems) whichever timer interrupt is associated with that alarm (<code>TIMER_IRQ_0</code>, <code>TIMER_IRQ_1</code>, <code>TIMER_IRQ_2</code>, <code>TIMER_IRQ_3</code>). Note that there may be more than one alarm associated with each of these underlying hardware alarms - so you can have up to four alarm pools. The callbacks for a particular alarm pool take place on the core from which the alarm pool was created, and they are called from the hardware alarm IRQ handler. Note that the <code>repeating_timer</code> library uses the default alarm pool. Unless the default configurations are changed, the default alarm pool is on core 0, allows for up to 16 separate concurrent timers (this could be configured up to 256), and utilizes hardware alarm 3.</p>
-<p>Note that these callbacks are configured to take, as an argument, an object of type <code>repeating_timer</code>. The declaration of the <code>repeating_timer</code> struct is shown below, copied from the source code. Note also that the function which sets up these callbacks, described in the next section, is <code>alarm_pool_add_repeating_timer_us()</code>, as documented on page 217 of the C SDK guide.</p>
-<div class="highlight"><pre><span></span><span class="cm">/**</span>
-<span class="cm"> * \brief Information about a repeating timer</span>
-<span class="cm"> * \ingroup repeating_timer</span>
-<span class="cm"> * \return</span>
-<span class="cm"> */</span>
-<span class="k">struct</span> <span class="n">repeating_timer</span> <span class="p">{</span>
-    <span class="kt">int64_t</span> <span class="n">delay_us</span><span class="p">;</span>
-    <span class="n">alarm_pool_t</span> <span class="o">*</span><span class="n">pool</span><span class="p">;</span>
-    <span class="n">alarm_id_t</span> <span class="n">alarm_id</span><span class="p">;</span>
-    <span class="n">repeating_timer_callback_t</span> <span class="n">callback</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="o">*</span><span class="n">user_data</span><span class="p">;</span>
-<span class="p">};</span>
-</pre></div>
-<h5 id="Add-repeating-timer-to-alarm-pool">Add repeating timer to alarm pool<a class="anchor-link" href="#Add-repeating-timer-to-alarm-pool">&#182;</a></h5><div class="highlight"><pre><span></span><span class="c1">// Negative delay so means we will call repeating_timer_callback, and call it again</span>
-<span class="c1">// 25us (40kHz) later regardless of how long the callback took to execute</span>
-<span class="n">add_repeating_timer_us</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">repeating_timer_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">timer</span><span class="p">);</span>
-</pre></div>
-<p>We then add the repeating timer to the alarm pool which has just been created. As arguments, the function <code>add_repeating_timer_us()</code> function takes:</p>
-<ol>
-<li>The delay time in microsec. Note that a negative delay time means that the callback function will be called again in 25 us, regardless of how long the callback took to execute. If this were a positive value, the callback would be called again 25 us from the time that it exits the the callback on the previous call.</li>
-<li>The repeating timer callback function</li>
-<li>Any user data. to pass to store in the repeating_timer structure for use by the callback</li>
-<li>A pointer to the user owned structure to store the repeating timer info in. Beware this storage location must outlive the repeating timer, so be careful of using stack space.</li>
-</ol>
+<p>The final chunk of setup code in main sets up the alarm interrupt. The first line masks a 1 into the INTE register bit associated with hardware alarm 0. See page 545 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">datasheet</a>. This tells the alarm to enable this interrupt, we still need to enable the associated interrupt for the processor, and to associate that interrupt with an interrupt service routine.</p>
+<p>The next line associated the function named <code>alarm_irq</code> (discussed earlier) with the <code>ALARM_IRQ</code> register. In the <code>#define</code>'s at the top of the file, we associated this with <code>TIMER_IRQ_0</code>.</p>
+<p>The next line turns on <code>TIMER_IRQ_0</code> <em>for the processor</em>. Now the interrupt is enabled for both the peripheral and the processor.</p>
+<p>The final line writes a value to the ALARM0 register, which arms it. When there is a match between the value written to this register and the lower 32 bits of the incrementing 64-bit microsecond timer, the interrupt service routine will fire. Note that we have set this value to the current value of the timer (contained in <code>timer_hw-&gt;timerawl</code>) plus our 20us <code>DELAY</code>.</p>
 <h5 id="Spin-forever">Spin forever<a class="anchor-link" href="#Spin-forever">&#182;</a></h5><p>Finally, we enter a <code>while(1)</code> loop from which we never exit.</p>
 <div class="highlight"><pre><span></span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
 <span class="p">}</span>
@@ -13482,7 +13545,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Download">Download<a class="anchor-link" href="#Download">&#182;</a></h2><p>Project available <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Lab_1_Incremental/b_Timer_Interrupt_DDS_Demo">here</a>.</p>
+<h2 id="Download">Download<a class="anchor-link" href="#Download">&#182;</a></h2><p>Project available <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/a_Timer_Interrupt_DDS_Demo">here</a>.</p>
 
 </div>
 </div>
