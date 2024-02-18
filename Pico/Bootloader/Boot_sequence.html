@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Boot_sequence</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,30 +13077,38 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="RP2040-Boot-Sequence">RP2040 Boot Sequence<a class="anchor-link" href="#RP2040-Boot-Sequence">&#182;</a></h1><h3 id="What-happens-between-applying-power-to-an-RP2040,-and-main()-getting-executed?">What happens between applying power to an RP2040, and <code>main()</code> getting executed?<a class="anchor-link" href="#What-happens-between-applying-power-to-an-RP2040,-and-main()-getting-executed?">&#182;</a></h3><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
+<hr>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<h2 id="What's-in-this-document?">What's in this document?<a class="anchor-link" href="#What's-in-this-document?">&#182;</a></h2><p>This document has been assembled to supplement a set of instructions about writing one's own bootloader for the RP2040. Writing a bootloader requires some understanding of the boot sequence, but it became a bit too cumbersome to include that explanation in the bootloader documentation.</p>
+<p>In this document, I've attempted to walk through everything that happens between applying power to an RP2040 and the first line of <code>main()</code> being executed. Some of these steps are covered in more depth than others, but I've attempted to at least enumerate each one. The steps with extensive explanations are those which are of most relevance for writing one's own bootloader. These include the exit from boot2 process, and the interaction between the reset handler and the linker script. The parts of the boot sequence that the programmer is unlikely or unable to modify (bootROM code, and the stage 2 bootloader which configures the external flash chip) are given a more cursory treatment.</p>
+<h3 id="Contents">Contents<a class="anchor-link" href="#Contents">&#182;</a></h3><blockquote><ul>
+<li><a href="#RP2040-boot-sequence">RP2040 boot sequence</a><blockquote><ul>
+<li><a href="#Hardware-controlled-boot-sequence">Hardware-controlled boot sequence</a></li>
+<li><a href="#Processor-controlled-boot-sequence">Processor-controlled boot sequence</a></li>
+<li><a href="#Boot-stage-2">Boot stage 2</a></li>
+<li><a href="#Exit-from-boot-stage-2">Exit from boot stage 2</a></li>
+<li><a href="#The-Reset-Handler">The Reset Handler</a><blockquote><ul>
+<li><a href="#Brief-tangent-on-linker-scripts">Brief tangent on linker scripts</a></li>
+<li><a href="#Back-to-the-reset-handler">Back to the reset handler</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </blockquote>
 
@@ -13118,313 +13126,315 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, and teaching.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
+<h2 id="RP2040-boot-sequence">RP2040 boot sequence<a class="anchor-link" href="#RP2040-boot-sequence">&#182;</a></h2><p>The RP2040 datasheet separates the boot sequence into the "hardware-controlled" section which happens <em>before</em> the processors begin executing the bootrom, and the "processor-controlled" section during which processor cores 0 and 1 begin to execute the bootrom. The second stage of the bootloader (which lives at the beginning of the user's program) then runs <em>after</em> the bootrom.</p>
+<p>Let us consider each of these steps in turn, and then we'll add another step to this process.</p>
+<h3 id="Hardware-controlled-boot-sequence">Hardware-controlled boot sequence<a class="anchor-link" href="#Hardware-controlled-boot-sequence">&#182;</a></h3><p>The hardware-controlled boot sequence is responsible for safely turning on the minimum number of peripherals that are required for the processors to begin executing code. Starting from a totally powered-off RP2040, the sequence is as follows:</p>
+<ol>
+<li>Power is applied to the chip, and the <code>RUN</code> pin is high. The chip will be <em>held in reset</em> for as long as <code>RUN</code> is not high.</li>
+<li>The RP2040's on-chip voltage regulator automatically powers on as soon as an input supply is available. The system waits until the digital core supply (DVDD) which comes from this voltage regulator is stable.</li>
+<li>The Power-On State Machine starts. Various hardware blocks and peripherals must be powered on in a particular order for everything to startup properly, since some require that others are already running (for example, we don't want to start the clock generators until we have a stable clock source). The power-on state machine brings a series of peripherals out of reset in a safe order. In particular:<blockquote><ul>
+<li>The ring oscillator is started. Once it's stable . . .</li>
+<li>The crystal oscillator is reset (though not yet started, this occurs in <code>runtime_init</code>)</li>
+<li>The <code>clk_ref</code> and <code>clk_sys</code> clock generators are brought out of reset. <code>clk_ref</code> runs using the ring oscillator with no divider, and <code>clk_sys</code> runs from <code>clk_ref</code>. In other words, we start clocking the system off the ring oscillator.</li>
+<li>The reset controller resets all non-boot peripherals</li>
+<li>The system checks some registers to confirm the boot state of the chip, and whether there's an invalid program in flash</li>
+<li>The system brings XIP, ROM/SRAM, and the bus fabric out of reset</li>
+<li>The system brings the processors out of reset, which begin executing bootcode from ROM</li>
 </ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
+</blockquote>
+</li>
+</ol>
+<figure>
+    <img align="center" width="500" height="500" src="power_on.png" alt='missing' />
+    <center><figcaption>Power-on state machine (from RP2040 datasheet)</figcaption></center>
+</figure><p>This is a <em>fully automated process</em>. This whole sequence comes baked into the RP2040 and requires no input from the user to work. There exist some registers that user software can use to override and check the status of the power-on state machine, or the user can configure a watchdog to restart the power-on state machine, but user code does not include this process nor overwrite it when we reprogram the chip.</p>
+<h3 id="Processor-controlled-boot-sequence">Processor-controlled boot sequence<a class="anchor-link" href="#Processor-controlled-boot-sequence">&#182;</a></h3><p>The processor-controlled boot sequence runs from ROM. This sequence too is "baked in" to the RP2040 when we purchase it. This sequence is summarized in the flowchart below. This sequence begins on line 225 of <a href="https://github.com/raspberrypi/pico-bootrom/blob/master/bootrom/bootrom_rt0.S">this file from the bootrom</a> and it concludes in <code>main()</code> of <a href="https://github.com/raspberrypi/pico-bootrom/blob/master/bootrom/bootrom_main.c">this file</a>. In brief, the RP2040 reads the <code>SIO_CPUID1</code> register to confirm that it is core 0. If it's not core 0, it stalls and waits to be started by core 0. If it <em>is</em> core 0, then it proceeds to the next step of the process. In the event that the rescue flag is set, the core halts to wait for instruction from a debugger. Otherwise, the core checks the watchdog scratch registers for some magic numbers to see whether it should boot to some code loaded into SRAM. If it finds those magic numbers, it vectors to that code. If not, it branches to <code>main()</code> in <code>bootrom_main.c</code>.</p>
+<p>In the event that the user is <em>not</em> holding down the <code>BOOTSEL</code> button, the RP2040 will attempt a flash boot. To do so, it initializes the SSI channel over which it communicates with external flash memory and associates a particular set of GPIO's with that channel. Then, it starts looking for the start of a valid application! It does so by repeatedly loading the first 256 bytes from flash memory to SRAM using all possible combinations of SSI clock phase and polarity. For each attempt, it computes a checksum to see if it read a valid boot2 second stage in flash memory (it tries all combinations because it doesn't know precisely which external chip it might be communicating with, and different ones may use different modes).</p>
+<p>In the event that it finds a valid boot2, it branches to the boot2 entry point! Otherwise, it enters the USB device mode to wait for a new program from the user over the USB interface.</p>
+<figure>
+    <img align="center" width="500" height="500" src="processor_controlled.png" alt='missing' />
+    <center><figcaption>Processor-controlled boot sequence (from RP2040 datasheet)</figcaption></center>
+</figure><h3 id="Boot-stage-2">Boot stage 2<a class="anchor-link" href="#Boot-stage-2">&#182;</a></h3><p>The RP2040 stores its program code in <em>external</em> flash memory, and it is compatible with a number of different external flash chips. All compatible chips use a QSPI interface, which allows for the bootrom to copy the first 256 bytes of flash memory (where the boot2 code lives) into SRAM. This bootcode is executed from SRAM because the rest of flash remains inaccessible to the XIP address window until some further (flash-chip-specific) configurations are performed. These configurations are the responsibility of the boot2 code.</p>
+<p>If you look in the SDK, you'll find a <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2_common/boot_stage2">whole library</a> of different <em>versions</em> of boot2. Each of these versions corresponds to a different flash memory chip, and each is <em>exactly</em> 256 bytes long (padded if need be). At compile-time, the compiler checks a flag to determine which flash memory chip is being used and loads the appropriate boot2 code. <em>This is why boot2 isn't baked into ROM.</em> We need for the programmer to be able to select the right configurations for their particular flash chip, which wouldn't be possible if the code came baked in. You'll find these flags in the <a href="https://github.com/raspberrypi/pico-sdk/tree/master/src/boards/include/boards">board files</a> for RP2040-based boards. For instance, the <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/boards/include/boards/pico.h">pico.h</a> file specifies <code>PICO_BOOT_STAGE2_CHOOSE_W25Q080 1</code>. This is a message to the compiler to please select the <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/boot_stage2/boot2_w25q080.S">particlar boot2 program</a> associated with the W25Q080 flash chip. In brief, it configures the SSI and flash chip to enable continuous reads without any prefixes, which maximizes the speed at which these reads can occur.</p>
+<h3 id="Exit-from-boot-stage-2">Exit from boot stage 2<a class="anchor-link" href="#Exit-from-boot-stage-2">&#182;</a></h3><p>The last code that runs in boot stage 2 is that which is contained in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/boot_stage2/asminclude/boot2_helpers/exit_from_boot2.S">exit_from_boot.S</a>. I'm considering this separately because it's of particular interest for illustrating how user application code starts getting executed. The code is copied below:</p>
+
+<pre><code>armasm
+// If entered from the bootrom, lr (which we earlier pushed) will be 0,
+// and we vector through the table at the start of the main flash image.
+// Any regular function call will have a nonzero value for lr.
+check_return:
+    pop {r0}
+    cmp r0, #0
+    beq vector_into_flash
+    bx r0
+vector_into_flash:
+    ldr r0, =(XIP_BASE + 0x100)
+    ldr r1, =(PPB_BASE + M0PLUS_VTOR_OFFSET)
+    str r0, [r1]
+    ldmia r0, {r0, r1}
+    msr msp, r0
+    bx r1</code></pre>
+<p>This exit routine does the following:</p>
+<p><code>check_return</code>:</p>
+<ol>
+<li>Pop a value from the stack into register <code>r0</code></li>
+<li>Compare the value in register <code>r0</code> with 0.</li>
+<li>If the value in register <code>r0</code> is <strong>nonzero</strong>, interpret that value as an address and branch to it.</li>
+<li>Otherwise, branch to <code>vector_in_flash</code>.</li>
+</ol>
+<p><code>vector_into_flash</code>:</p>
+<ol>
+<li>Load <code>(XIP_BASE + 0x100)</code> into register <code>r0</code>. <blockquote><ul>
+<li>Note that <code>XIP_BASE</code> represents the base address of execute-in-place memory, and is defined to be <code>0x10000000</code> in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h">addressmap.h</a>. This is in agreement with the address map provided on page 24 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>.</li>
+<li>An offset of <code>0x100</code> from this base address puts us exactly 256 bytes after the base address. In other words, we're loading the first address <em>after</em> the 256-byte stage 2 bootloader. If you take a look at the <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_standard_link/memmap_default.ld">linker script</a>, you'll notice that the <em>first</em> thing which appears after boot2 is the vector table. This vector table lives in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_standard_link/crt0.S"><code>crt0.s</code></a>. Per standard ARM convention, the first element of the vector table is the main stack pointer, and the second element of the vector table is the address of the reset handler.</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
+</blockquote>
+</li>
+<li>Load <code>(PPB_BASE + M0PLUS_VTOR_OFFSET)</code> into register <code>r1</code>.<blockquote><ul>
+<li>Like the <code>XIP_BASE</code>, <code>PPB_BASE</code> is defined in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/include/hardware/regs/addressmap.h">addressmap.h</a>. This represents the base address of the Cortex M0+, and is defined as <code>0xe0000000</code>, which agrees with the address map provided on page 24 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>. </li>
+<li>Furthermore, <code>M0PLUS_VTOR_OFFSET</code>, defined in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2040/hardware_regs/include/hardware/regs/m0plus.h"><code>m0plus.h</code></a>, is set to <code>0x0000ed08</code>. This agrees with page 86 of the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a>, which indicates that the VTOR register (which holds the vector table offset address) lives at an offset of 0xED08 from the PPB base address.</li>
+</ul>
+</blockquote>
+</li>
+<li>Store the value <em>in</em> <code>r0</code> to the memory location <em>pointed to</em> by <code>r1</code>. This sets the value in the VTOR register to the <em>address</em> of the vector table.</li>
+<li>Load the value <em>from</em> memory address <em>pointed to</em> by <code>r0</code> (top of the vector table) into register <code>r0</code>, then increment by 1 load the data from the <em>next</em> address into <code>r1</code>. The data now contained in <code>r0</code> is the stack pointer address, and the value now contained in <code>r1</code> is the address of the reset handler.</li>
+<li>Move the value <em>in</em> <code>r0</code> to the main stack pointer (sets up stack pointer)</li>
+<li>Branch to the address stored in <code>r1</code>. This takes us to the reset handler.</li>
+</ol>
+<p>We're going to consider the reset handler next. But it's <em>this</em> exit sequence which best informs how we vector into user application code. As long as our application code linker script is organized in accordance with ARM Cortex M0+ conventions, then we can vector to that code by setting the main stack pointer, setting the VTOR register, and branching to the reset handler. It's this reset handler which ultimately then branches to <code>main()</code> in the user's program.</p>
+<h3 id="The-Reset-Handler">The Reset Handler<a class="anchor-link" href="#The-Reset-Handler">&#182;</a></h3><p>Generally speaking, every microcontroller will contain (at least) two types of memory: flash and RAM. Flash memory is non-volatile (information is retained through power cycles), it is generally <em>static</em> (that is, not being updated as the program is running), and there is generally <em>more of it</em> than RAM. RAM, on the other hand, is <em>volatile</em> memory (it loses information when power is removed). Because microcontrollers retain their programs through power cycles, it may stand to reason that our program code is stored in flash memory (at least initially). RAM is of critical importance for these programs to run, however! It is in RAM that we store our program variables with values that get updated as the program runs.</p>
+<p>When we load a new program onto the microcontroller via some sort of flash programmer, it only re-programs the flash. Before the new program which we've loaded into flash can execute, however, the microcontroller must initialize RAM. Because RAM is volatile, it must perform this initialization every time the system boots up.</p>
+<p><em>This initialization is the responsibility of the reset handler</em>. The reset handler copies relevant sections of data from flash memory into RAM (we'll talk about these in more detail in just a moment), initializes other sections of RAM, and then executes a platform entry. This platform entry involves branching to a runtime initialization function that starts-up necessary peripherals, and then branching the user user application's <code>main</code> function.</p>
+<p>Before we can have an informed discussion about the RP2040's reset handler, we must go on a brief tangent about <em>linker scripts</em> and <em>memory organization.</em></p>
+<h4 id="Brief-tangent-on-linker-scripts">Brief tangent on linker scripts<a class="anchor-link" href="#Brief-tangent-on-linker-scripts">&#182;</a></h4><p>A translation process occurs to transform the source code which we humans write to the machine code that the microcontroller runs. This process begins with the compiler, which takes our source code (e.g. C programs) as input, and generates machine code in the form of <em>object files</em> as an output. These object files are generated into different <em>sections</em>. The details of these sections depend on the object format used by the compiler, but a very common one is the Executable Linkable Format (ELF). A compiler which uses the ELF object file format will generate object files in the following sections:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
+<li><code>.text</code>: Executable code $\longrightarrow$ generally in flash, unless copied to RAM (possible on RP2040)</li>
+<li><code>.data</code>: Initialized data (i.e. variables) $\longrightarrow$ RAM</li>
+<li><code>.bss</code> : Uninitizialized data (i.e. variables) $\longrightarrow$ RAM</li>
+<li><code>.const</code>: Constant data (and the original home of initialized data which will be copied to <code>.data</code>) $\longrightarrow$ flash</li>
 </ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
-<ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
-</ul>
+<p>The object files generated by the compiler do not yet have associated memory addresses in the target microcontroller. It's the job of the <em>linker script</em> to organize the object files generated by the compiler in accordance with the memory layout for the target microcontroller as specified (generally) by that microcontroller's datasheet. It specifies things like the location and size of flash and RAM, the location of the stack and heap, where .bss should be initialized, etc.</p>
+<p>Let's take a look at the RP2040's <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_standard_link/memmap_default.ld">default linker script</a> to see how this works. At the top of the linker script, we find the memory layout specified:</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<pre><code>linker
+MEMORY
+{
+    FLASH(rx) : ORIGIN = 0x10000000, LENGTH = 2048k
+    RAM(rwx) : ORIGIN =  0x20000000, LENGTH = 256k
+    SCRATCH_X(rwx) : ORIGIN = 0x20040000, LENGTH = 4k
+    SCRATCH_Y(rwx) : ORIGIN = 0x20041000, LENGTH = 4k
+}</code></pre>
+<p>This specifies the <em>base address</em> (i.e. ORIGIN) of each relevant section of memory, the readability/writability/executability of that part of memory, and the length of that part of memory. So, for instance, we see that flash memory starts at address 0x10000000, and that it is 2048 kilobytes long. RAM starts at 0x20000000 and is 256 kilobytes long. The subsequent section of the linker script (the <code>SECTIONS</code> section) organizes all of the object files generated by the compiler according to this memory layout. <strong>By the way</strong>, if we wanted to store our program code <em>elsewhere</em> in flash (say, because we had to put it above a custom bootloader), we could do so by simply adjusting the origin and length of the FLASH part of the memory layout.</p>
+<p>Each of those object files created by the compiler will contain some or all of the sections mentioned previously (<code>.text</code>, <code>.data</code>., <code>.bss</code>., etc.). The SECTIONS part of the linker script organizes all those input sections into output sections, and places those output sections in memory. We could absolutely do this by naming every single section from every single object file, but that doesn't scale very well. So, we'll use some shortcuts.</p>
+<p>But let's begin by looking at the very top of the SECTIONS part of the linker script, where we will find the stage 2 bootlaoder (remember that this <em>must</em> live in the first 256 bytes of flash). Every code snippet in the rest of this section lives in the SECTIONS { } part of the linker.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
+<pre><code>    .flash_begin : {
+        __flash_binary_start = .;
+    } &gt; FLASH
 
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
+    .boot2 : {
+        __boot2_start__ = .;
+        KEEP (*(.boot2))
+        __boot2_end__ = .;
+    } &gt; FLASH</code></pre>
+<p>The first stanza creates an output section called <code>.flash_begin</code>, but it doesn't actually load anything into flash! All that it does is set the value of a <em>symbol</em> (essentially a variable, which will be accessible by our reset handler) to ".". The dot, in the context of the linker script, represents the <em>current memory address</em> in the linker script. Because we haven't loaded anything into memory yet, this dot represents the base address of flash memory. We store this base address in a symbol called <code>__flash_binary_start</code>.</p>
+<p>The second stanza creates an output section called <code>.boot2</code>. We associate a symbol with the start of the <code>.boot2</code> section, and then we use an escape character to ask the linker to please load all object files with names including ".boot2" to flash memory at this address. We can confirm that everything is going to the expected places in memory by looking at the <em>map file</em> (one of the outputs of the linker). The map file specifies precisely what lives at every address in memory. I can't provide a link to the map file, because it's generated by the compiler when you compile your code. Here, for instance, is a snippet from the map file for the blinky demo:</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<pre><code>.flash_begin    0x0000000010000000        0x0
+                0x0000000010000000                __flash_binary_start = .
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
+.boot2          0x0000000010000000      0x100
+                0x0000000010000000                __boot2_start__ = .
+ *(.boot2)
+ .boot2         0x0000000010000000      0x100 
+                0x0000000010000100                __boot2_end__ = .
+                0x0000000000000001</code></pre>
+<p>We see that the flash binary start is at address <code>0x0000000010000000</code>, and that the first item loaded into flash memory, at that base address, is <code>.boot2</code>. We also see that the address associated with <code>__boot2_end__</code> is <code>0x0000000010000100</code>, or precisely 256 bytes above the base address.</p>
+<p>Looking back at the linker file, the next output section which is loaded (still into flash) is .text, pasted below. Just below boot2, we load the vector table, followed by the binary info header, followed by the reset handler. After the reset handler is the .text sections of all object files (sans a few exclusions), followed by our constructors and destructors.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<pre><code>linker
+.text : {
+        __logical_binary_start = .;
+        KEEP (*(.vectors))
+        KEEP (*(.binary_info_header))
+        __binary_info_header_end = .;
+        KEEP (*(.reset))
+        *(.init)
+        *(EXCLUDE_FILE(*libgcc.a: *libc.a:*lib_a-mem*.o *libm.a:) .text*)
+        *(.fini)
+        /* Pull all c'tors into .text */
+        *crtbegin.o(.ctors)
+        *crtbegin?.o(.ctors)
+        *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
+        *(SORT(.ctors.*))
+        *(.ctors)
+        /* Followed by destructors */
+        *crtbegin.o(.dtors)
+        *crtbegin?.o(.dtors)
+        *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
+        *(SORT(.dtors.*))
+        *(.dtors)
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
+        *(.eh_frame*)
+        . = ALIGN(4);
+    } &gt; FLASH</code></pre>
+<p>If you look back at the map file, you'll find the vector table immediately after boot2, followed by the binary info header, followed by reset, etc. In other words, the map file is showing us a memory layout that precisely matches that which we specified in the linker script. This pattern continues. Jumping ahead a little in the linker script, I'd like to consider the <code>.data</code> section. Remember, this is the section which contains <em>initialized</em> variables which will by dynamically updated as the program runs. So, the contents of this section will need to be copied into RAM when the system boots up, but of course the flash loader cannot write to RAM. Let's look at how the linker handles this:</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<pre><code>    .data : {
+        __data_start__ = .;
+        *(vtable)
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
+        *(.time_critical*)
+
+        /* remaining .text and .rodata; i.e. stuff we exclude above because we want it in RAM */
+        *(.text*)
+        . = ALIGN(4);
+        *(.rodata*)
+        . = ALIGN(4);
+
+        *(.data*)
+
+        . = ALIGN(4);
+        *(.after_data.*)
+        . = ALIGN(4);
+        /* preinit data */
+        PROVIDE_HIDDEN (__mutex_array_start = .);
+        KEEP(*(SORT(.mutex_array.*)))
+        KEEP(*(.mutex_array))
+        PROVIDE_HIDDEN (__mutex_array_end = .);
+
+        . = ALIGN(4);
+        /* preinit data */
+        PROVIDE_HIDDEN (__preinit_array_start = .);
+        KEEP(*(SORT(.preinit_array.*)))
+        KEEP(*(.preinit_array))
+        PROVIDE_HIDDEN (__preinit_array_end = .);
+
+        . = ALIGN(4);
+        /* init data */
+        PROVIDE_HIDDEN (__init_array_start = .);
+        KEEP(*(SORT(.init_array.*)))
+        KEEP(*(.init_array))
+        PROVIDE_HIDDEN (__init_array_end = .);
+
+        . = ALIGN(4);
+        /* finit data */
+        PROVIDE_HIDDEN (__fini_array_start = .);
+        *(SORT(.fini_array.*))
+        *(.fini_array)
+        PROVIDE_HIDDEN (__fini_array_end = .);
+
+        *(.jcr)
+        . = ALIGN(4);
+        /* All data end */
+        __data_end__ = .;
+    } &gt; RAM AT&gt; FLASH
+    /* __etext is (for backwards compatibility) the name of the .data init source pointer (...) */
+    __etext = LOADADDR(.data);</code></pre>
+<p>Note that the specified address for the output section is <code>&gt; RAM AT&gt; FLASH</code>. What this means is that this output section will be <em>loaded into flash</em> at the address given by the symbol <code>__etext</code> in the snippet above. The reset handler will then copy this section to RAM, such that it lives between addresses <code>__data_start__</code> and <code>__data_end__</code>. This is the second section loaded into RAM, so it will appear just underneath the first (which happens to be a copy of the vector table, copied to the beginning of RAM). Referring back to the map file once again, we can see that this is the case:</p>
+
+<pre><code>.ram_vector_table
+                0x0000000020000000       0xc0
+ *(.ram_vector_table)
+ .ram_vector_table
+                0x0000000020000000       0xc0 
+                0x0000000020000000                ram_vector_table
+
+.data           0x00000000200000c0      0x18c load address 0x0000000010001e7c
+                0x00000000200000c0                __data_start__ = .</code></pre>
+<p>The RAM vector table lives at the very bottom of RAM, and is followed immediately after by the <code>.data</code> section. But not that <code>.data</code> has a <em>load address</em> within flash. This load address is available to our reset handler via that <code>__etext</code> symbol. The reset handler's first job will be to copy the contents of this <code>.data</code> section from flash to the appropriate place in RAM. Then, it'll clear the <code>.bss</code> section (uninitialized variables). Then it'll start performing platform entry.</p>
+<h4 id="Back-to-the-reset-handler">Back to the reset handler<a class="anchor-link" href="#Back-to-the-reset-handler">&#182;</a></h4><p>The RP2040 reset handler lives in <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_standard_link/crt0.S">crt0.S</a>. Please note that the RP2040 supports a few different boot options, which allow for the user to force executable code into RAM for faster execution. For sake of simplifying this explanation, I'm going to consider the "normal" situation in which executable code lives in flash memory. For that reason, you may notice that I omit some conditionals associated with the "run from flash" mode when I copy snippets from crt0.S into this document.</p>
+<p>Let us consider each phase of the reset handler in turn.</p>
+<p><strong>1. CPU check</strong>: The first reset handler code which runs is copied below. The RP2040 is a dual-core microcontroller, with <em>two</em> internal ARM Cortex M0's. These two cores are named CPU 0 and CPU 1. All of the initialization occurs on CPU 0, while CPU 1 is held in a dormant state until CPU 0 wakes and initializes it (the subject of a future discussion). So, the first thing that the reset handler does is make sure that it is indeed CPU 0. It can do so by reading the CPUID register, which contains a 0 for CPU0 and a 1 for CPU1.</p>
+
+<pre><code>armasm
+type _reset_handler,%function
+.thumb_func
+_reset_handler:
+    // Only core 0 should run the C runtime startup code; core 1 is normally
+    // sleeping in the bootrom at this point but check to be sure
+    ldr r0, =(SIO_BASE + SIO_CPUID_OFFSET)
+    ldr r0, [r0]
+    cmp r0, #0
+    bne hold_non_core0_in_bootrom</code></pre>
+<p>Note that this CPU check is a defensive maneuver. CPU 1 should never even be able to make it out of ROM, but this code is meant to catch it in the event that it does. The above code loades the value <code>(SIO_BASE + SIO_CPUID_OFFSET)</code> into register <code>r0</code>. This is the address of the CPUID register. It then loads the value contained at the memory address pointed to by <code>r0</code> into <code>r0</code>. This will be 0 for CPU0, and 1 for CPU1. It then compares this value to 0. In the event that the value in <code>r0</code> (the CPUID) is not equal to 0, the code branches to <code>hold_non_core0_in_bootrom</code>. This keeps CPU1 in standby until CPU0 wakes it. Otherwise, if the value in <code>r0</code> <em>is</em> 0, then we fall thru to the next step of the reset handler.</p>
+<p><strong>2. Perform <code>.data</code> copy</strong>: The next step of the bootloader is to copy the <code>.data</code> section, the <code>.scratch_x</code> section, and the <code>.scratch_y</code> section from flash to RAM. It does this by making use of those symbols which we created in the linker script, which specify the start and end addresses for each of these sections in RAM, and which specify the load addresses of each of these sections in flash. All of these addresses are organized into something called the <code>data_cpy_table</code>, which is pasted below:</p>
+
+<pre><code>.align 2
+data_cpy_table:
+.word __etext
+.word __data_start__
+.word __data_end__
+
+.word __scratch_x_source__
+.word __scratch_x_start__
+.word __scratch_x_end__
+
+.word __scratch_y_source__
+.word __scratch_y_start__
+.word __scratch_y_end__
+
+.word 0 // null terminator</code></pre>
+<p>This table contains 10 words. The first 3 words represent the load address of the <code>.data</code> section in flash (remember that symbol name <code>__extext</code> from the linker script?), the start address for the <code>.data</code> section in RAM, and the end address for the <code>.data</code> section in RAM. The reset handler will start at the address <code>__etext</code> in flash, and copy data to RAM starting at the address given by <code>__data_start__</code>. It'll keep going until it hits the address <code>__data_end__</code>. Then, it'll go through exactly the same process for the two subsequent scratch sections. The null terminator at the end of the table is used to indicate the <em>end</em> of the table. Let's now look at how the reset handler implements this copying.</p>
+<p>After falling thru the CPUID check above, we hit this snippet of code:</p>
+
+<pre><code>    adr r4, data_cpy_table
+1:
+    ldmia r4!, {r1-r3}
+    cmp r1, #0
+    beq 2f
+    bl data_cpy
+    b 1b</code></pre>
+<p>This snippet loads the address of the base of the <code>data_cpy_table</code> into register <code>r4</code>. If you look at the table above, this corresponds to the address of the <em>first word</em> in the table, which is that of <code>__etext</code>, or the load address of the <code>.data</code> section.</p>
+<p>The next instruction then loads the value at the memory address pointed to by <code>r4</code> into <code>r1</code> (<code>__etext</code>), then increments <code>r4</code>. It loads the data at the <em>new</em> address pointed to by <code>r4</code> into <code>r2</code> (<code>__data_start__</code>, the next word in the table), and then increments <code>r4</code> again. It then loads the data at the <em>new</em> address pointed to by <code>r4</code> into <code>r3</code> (<code>__data_end__</code>, the next word in the table).</p>
+<p>The next instruction compares the value in <code>r1</code> to 0. If the two are equal, it means that we've reached the null terminator in the <code>data_cpy_table</code> and we jump to the program label 2 (we'll get to that in a moment). But if they aren't! Then we jump and link to a program label called <code>data_cpy</code>. Lets look at the code at the <code>data_cpy</code> program label:</p>
+
+<pre><code>data_cpy_loop:
+    ldm r1!, {r0}
+    stm r2!, {r0}
+data_cpy:
+    cmp r2, r3
+    blo data_cpy_loop
+    bx lr</code></pre>
+<p>The first thing that happens in <code>data_cpy</code> is that we compare <code>r2</code> and <code>r3</code>. Remember that <code>r2</code> contains the start address, in RAM, for the <code>.data</code> section, and <code>r3</code> contains the end address. In the event that <code>r2</code> is less than <code>r3</code>, we branch to the <code>data_cpy</code> loop.</p>
+<p>The <code>data_cpy</code> loop loads the value from the memory address pointed to by <code>r1</code> into <code>r0</code>, and auto-increments <code>r1</code>. It then stores the value from <code>r0</code> to the memory address pointed to by <code>r2</code>, and auto-increments <code>r2</code>. This means that <code>r2</code>, the address <em>to which we are copying</em> has moved closer to <code>r3</code>, the address at which we <em>stop</em> copying.</p>
+<p>The program falls back thru to the <code>data_cpy</code> program label, and the process continues until <code>r2</code> and <code>r3</code> are equal. That is, until we've copied all the data to our designated stop-point, as given by the linker script. Once that's the case, we branch <em>back</em> to the link register, which takes us back up to the <code>1</code> program label above. As before, this loads the value at the memory address pointed to by <code>r4</code> into <code>r1</code> (<code>__scratch_x_source__</code>), then increments <code>r4</code>. It loads the data at the <em>new</em> address pointed to by <code>r4</code> into <code>r2</code> (<code>__scratch_x_start__</code>, the next word in the table), and then increments <code>r4</code> again. It then loads the data at the <em>new</em> address pointed to by <code>r4</code> into <code>r3</code> (<code>__scratch_x_end__</code>, the next word in the table). As before, we compare the value in <code>r1</code> to 0. If the two are equal, it means that we've reached the null terminator in the <code>data_cpy_table</code> and we jump to the program label 2 (still not there). Otherwise, we jump <em>back</em> to the <code>data_cpy</code> label to copy this <em>next</em> section of data.</p>
+<p>This process then repeats one more time to copy the final <code>.scratch_y</code> section from flash to RAM, after which the first instruction in the 1 program label will load the null terminator into <code>r1</code>. This is our signal that we've reached the end of the <code>data_cpy_table</code>, and so we take the branch to the program label 2. Let's see what happens there:</p>
+
+<pre><code>2:
+    // Zero out the BSS
+    ldr r1, =__bss_start__
+    ldr r2, =__bss_end__
+    movs r0, #0
+    b bss_fill_test
+bss_fill_loop:
+    stm r1!, {r0}
+bss_fill_test:
+    cmp r1, r2
+    bne bss_fill_loop</code></pre>
+<p>Similarly to before, we load the start address of the <code>.bss</code> section into <code>r1</code>, the end address into <code>r2</code>, and then we put a 0 into <code>r0</code>. Then, we take an unconditional branch to <code>bss_fill_test</code>. The code in <code>bss_fill_test</code> compares the values of <code>r1</code> and <code>r2</code>. In the event that they are not equal, it branches to <code>bss_fill_loop</code>, which writes the data contained in the register <code>r0</code> (0) to the memory address pointed to by <code>r1</code>, and then automatically increments <code>r1</code>. The code then falls back thru to <code>bss_fill_test</code>. The consequence is that 0's will be written to all memory addresses between <code>__bss_start__</code> and <code>__bss_end__</code>. This zeroes all uninitialized variables, just like we want.</p>
+<p>After having intialized the <code>.data</code>, <code>.scratch_x</code>, <code>.scratch_y</code>, and <code>.bss</code> sections as described above, the code falls thru to <code>platform_entry</code>, pasted below:</p>
+
+<pre><code>platform_entry: // symbol for stack traces
+    // Use 32-bit jumps, in case these symbols are moved out of branch range
+    // (e.g. if main is in SRAM and crt0 in flash)
+    ldr r1, =runtime_init
+    blx r1
+    ldr r1, =main
+    blx r1
+    ldr r1, =exit
+    blx r1</code></pre>
+<p>This first loads the register <code>r1</code> with the address of the function <code>runtime_init</code>. The second instruction branches and links, so that the <code>runtime_init</code> function will run, and then we'll return to this line of the assembler program. What's that <code>runtime_init</code> function doing? You can find it at line 67 of <a href="https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/pico_runtime/runtime.c">this file</a>. In brief, it does the following:</p>
 <blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
+<li>Resets all peripherals</li>
+<li>Calls all constructor functions</li>
+<li>Starts the XOSC, PLL's, and clocks</li>
+<li>Initializes spinlocks</li>
+<li>Initializes interrupts and alarms</li>
 </ul>
 </blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
+<p>After having performed this runtime initialization, the program <em>returns</em> to the <code>platform_entry</code> snippet above. It loads the register <code>r1</code> with the address of the function <code>main</code>, and then branches to it.</p>
+<p>At this point, the user application code is runnning.</p>
 
 </div>
 </div>
@@ -13433,101 +13443,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
