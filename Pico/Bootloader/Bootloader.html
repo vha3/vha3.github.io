@@ -13114,13 +13114,13 @@ div#notebook {
 </ul>
 </blockquote>
 </li>
+<li><a href="#A-Python-program-for-serially-programming-the-RP2040">A Python program for serially programming the RP2040</a></li>
 <li><a href="#Going-farther">Going farther</a><blockquote><ul>
 <li><a href="">Implementing a wireless serial interface with infrared</a></li>
 <li><a href="">Turning the bootloader into a computer worm</a></li>
 </ul>
 </blockquote>
 </li>
-<li><a href="#A-Python-program-for-serially-programming-the-RP2040">A Python program for serially programming the RP2040</a></li>
 </ul>
 </blockquote>
 
@@ -13557,26 +13557,6 @@ MEMORY
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Going-farther">Going farther<a class="anchor-link" href="#Going-farther">&#182;</a></h2><p>The following links are under construction, and will be made active as soon as they're finished.</p>
-<ul>
-<li><strong>Making the serial link wireless via infrared</strong></li>
-<li><strong>Turning the bootloader into a worm, so that programs can spread between RP2040's</strong>.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="A-Python-program-for-serially-programming-the-RP2040">A Python program for serially programming the RP2040<a class="anchor-link" href="#A-Python-program-for-serially-programming-the-RP2040">&#182;</a></h2><p>The bootloader described above receives a new program over a UART serial port. The Python program linked <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/Bootloaders/Serial_bootloader/Application/Python_loader.py"><strong>here</strong></a> (and copied below) allows for that program to be loaded from a PC connected to the RP2040 via a USB to UART converter. It opens the .hex file, and then shuffles it over the serial connection one line at a time, handshaking with the RP2040 between each line.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">serial</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -13643,6 +13623,26 @@ MEMORY
     <span class="nb">print</span><span class="p">(</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 <span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Going-farther">Going farther<a class="anchor-link" href="#Going-farther">&#182;</a></h2><p>The following links are under construction, and will be made active as soon as they're finished.</p>
+<ul>
+<li><strong>Making the serial link wireless via infrared</strong></li>
+<li><strong>Turning the bootloader into a worm, so that programs can spread between RP2040's</strong>.</li>
+</ul>
 
 </div>
 </div>
