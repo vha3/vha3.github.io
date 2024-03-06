@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Worm</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,33 +13077,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Wireless-worm-like-bootloader-for-RP2040">Wireless worm-like bootloader for RP2040<a class="anchor-link" href="#Wireless-worm-like-bootloader-for-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Introduction">Introduction</a></li>
+<li><a href="#Preliminary-reading">Preliminary reading</a></li>
+<li><a href="#Modifying-the-serial-bootloader">Modifying the serial bootloader</a></li>
+<li><a href="#Telling-the-bootloader-to-share-its-program">Telling the bootloader to share its program</a></li>
+<li><a href="#How-the-bootloader-shares-its-program">How the bootloader shares its program</a></li>
 </ul>
 </blockquote>
-
+<h3 id="All-code-available-here"><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Bootloaders/Serial_worm">All code available here</a><a class="anchor-link" href="#All-code-available-here">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13118,15 +13107,18 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, and teaching.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
-</ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>A computer worm is a program that replicates and propagates itself across a network. Typically associated with malware, this project deploys a worm for good! In applications that involve a large number of independent microcontroller-based devices (e.g. swarm robotics or <a href="https://news.cornell.edu/stories/2023/04/99m-bezos-grant-virtual-fencing-combats-climate-change">virtual cattle fencing</a>), the bottleneck in the research and development process can be the time that it takes to plug-in/reprogram each individual device.</p>
+<p>One scalable approach to reprogramming a <em>huge</em> collection of devices is to reprogram a <em>single</em> device, and to have that program spread (like a virus or a computer worm) to other devices that it encounters. You then get an exponential spread of firmware updates across the swarm.</p>
+<p>This webpage describes a custom bootloader that allows for firmware updates to propagate from device to device. The particular mechanism for wireless data transfer in this project is <a href="https://vanhunteradams.com/Pico/Bootloader/Infrared.html">infrared</a>, though the bootloader is written so that it could be modified for radio, BLE, LoRA, or something else.</p>
+<p>This project is an augmentation of a previous project: <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">a custom serial bootloader for the RP2040</a>.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NhH2bgbR238?si=Tm2p5sgzwJT8xEhc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
 </div>
@@ -13141,16 +13133,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
+<h2 id="Preliminary-reading">Preliminary reading<a class="anchor-link" href="#Preliminary-reading">&#182;</a></h2><p>In order to avoid bloating this webpage too much, I've consolidated prerequisite reading onto a few other webpages. <strong>I strongly encourage folks to read these other webpages before returning to this one.</strong></p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
-</ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
-<ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
+<li><a href="https://vanhunteradams.com/Pico/Bootloader/Boot_sequence.html"><strong>RP2040 boot sequence</strong></a>: This project modifies the default boot sequence for the RP2040. I think it's best understood if the reader has a cursory understanding of the default boot sequence.</li>
+<li><a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html"><strong>Custom serial bootloader for the RP2040</strong></a>: The first step for generating a worm-like bootloader was to generate a custom serial bootloader. The worm is an augmentation of the custom serial bootloader described on this webpage.</li>
+<li><a href="https://vanhunteradams.com/Pico/Bootloader/Infrared.html"><strong>Wireless UART via infrared</strong></a>: This webpage describes the particular mechanism for wireless information transfer used in this demonstration.</li>
 </ul>
 
 </div>
@@ -13167,71 +13154,29 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
+<h2 id="Modifying-the-serial-bootloader">Modifying the serial bootloader<a class="anchor-link" href="#Modifying-the-serial-bootloader">&#182;</a></h2><p><a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">This webpage</a> describes a custom serial bootloader which we will modify so that it behaves like a worm. As described on that webpage, this serial bootloader lives directly above the <a href="https://vanhunteradams.com/Pico/Bootloader/Boot_sequence.html#Boot-stage-2">stage 2 bootloader</a> in RP2040 memory, and receives new executable programs via a <a href="https://vanhunteradams.com/Pico/Bootloader/Infrared.html">wireless UART interface</a>. This bootloader has the ability to replace existing user application code, and it has the ability to detect and branch to valid programs in flash memory. The user can force the device into bootloader mode via a GPIO port, or an application program can force the device into bootloader mode by writing to a watchdog scratch register and then executing a soft reset.</p>
+<p>When the system comes out of reset, the bootloader asks itself the following questions, in the following order:</p>
 <ol>
-<li><a href="./Pico/Bootloader/Bootloader.html">Custom serial bootloader for the RP2040</a></li>
-<li><a href="./Pico/Bootloader/Worm.html">Worm-like serial bootloader</a></li>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
+<li>Am I supposed to go directly into bootloader mode?<blockquote><ul>
+<li><strong>Yes</strong>: Skip straight to step 3.</li>
+<li><strong>No</strong>: Go to step 2.</li>
+</ul>
+</blockquote>
+</li>
+<li>Is there already a valid program in my flash memory?<blockquote><ul>
+<li><strong>Yes</strong>: Branch straight to it!</li>
+<li><strong>No</strong>: Go to step 3.</li>
+</ul>
+</blockquote>
+</li>
+<li>Start the bootloader, and wait to serially receive a new program.</li>
 </ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
+<p>The mechanisms by which it asks and answers these questions are discussed at length on the <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader webpage</a>. In order to allow for the RP2040 to share its <em>own</em> application code in a worm-like fashion, we are going to modify the above sequence of questions and actions to the following:</p>
+<figure>
+    <img align="center" width="700" height="500" src="worm_sm.png" alt='missing' />
+    <center><figcaption>Start-up state machine for worm-enabled bootloader</figcaption></center>
+</figure><p>In the diagram above <strong>green arrows</strong> indicate affirmative answers to questions, <strong>red arrows</strong> indicate negative answers, and <strong>black arrows</strong> indicate unconditional transitions.</p>
+<p>The <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader webpage</a> describes each part of this state machine <em>except</em> for the boxes drawn in orange. These are the augmentations which are required to turn the bootloader into a worm, and the ones that the rest of this webpage will discuss.</p>
 
 </div>
 </div>
@@ -13247,13 +13192,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
+<h2 id="Telling-the-bootloader-to-share-its-program">Telling the bootloader to share its program<a class="anchor-link" href="#Telling-the-bootloader-to-share-its-program">&#182;</a></h2><p>In order to determine whether it should share its valid program, the bootloader must check <em>something</em> to see if the user (or a program which forced a soft reset) is commanding the RP2040 to enter worm mode to share its program. In fact, the bootloader allows for the user to force the system into worm mode by holding down a button attached to a GPIO port, and it also allows for a program to force the system into bootloader mode using a watchdog peripheral scratch register.</p>
+<p>The watchdog peripheral can perform a soft reset of the RP2040, and it offers eight scratch registers which retain their value through a soft reset (but, importantly, not through a hard reset). These scratch registers are described on page 548 of the RP2040 datasheet. If a program wants to force the system back into bootloader mode, it writes a 1 to watchdog scratch register 1 and then forces a soft reset. After the soft reset, the bootloader will check both a GPIO and scratch register 1 for an answer to question 1 above.</p>
 
 </div>
 </div>
@@ -13269,77 +13209,186 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./Pico/Bootloader/Infrared.html">Wireless UART via infrared</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Birds-serial/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
+<h2 id="How-the-bootloader-shares-its-program">How the bootloader shares its program<a class="anchor-link" href="#How-the-bootloader-shares-its-program">&#182;</a></h2><p>In the event that the bootloader is sent into worm mode by a GPIO port or by a watchdog scratch register, it calls the function <code>shareApplication()</code>. This function is <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/f5f85bafe148e3ee578c67afbdb08fc9f6d4ec0f/Bootloaders/Serial_worm/Bootloader/serial_worm.c#L489"><strong>linked here</strong></a>, and discussed by section below.</p>
+<h4 id="Initializing-UART">Initializing UART<a class="anchor-link" href="#Initializing-UART">&#182;</a></h4><p>The first thing that the <code>shareApplication()</code> function does is initialize the UART channel. It is initialized for 1 stop bit, 8 data bits (since we'll be sending characters), default parity, and a baud rate of 4800. The baud rate is 4800 for compatibility with the <a href="https://vanhunteradams.com/Pico/Bootloader/Infrared.html">wireless infrared UART interface</a>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Setup UART</span>
+<span class="c1">// Initialize the UART channel</span>
+<span class="n">uart_init</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">BAUD_RATE</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Set our data format</span>
+<span class="n">uart_set_format</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">DATA_BITS</span><span class="p">,</span> <span class="n">STOP_BITS</span><span class="p">,</span> <span class="n">PARITY</span><span class="p">);</span>
+<span class="c1">// Turn off FIFO&#39;s - we want to do this character by character</span>
+<span class="n">uart_set_fifo_enabled</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="c1">// Set the TX and RX pins by using the function select on the GPIO</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">UART_TX_PIN</span><span class="p">,</span> <span class="n">GPIO_FUNC_UART</span><span class="p">);</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">UART_RX_PIN</span><span class="p">,</span> <span class="n">GPIO_FUNC_UART</span><span class="p">);</span>
+<span class="n">gpio_pull_up</span><span class="p">(</span><span class="n">UART_RX_PIN</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Initializing-PWM">Initializing PWM<a class="anchor-link" href="#Initializing-PWM">&#182;</a></h4><p>The <code>shareApplication()</code> function then initializes and starts a PWM channel to run with a 50% duty cycle at 56 kHz. This drives the IR LED which the UART TX line modulates on and off, as described on the <a href="https://vanhunteradams.com/Pico/Bootloader/Infrared.html">wireless infrared via UART</a> page.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Initialize PWM</span>
+<span class="c1">// Tell GPIO 0 and 1 they are allocated to the PWM</span>
+<span class="n">gpio_set_function</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">,</span> <span class="n">GPIO_FUNC_PWM</span><span class="p">);</span>
+<span class="c1">// Find out which PWM slice is connected to GPIO 0 (it&#39;s slice 0)</span>
+<span class="n">uint</span> <span class="n">slice_num</span> <span class="o">=</span> <span class="n">pwm_gpio_to_slice_num</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">);</span>
+<span class="c1">// Set period of 4 cycles (0 to 3 inclusive)</span>
+<span class="n">pwm_set_wrap</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="mi">2232</span><span class="p">);</span>
+<span class="c1">// Set initial B output high for three cycles before dropping</span>
+<span class="n">pwm_set_chan_level</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">PWM_CHAN_B</span><span class="p">,</span> <span class="mi">1116</span><span class="p">);</span>
+<span class="c1">// Set the PWM running</span>
+<span class="n">pwm_set_enabled</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</pre></div>
+<h4 id="Initialize-the-LED">Initialize the LED<a class="anchor-link" href="#Initialize-the-LED">&#182;</a></h4><p>Because it's useful to see the LED flash as the handshakes occur.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Initialize the LED pin</span>
+<span class="n">gpio_init</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">);</span>
+<span class="c1">// Configure the LED pin as an output</span>
+<span class="n">gpio_set_dir</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="n">GPIO_OUT</span><span class="p">);</span>
+</pre></div>
+<h4 id="Initialize-the-flash-pointer">Initialize the flash pointer<a class="anchor-link" href="#Initialize-the-flash-pointer">&#182;</a></h4><p>We are going to read the contents of flash memory and sent those contents, over the wireless serial link, to the receiving RP2040. We'll start reading the contents of flash memory at the <em>very beginning</em> of the application code.</p>
+<div class="highlight"><pre><span></span><span class="c1">// The pointer to flash memory</span>
+<span class="kt">uint8_t</span><span class="o">*</span> <span class="n">flash_pointer</span> <span class="o">=</span> <span class="n">application_start</span> <span class="p">;</span>
+</pre></div>
+<p>Per the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/Bootloaders/Serial_bootloader/Application/application_memmap.ld">modified linker script</a> discussed on the <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader webpage</a>, or at an address of 0x10003000. <code>application_start</code>, a global, is initialized as shown below.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Application program offset in flash (12*1024)</span>
+<span class="c1">// This should agree with the linker script for the</span>
+<span class="c1">// application program.</span>
+<span class="cp">#define PROGRAM_OFFSET 32768</span>
+
+<span class="c1">// Application information for programming another Pico</span>
+<span class="kt">uint8_t</span> <span class="o">*</span><span class="n">application_start</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint8_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">XIP_BASE</span> <span class="o">+</span> <span class="n">PROGRAM_OFFSET</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Claim-and-configure-a-DMA-channel">Claim and configure a DMA channel<a class="anchor-link" href="#Claim-and-configure-a-DMA-channel">&#182;</a></h4><p>The worm sends data to the receiving RP2040 in accordance with the <a href="https://en.wikipedia.org/wiki/Intel_HEX">Intel hexadecimal object file format</a>. This file format is discussed at length on the <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader webpage</a> but, in short, each line includes an address (which will come from the <code>flash_pointer</code>), a length (all will be 16 bytes long, arbitrarily chosen), a record type, the data itself, and a checksum. The checksum is the 2's complement of the LSB of the sum of all bytes in the packet which precede the checksum. The DMA sniffer, described on <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">page 97 of the RP2040 datasheet</a> provides an easy mechanism for computing this checksum. The code below acquires an unused DMA channel, configures it for 8-bit (1-byte) transfers, and configures the associated DMA sniffer. The DMA channel will simply move the packet to a dummy array, computing the checksum as it does so.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Claim and configure a DMA channel</span>
+<span class="n">dma_chan_1</span> <span class="o">=</span> <span class="n">dma_claim_unused_channel</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Configure the first channel (performs checksum)</span>
+<span class="n">dma_channel_config</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">dma_channel_get_default_config</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">);</span>
+<span class="n">channel_config_set_transfer_data_size</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="n">DMA_SIZE_8</span><span class="p">);</span>
+<span class="n">channel_config_set_read_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span> 
+<span class="n">channel_config_set_write_increment</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span> 
+<span class="n">dma_channel_configure</span><span class="p">(</span>
+    <span class="n">dma_chan_1</span><span class="p">,</span>                     <span class="c1">// Channel to be configured</span>
+    <span class="o">&amp;</span><span class="n">c1</span><span class="p">,</span>                            <span class="c1">// Config. we just created</span>
+    <span class="n">data_binary_dummy_dest</span><span class="p">,</span>         <span class="c1">// write address</span>
+    <span class="n">data_binary</span><span class="p">,</span>                    <span class="c1">// The initial read address</span>
+    <span class="mi">20</span><span class="p">,</span>                             <span class="c1">// Number of transfers</span>
+    <span class="nb">false</span>                           <span class="c1">// Don&#39;t start immediately.</span>
+<span class="p">);</span>
+
+<span class="c1">// Configure the sniffer!</span>
+<span class="n">dma_sniffer_enable</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">,</span> <span class="mh">0x0F</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+<span class="n">hw_set_bits</span><span class="p">(</span><span class="o">&amp;</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">sniff_data</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">);</span>
+</pre></div>
+<h4 id="Send-a-few-dummy-messages">Send a few dummy messages<a class="anchor-link" href="#Send-a-few-dummy-messages">&#182;</a></h4><p>Before sending any valid packets, the worm sends some packets with <em>incorrect</em> checksums. It sends ten of these, separated by about half a second. In the event that the application code which is running on the receiving device can receive UART messages, these dummy messages can be used to <em>tell</em> the other device to force itself into bootloader mode. Once in bootloader mode, any message which fails a checksum is simply ignored.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Get the other device into bootloader mode</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">17</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uart_putc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">to_boot</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="p">;</span>
+        <span class="n">sleep_ms</span><span class="p">(</span><span class="n">UART_SMALL_DELAY</span><span class="p">)</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">sleep_ms</span><span class="p">(</span><span class="n">UART_DELAY</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>The <code>to_boot</code> array that is being sent is a statically-stored array which encodes an extended linear address message with an incorrect checksum. This is stored globally, and copied below.</p>
+<div class="highlight"><pre><span></span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">to_boot</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>       <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;:&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;2&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span>
+                                   <span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span>
+                                   <span class="sc">&#39;4&#39;</span><span class="p">,</span><span class="sc">&#39;1&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;0&#39;</span><span class="p">,</span>
+                                   <span class="sc">&#39;0&#39;</span><span class="p">,</span><span class="sc">&#39;E&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">,</span><span class="sc">&#39;\n&#39;</span><span class="p">,</span> <span class="sc">&#39;\r&#39;</span><span class="p">}</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Clear-the-UART-receive-buffer">Clear the UART receive buffer<a class="anchor-link" href="#Clear-the-UART-receive-buffer">&#182;</a></h4><p>The FIFO is disabled for the UART, so reading a single character will clear the receive buffer. The receiving device will respond to every packet that it receives with a single character. Reading a character clears the receive buffer for subsequent transactions.</p>
+<div class="highlight"><pre><span></span><span class="c1">// The FIFO is disabled. One read will clear the rx register</span>
+<span class="n">uart_getc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Send-extended-linear-address-message">Send extended linear address message<a class="anchor-link" href="#Send-extended-linear-address-message">&#182;</a></h4><p>As described on the <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader page</a>, the bootloader state machine responds to a message with the extended linear address record type by preparing to receive a new program. It resets its own programming pointer, clears the first sector of memory, and clears the page buffer in preparation for subsequent data packets to arrive. We send one of these messages to get the receiving device ready to receive the program. Note that we <em>keep</em> sending the message for as long as the receiving device responds to those messages with the character <code>A</code>. This is the receiving device telling us "please send that again." As soon as it's understood the message (i.e., the checksum passed), it will respond with the character <code>B</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Send the hexline which indicates start of file</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">k</span><span class="o">&lt;</span><span class="mi">17</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uart_putc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">start_of_file</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">uart_getc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Send-the-program">Send the program<a class="anchor-link" href="#Send-the-program">&#182;</a></h4><p>The worm then sends its own application code, 16 bytes at a time. It does so by populating an array called <code>data_binary</code> according to the Intel hexadecimal object file format. The first byte in the array represents the length of the data payload (0x10, or 16 bytes). The second byte represents the most-significant 8 bits of the least-significant 16-bits of the base address for the data payload (the most significant 16 are in the extended linear address packet, per the Intel standard). The next byte is the least-significant 8 bits of the least-significant 16 bits of the address. The next byte is the record type (<code>0x00</code>, which represents "data"). And then we populate the next 16 bytes with the data at the address pointed to by <code>flash_pointer</code>, incrementing <code>flash_pointer</code> each time.</p>
+<p>The code then clears the DMA sniffer register, resets the DMA read and write address, starts the DMA channel and waits for it to finish. The DMA sniffer computes a checksum on the data in-flight, and then the last byte of the data binary is populated with the 2's complement of the least-significant byte of this checksum.</p>
+<p>All of the binary data in the <code>data_binary</code> array then gets converted to ASCII characters by means of a lookup table, and the resulting array of ASCII hex values gets stored in the character array <code>data</code>. The program reads the most recent character from the receiving device, clearing the receive buffer. It then sends the <code>data</code> array to the receiving device over the UART channel until it receives confirmation that the packet was received without error.</p>
+<p>The code continues doing this until it reaches a hard-coded end address, though this hard-coded end address could be replaced with the end of binary address as indicated in the binary info header.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Send all the data hexlines</span>
+    <span class="k">do</span> <span class="p">{</span>
+
+        <span class="c1">// Populate the first few bytes of the data binary</span>
+        <span class="n">data_binary</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x10</span> <span class="p">;</span>
+        <span class="n">data_binary</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)((((</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">flash_pointer</span><span class="p">))</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">;</span>
+        <span class="n">data_binary</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)(((</span><span class="kt">uint32_t</span><span class="p">)(</span><span class="n">flash_pointer</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">;</span>
+        <span class="n">data_binary</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x00</span> <span class="p">;</span>
+
+        <span class="c1">// Populate the data into the hexline</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">data_binary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">flash_pointer</span><span class="o">++</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Reset the sniff register to zero</span>
+        <span class="n">dma_sniffer_set_data_accumulator</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Use DMA to compute a checksum</span>
+        <span class="n">dma_channel_set_read_addr</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">,</span> <span class="n">data_binary</span><span class="p">,</span> <span class="nb">false</span><span class="p">)</span> <span class="p">;</span>
+        <span class="n">dma_channel_set_write_addr</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">,</span> <span class="n">data_binary_dummy_dest</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="p">;</span>
+        <span class="n">dma_channel_wait_for_finish_blocking</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Populate the checksum into the data binary</span>
+        <span class="n">data_binary</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)((</span><span class="o">~</span><span class="p">(</span><span class="n">dma_hw</span><span class="o">-&gt;</span><span class="n">sniff_data</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0x1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x000000FF</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Convert the data binary to hex characters</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">21</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numToHex</span><span class="p">((</span><span class="n">data_binary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xF</span><span class="p">)</span> <span class="p">;</span>
+            <span class="n">data</span><span class="p">[(</span><span class="n">i</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">numToHex</span><span class="p">(</span><span class="n">data_binary</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mh">0xF</span><span class="p">)</span> <span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Make sure the buffer is clear</span>
+        <span class="n">uart_getc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Send to the receiving device. Keep sending for as long</span>
+        <span class="c1">// as the response is A</span>
+        <span class="k">do</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">45</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">uart_putc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">uart_getc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="p">;</span>
+
+        <span class="c1">// Blink the LED</span>
+        <span class="n">gpio_put</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">,</span> <span class="o">!</span><span class="n">gpio_get</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">))</span> <span class="p">;</span>
+
+
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">data_binary</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="mh">0xA9</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Send-the-end-of-file-packet">Send the end of file packet<a class="anchor-link" href="#Send-the-end-of-file-packet">&#182;</a></h4><p>Send a packet with the "end of file" record type, which will cause the receiving device's bootloader to branch into the newly received program.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Get the other device into application mode</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">45</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">uart_putc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">,</span> <span class="n">end_of_file</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">uart_getc</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span><span class="o">==</span><span class="sc">&#39;A&#39;</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Clean-up">Clean up<a class="anchor-link" href="#Clean-up">&#182;</a></h4><p>De-init all peripherals, clear all interrupts, free DMA channels, etc. Tidy up before we leave the bootloader.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Clean up</span>
+<span class="c1">// Turn off interrupts (NVIC ICER, NVIC ICPR)</span>
+<span class="n">hw_set_bits</span><span class="p">((</span><span class="n">io_rw_32</span> <span class="o">*</span><span class="p">)</span><span class="mh">0xe000e180</span><span class="p">,</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+<span class="n">hw_set_bits</span><span class="p">((</span><span class="n">io_rw_32</span> <span class="o">*</span><span class="p">)</span><span class="mh">0xe000e280</span><span class="p">,</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+
+<span class="c1">// Free-up DMA</span>
+<span class="n">dma_channel_cleanup</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">dma_channel_unclaim</span><span class="p">(</span><span class="n">dma_chan_1</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Disable sniffer</span>
+<span class="n">dma_sniffer_disable</span><span class="p">()</span> <span class="p">;</span>
+
+<span class="c1">// Release UART and GPIO</span>
+<span class="n">uart_deinit</span><span class="p">(</span><span class="n">UART_ID</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">gpio_deinit</span><span class="p">(</span><span class="n">LED_PIN</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">gpio_deinit</span><span class="p">(</span><span class="n">BOOTLOAD_PIN</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Stop the PWM running</span>
+<span class="n">pwm_set_enabled</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+<span class="n">gpio_deinit</span><span class="p">(</span><span class="n">PWM_PIN</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Branch-to-our-program-in-flash-memory">Branch to our program in flash memory<a class="anchor-link" href="#Branch-to-our-program-in-flash-memory">&#182;</a></h4><p>Call the <code>handleBranch()</code> routine, described in the <a href="https://vanhunteradams.com/Pico/Bootloader/Bootloader.html">serial bootloader writeup</a>, which sets the main stack pointer and branches to the application code in flash memory.</p>
 
 </div>
 </div>
@@ -13348,189 +13397,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
