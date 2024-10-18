@@ -13077,7 +13077,26 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-statistics-of-an-idealized-Galton-Board">The statistics of an idealized Galton Board<a class="anchor-link" href="#The-statistics-of-an-idealized-Galton-Board">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+<h1 id="The-statistics-of-a-Galton-Board">The statistics of a Galton Board<a class="anchor-link" href="#The-statistics-of-a-Galton-Board">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><ul>
+<li><a href="#Setting-up-the-problem">Setting up the problem</a></li>
+<li><a href="#Distribution-for-a-one-row-Galton-Board">Distribution for a one-row Galton Board</a></li>
+<li><a href="#Distribution-for-a-two-row-Galton-Board">Distribution for a two-row Galton Board</a></li>
+<li><a href="#Distribution-for-a-three-row-Galton-Board">Distribution for a three-row Galton Board</a></li>
+<li><a href="#Distribution-for-an-n-row-Galton-Board">Distribution for an n-row Galton Board</a></li>
+<li><a href="#Interpretation-and-relationship-to-Pascal&#39;s-Triangle">Interpretation and relationship to Pascal's Triangle</a></li>
+<li><a href="#Convergence-to-Gaussian-by-Central-Limit-Theorem">Convergence to Gaussian by Central Limit Theorem</a></li>
+<li><a href="#A-quick-example">A quick example</a></li>
+<li><a href="#But-a-non-ideal-Galton-Board-still-seems-to-form-a-Gaussian?!">But a non-ideal Galton Board still seems to form a Gaussian?!</a></li>
+</ul>
+</blockquote>
+
 </div>
 </div>
 </div>
@@ -60447,9 +60466,25 @@ AAAAAADAAP8f+S+Z4l19NScAAAAASUVORK5CYII=\
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="A-quick-example">A quick example<a class="anchor-link" href="#A-quick-example">&#182;</a></h2><p>Let's suppose that we have a 1600-row Galton Board. Which range of bins will catch 68% of the balls?</p>
 <p>For a Gaussian, 68% of data (in our case, dropped balls) fall within one standard deviation of the mean. 95% fall within two standard deviations. And 99.7% fall within three standard deviations. The standard deviation of a 1600-row Galton Board is $\sqrt{\frac{1600}{4}} = 20$. So, 68% of balls will land in bins that are within 20 position from which the ball is dropped ($\frac{2000}{2}=1000$).</p>
 <p>So, the range of bins that will catch 68% of balls (slightly more), is 980-1020. We figured that out really fast! The central limit theorem allows for these sorts of shortcuts <em>if the conditions under which it is true are satisfied!</em> That is, all our random variables are independent, identically distributed, and have finite variance/expected value.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
