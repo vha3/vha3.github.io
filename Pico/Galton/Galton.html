@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Galton</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,33 +13077,22 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Digital-Galton-Board">Digital Galton Board<a class="anchor-link" href="#Digital-Galton-Board">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
-<blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Thought-experiments">Thought experiments</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this laboratory exercise, you will engineer a digital version of a Galton Board, which is one of the most famous physical demonstrations of order from chaos that has ever been constructed. The Galton Board delightfully combines <em>five</em> famous mathematical concepts: Bernoilli trials, the binomial distribution, the Gaussian distribution, Pascal's triangle, and the central limit theorem.</p>
+<p>A Galton Board is composed of interleaved rows of pegs. When one drops a ball onto the top row of pegs, it bounces its way to the bottom and ultimately lands in one of N+1 bins that rest between and beneath the N lowest pegs in the board. In an idealized Galton Board, the ball bounces against a peg in each row of the board. When it strikes that peg, it has a 50% chance of bouncing to the left, and a 50% chance of bouncing to the right. If you repeat this experiment over and over and over again, the count of balls in the bins forms a nice clean binomial distribution. And as the number of rows increases and the number of trials increases, this binomial distribution, by the central limit theorem, approaches a Gaussian distribution.</p>
+<figure>
+    <img align="center" width="700" height="700" src="Galton.png" alt='missing' />
+    <center><figcaption>Fig. 1: Galton Board overview</figcaption></center>
+</figure><p>It is really startling to watch! In fact, this phenomenon so impressed Francis Galton that he stated:</p>
+<p><em>The law [the central limit theorem] would have been personified by the Greeks and deified, if they had known of it. It reigns with serenity and in complete self-effacement amidst the wildest confusion. The huger the mob, and the greater the apparent anarchy, the more perfect is its sway. It is the supreme law of Unreason. Whenever a large sample of chaotic elements are taken in hand and marshalled in the order of their magnitude, an unsuspected and most beautiful form of regularity proves to have been latent all along.</em></p>
+<p>You will build a digital version of a board, through which you will drop as many balls as you can manage at 30 frames per second. The more thoughtful and efficient your code, the more balls you will be able to animate. Every time any ball strikes a peg there must be a "thunk!" sound effect. You don't want to waste cycles doing interrupt-based audio synthesis, so you will use a DMA channel to trigger the sound effects. The balls will bounce according to collision physics. You must count and plot the number of balls that land in each bin at the bottom of the board so that we can see the central limit theorem in action. You will implement a potentiometer-based interface that allows for the user to adjust parameters in realtime and thereby "play" with the central limit theorem.</p>
+<p><strong>Key concepts</strong>: Fixed point arithmetic, optimization, direct memory access, SPI, collision physics, analog to digital converter, computer animation, VGA, PIO, alpha max beta min, overclocking, multicore parallelism, binomial distribution, Gaussian distribution, central limit theorem, Pascal's triangle.</p>
 
 </div>
 </div>
@@ -13119,15 +13108,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, and teaching.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
-</ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-
+<h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13142,392 +13123,151 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
+<h2 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h2><p>Experience shows that students prefer these webpages short. For that reason, plese find the reading and background materials on the webpages linked below. <em>Please note that the information in these readings will be critical for completing the lab.</em></p>
+<p><strong>Math and physics background</strong></p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="./Papers/Earth_as_Computer.pdf">Op-Ed</a> $\longleftarrow$ A fictional vision of a future in which these ideas have taken hold, and how we might get there.</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
+<li><a href="./Galton_Stats.html"><strong>The statistics of an idealized Galton Board</strong></a>: Bernoilli, Binomial, and Gaussian, oh my!</li>
+<li><a href="./Collisions.html"><strong>The physics of colliding balls, with coefficient of restitution</strong></a>: Describes the physics that you will be implementing.</li>
+<li><a href="https://en.wikipedia.org/wiki/Alpha_max_plus_beta_min_algorithm"><strong>Alpha max plus beta min algorithm</strong></a>: An efficient algorithm for computing quick-and-dirty root sum of squares.</li>
 </ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
+<p><strong>Engineering background</strong></p>
 <ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
+<li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage. You will need to modify it if you want to overclock the RP2040.</li>
+<li><a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html"><strong>Fixed-point arithmetic</strong></a>: To animate the most-possible balls, you want for your arithmetic to be as fast as possible. Floating point is too slow. Fixed-point arithmetic allows for you to use integer arithmetic (which is way faster than floating point, on this architecture) while maintaining fractional resolution.</li>
+<li><a href="https://vanhunteradams.com/Protocols/SPI/SPI.html"><strong>SPI interface</strong></a>: You will generate sound effects by means of an SPI DAC. An understanding of this interface will help you debug.</li>
+<li><a href="https://vanhunteradams.com/Pico/Birds/DAC.pdf"><strong>DAC datasheet</strong></a>: Datasheet for the MCP4822 DAC we'll be using in this lab.</li>
+<li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: Sections on DMA, UART, Multicore, Timers, PIO, ADC, GPIO</li>
+<li><a href="https://www.raspberrypi.com/documentation/pico-sdk/hardware.html"><strong>RP2040 C SDK guide</strong></a>: Same sections as above</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/BLE/GATT_Server.html">GATT server on Pi Pico W</a></li>
-<li><a href="./Pico/BLE/GATT_Client.html">GATT client on Pi Pico W</a></li>
-<li><a href="./Pico/Galton/Galton.html">Digital Galton Board on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Bootloader/Bootloader.html">Custom serial bootloader for the RP2040</a></li>
-<li><a href="./Pico/Bootloader/Worm.html">Worm-like serial bootloader</a></li>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Galton/Collisions.html">The physics of colliding balls, with coefficient of restitution</a></li>
-<li><a href="./Pico/Galton/Galton_Stats.html">The statistics of a Galton Board</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./Pico/Bootloader/Infrared.html">Wireless UART via infrared</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Pico/Birds/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32)</a></li>
-<li><a href="./4760/4760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/">Student final projects (since 1999)</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="./DE1/5760_student_projects.html">Student final projects (since Hunter has been instructor)</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects (since 2006)</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="https://www.youtube.com/watch?v=47sJEYMBIZw&amp;list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa&amp;index=17&amp;t=1594s">The Mandelbrot Set</a>. From an ECE 5760 lecture (above). Linked separately because it is a favorite topic.</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thought-experiments">Thought experiments<a class="anchor-link" href="#Thought-experiments">&#182;</a></h2><p>Thinking about the programs that people generate, and vice versa. These are playful, not rigorous.</p>
-<ol>
-<li><a href="./Essays/Characters_in_a_story.pdf">Can characters in a story figure out that they're in a story?</a></li>
-<li><a href="./Essays/Black_holes.pdf">Are black holes symptomatic of a simulation, or of a bandwidth-limit on the universe?</a></li>
-<li><a href="./Essays/Earth_as_computer.pdf">What does a future in which natural computing has taken hold look like?</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
+<p><strong>Some collision-physics pseudocode</strong></p>
 <ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
+<li>Some pseudocode that shows how ball positions are updated each frame:</li>
 </ul>
-<p><strong>Articles</strong></p>
+
+<pre><code>// Pseudocode for updating a ball's position between frames.
+// There are LOTS of opportunities to optimize this! Look for ways
+// to speed this up!!
+
+// Each frame, we update every ball . . .
+for each ball:
+
+    // Every ball looks at every peg . . .
+    for each peg:
+
+        // Compute x and y distances between ball and peg
+        dx = ball.x - peg.x
+        dy = ball.y - peg.y
+
+        // Are both the x and y distances less than the collision distance?
+        if ((|dx| &lt; (ball.radius + peg.radius)) and (|dy| &lt; (ball.radius + peg.radius))):
+
+            // If so, compute the distance separating ball and peg
+            distance = sqrt(dx^2 + dy^2)
+
+            // Generate the normal vector that points from peg to ball
+            normal_x = dx/distance
+            normal_y = dy/distance
+
+            // Collision physics (see webpage)
+            intermediate_term = -2*((normal_x * ball.vx) + (normal_y * ball.vy))
+
+            // Are the ball velocity and normal vectors in opposite directions?
+            if (intermediate_term &gt; 0):
+
+                // Teleport it outside the collision distance with the peg
+                ball.x = peg.x + (normal_x * (distance+1))
+                ball.y = peg.y + (normal_y * (distance+1))
+
+                // Update its velocity (see collision physics webpage)
+                ball.vx = ball.vx + (normal_x * intermediate_term)
+                ball.vy = ball.vy + (normal_y * intermediate_term)
+
+                // Did we just strike a new peg?
+                if current_peg != last_peg:
+
+                    // Make a sound
+                    dma.trigger()
+
+                    // Remove some energy from the ball
+                    ball.vx = bounciness * ball.vx
+                    ball.vy = bounciness * ball.vy
+
+    // Re-spawn any balls that fall thru bottom
+    if hit bottom:
+        re-spawn at top
+
+    // Bounce any balls that hit top/sides
+    if hit left/right/top:
+        invert appropriate velocity component to bounce
+
+
+    // Apply gravity
+    ball.vx = ball*vx + gravity
+
+    // Use ball's updated velocity to update its position
+    ball.x = ball.x + ball.vx
+    ball.y = ball.y + ball.vy</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Weekly-Checkpoints">Weekly Checkpoints<a class="anchor-link" href="#Weekly-Checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
+<p><strong>Week 1</strong></p>
 <ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
+<li>Starting from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/VGA_Graphics/Animation_Demo">this example</a>, and using the pseudocode above (which comes from the <a href="https://vanhunteradams.com/Pico/Galton/Collisions.html">collision physics for the digital Galton Board webpage</a>), get one ball to bounce off one peg.<blockquote><ul>
+<li>This ball should be "dropped" from the top of the screen with zero y-velocity, and a randomized (small) x-velocity.</li>
+<li>The ball should accelerate downward by gravity and collide with the peg underneath, bouncing off.</li>
+<li>There should be an audible sound effect, generated by DMA, when the ball strikes the peg. Modify the DMA channels from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/e_DMA_Demo">this example</a> to generate the sound effect.</li>
+<li>When the ball exits the bottom of the screen, it should automatically drop again from the top.</li>
+<li>Use the default parameters provided in the image below.</li>
 </ul>
-<p><strong>External links</strong></p>
+</blockquote>
+</li>
+</ul>
+<figure>
+    <img align="center" width="700" height="700" src="Parameters.png" alt='missing' />
+    <center><figcaption>Fig. 2: Galton Board parameters</figcaption></center>
+</figure><p><strong>Week 2</strong></p>
 <ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
+<li>Generate the 16-row Galton Board, and animate at least 10 balls falling through it. Each ball should generate a sound effect when it collides with a new peg, and each should be re-spawned when it falls thru the bottom of the screen.</li>
+<li>The user should be able to adjust the number of balls by means of a potentiometer.</li>
+<li>The VGA screen should display:<blockquote><ul>
+<li>The current number of balls being animated.</li>
+<li>The total number that have fallen through the board since reset.</li>
+<li>Time since boot</li>
+</ul>
+</blockquote>
+</li>
+<li>Generate a histogram underneath the Galton Board that shows the number of balls that have fallen through each pair of pegs in the bottom row. </li>
+<li>Normalize the height of the histogram to the available vertical space beneath the Galton Board.</li>
+</ul>
+<p><strong>Week 3</strong></p>
+<ul>
+<li>At reset, the maximum number of balls which you can animate at 30fps should be dropped into the top of the Galton Board.</li>
+<li>Each of these balls should generate a "thunk" sound when it hits a new peg.</li>
+<li>The user interface is an external button and a potentiometer. At reset, the potentiometer should not affect the animation. Upon a button push, the potentiometer adjusts the number of balls. Upon a second push, the potentiometer adjusts the <em>bounciness</em> parameter. The user should be able to cycle through all these states via repeated button pushes, and the state should be shown on the VGA display.</li>
+<li>A histogram, normalized to the available vertical space beneath the Galton Board, should show the number of balls that have fallen through each pair of pegs in the bottom row.</li>
+<li>The VGA screen should display:<blockquote><ul>
+<li>The current number of balls being animated.</li>
+<li>The total number that have fallen through the board since reset.</li>
+<li>Time since boot</li>
+</ul>
+</blockquote>
+</li>
+<li>Adjusting any parameter by means of the potentiometer should reset the histogram, and reset the total number of balls that have fallen through the board since reset.</li>
+<li>If the 30fps deadline is missed, the LED should turn on.</li>
+<li><strong>5760 students only</strong>: Add another state, in which the potentiometer adjusts any one of the other Galton board parameters.</li>
 </ul>
 
 </div>
@@ -13544,21 +13284,20 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
+<h2 id="Lab-Report">Lab Report<a class="anchor-link" href="#Lab-Report">&#182;</a></h2><p>Your lab report should include all the sections mentioned on the <a href="https://vanhunteradams.com/Pico/CourseMaterials/Policy.html">policy page</a>, and also answer the following questions:</p>
+<ul>
+<li>Our physical model of the Galton Board differs from the idealized model. In order for the Central Limit Theorem to hold, all random numbers must be <strong>independent</strong>, <strong>identically distributed</strong>, and have <strong>finite variance.</strong> Which of these assumptions hold for our physical Galton Board model, and which do not? Why do we still see a distribution that approaches a Gaussian? (You needn't prove anything here, just try to identify the generalization of the CLT that is responsible for this).</li>
+<li>The Gaussian approximates the distribution under the Galton board <em>better</em> with <em>more rows in the board</em>. Why?</li>
+<li>For your 16-row Galton Board, what is the mean and standard deviation of the Gaussian which approximates the resulting distribution (under the assumption that your Galton Board is "ideal")?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
