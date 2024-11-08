@@ -13084,6 +13084,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this laboratory exercise, you will engineer a digital version of a Galton Board, which is one of the most famous physical demonstrations of order from chaos that has ever been constructed. The Galton Board delightfully combines <em>five</em> famous mathematical concepts: Bernoilli trials, the binomial distribution, the Gaussian distribution, Pascal's triangle, and the central limit theorem.</p>
 <p>A Galton Board is composed of interleaved rows of pegs. When one drops a ball onto the top row of pegs, it bounces its way to the bottom and ultimately lands in one of N+1 bins that rest between and beneath the N lowest pegs in the board. In an idealized Galton Board, the ball bounces against a peg in each row of the board. When it strikes that peg, it has a 50% chance of bouncing to the left, and a 50% chance of bouncing to the right. If you repeat this experiment over and over and over again, the count of balls in the bins forms a nice clean binomial distribution. And as the number of rows increases and the number of trials increases, this binomial distribution, by the central limit theorem, approaches a Gaussian distribution.</p>
 <figure>
@@ -13109,6 +13117,13 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VOIE5LPyDrw?si=IpdmydPe4uDKPFcV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 </div>
 </div>
@@ -13261,13 +13276,14 @@ for each ball:
 <li>The VGA screen should display:<blockquote><ul>
 <li>The current number of balls being animated.</li>
 <li>The total number that have fallen through the board since reset.</li>
+<li>Values of other tunable parameters</li>
 <li>Time since boot</li>
 </ul>
 </blockquote>
 </li>
 <li>Adjusting any parameter by means of the potentiometer should reset the histogram, and reset the total number of balls that have fallen through the board since reset.</li>
 <li>If the 30fps deadline is missed, the LED should turn on.</li>
-<li><strong>5760 students only</strong>: Add another state, in which the potentiometer adjusts any one of the other Galton board parameters.</li>
+<li><strong>5730 students only</strong>: Add another state, in which the potentiometer adjusts any one of the other Galton board parameters.</li>
 </ul>
 
 </div>

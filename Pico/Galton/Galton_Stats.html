@@ -13476,7 +13476,11 @@ P(Y=3) &amp;= P(X_1+X_2+X_3=1.5)\\
 <h2 id="Distribution-for-an-n-row-Galton-Board">Distribution for an n-row Galton Board<a class="anchor-link" href="#Distribution-for-an-n-row-Galton-Board">&#182;</a></h2><p>At this point, we can see a pattern emerging. In the expression below, $k$ is the position of the bin as labeled in the figure at the top of the webpage, and $n$ is the total number of rows in the Galton board.</p>
 \begin{align}
 P(Y=k) &amp;= \begin{pmatrix}n\\k\end{pmatrix}p^{k}(1-p)^{n-k}
-\end{align}<p>The Binomial distribution describes the sum of Bernoilli trials. And in the case of our idealized Galton board $p=0.5$, and so this simplifies even further.</p>
+\end{align}<p>Indeed, we can prove by induction that this is the case. As our base case, we've shown that the probability of landing in bin $k$ for a one-row Galton Board is distributed as $B(1,p)$. (We've actually also shown that the probability of landing in bin $k$ for a two-row Galton Board is distributed as $B(2,p)$, and that the probability of landing in bin $k$ for a three-row Galton Board is distributed as $B(3,p)$). With our base case, we make the induction hypothesis shown above.</p>
+<p>For our induction step, we consider adding one more row to our Galton Board. In effect, this adds one more independent Bernoilli trial with probability of bouncing left $p$, and probability of bouncing right $(1-p)$. Let's call this additional Bernoilli trial $Z$, and define a new random variable $W = Y+Z$. By our hypothesis, $Y \sim B(n,p)$.</p>
+\begin{align}
+P(W=k) &amp;= P\left(Y=k+\frac{1}{2}\right)p + P\left(Y=k-\frac{1}{2}\right)(1-p)
+\end{align}<p>We've shown that the distribution for the $n+1$-row Galton Board depends on that of the $n$-row Galton Board in a way that mirrors the Binomial distribution. Thus, each additional row that we add to the board preserves this distribution. This proves that the Binomial distribution describes the sum of Bernoilli trials. And in the case of our idealized Galton board $p=0.5$, and so this simplifies even further.</p>
 \begin{align}
 P(Y=k) &amp;= \begin{pmatrix}n\\k\end{pmatrix}\frac{1}{2^n}
 \end{align}<p>As we increase the number of rows in our Galton Board, here's what happens to our distribution. Do you see an old friend emerging?</p>
