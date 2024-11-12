@@ -13203,7 +13203,7 @@ div#notebook {
 <li>Using <a href="https://vanhunteradams.com/Pico/CourseMaterials/Building_Demos.html">this webpage</a> as a guide, download and build the course demo code on a laboratory PC</li>
 </ul>
 <h4 id="Week-1">Week 1<a class="anchor-link" href="#Week-1">&#182;</a></h4><ul>
-<li><p>In <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/d_Audio_Beep_Synthesis_Single_Core"><strong>this example code</strong></a>, direct digital synthesis is used to generate a pure sine wave "beep". Connect the DAC to the Pico per the <code>#define</code> statements at the top of the source code and the <a href="./DAC.pdf">DAC datasheet</a>, build the code, and load it onto the Pico. Please note that different manufacturers use different names for SPI signals! Here are the correct connections:</p>
+<li><p>In <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/c_Audio_Beep_Synthesis_Single_Core"><strong>this example code</strong></a>, direct digital synthesis is used to generate a pure sine wave "beep". Connect the DAC to the Pico per the <code>#define</code> statements at the top of the source code and the <a href="./DAC.pdf">DAC datasheet</a>, build the code, and load it onto the Pico. Please note that different manufacturers use different names for SPI signals! Here are the correct connections:</p>
 <blockquote><p><code>3.3V(OUT)</code> --&gt; <code>VDD</code><br>
 <code>GND</code> --&gt; <code>VSS</code><br>
 <code>PIN_CS</code> --&gt; $\overline{\text{CS}}$<br>
@@ -13217,7 +13217,7 @@ div#notebook {
 </ul>
 <h4 id="Week-2">Week 2<a class="anchor-link" href="#Week-2">&#182;</a></h4><ul>
 <li>Use the <a href="https://vanhunteradams.com/Pico/Keypad/Keypad.html"><strong>keypad webpage</strong></a> to connect the keypad to the Pico. Use the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> to confirm that your connections are correct.</li>
-<li>Integrate the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> with the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/d_Audio_Beep_Synthesis_Single_Core"><strong>beep beep demo code</strong></a> from last week. Have the program produce a single beep each time you press a key (requires debouncing).</li>
+<li>Integrate the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> with the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/c_Audio_Beep_Synthesis_Single_Core"><strong>beep beep demo code</strong></a> from last week. Have the program produce a single beep each time you press a key (requires debouncing).</li>
 <li>Modify the program such that it produces exactly one swoop sound each time you press the 1 key, and one chirp sound each time you press the 2 key. These sounds should be amplitude modulated so that there are no audio artifacts (clicks, pops, etc.).</li>
 <li>The program should set a GPIO pin when it enters the synthesis ISR, and clear the GPIO pin when it leaves the synthesis ISR. Use the oscilloscope to measure the time that you are spending in the ISR. How can you make it faster? Why are some sounds faster than others?</li>
 <li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
