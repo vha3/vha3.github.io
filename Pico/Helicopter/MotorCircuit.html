@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="DC-motor-circuit-and-PWM-on-RP2040">DC motor circuit and PWM on RP2040<a class="anchor-link" href="#DC-motor-circuit-and-PWM-on-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams-(vha3@cornell.edu)">V. Hunter Adams (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4>
+<h1 id="DC-motor-circuit-and-PWM-on-RP2040">DC motor circuit and PWM on RP2040<a class="anchor-link" href="#DC-motor-circuit-and-PWM-on-RP2040">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13092,7 +13092,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Overview-of-circuit">Overview of circuit<a class="anchor-link" href="#Overview-of-circuit">&#182;</a></h3><p>The motor circuit must protect the microcontroller from the large $L \frac{dI}{dt}$ voltage spikes that come off of a PWM-driven DC motor. The 4N35 optoisolator completely isolates the MCU from the motor. The 1N4001 snubber diode provides a path to ground for reverse-polarity spikes coming off the motor, and the capacitor in parallel with the 1N4001 provides a path to ground for higher frequency noise. Some of the components in this circuit require some experimentation/trial and error. The resistor attached to the base of the 4N35 should be set for best falltime, probably ~1MOhm. The capacitor in parallel with the motor should be ceramic (electrolytics are too slow) and should start with a value ~0.1uF. If there is too much spike noise on the analog input, this value can be increased.</p>
+<h3 id="Overview-of-circuit">Overview of circuit<a class="anchor-link" href="#Overview-of-circuit">&#182;</a></h3><p>The motor circuit must protect the microcontroller from the large $L \frac{dI}{dt}$ voltage spikes that come off of a PWM-driven DC motor. The 4N35 optoisolator completely isolates the MCU from the motor. The 1N4001 snubber diode provides a path to ground for reverse-polarity spikes coming off the motor, and the capacitor in parallel with the 1N4001 provides a path to ground for higher frequency noise. Some of the components in this circuit require some experimentation/trial and error. The resistor attached to the base of the 4N35 should be set for best falltime, probably ~1MOhm. The capacitor in parallel with the motor should be ceramic (electrolytics are too slow) and should start with a value ~0.1uF. If there is too much spike noise on the analog input, this value can be increased. Note that we're driving the gate of the power mosfet at 12V, and the motor at 5-6V.</p>
 <figure>
     <img align="center" width="700" height="500" src="motorcircuit.png" alt='missing' />
     <center><figcaption></figcaption></center>
@@ -13100,9 +13100,9 @@ div#notebook {
 <table><tr>
 <td> <img src="lab4_optoisolator.png" alt="Drawing" style="width: 150px;"/> </td>
 <td> <img src="lab4_BUZ71symbol.png" alt="Drawing" style="width: 150px;"/> </td>
-<td> <img src="irf640_picture.png" alt="Drawing" style="width: 150px;"/> </td>
-<td> <img src="lab3_aot_image.png" alt="Drawing" style="width: 150px;"/> </td>
-<td> <img src="lab4_SK_picture.png" alt="Drawing" style="width: 150px;"/> </td>
+<td> <img src="IRLB8721.png" alt="Drawing" style="width: 150px;"/> </td>
+<!-- <td> <img src="lab3_aot_image.png" alt="Drawing" style="width: 150px;"/> </td>
+<td> <img src="lab4_SK_picture.png" alt="Drawing" style="width: 150px;"/> </td> -->
 </tr></table>
 </div>
 </div>
@@ -13118,11 +13118,20 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Building-and-debugging-the-circuit">Building and debugging the circuit<a class="anchor-link" href="#Building-and-debugging-the-circuit">&#182;</a></h3><p><strong>Do not build this whole circuit without testing as you go.</strong> Start by building the piece of the circuit indicated in the diagram below. Use the function generator to generate a PWM input, and use the oscilloscope to confirm that you're seeing a PWM output at the junction indicated.</p>
+<h3 id="Building-and-debugging-the-circuit">Building and debugging the circuit<a class="anchor-link" href="#Building-and-debugging-the-circuit">&#182;</a></h3><p><strong>You will not be building this circuit on a solderless breadboard. It would melt if you did so. (Ask me how I know).</strong> Instead, you will use a small solderboard. <a href="https://people.ece.cornell.edu/land/courses/ece4760/Analog/motor_controller/index_motor.html">Bruce has put together an excellent guide to help you do this</a>. This is more reliable, and reusable for other projects!</p>
+<p><strong>Do not build this whole circuit without testing as you go.</strong> Start by building the piece of the circuit indicated in the diagram below. Use the function generator to generate a PWM input, and use the oscilloscope to confirm that you're seeing a PWM output at the junction indicated.</p>
 <figure>
     <img align="center" width="700" height="500" src="motorcircuit_start.png" alt='missing' />
     <center><figcaption></figcaption></center>
 </figure><p>Only once you've confirmed that this part of the circuit works, add the rest. <strong>Double-check the gate/source/drain for the MOSFET.</strong> It is an easy mistake to swap drain for source.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
