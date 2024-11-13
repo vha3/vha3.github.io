@@ -13093,6 +13093,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Overview-of-circuit">Overview of circuit<a class="anchor-link" href="#Overview-of-circuit">&#182;</a></h3><p>The motor circuit must protect the microcontroller from the large $L \frac{dI}{dt}$ voltage spikes that come off of a PWM-driven DC motor. The 4N35 optoisolator completely isolates the MCU from the motor. The 1N4001 snubber diode provides a path to ground for reverse-polarity spikes coming off the motor, and the capacitor in parallel with the 1N4001 provides a path to ground for higher frequency noise. Some of the components in this circuit require some experimentation/trial and error. The resistor attached to the base of the 4N35 should be set for best falltime, probably ~1MOhm. The capacitor in parallel with the motor should be ceramic (electrolytics are too slow) and should start with a value ~0.1uF. If there is too much spike noise on the analog input, this value can be increased. Note that we're driving the gate of the power mosfet at 12V, and the motor at 5-6V.</p>
+<p>Note that this circuit has the benefit of putting the BJT into high-gain switch mode, but inverts the PWM signal from the microcontroller. Fortunately, a bit in the PWM control register for the RP2040 allows for us to invert the output.</p>
 <figure>
     <img align="center" width="700" height="500" src="motorcircuit.png" alt='missing' />
     <center><figcaption></figcaption></center>
@@ -13139,7 +13140,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Generating-PWM">Generating PWM<a class="anchor-link" href="#Generating-PWM">&#182;</a></h3><p>The PWM chapter in the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a> is short, read it!! The RP2040's PWM block is organized into "slices", each of which is connected to two GPIO ports. All 30 GPIO ports can be driven by the PWM block, but only 16 can be driven independently. Each PWM slice is equipped with a 16-bit counter, 8.4 fractional clock divider, two independent output channels, dual slope and trailing edge modulation, interrupt request and DMA request on counter wrap, and advanceable/retardable phase. Furthermore, each can be used in <em>input mode</em> to measure the duty cycle and frequency of an input signal.</p>
+<h3 id="Generating-PWM">Generating PWM<a class="anchor-link" href="#Generating-PWM">&#182;</a></h3><p>The PWM chapter in the <a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf">RP2040 datasheet</a> is short, read it!! The RP2040's PWM block is organized into "slices", each of which is connected to two GPIO ports. All 30 GPIO ports can be driven by the PWM block, but only 16 can be driven independently. Each PWM slice is equipped with a 16-bit counter, 8.4 fractional clock divider, two independent output channels, dual slope and trailing edge modulation, interrupt request and DMA request on counter wrap, and advanceable/retardable phase. Furthermore, each can be used in <em>input mode</em> to measure the duty cycle and frequency of an input signal. Each PWM channel can also be configured such that its output is inverted, which is handy for our application!</p>
 <p>The following code shows how to configure a PWM channel to throw an interrupt each time it wraps. We first map a particular GPIO (in this case, GPIO 5) to the PWM block. We use an SDK function to obtain the PWM slice associated with that GPIO (we could alternatively have looked this up in the datasheet). Then, we clear the interrupt associated with that GPIO slice, enable it, configure it such that it enters the ISR called <code>on_pwm_wrap()</code> each time the PWM wraps, end then enable the interrupt with the <code>PWM_IRQ_WRAP</code> interrupt flag.</p>
 <p>Finally, we configure the wrapvalue and clock divider for the PWM channel, set the level (i.e. duty cycle) and start the channel.</p>
 <p>Depending what you're trying to do with the PWM channel, you might omit some of these configurations.</p>
@@ -13162,6 +13163,12 @@ div#notebook {
 <span class="c1">// This section configures the period of the PWM signals</span>
 <span class="n">pwm_set_wrap</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">WRAPVAL</span><span class="p">)</span> <span class="p">;</span>
 <span class="n">pwm_set_clkdiv</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">CLKDIV</span><span class="p">)</span> <span class="p">;</span>
+
+<span class="c1">// Invert?</span>
+<span class="c1">// First argument is slice number.</span>
+<span class="c1">// If second argument is true, channel A is inverted.</span>
+<span class="c1">// If third argument is true, channel B is inverted.</span>
+<span class="n">pwm_set_output_polarity</span> <span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
 
 <span class="c1">// This sets duty cycle</span>
 <span class="n">pwm_set_chan_level</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">PWM_CHAN_B</span><span class="p">,</span> <span class="mi">3125</span><span class="p">);</span>
