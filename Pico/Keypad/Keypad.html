@@ -13130,7 +13130,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reading-the-keypad">Reading the keypad<a class="anchor-link" href="#Reading-the-keypad">&#182;</a></h2><h3 id="Configuring-GPIO's">Configuring GPIO's<a class="anchor-link" href="#Configuring-GPIO's">&#182;</a></h3><p>To scan the keypad for button presses, we will configure each of the GPIO's connected to the <em>rows</em> of the keypad (9-12, as shown in Fig. 2) as <em>outputs</em>, and we'll configure each of the GPIO's connected to the <em>columns</em> of the keypad (13-15, as shown in Fig. 2) as <em>inputs</em>. For each of the input pins, we will enable internal pullup resistors. To start, we'll set all the output GPIO's attached <em>low.</em></p>
+<h2 id="Reading-the-keypad">Reading the keypad<a class="anchor-link" href="#Reading-the-keypad">&#182;</a></h2><h3 id="Configuring-GPIO's">Configuring GPIO's<a class="anchor-link" href="#Configuring-GPIO's">&#182;</a></h3><p>To scan the keypad for button presses, we will configure each of the GPIO's connected to the <em>rows</em> of the keypad (9-12, as shown in Fig. 2) as <em>outputs</em>, and we'll configure each of the GPIO's connected to the <em>columns</em> of the keypad (13-15, as shown in Fig. 2) as <em>inputs</em>. For each of the input pins, we will enable internal pulldown resistors. To start, we'll set all the output GPIO's attached <em>low.</em></p>
 <p>Using the C SDK for the RP2040, all of these configurations look like the following:</p>
 <div class="highlight"><pre><span></span><span class="cp">#define BASE_KEYPAD_PIN 9</span>
 
@@ -13368,7 +13368,7 @@ div#notebook {
 <td style="text-align:center">0</td>
 <td style="text-align:center">0x8</td>
 <td style="text-align:center">0x08</td>
-<td style="text-align:center">Pressed *</td>
+<td style="text-align:center">No press</td>
 </tr>
 <tr>
 <td style="text-align:center">0</td>
