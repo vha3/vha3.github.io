@@ -13490,7 +13490,7 @@ if boid.y &lt; topmargin:
 <code>speed = sqrt(boid.vx*boid.vx + boid.vy*boid.vy)</code></li>
 <li>If <code>speed&gt;maxspeed</code>:<br>
 <code>boid.vx = (boid.vx/speed)*maxspeed</code><br>
-<code>boid.vy = (boid.vy/speed)*minspeed</code></li>
+<code>boid.vy = (boid.vy/speed)*maxspeed</code></li>
 <li>If <code>speed&lt;minspeed</code>:<br>
 <code>boid.vx = (boid.vx/speed)*minspeed</code><br>
 <code>boid.vy = (boid.vy/speed)*minspeed</code></li>
