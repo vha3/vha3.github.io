@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Connecting</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,33 +13077,40 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Connecting-to-WiFi-with-the-Pi-Pico-W">Connecting to WiFi with the Pi Pico W<a class="anchor-link" href="#Connecting-to-WiFi-with-the-Pi-Pico-W">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Thought-experiments">Thought experiments</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#The-Pico-W-WiFi-stack">The Pico W Wifi stack</a></li>
+<li><a href="#What-happens-when-we-connect-to-WiFi?">What happens when we connect to WiFi?</a><blockquote><ul>
+<li><a href="#Setting-up-a-network">Setting up a network</a></li>
+<li><a href="#Connecting-to-the-network">Connecting to the network</a></li>
 </ul>
 </blockquote>
+</li>
+<li><a href="#Connecting-to-WiFi-with-the-Pico-W">Connecting to WiFi with the Pico W</a><blockquote><ul>
+<li><a href="#Initializing-the-hardware">Initializing the hardware</a></li>
+<li><a href="#Putting-the-device-into-station-mode">Putting the device into station mode</a></li>
+<li><a href="#Connecting-to-the-network">Connecting to the network</a></li>
+<li><a href="#Viewing-and-customizing-the-network-interface">Viewing and customizing the network interface</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#A-function-for-connecting-to-a-network">A function for connecting to a network</a></li>
+<li><a href="#CMake">CMake</a></li>
+<li><a href="#Other-odds-and-ends">Other odds and ends</a><blockquote><ul>
+<li><a href="#Scanning-networks">Scanning networks</a></li>
+<li><a href="#Getting-signal-strength">Getting signal strength</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<p><strong>Please note</strong>, my primary resource for this webpage is <a href="https://www.amazon.com/Master-Raspberry-Pi-Pico-mbedtls/dp/1871962811/ref=pd_bxgy_thbs_d_sccl_1/145-0480932-9991861?pd_rd_w=K3PxJ&amp;content-id=amzn1.sym.dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_p=dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_r=KG4YEA5VKCP6WVB02XPG&amp;pd_rd_wg=D8Le5&amp;pd_rd_r=270e4e0e-0a3d-40c0-a916-99aec74f4d9d&amp;pd_rd_i=1871962811&amp;psc=1">Fairhead and James</a>.</p>
 
 </div>
 </div>
@@ -13119,17 +13126,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, teaching, and service/open-source.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
-</ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<h4 id="On-service,-and-on-open-sourcing-one's-work-.-.-.">On service, and on open-sourcing one's work . . .<a class="anchor-link" href="#On-service,-and-on-open-sourcing-one's-work-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Service.pdf">Service statement</a></li>
-</ul>
+<h2 id="The-Pico-W-WiFi-stack">The Pico W WiFi stack<a class="anchor-link" href="#The-Pico-W-WiFi-stack">&#182;</a></h2><p>There are two libraries that facilitate WiFi on the Pi Pico W. There exists a very low-level library, <code>cyw43_driver</code>, that allows for interaction with the CYW43 chip via an SPI interface. For almost everyone, this library is probably a layer or two <em>beneath</em> that on which they will be doing most of their engineering. The pico SDK includes a slightly-higher-level library, <code>pico_cyw43_arch</code>, which implements some functions that use the low-level driver to do things like scan for access points, connect to access points, etc. This is the lowest-level library that most folks will probably use in their projects, and they'll use this library to <em>setup</em> WiFi rather than sending data over WiFi.</p>
+<p>Above this sits the <code>pico_lwip</code> library, which is a wrapper for Adam Dunkels' <a href="https://en.wikipedia.org/wiki/LwIP">Lightweight IP</a>. This is a open-sourced TCP/IP stack designed for embedded systems, and ported to the Pi Pico W.</p>
+<p>This webpage focuses only on how one uses the <code>pico_cyw43_arch</code> library to setup a WiFi connection with a Pico W. Subsequent webpages will discuss how to utilize the <code>pico_lwip</code> library to exchange data over WiFi via UDP and TCIP/IP. As a resource for this documentation, I am making extensive use of <a href="https://www.amazon.com/Master-Raspberry-Pi-Pico-mbedtls/dp/1871962811/ref=pd_bxgy_thbs_d_sccl_1/145-0480932-9991861?pd_rd_w=K3PxJ&amp;content-id=amzn1.sym.dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_p=dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_r=KG4YEA5VKCP6WVB02XPG&amp;pd_rd_wg=D8Le5&amp;pd_rd_r=270e4e0e-0a3d-40c0-a916-99aec74f4d9d&amp;pd_rd_i=1871962811&amp;psc=1">Master the Raspberry Pi Pico in C: WiFi with LWIP and mbedutils</a>. I'm also making use of the <a href="https://github.com/lwip-tcpip/lwip/tree/master/contrib/apps">LWIP examples</a>, and the <a href="https://github.com/raspberrypi/pico-examples/tree/master/pico_w/wifi/udp_beacon">pi pico examples</a>. Bruce also has some <a href="https://people.ece.cornell.edu/land/courses/ece4760/RP2040/C_SDK_LWIP/UDP_2_pico/index_udp_2_pico.html">really nice examples</a> from which to start a project.</p>
 
 </div>
 </div>
@@ -13145,18 +13144,91 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
+<h2 id="What-happens-when-we-connect-to-WiFi?">What happens when we connect to WiFi?<a class="anchor-link" href="#What-happens-when-we-connect-to-WiFi?">&#182;</a></h2><p>Before describing this process for the pico in particular, it is helpful to understand the process in general. When we connect a device to a WiFi network, the following occurs:</p>
+<h4 id="Setting-up-a-network">Setting up a network<a class="anchor-link" href="#Setting-up-a-network">&#182;</a></h4><ol>
+<li>Our router connects to the Internet via its modem, and receives a public IP address from the Internet Service Provider (ISP).</li>
+<li>During setup/configuration, the router will prompt for (or automatically assign) a <em>country code.</em> This tells the router which channels and power levels are legally allowed in that particular region.</li>
+<li>The router may also ask the user to choose a security protocol. One often chooses WPA2-Mixed, which supports both WPA2-AES for newer devices and WPA-TKIP for older ones.</li>
+<li>The router sets up the <em>local</em> network, and assigns itself a private IP address on that network. These local IP addresses are usually of the form 192.168.1.X, and it's often the case that the router will take 192.168.1.1. </li>
+<li>This router will also prepare a <em>subnet mask</em> (e.g. 255.255.255.0). The subnet mask tells all devices on the local network which part of the IP address represents the <em>network</em>, and which part represents the <em>specific device on that network.</em> For example, a device with IP address 192.168.1.20 on a network with subnet mask 255.255.255.0 uses the first three parts of the IP (192.168.1) to identify the network, and the last part of the IP (20) to identify the device on that network.</li>
+<li>The router also generally makes itself the <em>gateway</em> for the network. Any device that wants to send a message to another device with an IP that indicates (by way of the subnet mask) that it is <em>not</em> on the subnet, will instead forward the message to the gateway, which subsequently sends out out to the Internet. The gateway is the door from the local network to the broader Internet. If the IP indicates that the device <em>is</em> on the local network, then we don't bother the gateway.</li>
+<li>The router starts up a DHCP server (Dynamic Host Configuration Protocol). This will automatically assign local IP addresses to new devices which join the network. It has a collection from which it can choose, of a size dictated by the subnet mask.</li>
+</ol>
+<h4 id="Connecting-to-the-network">Connecting to the network<a class="anchor-link" href="#Connecting-to-the-network">&#182;</a></h4><ol>
+<li>We connect to the network by way of that network's SSID (i.e., it's name). This SSID is broadcast by the router as part of the WiFi signal so that devices can see it. Connection often requires a password.</li>
+<li>When we connect, the router will use its DHCP server to assign us a local IP address, and it will send us the local network gateway and subnet mask. That's all the info that we need to join that network.</li>
+</ol>
+<p>After connection, of course, there's a whole other protocol by which information is actually exchanged. But let's save that conversation, and focus only on getting a Pico W connected to a network.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Connecting-to-WiFi-with-the-Pico-W">Connecting to WiFi with the Pico W<a class="anchor-link" href="#Connecting-to-WiFi-with-the-Pico-W">&#182;</a></h2><h4 id="Initializing-the-hardware">Initializing the hardware<a class="anchor-link" href="#Initializing-the-hardware">&#182;</a></h4><p>Before connecting to a WiFi network, we must initialize the CYW43 chip itself. As a part of this initialization, we must tell the chip which country its in, so that it knows which channels and power levels it should use. In order to do this, we have two options. We could either call the <code>pico_cyw43_arch</code> library function <code>int cyw43_arch_init_with_country(uint32_t country)</code> which, as an argument, takes the country code. Macros for these country codes are available at <a href="https://github.com/georgerobotics/cyw43-driver/blob/c1075d4bc440422cf2b2fd12c64a1f53f77660ee/src/cyw43_country.h">pico-sdk/lib/cyw43-driver/src/cyw43_country.h</a>. Alternatively, we can simply call <code>int cyw43_arch_init(void)</code>, which uses the country code set by <code>PICO_CYW43_ARCH_DEFAULT_COUNTRY_CODE</code> in <code>cyw43_arch.h</code>. By default, this is set to "worldwide." Everything that happens when we call this function is described to excruciating depth on <a href="https://vanhunteradams.com/Pico/BLE/BTStack_HCI.html#Initializing-the-CYW43-Driver">this webpage</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Putting-the-device-into-station-mode">Putting the device into station mode<a class="anchor-link" href="#Putting-the-device-into-station-mode">&#182;</a></h4><p>Our Pico can act either as a client in station mode (in which it connects to a network) or as an access point (in which it generates a network to which other devices connect). We will consider each, but let us start with <em>station mode</em>, in which the Pico W will connect to a network. We enable station mode by way of the <code>pico_cyw43_arch</code> library function <code>cy243_arch_enable_sta_mode()</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Connecting-to-the-network">Connecting to the network<a class="anchor-link" href="#Connecting-to-the-network">&#182;</a></h4><p>After having initialized the hardware and putting it into station mode, we can now make a connection to an access point. There are three types of connection: blocking, timout, and async. As the names suggest, a blocking connection will block until a connection has been made, timeout will block until a specified time has passed, and async will attempt an asynchronous connection in a non-blocking fashion. Furthermore, each of these three types of connection comes in two versions, one that includes a MAC address and one that does not. All options are enumerated below. Note that the <code>auth</code> argument represents the security protocol. Macros for all options are available in <a href="https://github.com/georgerobotics/cyw43-driver/blob/c1075d4bc440422cf2b2fd12c64a1f53f77660ee/src/cyw43_ll.h">pico-sdk/lib/cyw43-driver/src/cyw43_ll.h</a>.</p>
+<ol>
+<li><code>int cyw43_arch_wifi_connect_blocking(const char *ssid, const char *pw, uint32_t auth)</code></li>
+<li><code>int cyw43_arch_wifi_connect_bssid_blocking(const char *ssid, const uint8_t *bssid, const char *pw, uint32_t auth)</code></li>
+<li><code>int cyw43_arch_wifi_connect_timeout_ms(const char *ssid, const char *pw, uint32_t auth, uint32_t timeout_ms)</code></li>
+<li><code>int cyw43_arch_wifi_connect_bssid_timeout_ms(const char *ssid, const uint8_t *bssid, const char *pw, uint32_t auth, uint32_t timeout_ms)</code></li>
+<li><code>int cyw43_arch_wifi_connect_async(const char *ssid, const char *pw, uint32_t auth)</code></li>
+<li><code>int cyw43_arch_wifi_connect_bssid_async(const char *ssid, const uint8_t *bssid, const char *pw, uint32_t auth)</code></li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Viewing-and-customizing-the-network-interface">Viewing and customizing the network interface<a class="anchor-link" href="#Viewing-and-customizing-the-network-interface">&#182;</a></h4><p>After having made the connection to a network, we are out of the lower-level <code>pico_cyw43_arch</code> library and up into the <code>pico_lwip</code> library. This library contains a number of different modules, but the module of relevance for viewing and customizing our network interface is NETIF. It is via this module that we can learn all the network information that the access point gave us upon connection: our IP, netmask, gateway, etc. In particular, all this information gets stored in a struct called <code>netif_default</code>. This struct has three fields: <code>ip_attr_t ip_addr</code>, <code>ip_addr_t netmask</code>, and <code>ip_addr_t gw</code> which represent our assigned IP, netmask, and gateway.</p>
+<p>The SDK provides some macros for viewing and modifying these network settings. To print the fields of the global <code>netif_default</code> struct, we can use the following (taken from <a href="https://www.amazon.com/Master-Raspberry-Pi-Pico-mbedtls/dp/1871962811/ref=pd_bxgy_thbs_d_sccl_1/145-0480932-9991861?pd_rd_w=K3PxJ&amp;content-id=amzn1.sym.dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_p=dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_r=KG4YEA5VKCP6WVB02XPG&amp;pd_rd_wg=D8Le5&amp;pd_rd_r=270e4e0e-0a3d-40c0-a916-99aec74f4d9d&amp;pd_rd_i=1871962811&amp;psc=1">Fairhead and James</a>:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="./Papers/Earth_as_Computer.pdf">Op-Ed</a> $\longleftarrow$ A fictional vision of a future in which these ideas have taken hold, and how we might get there.</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
+<li><code>printf("IP: %s\n", ip4addr_ntoa(netif_ip_addr(netif_default))) ;</code></li>
+<li><code>printf("Mask: %s\n", ip4addr_ntoa(netif_ip_netmask4(netif_default))) ;</code></li>
+<li><code>printf("Gateway: %s\n", ip4addr_ntoa(netif_ip_gw4(netif_default))) ;</code></li>
 </ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
-<ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
-</ul>
+<p>But perhaps we want to assign our Pico W a fixed IP address! In order to do this, we could do the following (again borrowed from <a href="https://www.amazon.com/Master-Raspberry-Pi-Pico-mbedtls/dp/1871962811/ref=pd_bxgy_thbs_d_sccl_1/145-0480932-9991861?pd_rd_w=K3PxJ&amp;content-id=amzn1.sym.dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_p=dcf559c6-d374-405e-a13e-133e852d81e1&amp;pf_rd_r=KG4YEA5VKCP6WVB02XPG&amp;pd_rd_wg=D8Le5&amp;pd_rd_r=270e4e0e-0a3d-40c0-a916-99aec74f4d9d&amp;pd_rd_i=1871962811&amp;psc=1">Fairhead and James</a>):</p>
+<div class="highlight"><pre><span></span><span class="c1">// create an object of type ip_addr_t called ip</span>
+<span class="n">ip_addr_t</span> <span class="n">ip</span> <span class="p">;</span>
+<span class="c1">// Use an SDK macro to set the value of this ip object to our desired IP address</span>
+<span class="n">IP4_ADDR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ip</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">253</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Set the IP field of the netif_default struct to our desired IP address</span>
+<span class="n">netif_set_ipaddr</span><span class="p">(</span><span class="n">netif_default</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ip</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Use an SDK macro to set the value of the ip object to our desired netmask</span>
+<span class="n">IP4_ADDR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ip</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Set the netmask field of the netif_default struct to our desired netmask</span>
+<span class="n">netif_set_netmask</span><span class="p">(</span><span class="n">netif_default</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ip</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Use an SDK macro to set the value of this ip object to our desired gateway</span>
+<span class="n">IP4_ADDR</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ip</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">253</span><span class="p">,</span> <span class="mi">210</span><span class="p">)</span> <span class="p">;</span>
+<span class="c1">// Set the gateway field of the netif_default struct to our desired gateway</span>
+<span class="n">netif_set_gw</span><span class="p">(</span><span class="n">netif_default</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ip</span><span class="p">)</span>
+</pre></div>
 
 </div>
 </div>
@@ -13172,74 +13244,51 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/BLE/GATT_Server.html">GATT server on Pi Pico W</a></li>
-<li><a href="./Pico/BLE/GATT_Client.html">GATT client on Pi Pico W</a></li>
-<li><a href="./Pico/Galton/Galton.html">Digital Galton Board on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Bootloader/Bootloader.html">Custom serial bootloader for the RP2040</a></li>
-<li><a href="./Pico/Bootloader/Worm.html">Worm-like serial bootloader</a></li>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
+<h2 id="A-function-for-connecting-to-a-network">A function for connecting to a network<a class="anchor-link" href="#A-function-for-connecting-to-a-network">&#182;</a></h2><p>We can consolidate all of the above steps into a single, reusable function. It probably makes sense to consolidate all of this into its own header file, perhaps called something like <code>connect.h</code>. Please note that this is a minimal example. You might imagine augmenting this such that the user can pass desired IP, gateway, and netmask values in as arguments. You might also use the async connection to provide a bit more feedback during the connection process.</p>
+<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/stdlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;pico/cyw43_arch.h&quot;</span><span class="cp"></span>
 
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-</ol>
+<span class="kt">char</span> <span class="n">ssid</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;hostname&quot;</span> <span class="p">;</span>
+<span class="kt">char</span> <span class="n">password</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;password&quot;</span> <span class="p">;</span>
+<span class="kt">uint32_t</span> <span class="n">country</span> <span class="o">=</span> <span class="n">CYW43_COUNTRY_USA</span> <span class="p">;</span>
+<span class="kt">uint32_t</span> <span class="n">auth</span> <span class="o">=</span> <span class="n">CYW43_AUTH_WPA2_MIXED_PSK</span> <span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="nf">connectWifi</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">country</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">ssid</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">pass</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">auth</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Initialize the hardware</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cyw43_arch_init_with_country</span><span class="p">(</span><span class="n">country</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to initialize hardware.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="p">;</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Make sure the LED is off</span>
+    <span class="n">cyw43_arch_gpio_put</span><span class="p">(</span><span class="n">CYW43_WL_GPIO_LED_PIN</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Put the device into station mode</span>
+    <span class="n">cyw43_arch_enable_sta_mode</span><span class="p">()</span> <span class="p">;</span>
+
+    <span class="c1">// Print a status message</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Attempting connection . . . </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Connect to the network</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cyw43_arch_wifi_connect_blocking</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">pass</span><span class="p">,</span> <span class="n">auth</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Use the LED to indicate connection success</span>
+    <span class="n">cyw43_arch_gpio_put</span><span class="p">(</span><span class="n">CYW43_WL_GPIO_LED_PIN</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Report the IP, netmask, and gateway that we&#39;ve been assigned</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;IP: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ip4addr_ntoa</span><span class="p">(</span><span class="n">netif_ip_addr4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">)))</span> <span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mask: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ip4addr_ntoa</span><span class="p">(</span><span class="n">netif_ip_netmask4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">)))</span> <span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Gateway: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ip4addr_ntoa</span><span class="p">(</span><span class="n">netif_ip_gw4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">)))</span> <span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span> <span class="p">;</span>
+
+<span class="p">}</span>
+</pre></div>
 
 </div>
 </div>
@@ -13255,14 +13304,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-<li><a href="https://cornellfluxchamber.github.io">Cornell Ecology and Evolutionary Biology</a></li>
-</ol>
+<h2 id="CMake">CMake<a class="anchor-link" href="#CMake">&#182;</a></h2><p>We could now import the above header file into our application and use it to connect to a WiFi network. There's one last configuration that's required, however. The WiFi chip needs periodic attention, and we can give it that attention in a few different ways. If we choose to setup the system in <em>polling</em> mode, then it is our responsibility, in our program, to periodically call <code>cyw43_arch_poll()</code> (around every 50 ms). Alternatively, we could run the system in <em>threadsafe background</em> mode, which will automatically call the poll function in an interrupt. Finally, we could set this up in <em>FreeRTOS</em> mode, which incorporates lwip into the FreeRTOS infrastructure. We choose which of these three modes we'd like to use by linking the associated library in the project's CMakeLists.txt file. For the above file, the <code>target_link_libraries</code> line of the CMakeLists would look like the following if we wanted to use threadsafe background mode:</p>
+<p><code>target_link_libraries(project_name pico_stdlib, pico_cyw43_arch_lwip_threadsafe_background)</code></p>
+<p>If instead we wanted to poll, we'd link <code>pico_cyw43_arch_lwip_poll</code>. And if instead we wanted to use FreeRTOS, we'd use <code>pico_cyw43_arch_lwip_sys_freertos</code>.</p>
 
 </div>
 </div>
@@ -13278,80 +13322,35 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Galton/Collisions.html">The physics of colliding balls, with coefficient of restitution</a></li>
-<li><a href="./Pico/Galton/Galton_Stats.html">The statistics of a Galton Board</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./Pico/Bootloader/Infrared.html">Wireless UART via infrared</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Pico/Birds/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/UDP/Connecting.html">Connecting to WiFi with the Pi Pico W</a></li>
-</ol>
+<h2 id="Other-odds-and-ends">Other odds and ends<a class="anchor-link" href="#Other-odds-and-ends">&#182;</a></h2><h4 id="Scanning-networks">Scanning networks<a class="anchor-link" href="#Scanning-networks">&#182;</a></h4><p>Perhaps we want to scan for available WiFi networks. The <code>pico_cyw43_arch</code> library includes a function which allows for us to discover available access points. That function looks like the following:</p>
+<div class="highlight"><pre><span></span><span class="kt">int</span> <span class="n">cyw43_wifi_scan</span><span class="p">(</span><span class="n">cyw43_t</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="n">cyw43_wifi_scan_options_t</span> <span class="o">*</span><span class="n">opts</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">result_cb</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="n">cyw43_ev_scan_result_t</span> <span class="o">*</span><span class="p">))</span>
+</pre></div>
+<p>The first argument is a pointer to a cyw43_t struct. During initalization, a global object of this type gets created, and is named <code>cyw43_state</code>. When we actually call this function, we'll pass a pointer to this global struct for this argument. The second argument, <code>*opts</code>, must be set to zero. The third argument gets <code>NULL</code>, and the final argument is a pointer to the scan result callback function. So, calling this function would look something like the following (from Fairhead and James):</p>
+<div class="highlight"><pre><span></span><span class="n">cyw43_wifi_scan_options_t</span> <span class="n">scan_options</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">}</span> <span class="p">;</span>
+<span class="kt">int</span> <span class="n">err</span> <span class="o">=</span> <span class="n">cyw43_wifi_scan</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cyw43_state</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">scan_options</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">scan_result</span><span class="p">)</span> <span class="p">;</span>
+</pre></div>
+<p>But what about that callback function, <code>scan_result</code>? This callback function should take two arguments. The first is a null pointer, and the second is a pointer to an object of type <code>cyw43_ev_scan_result_t</code>, as shown below:</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">int</span> <span class="n">scan_result</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="k">const</span> <span class="n">cyw43_ev_scan_result_t</span> <span class="o">*</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+<p>That second argument is a pointer to the following struct:</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_cyw43_ev_scan_result_t</span> <span class="p">{</span>
+    <span class="kt">uint32_t</span> <span class="n">_0</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="kt">uint8_t</span> <span class="n">bssid</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>   <span class="c1">///&lt; access point mac address</span>
+    <span class="kt">uint16_t</span> <span class="n">_1</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="kt">uint8_t</span> <span class="n">ssid_len</span><span class="p">;</span>   <span class="c1">///&lt; length of wlan access point name</span>
+    <span class="kt">uint8_t</span> <span class="n">ssid</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>   <span class="c1">///&lt; wlan access point name</span>
+    <span class="kt">uint32_t</span> <span class="n">_2</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="kt">uint16_t</span> <span class="n">channel</span><span class="p">;</span>   <span class="c1">///&lt; wifi channel</span>
+    <span class="kt">uint16_t</span> <span class="n">_3</span><span class="p">;</span>
+    <span class="kt">uint8_t</span> <span class="n">auth_mode</span><span class="p">;</span>  <span class="c1">///&lt; wifi auth mode \ref CYW43_AUTH_</span>
+    <span class="kt">int16_t</span> <span class="n">rssi</span><span class="p">;</span>       <span class="c1">///&lt; signal strength</span>
+<span class="p">}</span> <span class="n">cyw43_ev_scan_result_t</span><span class="p">;</span>
+</pre></div>
+<p>Our callback function could go through and print each field of the struct that it receives the pointer to as an argument to learn about each access point.</p>
+<h4 id="Getting-signal-strength">Getting signal strength<a class="anchor-link" href="#Getting-signal-strength">&#182;</a></h4><p>The Received Signal Strength Indicator (RSSI) provides a measure of an access point's signal strength. The <code>pico_cyw43_arch</code> library provides a mechanism for learning this value for the access point with which we've connected. The function for doing this is the following:</p>
+<div class="highlight"><pre><span></span><span class="n">cyw43_wifi_get_rssi</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cyw43_state</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rssi</span><span class="p">)</span>
+</pre></div>
+<p>The first argument is a pointer to the automatically-generated global struct of type <code>cyw43_t</code> that gets created during initialization. The second argument, <code>&amp;rssi</code>, is simply a pointer to an <code>int32_t</code>. This function will dereferece this pointer and set the value at the pointer address to the RSSI of the connected access point.</p>
 
 </div>
 </div>
@@ -13360,210 +13359,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4GisLzRSqw5x5G38M4zlkr">Video lectures (RP2040, 2025)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040, 2022)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32, 2021)</a></li>
-<li><a href="https://ece4760.github.io/Projects/Projects.html">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thought-experiments">Thought experiments<a class="anchor-link" href="#Thought-experiments">&#182;</a></h2><p>Thinking about the programs that people generate, and vice versa. These are playful, not rigorous.</p>
-<ol>
-<li><a href="./Essays/Characters_in_a_story.pdf">Can characters in a story figure out that they're in a story?</a></li>
-<li><a href="./Essays/Black_holes.pdf">Are black holes symptomatic of a simulation, or of a bandwidth-limit on the universe?</a></li>
-<li><a href="./Essays/Earth_as_computer.pdf">What does a future in which natural computing has taken hold look like?</a></li>
-<li><a href="./Essays/Invite.pdf">If a secret technology is inexplicable, does information security reduce to material security?</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Professional/Service.pdf">Service statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-<li><a href="./Professional/Dossier/Dossier.pdf">Reappointment dossier 2025</a> $\longleftarrow$ the best resource for forming a professional opinion of me</li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
