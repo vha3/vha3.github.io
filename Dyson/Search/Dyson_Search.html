@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>Dyson_Search</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,31 +13077,44 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="Bayesian-search:-chipsats-to-Dyson-spheres">Bayesian search: chipsats to Dyson spheres<a class="anchor-link" href="#Bayesian-search:-chipsats-to-Dyson-spheres">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Thought-experiments">Thought experiments</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
+<li><a href="#Why-I-put-this-together">Why I put this together</a></li>
+<li><a href="#Introduction-and-background">Introduction and background</a></li>
+<li><a href="#A-toy-example">A toy example</a><blockquote><ul>
+<li><a href="#Where-we-begin">Where we begin</a></li>
+<li><a href="#Incorporating-expert-knowledge-to-inform-location-probabilities">Incorporating expert knowledge to inform location probabilities</a></li>
+<li><a href="#Incorporating-expert-knowledge-on-searchability">Incorporating expert knowledge on searchability</a></li>
+<li><a href="#Updating-our-knowledge-after-a-search">Updating our knowledge after a search</a></li>
+<li><a href="#A-north-wind-blows">A north wind blows</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Generalizing-to-Dyson-spheres">Generalizing to Dyson spheres</a><blockquote><ul>
+<li><a href="#Where-we-begin-for-Dyson-spheres">Where we begin for Dyson spheres</a></li>
+<li><a href="#Incorporating-expert-knowledge-to-inform-location-probabilities-for-Dyson-spheres">Incorporating expert knowledge to inform location probabilities for Dyson spheres</a></li>
+<li><a href="#Incorporating-expert-knowledge-on-searchability-for-Dyson-spheres">Incorporating expert knowledge on searchability for Dyson spheres</a></li>
+<li><a href="#Updating-our-knowledge-after-a-search-for-Dyson-spheres">Updating our knowledge after a search for Dyson spheres</a></li>
+<li><a href="#A-north-wind-blows-for-Dyson-spheres">A north wind blows for Dyson spheres</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Some-thoughts-on-prior-probabilities">Some thoughts on prior probabilities</a></li>
+<li><a href="#Some-thoughts-on-searchability">Some thoughts on searchability</a><blockquote><ul>
+<li><a href="#Under-normal-conditions">Under normal conditions</a></li>
+<li><a href="#Under-special-conditions">Under special conditions</a></li>
+<li><a href="#Observability-of-information-transport">Observability of information transport</a></li>
+<li><a href="#Observability-of-information-storage">Observability of information storage</a></li>
+</ul>
+</blockquote>
+</li>
+<li><a href="#Historical-precedent-for-Bayesian-search">Historical precedent for Bayesian search</a></li>
 </ul>
 </blockquote>
 
@@ -13119,44 +13132,217 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, teaching, and service/open-source.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
-</ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<h4 id="On-service,-and-on-open-sourcing-one's-work-.-.-.">On service, and on open-sourcing one's work . . .<a class="anchor-link" href="#On-service,-and-on-open-sourcing-one's-work-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Service.pdf">Service statement</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
+<h2 id="Why-I-put-this-together">Why I put this together<a class="anchor-link" href="#Why-I-put-this-together">&#182;</a></h2><p>I'm still reeling from the Dyson Minds workshop. In particular, I've been pondering the extent to which the rapid and properly-weighted incorporation of so many sources of information may be one of the first puzzles to solve. These sources of information include expert opinion from physicists, astronomers, engineers, philosophers, etc. They also include publications of relevance, and expert opinion on the relative searchability of various corners of the cosmos. That's a lot of stuff! We may benefit from a formalized search infrastructure. I put together this document to propose one such infrastructure.</p>
+<p>The Bayesian search formulation grids up the universe and, for each location in that grid, computes the equation below. The advantages of formulating our search in this way include:</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="./Papers/Earth_as_Computer.pdf">Op-Ed</a> $\longleftarrow$ A fictional vision of a future in which these ideas have taken hold, and how we might get there.</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
+<li>Rapid integration of all information sources to the problem of <em>search</em>. By localizing each new piece of information to one of the terms in the below equation, they can <em>always</em> be directly applied to informing the actual search for these structures. All information contributes ultimately to answering the question "where are we most likely to find a Dyson sphere?"</li>
+<li>Facilitation of interdisciplinary conversation. It <strong>gives highly diverse experts a shared interface for discussing and debating the topic</strong>. Astrophysicists, philosophers, etc. can apply their domain knowledge to the question of <em>probability</em>. And probabilities can be combined really nicely. For instance, folks of various domains could discuss among themselves the probability of existence from their own field's perspective, and then we could have an interdisciplinary conversation that discusses the independence or non-independence of those probabilities.</li>
+<li>This allows for our conversations to <strong>meaningfully include the perspectives of people that strongly believe Dyson sphere's <em>don't</em> exist.</strong> Their perspective can be incorporated as easily as any other in the probability of existence conversation. </li>
+<li>This formalism may be well-suited to AI assistance. I could imagine using an AI to help translate information to probabilities for incorporation into the model.</li>
+<li>Recomputing the probability map is a trivially parallizable process, which may be accelerated by a massively parallel computer that may or may not be sitting around looking for an application ;)</li>
+<li>Future workshops can by <em>highly targeted</em>, with easy-to-quantify-and-visualize progress metrics.</li>
 </ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
+\begin{align}
+&amp;p(\text{DS is located in gridcell }|\text{ we did not find it}) =\\
+&amp;\frac{p(\text{DS is located in that cell}) \cdot p(\text{not finding the DS }|\text{ DS is located in that gridcell})}{p(\text{finding the DS})}
+\end{align}<p>The outcome of this formulation is a heatmap of the sky that shows the most likely locations for Dyson spheres, incorporating all information of relevance to that search. With <strong>any</strong> new information of relevance (someone publishes a paper, an expert expresses an opinion, we get some new data, we parse some old data, etc.), the map updates.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction-and-background">Introduction and background<a class="anchor-link" href="#Introduction-and-background">&#182;</a></h2><p>In graduate school, I did a lot of work on <a href="https://vanhunteradams.com/Estimation/Estimation.html">estimation</a>, which attempts to use <em>every shred of available information</em> in order to generate the best-possible guess for some quantity. Estimators like Kalman filters are famously used for estimating spacecraft state, and it is in this context that I was introduced to the field. But the utility of estimation extends well beyond spacecraft engineering. More recently, I've applied these techniques to studying <a href="https://vanhunteradams.com/Collaborations/Archeology/Bayes_Proportions.html">differences in proportions in survey data</a>, generating a <a href="https://vanhunteradams.com/Papers/Probabilistic_packet.pdf">communication strategy for Breakthrough Starshot</a> (I think this is a practical solution, though that is not a universally shared opinion), and doing <a href="https://vanhunteradams.com/MatchedFilter/Matched.html">probabilistic radio decoding</a>.</p>
+<p>Indeed, all of these estimators are simply applications of Bayes' Theorem, which applies anytime one is attempting to determine the probability of each possible cause for a measured effect. In the case of spacecraft state estimation, we ask "which is the most probable of all possible spacecraft rotation rates, given the gyro measurement and what we know about rigid body dyamics?"  But the same mathematical infrastructure can be applied to lots of other things, including <em>search</em>. I've been doing this lately for a different project, but I think the approach could be of a lot of relevance to the hunt for Dyson spheres.</p>
+<p>Applied to <em>search</em>, the question we ask is "what is the most likely location of what we're trying to find, given . . .":</p>
+<ol>
+<li>The probability of what we're looking for being in each possible location.</li>
+<li>The probability of seeing what we're looking for, even if we search in the correct location.</li>
+</ol>
+<p>By gridding-up our search space and assigning a value for each of the above probabilities for each cell in that grid-space, we can generate a heatmap that describes where what we're looking for is most likely to be, given <em>everything</em> that we know about the problem. That is, this infrastructure incorporates all prior information about the location of the object, and it incorporates information about differences in observability for the object at different locations. I think this could be a useful way for us to incorporate highly varied domain knowledge to the search for Dyson sphere, and for us to quantify and visualize our increases in information.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="A-toy-example">A toy example<a class="anchor-link" href="#A-toy-example">&#182;</a></h2><p><strong>I'm going to walk through this example, and then in a subsequent section I'll discuss how each step of this process generalizes to the search for Dyson spheres.</strong> Perhaps starting with a terrestrial example helps build intuition.</p>
+<p><strong>Problem statement</strong>: A <a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">chipsat</a> has descended from space and landed somewhere in or near Cayuga Lake, and we'd like to find it.</p>
+<h3 id="Where-we-begin">Where we begin<a class="anchor-link" href="#Where-we-begin">&#182;</a></h3><p>With <em>only</em> the above problem statement, we've no reason to prefer one location to another in order to begin our search. That is to say, within our searchspace, the probability mass distribution for the chipsat is <em>uniform</em>. In the figure below, we see a totally uniform probability mass distribution for our searchspace. No location is more likely than any other.</p>
+<figure>
+    <img align="center" width="600" height="200" src="initial.png" alt='missing' />
+    <center><figcaption>Fig 1: Initial probability mass distribution for chipsat location</figcaption></center>
+</figure><h3 id="Incorporating-expert-knowledge-to-inform-location-probabilities">Incorporating expert knowledge to inform location probabilities<a class="anchor-link" href="#Incorporating-expert-knowledge-to-inform-location-probabilities">&#182;</a></h3><p>But, before we even start looking for the chipsat, we can apply things that we <em>know</em> about how things fall from space. Let us suppose that we knew the chipsat's position and velocity when it hit the top of the atmosphere. We can't use that information to locate the chipsat, because it will have been blown about by the hard-to-predict atmosphere, and flopped around chaotically, but we can at very least adjust our probabilities such that they incorporate this knowledge.</p>
+<figure>
+    <img align="center" width="600" height="200" src="prior.png" alt='missing' />
+    <center><figcaption>Fig 2: Prior distribution, having applied knowledge dynamics.<br>$p(\text{chipsat location})$</figcaption></center>
+</figure><h3 id="Incorporating-expert-knowledge-on-searchability">Incorporating expert knowledge on searchability<a class="anchor-link" href="#Incorporating-expert-knowledge-on-searchability">&#182;</a></h3><p>Not all of the locations in our searchspace are equally searchable! For each gridcell in our searchspace, there is some probability that we <em>don't</em> find the chipsat <em>even if we search there</em>. Some of these cells will include dense foliage or treacherous gorges. We could look there, and the chipsat could be there, and we'd <em>still</em> be really unlikely to find it.</p>
+<p>Let us suppose that this landing ellipse aligns with Cayuga Lake. For purposes of this discussion, we'll suppose that the <em>shores</em> of the lake are very searchable (it's easy to find a chipsat on the beach). We'll suppose that the water itself is moderately searchable, and that the land has low searchability. We might imagine that this is because much of it is private and hard to access, or difficult to navigate, or whatever.</p>
+<figure>
+    <img align="center" width="600" height="200" src="searchability.png" alt='missing' />
+    <center><figcaption>Fig 3: How likely are we to find the chipsat in each location, given that it's there?<br> $p(\text{not finding chipsat in gridcell}|\text{it is located in that gridcell})$</figcaption></center>
+</figure><h3 id="Updating-our-knowledge-after-a-search">Updating our knowledge after a search<a class="anchor-link" href="#Updating-our-knowledge-after-a-search">&#182;</a></h3><p>Let us suppose that, by way of a tremendous effort, we rapidly search this whole searchspace. Perhaps a small group of boats cruise the lake, and some drones/helicopters fly the searchspace looking for the chipsat. And . . . we don't find it. Given our prior knowledge of the likelihood for the chipsat's location, and given our knowledge of the searchability for each region of the searchspace, we can update our knowledge of where the chipsat must be located.</p>
+\begin{align}
+&amp;p(\text{chipsat is located in gridcell }|\text{ we did not find it}) =\\ 
+&amp;\frac{p(\text{chipsat is located in that cell}) \cdot p(\text{not finding the chipsat }|\text{ it is located in that gridcell})}{p(\text{finding the chipsat})}
+\end{align}<p>Note that this update <strong>does not require that we've searched the whole space.</strong> Everytime we search a <em>single</em> grid-cell, we can update this picture.</p>
+<p>We can notice a few things which match our intuition. Given that we searched the whole lake, and given that the searchability of the lake is better than that of the land, we've decreased our confidence that the chipsat is in the lake (we'd probably have seen it). We've decreased our confidence that the chipsat is on the shore of the lake to an even greater degree, and we've <em>increased</em> our confidence that it's somewhere on the land. On land, it's more likely that we may have missed it in our search.</p>
+<figure>
+    <img align="center" width="600" height="200" src="after_search.png" alt='missing' />
+    <center><figcaption>Fig 4: Where is the chipsat likely located, given that we didn't find it?</figcaption></center>
+</figure><h3 id="A-north-wind-blows">A north wind blows<a class="anchor-link" href="#A-north-wind-blows">&#182;</a></h3><p>Let us now suppose that a strong north wind blows overnight. We can incorporate this <em>new</em> information about the chipsat location into our infrastructure, to better inform the next day's search. As you can see, the north wind pushes any probability mass on the surface of the lake south, until it encounters a shore. The probability mass then <em>accumulates</em> on the shore. So, on the next day, it would be a wise decision to revisit the north-facing beaches of the lake, even though we've already searched them.</p>
+<p>This should match intuition, but the point here is that such intuition <em>emerges</em> from this model. The Bayesian search formulation allows for us to make a best-guess about the chipsat's location that incorporates our prior knowledge about the situation, the searchability of the landing zone, the results of searches already conducted, <em>and</em> time-varying information about the probability distribution in the search space.</p>
+<p><img src="./northwind.gif"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Generalizing-to-Dyson-spheres">Generalizing to Dyson spheres<a class="anchor-link" href="#Generalizing-to-Dyson-spheres">&#182;</a></h2><p>Let us now revisit each of the above steps, and discuss what this step <em>looks like</em> when applied to the search for Dyson spheres, rather than the search for a chipsat.</p>
+<h3 id="Where-we-begin-for-Dyson-spheres">Where we begin for Dyson spheres<a class="anchor-link" href="#Where-we-begin-for-Dyson-spheres">&#182;</a></h3><p>In the search for chipsats, we began with a totally uniform distribution across the searchspace. In the search for Dyson spheres, we have the same uniform probability distribution over a <em>much</em> larger searchspace. At the <em>very</em> beginning of this process, we've no reason to prefer any one location over another as a potential home for a Dyson sphere.</p>
+<h3 id="Incorporating-expert-knowledge-to-inform-location-probabilities-for-Dyson-spheres">Incorporating expert knowledge to inform location probabilities for Dyson spheres<a class="anchor-link" href="#Incorporating-expert-knowledge-to-inform-location-probabilities-for-Dyson-spheres">&#182;</a></h3><p>The next step in the search for chipsats was to use expert knowledge to develop a set of prior probabilities for each location in our searchspace. For the chipsats, this expert opinion came from knowledge of orbital mechanics, aerodynamics, the weather, etc. In the search for Dyson spheres, this expert opinion comes from a tremendously diverse group of individuals, like those at the Dyson Minds workshop. This group will attempt to agree upon the set of prior probabilities for Dyson Spheres existing in each stellar system in the galaxy, at each black hole in the galaxy, etc.</p>
+<p>You could imagine organizing a workshop devoted to this effort. Such a workshop would begin with a uniform probability distribution across the galaxy for the existence of Dyson spheres. We would attempt to conclude the workshop with a picture of the updated probability distribution, which incorporates domain expertise to adjust this uniform prior up and down across the galaxy. <em>We wouldn't yet worry about observability, just existence.</em><br><br>
+<strong>For each grid in the searchspace</strong>:
+\begin{align}
+\text{Goal of workshop} = p(\text{Dyson sphere exists})
+\end{align}</p>
+<h3 id="Incorporating-expert-knowledge-on-searchability-for-Dyson-spheres">Incorporating expert knowledge on searchability for Dyson spheres<a class="anchor-link" href="#Incorporating-expert-knowledge-on-searchability-for-Dyson-spheres">&#182;</a></h3><p>In the search for chipsats, the next step was to incorporate expert knowledge on the <em>searchability</em> of each zone in the searchspace. For the chipsats, this searchability relates to the accessibility and observability of the surface of the Earth in that area. One could imagine organizing a second workshop dedicated to this effort for Dyson spheres.</p>
+<p>In the search for Dyson spheres, this discussion of searchability would start with the presupposition that a Dyson sphere <em>does exist</em> at a particular gridcell in our search space, and attempt to assign a probability to finding that Dyson sphere if we were to search there. This conversation would attempt to quantify <em>both</em> the probability of gathering the necessary data from that place in the galaxy, <em>and</em> the probability of seeing a Dyson sphere in the data if we were to gather it. It's the product of these two probabilities that quantifies observability for that grid-cell.<br><br>
+<strong>For each grid in the searchspace</strong>:
+\begin{align}
+\text{Goal of workshop} &amp;= p(\text{Dyson sphere is observable | Dyson sphere exists})\\
+\end{align}
+where:
+\begin{align}
+p(\text{Dyson sphere is observable}) = p(\text{Gathering necessary data for that grid cell}) \cdot p(\text{Dyson sphere visible in that data})
+\end{align}
+<br><br><strong>Note that this naturally directs our attention to places from which we've already gathered data!! The strategy of combing data that we've already gathered will emerge naturally from this framework!!</strong></p>
+<h3 id="Updating-our-knowledge-after-a-search-for-Dyson-spheres">Updating our knowledge after a search for Dyson spheres<a class="anchor-link" href="#Updating-our-knowledge-after-a-search-for-Dyson-spheres">&#182;</a></h3><p>After having generated prior probabilities for Dyson sphere locations, and quantifying the searchability for each zone in the searchspace, we would then look for Dyson spheres. This will include combing data that we've already gathered, and it will include gathering more data. <em>Every time we don't find a Dyson sphere, we update our map.</em> Even as we fail to locate these objects, we systematically narrow our search.</p>
+\begin{align}
+p(\text{DS is located in gridcell }|\text{ we did not find it}) = \frac{p(\text{DS is located in that cell}) \cdot p(\text{not finding the DS }|\text{ DS is located in that gridcell})}{p(\text{finding the DS})}
+\end{align}<h3 id="A-north-wind-blows-for-Dyson-spheres">A north wind blows for Dyson spheres<a class="anchor-link" href="#A-north-wind-blows-for-Dyson-spheres">&#182;</a></h3><p>The north wind in the chipsat problem represents a change in our understanding of the underlying probability distribution. In the case of the chipsats, this came from an outside force moving things around in our searchspace. In the case of the Dyson spheres, this may instead come from an improved understanding of our searchspace. That is, everytime we learn anything about our galaxy/universe that is of relevance to the search for Dyson spheres, this model allows for us to immediately incorporate that information into our search. Our map will update at the same rate relevant scientific publications appear. We narrow our search even when we aren't actively looking, simply by paying attention to growing knowledge of relevance.</p>
+<p>Put alternatively, a workshop dedicated to this question would discuss how the observability of a Dyson sphere may change as a function of other things happening in the universe. Does Betelguese going nova increase observability of the cells around that star? Does a collision with some object that may induce Kessler syndrome temporarily increase observability? This would be a conversation in which we attempt to enumerate all the <em>transient events</em> which may make a Dyson sphere momentarily more observable in a particular location. It takes the heatmap from the first workshop and makes it a function of time..<br><br>
+<strong>For each grid in the searchspace</strong>:
+\begin{align}
+\text{Goal of workshop} = p(\text{Dyson sphere exists}) = f(t)
+\end{align}</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Some-thoughts-on-prior-probabilities">Some thoughts on prior probabilities<a class="anchor-link" href="#Some-thoughts-on-prior-probabilities">&#182;</a></h2><p>It seems to me that one of the first steps in establishing reasonable guesses for the prior probabilities of Dyson spheres existing throughout our searchspace is to elaborate a taxonomy of the various types of Dyson spheres. Some of these will be the product of deliberate engineering, others will be the organic product of evolution, and some may fit somewhere inbetween. Some may be coherent minds and others may be societies of mind. We may then arrive at a total probability of Dyson sphere existence by summing the probabilities for each species, or perhaps instead we maintain probability maps for each species separately.</p>
+<p><em>I think careful thought about this taxonomy is helpful, because each species of Dyson sphere may have its own set of motivations. For an entity like a Dyson mind, motivation couples closely with observability.</em></p>
+<p><strong>I think we should seriously consider the possiblity that Dyson Minds are camouflaging themselves as nature.</strong> A <a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">sufficiently advanced computer may be indistinguishable from nature</a>, and perhaps the fact that we haven't already found an engineered Dyson sphere means that they are masquerading as normal stars, black holes, etc.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Some-thoughts-on-searchability">Some thoughts on searchability<a class="anchor-link" href="#Some-thoughts-on-searchability">&#182;</a></h2><h4 id="Under-normal-conditions">Under normal conditions<a class="anchor-link" href="#Under-normal-conditions">&#182;</a></h4><ul>
+<li>In the taxonomic tree of Dyson spheres, an early branch separates those which are the product of engineering from those which are the product of evolution.</li>
+<li>An engineered system looks different from nature under normal conditions, and evolved one may only look different under special conditions. But perhaps that makes it more observable.</li>
+<li>There are three reasons that an evolved Dyson sphere may not be observable under normal conditions. <blockquote><ul>
+<li>If a <a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">sufficiently advanced computer is indistinguishable from nature</a>, then we may be unable to discern an intelligent entity from inanimate stars, black holes, galaxies, etc.  If computers converge upon a natural-looking design, then it may be hard to look for the “pieces” of the computer. Like our brains, everything is all mixed up everyplace.</li>
+<li>Furthermore, it may be the case that such an entity has a desire to camouflage itself, which means it would try to look natural. </li>
+<li>And finally, the rate of cognition for a Dyson sphere is probably so slow that we’d never observe a conscious action. If there existed an intelligence that survived a millisecond or a microsecond, what would it observe about us in order to conclude that we are intelligent entities?</li>
+</ul>
+</blockquote>
+</li>
+<li>If we wanted to look for an evolved Dyson sphere operating under normal conditions, I would be inclined to look for places where free will can be disguised as a natural process. Perhaps chaotic systems?</li>
+</ul>
+<h4 id="Under-special-conditions">Under special conditions<a class="anchor-link" href="#Under-special-conditions">&#182;</a></h4><ul>
+<li>But perhaps such a Dyson sphere is more “findable” because we can make educated guesses about the circumstances under which it would abandon its camouflage. I think these circumstances include:<blockquote><ul>
+<li><strong>Self-preserving reflex responses taken in response to existential threads.</strong> Kessler syndrome, supernovae, etc. These are things which happen over human timescales that may require self-preserving response by the Dyson sphere. The analog to a hunting dog flushing camouflaged birds. Might we observe them mitigating or fleeing these risks? </li>
+<li><strong>An end-of-life cry to the universe “I existed.”</strong>  Can a society-of-mind Dyson Mind become unstable? Perhaps Betelgeuse is an intelligent entity, disguised as a natural system, losing control. When it goes nova, it may abandon all attempt at camouflage and put information about itself into the nova. When that happens, I think we should look for it.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="Observability-of-information-transport">Observability of information transport<a class="anchor-link" href="#Observability-of-information-transport">&#182;</a></h4><ul>
+<li>In our own bodies, some of our mechanisms for information transport are rather slow because they’re chemically mediated. We haven’t evolved to minimize latency. Maybe the Dyson sphere hasn’t either.</li>
+<li>Maybe the Dyson sphere evolved to maximize bandwidth, even at the cost of latency. This might imply that information is being transported via matter, and maybe that’s something we could look for<blockquote><ul>
+<li>Could we look for stuff streaming from place to place, rogue planets and the like?</li>
+<li>Is it conceivable that dark matter is their medium for communication? This would certainly keep them camouflaged.</li>
+<li>Well compressed data (with all redundancies removed) looks like noise. Maybe this makes it harder to discover messages encoded in matter, or maybe it makes it easer? Could we somehow measure the amount of redundant information in the state of interstellar matter? Is there anywhere in nature that’s too random?</li>
+<li>Could we observe this matter being read or written?</li>
+</ul>
+</blockquote>
+</li>
+<li>Perhaps there are some events that require low-latency communication in advance of higher-latency and higher-bandwidth communication? An impending collision? Colliding galaxies may be places to look for communication between Dyson spheres.</li>
+</ul>
+<h4 id="Observability-of-information-storage">Observability of information storage<a class="anchor-link" href="#Observability-of-information-storage">&#182;</a></h4><ul>
+<li>Would a Dyson mind want to record its history? Where are the most information dense, non-volatile places in the universe? Could we search these places to see if the information stored there is suspiciously lacking in redundancy?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Historical-precedent-for-Bayesian-search">Historical precedent for Bayesian search<a class="anchor-link" href="#Historical-precedent-for-Bayesian-search">&#182;</a></h2><p>Though I'm not aware of these techniques being applied to the search for Dyson spheres (please correct me if I'm wrong!!), they have been applied a number of other high-stakes search situations. Many of these are described in a lovely book by Shannon McGrayne called <a href="https://www.amazon.com/Theory-That-Would-Not-Die/dp/0300188226">The Theory That Would Not Die</a>. Some interesting examples include:</p>
 <ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/1966_Palomares_incident">The 1966 Palomares incident</a>: An H-Bomb was lost in the Mediterranean Sea, they found it by means of a Bayesian search in 80 days.</li>
+<li><a href="https://en.wikipedia.org/wiki/USS_Scorpion_(SSN-589">Finding the <em>USS Scorpion</em></a>): In May 1968, a nuclear-powered attack sub disappeared in the Atlantic, Bayes found it.</li>
 </ul>
+<p>This technique is a standard part of the Coast Guard's search protocol.</p>
 
 </div>
 </div>
@@ -13165,406 +13351,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/BLE/GATT_Server.html">GATT server on Pi Pico W</a></li>
-<li><a href="./Pico/BLE/GATT_Client.html">GATT client on Pi Pico W</a></li>
-<li><a href="./Pico/Galton/Galton.html">Digital Galton Board on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Bootloader/Bootloader.html">Custom serial bootloader for the RP2040</a></li>
-<li><a href="./Pico/Bootloader/Worm.html">Worm-like serial bootloader</a></li>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-<li><a href="./Dyson/Search/Dyson_Search.html">Bayesian search for Dyson Spheres</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-<li><a href="https://cornellfluxchamber.github.io">Cornell Ecology and Evolutionary Biology</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Galton/Collisions.html">The physics of colliding balls, with coefficient of restitution</a></li>
-<li><a href="./Pico/Galton/Galton_Stats.html">The statistics of a Galton Board</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./Pico/Bootloader/Infrared.html">Wireless UART via infrared</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Pico/Birds/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/UDP/Connecting.html">Connecting to WiFi with the Pi Pico W</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4GisLzRSqw5x5G38M4zlkr">Video lectures (RP2040, 2025)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040, 2022)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32, 2021)</a></li>
-<li><a href="https://ece4760.github.io/Projects/Projects.html">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thought-experiments">Thought experiments<a class="anchor-link" href="#Thought-experiments">&#182;</a></h2><p>Thinking about the programs that people generate, and vice versa. These are playful, not rigorous.</p>
-<ol>
-<li><a href="./Essays/Characters_in_a_story.pdf">Can characters in a story figure out that they're in a story?</a></li>
-<li><a href="./Essays/Black_holes.pdf">Are black holes symptomatic of a simulation, or of a bandwidth-limit on the universe?</a></li>
-<li><a href="./Essays/Earth_as_computer.pdf">What does a future in which natural computing has taken hold look like?</a></li>
-<li><a href="./Essays/Invite.pdf">If a secret technology is inexplicable, does information security reduce to material security?</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Professional/Service.pdf">Service statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-<li><a href="./Professional/Dossier/Dossier.pdf">Reappointment dossier 2025</a> $\longleftarrow$ the best resource for forming a professional opinion of me</li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
 
 </div>
 </div>
