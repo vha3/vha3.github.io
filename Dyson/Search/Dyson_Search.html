@@ -13216,14 +13216,14 @@ div#notebook {
 <p>We can notice a few things which match our intuition. Given that we searched the whole lake, and given that the searchability of the lake is better than that of the land, we've decreased our confidence that the chipsat is in the lake (we'd probably have seen it). We've decreased our confidence that the chipsat is on the shore of the lake to an even greater degree, and we've <em>increased</em> our confidence that it's somewhere on the land. On land, it's more likely that we may have missed it in our search.</p>
 <figure>
     <img align="center" width="600" height="200" src="after_search.png" alt='missing' />
-    <center><figcaption>Fig 5: Where is the chipsat likely located, given that we didn't find it?</figcaption></center>
+    <center><figcaption>Fig 5: Where is the chipsat likely located, given that we didn't find it?<br>$\frac{p(\text{chipsat is located in that cell}) \cdot p(\text{not finding the chipsat }|\text{ it is located in that gridcell})}{p(\text{finding the chipsat})}$</figcaption></center>
 </figure><h3 id="A-north-wind-blows">A north wind blows<a class="anchor-link" href="#A-north-wind-blows">&#182;</a></h3><p>Let us now suppose that a strong north wind blows overnight. We can incorporate this <em>new</em> information about the chipsat location into our infrastructure, to better inform the next day's search. As you can see, the north wind pushes any probability mass on the surface of the lake south, until it encounters a shore. The probability mass then <em>accumulates</em> on the shore. So, on the next day, it would be a wise decision to revisit the north-facing beaches of the lake, even though we've already searched them.</p>
 <p>This should match intuition, but the point here is that such intuition <em>emerges</em> from this model. The Bayesian search formulation allows for us to make a best-guess about the chipsat's location that incorporates our prior knowledge about the situation, the searchability of the landing zone, the results of searches already conducted, <em>and</em> time-varying information about the probability distribution in the search space.</p>
 <p><img src="./northwind.gif"></p>
 <h3 id="Updating-our-prioritized-search">Updating our prioritized search<a class="anchor-link" href="#Updating-our-prioritized-search">&#182;</a></h3><p>After having completed one comprehensive search, and after having a north wind blow across the lake, where should we prioritize our search the following day? We discover that we would be wise to revisit the north-facing shores of the lake.</p>
 <figure>
     <img align="center" width="600" height="200" src="policy2.png" alt='missing' />
-    <center><figcaption>Fig 7: Where is the chipsat likely located, after a search and a north wind?</figcaption></center>
+    <center><figcaption>Fig 7: Where should we prioritize our second search, after a north wind?<br> $p(\text{chipsat is in gridcell})\cdot p(\text{finding chipsat in that gridcell})$</figcaption></center>
 </figure>
 </div>
 </div>
