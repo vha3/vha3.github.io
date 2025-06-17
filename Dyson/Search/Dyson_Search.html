@@ -13091,8 +13091,10 @@ div#notebook {
 <li><a href="#Where-we-begin">Where we begin</a></li>
 <li><a href="#Incorporating-expert-knowledge-to-inform-location-probabilities">Incorporating expert knowledge to inform location probabilities</a></li>
 <li><a href="#Incorporating-expert-knowledge-on-searchability">Incorporating expert knowledge on searchability</a></li>
+<li><a href="#Prioritizing-search">Prioritizing search</a></li>
 <li><a href="#Updating-our-knowledge-after-a-search">Updating our knowledge after a search</a></li>
 <li><a href="#A-north-wind-blows">A north wind blows</a></li>
+<li><a href="#Updating-our-prioritized-search">Updating our prioritized search</a></li>
 </ul>
 </blockquote>
 </li>
@@ -13100,6 +13102,7 @@ div#notebook {
 <li><a href="#Where-we-begin-for-Dyson-spheres">Where we begin for Dyson spheres</a></li>
 <li><a href="#Incorporating-expert-knowledge-to-inform-location-probabilities-for-Dyson-spheres">Incorporating expert knowledge to inform location probabilities for Dyson spheres</a></li>
 <li><a href="#Incorporating-expert-knowledge-on-searchability-for-Dyson-spheres">Incorporating expert knowledge on searchability for Dyson spheres</a></li>
+<li><a href="#Prioritizing-search-for-Dyson-spheres">Prioritizing search for Dyson spheres</a></li>
 <li><a href="#Updating-our-knowledge-after-a-search-for-Dyson-spheres">Updating our knowledge after a search for Dyson spheres</a></li>
 <li><a href="#A-north-wind-blows-for-Dyson-spheres">A north wind blows for Dyson spheres</a></li>
 </ul>
@@ -13199,6 +13202,11 @@ div#notebook {
 <figure>
     <img align="center" width="600" height="200" src="searchability.png" alt='missing' />
     <center><figcaption>Fig 3: How likely are we to find the chipsat in each location, given that it's there?<br> $p(\text{not finding chipsat in gridcell}|\text{it is located in that gridcell})$</figcaption></center>
+</figure><h3 id="Prioritizing-search">Prioritizing search<a class="anchor-link" href="#Prioritizing-search">&#182;</a></h3><p>Provided the prior distribution on chipsat location, and the probability of <em>not</em> finding the chipsat at a particular location were we to look there, we can compute the probability that we <em>find</em> the chipsat at each location in the searchspace. This can help prioritize our search, since we should be looking in the places where we are most likely to find what we're looking for, which aren't necessarily the places where it's most likely located.</p>
+<p>It should match intuition that a policy which prioritizes searching the lake and its shores emerges. These are the places where we are most likely to find what we're looking for.</p>
+<figure>
+    <img align="center" width="600" height="200" src="policy.png" alt='missing' />
+    <center><figcaption>Fig 4: Where should we prioritize our search<br> $p(\text{chipsat is in gridcell})\cdot p(\text{finding chipsat in that gridcell})$</figcaption></center>
 </figure><h3 id="Updating-our-knowledge-after-a-search">Updating our knowledge after a search<a class="anchor-link" href="#Updating-our-knowledge-after-a-search">&#182;</a></h3><p>Let us suppose that, by way of a tremendous effort, we rapidly search this whole searchspace. Perhaps a small group of boats cruise the lake, and some drones/helicopters fly the searchspace looking for the chipsat. And . . . we don't find it. Given our prior knowledge of the likelihood for the chipsat's location, and given our knowledge of the searchability for each region of the searchspace, we can update our knowledge of where the chipsat must be located.</p>
 \begin{align}
 &amp;p(\text{chipsat is located in gridcell }|\text{ we did not find it}) =\\ 
@@ -13207,11 +13215,15 @@ div#notebook {
 <p>We can notice a few things which match our intuition. Given that we searched the whole lake, and given that the searchability of the lake is better than that of the land, we've decreased our confidence that the chipsat is in the lake (we'd probably have seen it). We've decreased our confidence that the chipsat is on the shore of the lake to an even greater degree, and we've <em>increased</em> our confidence that it's somewhere on the land. On land, it's more likely that we may have missed it in our search.</p>
 <figure>
     <img align="center" width="600" height="200" src="after_search.png" alt='missing' />
-    <center><figcaption>Fig 4: Where is the chipsat likely located, given that we didn't find it?</figcaption></center>
+    <center><figcaption>Fig 5: Where is the chipsat likely located, given that we didn't find it?</figcaption></center>
 </figure><h3 id="A-north-wind-blows">A north wind blows<a class="anchor-link" href="#A-north-wind-blows">&#182;</a></h3><p>Let us now suppose that a strong north wind blows overnight. We can incorporate this <em>new</em> information about the chipsat location into our infrastructure, to better inform the next day's search. As you can see, the north wind pushes any probability mass on the surface of the lake south, until it encounters a shore. The probability mass then <em>accumulates</em> on the shore. So, on the next day, it would be a wise decision to revisit the north-facing beaches of the lake, even though we've already searched them.</p>
 <p>This should match intuition, but the point here is that such intuition <em>emerges</em> from this model. The Bayesian search formulation allows for us to make a best-guess about the chipsat's location that incorporates our prior knowledge about the situation, the searchability of the landing zone, the results of searches already conducted, <em>and</em> time-varying information about the probability distribution in the search space.</p>
 <p><img src="./northwind.gif"></p>
-
+<h3 id="Updating-our-prioritized-search">Updating our prioritized search<a class="anchor-link" href="#Updating-our-prioritized-search">&#182;</a></h3><p>After having completed one comprehensive search, and after having a north wind blow across the lake, where should we prioritize our search the following day? We discover that we would be wise to revisit the north-facing shores of the lake.</p>
+<figure>
+    <img align="center" width="600" height="200" src="policy2.png" alt='missing' />
+    <center><figcaption>Fig 7: Where is the chipsat likely located, after a search and a north wind?</figcaption></center>
+</figure>
 </div>
 </div>
 </div>
@@ -13243,8 +13255,12 @@ div#notebook {
 where:
 \begin{align}
 p(\text{Dyson sphere is observable}) = p(\text{Gathering necessary data for that grid cell}) \cdot p(\text{Dyson sphere visible in that data})
-\end{align}
-<br><br><strong>Note that this naturally directs our attention to places from which we've already gathered data!! The strategy of combing data that we've already gathered will emerge naturally from this framework!!</strong></p>
+\end{align}</p>
+<h3 id="Prioritizing-search-for-Dyson-spheres">Prioritizing search for Dyson spheres<a class="anchor-link" href="#Prioritizing-search-for-Dyson-spheres">&#182;</a></h3><p>As in the search for chipsats, we can compute the likelihood of finding a Dyson sphere at each location in our search space. This likelihood is given by:</p>
+\begin{align}
+p(\text{Finding DS}) &amp;= p(\text{DS exists at that location}) \cdot p(\text{Observing DS in the data})\\
+&amp;= p(\text{DS exists at that location}) \cdot p(\text{Gathering necessary data}) \cdot p(\text{Seeing the DS in the data})
+\end{align}<p><br><br><strong>Note that this naturally directs our attention to places from which we've already gathered data!! The strategy of combing data that we've already gathered will emerge naturally from this framework!!</strong></p>
 <h3 id="Updating-our-knowledge-after-a-search-for-Dyson-spheres">Updating our knowledge after a search for Dyson spheres<a class="anchor-link" href="#Updating-our-knowledge-after-a-search-for-Dyson-spheres">&#182;</a></h3><p>After having generated prior probabilities for Dyson sphere locations, and quantifying the searchability for each zone in the searchspace, we would then look for Dyson spheres. This will include combing data that we've already gathered, and it will include gathering more data. <em>Every time we don't find a Dyson sphere, we update our map.</em> Even as we fail to locate these objects, we systematically narrow our search.</p>
 \begin{align}
 p(\text{DS is located in gridcell }|\text{ we did not find it}) = \frac{p(\text{DS is located in that cell}) \cdot p(\text{not finding the DS }|\text{ DS is located in that gridcell})}{p(\text{finding the DS})}
@@ -13254,6 +13270,7 @@ p(\text{DS is located in gridcell }|\text{ we did not find it}) = \frac{p(\text{
 \begin{align}
 \text{Goal of workshop} = p(\text{Dyson sphere exists}) = f(t)
 \end{align}</p>
+<h3 id="Updating-our-prioritized-search-for-Dyson-spheres">Updating our prioritized search for Dyson spheres<a class="anchor-link" href="#Updating-our-prioritized-search-for-Dyson-spheres">&#182;</a></h3><p>As with the chipsats, we can recompute the likelihood of finding the Dyson sphere at each possible location in our searchspace, given our updated likelihood distribution for the Dyson sphere existing at each possible location, the probability of gathering the necessary data to see it, and the probability of seeing it in that data.</p>
 
 </div>
 </div>
