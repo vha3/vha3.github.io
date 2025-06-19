@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>index</title>
+<title>UDP_Chat</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,369 +13077,31 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Hunter-Adams">V. Hunter Adams<a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h1>
+<h1 id="UDP-communication-from-Pico-W-to-PC">UDP communication from Pico W to PC<a class="anchor-link" href="#UDP-communication-from-Pico-W-to-PC">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">Lecturer of Electrical Engineering, Cornell University (vha3@cornell.edu), 208 Phillips Hall<a class="anchor-link" href="#Lecturer-of-Electrical-Engineering,-Cornell-University-(vha3@cornell.edu),-208-Phillips-Hall">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><!-- ## Webpage table of contents --></p>
 <blockquote><ul>
-<li><a href="#Philosophies">Philosophies</a></li>
-<li><a href="#Research-interests">Research interests</a></li>
-<li><a href="#Engineering-projects">Engineering projects</a></li>
-<li><a href="#Outside-collaborations">Outside collaborations</a></li>
-<li><a href="#Expository-webpages">Expository webpages</a></li>
-<li><a href="#Courses,-lectures,-and-talks">Courses, lectures, and talks</a></li>
-<li><a href="#Academic-papers">Academic papers</a></li>
-<li><a href="#Thought-experiments">Thought experiments</a></li>
-<li><a href="#Professional-stuff-and-external-links">Professional stuff and external links</a></li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Philosophies">Philosophies<a class="anchor-link" href="#Philosophies">&#182;</a></h2><p>The materials below summarize my philosophies toward engineering in general, embedded systems engineering in particular, teaching, and service/open-source.</p>
-<h4 id="On-engineering-.-.-.">On engineering . . .<a class="anchor-link" href="#On-engineering-.-.-.">&#182;</a></h4><ul>
-<li><a href="https://www.youtube.com/watch?v=-TFsfcIx04Q">A love letter to embedded systems</a> (<a href="https://vanhunteradams.com/Talks/ENGRD.pdf">Slides</a>)</li>
-</ul>
-<h4 id="On-teaching-.-.-.">On teaching . . .<a class="anchor-link" href="#On-teaching-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Teaching.pdf">Teaching statement</a></li>
-<li><a href="https://vanhunteradams.com/Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-</ul>
-<h4 id="On-service,-and-on-open-sourcing-one's-work-.-.-.">On service, and on open-sourcing one's work . . .<a class="anchor-link" href="#On-service,-and-on-open-sourcing-one's-work-.-.-.">&#182;</a></h4><ul>
-<li><a href="./Professional/Service.pdf">Service statement</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Research-interests">Research interests<a class="anchor-link" href="#Research-interests">&#182;</a></h2><h4 id="Natural-Computing">Natural Computing<a class="anchor-link" href="#Natural-Computing">&#182;</a></h4><p>Humanity has a long history of utilizing natural processes for the production of <em>power</em>, but it has underutilized these processes for <em>computation</em>. Can we unlock the latent computational potential that exists in nature? If we can, we might improve the relationship between nature and machines, and radically increase total global compute.</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=xqg1QjpaEE8&amp;t=2150s">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Talks/Natural_Computing.pdf">Slides for the above talk</a> $\longleftarrow$ These ideas are under active development. Feedback is welcomed!</li>
-<li><a href="./Papers/Earth_as_Computer.pdf">Op-Ed</a> $\longleftarrow$ A fictional vision of a future in which these ideas have taken hold, and how we might get there.</li>
-<li><a href="https://vanhunteradams.com/Professional/Research.pdf">Research statement</a></li>
-</ul>
-<h4 id="Chipsats-(very-tiny-spacecraft)">Chipsats (very tiny spacecraft)<a class="anchor-link" href="#Chipsats-(very-tiny-spacecraft)">&#182;</a></h4><p>A chipsat is a spacecraft which is small enough to fit in your wallet. Each is a printed circuit board equipped with a collection of sensors, a processor for gathering measurements from those sensors, and a radio for communicating those measurements to one another and to data-aggregating receiver stations. Because they are so tiny and cheap, chipsats can be launched and deployed in massive number. This makes them fabulous tools for conducting certain kinds of science in space. They're particularly well suited for distributed sensing experiments which involve deploying a bunch over a broad area of space or on the surface of a planet/comet/etc., and gathering measurements from that whole area.</p>
-<ul>
-<li><a href="https://vanhunteradams.com/5160/Chipsats/Lecture26.pdf">A talk on these thoughts</a></li>
-<li><a href="https://vanhunteradams.com/Papers/R-selected.pdf">R-selected spacecraft (a paper about chipsats)</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Engineering-projects">Engineering projects<a class="anchor-link" href="#Engineering-projects">&#182;</a></h2><p>This list includes both personal projects and projects generated for assignment to students. I have provided all source code for personal projects. The code for projects which may be assigned to students is not posted publicly, but I'd be happy to send it to you if you email me.</p>
-<p><strong>RP2040 (Raspberry Pi Pico) projects</strong></p>
-<ol>
-<li><a href="./Pico/BLE/GATT_Server.html">GATT server on Pi Pico W</a></li>
-<li><a href="./Pico/BLE/GATT_Client.html">GATT client on Pi Pico W</a></li>
-<li><a href="./Pico/Galton/Galton.html">Digital Galton Board on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Bootloader/Bootloader.html">Custom serial bootloader for the RP2040</a></li>
-<li><a href="./Pico/Bootloader/Worm.html">Worm-like serial bootloader</a></li>
-<li><a href="./Pico/CAN/CAN.html">CAN driver implemented with PIO on RP2040</a></li>
-<li><a href="./Pico/Ethernet/UPD_TX.html">Non-blocking UDP transmitter using PIO on RP2040</a></li>
-<li><a href="./Pico/AM_Radio/AM.html">AM radio voice transmission with PWM on RP2040</a></li>
-<li><a href="./Pico/Birds/Birdsong.html">Birdsong synthesizer implemented on RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Steppers/Lorenz.html">Stepper motor driver written in PIO assembly for RP2040</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#Strange-Attractor">Lorenz System on an Etch-a-Sketch</a><br>
-- <a href="./Pico/Steppers/Lorenz.html#DDS-Circle-Drawing">Direct digital synthesis of circle on an Etch-a-Sketch</a> <br>
-- <a href="./Pico/Steppers/Lorenz.html#Delta-Robot">Delta Robot</a></li>
-<li><a href="./Pico/VGA/VGA.html">VGA driver written in PIO assembly for RP2040</a> <br>
-- <a href="./Pico/VGA/VGA.html#Mandelbrot-Set">Mandelbrot Set</a><br>
-- <a href="./Pico/VGA/VGA.html#The-Barnsley-Fern">Barnsley Fern</a><br>
-- <a href="./Pico/VGA/VGA.html#Conway&#39;s-Game-of-Life">Game of Life</a><br>
-- <a href="./Pico/VGA/VGA.html#Graphics-primitives">Graphics primitives</a></li>
-<li><a href="./Pico/Animal_Movement/Animal_Movement.html">Decision making in animal groups on the move (written up as lab assignment)</a></li>
-<li><a href="./Pico/ReactionWheel/ReactionWheel.html">PID control of an inverted pendulum with a reaction wheel (written up as a lab assignment)</a></li>
-<li><a href="./Pico/Cricket/Crickets.html">Cricket chirp synthesis and synchronization with RP2040 (written up as lab assignment)</a></li>
-<li><a href="./Pico/Animal_Movement/Boids_Lab.html">Animating Boids and a predator with RP2040 (written up as a lab assignment)</a></li>
-<li><a href="./Pico/VGA/FFT.html">Realtime Audio FFT to VGA Display with RP2040</a></li>
-<li><a href="./Pico/VGA/Trackpad.html">Resistive touchscreen to VGA display with RP2040</a></li>
-<li><a href="./Pico/Helicopter/Helicopter.html">PID control of 1D helicopter with RP2040 (written up as lab assignment)</a></li>
-</ol>
-<p><strong>PIC32 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Enigma/Enigma.html">Enigma machine emulated on PIC32</a></li>
-<li><a href="./Boids/Boids-predator.html">Boids algorithm on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Spectrogram/Spectrogram.html">Realtime audio spectrogram on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./Servos/Servos.html">Zoom-interactive robot on PIC32 (written up as a lab assignment)</a></li>
-<li><a href="./ParticleSystems/Particle.html">Particle systems on PIC32</a></li>
-</ol>
-<p><strong>DE1-SoC FPGA projects</strong></p>
-<ol>
-<li><a href="./DE1/Lattice_Boltzmann/Lattice_Boltzmann.html">Lattice-Boltzmann accelerator and visualizer</a></li>
-<li><a href="./DE1/Drum/Drum_synthesis.html">Multiprocessor drum synthesizer on the DE1-SoC</a></li>
-<li><a href="./DE1/VGA_Driver/Driver.html">Verilog VGA driver for the DE1-SoC</a></li>
-<li><a href="./GFSKVerilog/GFSKVerilog.html">GFSK demodulation in Verilog on the DE1-SoC</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot.html">Mandelbrot visualizer on the DE1-SoC</a></li>
-<li><a href="./DE1/Lorenz/Lorenz.html">Lorenz system solver/visualizer on DE1-SoC (written up as a lab assignment)</a></li>
-</ol>
-<p><strong>CC1310 microcontroller projects</strong></p>
-<ol>
-<li><a href="./Monarch/Monarch.html">Monarch chip-satellite</a><!-- 2. [Quick and dirty jeopardy buzzers]() --></li>
-</ol>
-<p><strong>Raspberry Pi projects</strong></p>
-<ol>
-<li><a href="./Monarch/PiGFSK.html">GFSK demodulator on Raspberry Pi for use with CC1310 microcontroller</a></li>
-</ol>
-<!-- **Artistic projects**
-1. [Paint and clay](./Paint/Paint.html) -->
-
-<p><strong>Machine learning projects</strong></p>
-<ol>
-<li><a href="./Papers/Data_Prognostics.pdf">Data prognostics using symbolic regression</a></li>
-</ol>
-<p><strong>Mathematical projects</strong></p>
-<ol>
-<li><a href="./Math/Fourier_drawing/Fourier_Drawing.html">Picasso, by way of Fourier</a></li>
-<li><a href="./Strings/Circlelines.html">Attempting to understand something beautiful</a></li>
-<li><a href="./Papers/Probabilistic_packet.pdf">Communicating with interstellar ships</a></li>
-<li><a href="./Collaborations/Archeology/Bayes_Proportions.html">Bayesian approach to analyzing differences in proportions</a></li>
-<li><a href="./Dyson/Search/Dyson_Search.html">Bayesian search for Dyson Spheres</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Outside-collaborations">Outside collaborations<a class="anchor-link" href="#Outside-collaborations">&#182;</a></h2><p>The projects listed below were conducted in collaboration with an outside organization.</p>
-<ol>
-<li><a href="./Monarch/Spinlaunch_guide.html">SpinLaunch chipsat experiment on Flight Test 10</a></li>
-<li><a href="./Collaborations/Johnson_Museum/Johnson.html">Johnson Museum of Art</a></li>
-<li><a href="./Collaborations/Archeology/Mummy.html">Cornell Archeology</a></li>
-<li><a href="./Monarch/VineyardMonarch.html">Cornell Plant Sciences and Veterinary School</a></li>
-<li><a href="https://cornellfluxchamber.github.io">Cornell Ecology and Evolutionary Biology</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Expository-webpages">Expository webpages<a class="anchor-link" href="#Expository-webpages">&#182;</a></h2><p>For my own future reference. Intended audience is myself.</p>
-<ol>
-<li><a href="./DDS/DDS.html">Direct digital synthesis (webpage takes a few moments to open)</a></li>
-<li><a href="./FFT/FFT.html">The Cooley-Tukey FFT</a></li>
-<li><a href="./PID/PID.html">PID controllers (phenomenological introduction)</a></li>
-<li><a href="./PID/PID_Analytical.html">PID controllers (analytical introduction)</a></li>
-<li><a href="./Pico/Galton/Collisions.html">The physics of colliding balls, with coefficient of restitution</a></li>
-<li><a href="./Pico/Galton/Galton_Stats.html">The statistics of a Galton Board</a></li>
-<li><a href="./Pico/Bootloader/Boot_sequence.html">RP2040 boot sequence</a></li>
-<li><a href="./Pico/Bootloader/Infrared.html">Wireless UART via infrared</a></li>
-<li><a href="./FixedPoint/FixedPoint.html">Fixed point arithmetic</a></li>
-<li><a href="./Pico/Birds/Birdsong_synthesis.html">Synthesizing birdsong via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-algorithm.html">Boids, with distributed consensus</a></li>
-<li><a href="./Pico/Animal_Movement/Boids-predator.html">Boids, with predator</a></li>
-<li><a href="./Pico/ReactionWheel/Complementary_Filters.html">Complementary filters</a></li>
-<li><a href="./Pico/Cricket/Cricket_synthesis.html">Synthesizing snowy tree crickets via Direct Digital Synthesis</a></li>
-<li><a href="./Pico/Cricket/Synchronization.html">Synchronization of integrate-and-fire oscillators</a></li>
-<li><a href="./Protocols/SPI/SPI.html">SPI communication</a></li>
-<li><a href="./Protocols/I2C/I2C.html">I2C communication</a></li>
-<li><a href="./Protocols/UART/UART.html">UART communication</a></li>
-<li><a href="./Pico/Keypad/Keypad.html">Interfacing keypad with RP2040</a></li>
-<li><a href="./Pico/ReactionWheel/Digital_Lowpass_Filters.html">Digital lowpass filters</a></li>
-<li><a href="./Pico/Helicopter/MotorCircuit.html">Electrically isolating DC motors</a></li>
-<li><a href="./DE1/Lorenz/Verilog.html">Verilog basics</a></li>
-<li><a href="./DE1/Drum/Generate.html">Generate blocks in Verilog</a></li>
-<li><a href="./DE1/Drum/Discretization.html">Discretizing the 2D wave equation</a></li>
-<li><a href="./DE1/Mandelbrot/Mandelbrot_Implementation.html">Mandelbrot implementation background</a></li>
-<li><a href="./Estimation/Estimation.html">Introduction to estimation (particle filters, sigma-point filters, EKF's, UKF's, KF's)</a></li>
-<li><a href="./Estimation/Examples.html">Worked estimation examples</a></li>
-<li><a href="./Estimation/MUKF.html">Gyro-based multiplicative UKF for quaternion estimation</a></li>
-<li><a href="./MatchedFilter/Matched.html">Coding gain from matched filtering</a></li>
-<li><a href="./Pico/ReactionWheel/Pendulum_construction.html">Mechanical construction of reaction wheel inverted pendulum</a></li>
-<li><a href="./Pico/ReactionWheel/Tuning.html">Tuning reaction wheel inverted pendulum PID controller</a></li>
-<li><a href="./5160/ADCS/Supplements/ADCS.html">Rigid body dynamics and determination</a></li>
-<li><a href="./5160/Communications/Supplements/TC.html">Link budget analysis</a></li>
-<li><a href="./Pico/BLE/BTStack_HCI.html">BTstack and RP2040: HCI layer</a></li>
-</ol>
-<p>Prepared as supplemental course material for MAE 5160 (Spacecraft technology and systems architecture). Intended audience is senior/masters level mechanical engineers.</p>
-<ol>
-<li><a href="./5160/Intro/Supplements/Intro.html">Cassini spacecraft overview, and thoughts on exploration</a></li>
-<li><a href="./5160/MDP/Supplements/MDP.html">NASA mission design process</a></li>
-<li><a href="./5160/RTR/Supplements/RTR.html">Requirements, trades, &amp; risks</a></li>
-<li><a href="./5160/Orbit/Supplements/orbit.html">Orbital mechanics and orbit design</a></li>
-<li><a href="./5160/Propulsion/Supplements/Prop.html">Spacecraft propulsion/GNC</a></li>
-<li><a href="./5160/Avionics/Supplements/Avionics.html">Spacecraft avionics</a></li>
-<li><a href="./5160/Environment/Supplements/Environment.html">Space environment</a></li>
-</ol>
-<p>Prepared as supplemental course material for Astro 1101 (From new worlds to black holes). Intended audience is non-technical students.</p>
-<ol>
-<li><a href="./Astro1101/Section1.html">Basic math of astronomy, Kepler's Laws</a></li>
-<li><a href="./Astro1101/Section2.html">Seasons, sidereal/solar days, Moon phases/geometry, tides, Kepler's 3rd Law</a></li>
-<li><a href="./Astro1101/Section3.html">Gravitational/Electromagnetic forces, Wien's law, Stephan-Boltzmann, absorption/emission spectra, telescopes, Doppler</a></li>
-<li><a href="./Astro1101/Section4.html">Parallax and parsecs; luminosity, Stephan-Boltzmann, and brightness; exoplanet transits; detecting exoplanets with Doppler</a></li>
-<li><a href="./Astro1101/Section5.html">Half lives, dating curves, and mass spectroscopy</a></li>
-<li><a href="./Astro1101/Section6.html">Equilibrium temperature of the Earth</a><!-- 7. [Review of topics so far](./Astro1101/Section7.html) --></li>
-<li><a href="./Astro1101/Section8.html">Proton-proton chain, life cycle of a star</a></li>
-<li><a href="./Astro1101/Section9.html">Venus atmosphere and geology</a></li>
-<li><a href="./Astro1101/Section10.html">Martian surface processes, gas escape, RADAR imaging</a><!-- 11. [Review of topics so far](./Astro1101/Section11.html) --></li>
-<li><a href="./Astro1101/Section12.html">Rings and the Roche Limit, RADAR depth sounding, the gas giants</a></li>
-<li><a href="./Astro1101/Section13.html">Comets and Trans-Neptunian objects</a></li>
-</ol>
-<p>I am experimenting with the new Raspberry Pi Pico microcontroller. Keeping track of my notes in the pages below. Intended audience is myself.</p>
-<ol>
-<li><a href="./Pico/Setup/PicoSetup.html">Setting up C/C++ build environment for Raspberry Pi Pico on Windows</a></li>
-<li><a href="./Pico/Setup/PicoSetupMac.html">Setting up C/C++ build environment for Raspberry Pi Pico on Mac</a></li>
-<li><a href="./Pico/Setup/NewProjectWindows.html">Creating/building a new C/C++ Raspberry Pi Pico project on Windows</a></li>
-<li><a href="./Pico/CourseMaterials/Building_Demos.html">Building Raspberry Pi Pico demo code in the lab</a></li>
-<li><a href="./Pico/Setup/SDKArchitecture.html">Understanding Raspberry Pi Pico C/C++ SDK architecture</a></li>
-<li><a href="./Pico/Setup/UsingPicoSDK.html">Using Raspberry Pi Pico C/C++ SDK (Dissecting a Blink example)</a></li>
-<li><a href="./Pico/TimerIRQ/SPI_DDS.html">Direct Digital Synthesis (DDS) via Timer Interrupt on RP2040</a></li>
-<li><a href="./Pico/Multi/MultiCore.html">Dual-core Direct Digital Synthesis (DDS) via Timer Interrupts on RP2040</a></li>
-<li><a href="./Pico/DAC/DMA_DAC.html">Chained-DMA signal generator thru SPI DAC on RP2040</a></li>
-<li><a href="./Pico/UDP/Connecting.html">Connecting to WiFi with the Pi Pico W</a></li>
-<li><a href="./Pico/UDP/UDP_Chat.html">UDP communication from PC to Pico W</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Courses,-lectures,-and-talks">Courses, lectures, and talks<a class="anchor-link" href="#Courses,-lectures,-and-talks">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Instructed courses</strong></p>
-<ol>
-<li><p>ECE 4760 (<em>Digital Systems Design Using Microntrollers</em>): This is a microcontroller laboratory and design course that uses the Raspberry Pi Pico (RP2040). Started in Spring, 2021.<br></p>
-<blockquote><ul>
-<li><a href="https://ece4760.github.io">Course website</a></li>
-<li><a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">Course demo code</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4GisLzRSqw5x5G38M4zlkr">Video lectures (RP2040, 2025)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA5oDg8VXM110GKc-CmvUqEZ">Video lectures (RP2040, 2022)</a></li>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA6FEJuj94gl-9vw8xcHu9Gp">Video lectures (PIC32, 2021)</a></li>
-<li><a href="https://ece4760.github.io/Projects/Projects.html">Student final projects</a></li>
+<li><a href="#Introduction-and-code-location">Introduction and code location</a></li>
+<li><a href="#Some-background">Some background</a><blockquote><ul>
+<li><a href="#Protocol-control-blocks">Protocol control blocks</a></li>
+<li><a href="#Packet-buffers">Packet buffers</a></li>
 </ul>
 </blockquote>
 </li>
-<li><p>ECE 5760 (<em>Advanced Microcontroller Design and System on Chip</em>): This is an FPGA laboratory design course using the DE1-SoC. Started in Fall, 2020.</p>
-<blockquote><ul>
-<li><a href="https://www.youtube.com/playlist?list=PLDqMkB5cbBA4OW0fDTu1FY6aw4uBWOpBa">Video lectures</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/">Course website</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/FinalProjects/">Student final projects</a></li>
+<li><a href="#Receiving-UDP-on-the-Pico-W">Receiving UDP on the Pico W</a></li>
+<li><a href="#Sending-UDP-on-the-Pico-W">Sending UDP on the Pico W</a></li>
+<li><a href="#Communicating-with-the-Pico-W">Communicating with the Pico W</a><blockquote><ul>
+<li><a href="#From-the-command-line">From the command line</a></li>
+<li><a href="#From-Python">From Python</a></li>
 </ul>
 </blockquote>
 </li>
-<li>MAE 5160 (<em>Spacecraft Technology and Systems Architecture</em>): A survey in contemporary space technology from satellite subsystem design through launch and mission operations, focusing on the classical subsystems of robotic and human-rated spacecraft, rockets, planetary rovers, and habitats, and with an emphasis on issue of spacecraft-system architecture and design. Taught for one semester in Spring, 2020.<blockquote><ul>
-<li><a href="./5160.html">Course materials</a></li>
 </ul>
 </blockquote>
-</li>
-</ol>
-<p><strong>Project and writing courses</strong></p>
-<ol>
-<li><p>ECE 6930 (<em>Masters of Engineering Independent Design Projects</em>): The centerpiece of the M.Eng. program is the professional project, in which students apply theory to a real problem, with the guidance from faculty, and often in collaboration with other students. The page below describes projects of my graduated advisees.</p>
-<blockquote><ul>
-<li><a href="./6930/Current_students.html">Resources for current and prospective students</a></li>
-<li><a href="./6930/Past_Projects.html">Past MEng projects</a></li>
-</ul>
-</blockquote>
-</li>
-<li><p>ECE 4920 (<em>Technical Writing Seminar</em>): This course fulfills the College of Engineering Technical Communication requirement, and may also be used as an advisor-approved elective. In this class,  you will rewrite your final project for ECE 4760 or ECE 5760 for publication in a magazine or journal of your choice.</p>
-<blockquote><ul>
-<li><a href="./4920/4920.html">Resources for current students</a></li>
-<li><a href="./4920/Published.html">Published student projects</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>TA'd courses</strong></p>
-<ol>
-<li>Astro 1101 (<em>From new worlds to black holes</em>): Instructors for this course were Steve Squyres and Alex Hayes. Linked below are the supplemental webpages that I prepared for my recitation students each week.<blockquote><ul>
-<li><a href="./Astro1101.html">Course supplements</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>Other talks/posters</strong></p>
-<ol>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=156s">Chipsats</a>. An extended discussion of the theory and applications of chip-satellites. (<a href="./5160/Chipsats/Lecture26.pdf">Slides</a>)</li>
-<li><a href="./Commercialization/VC.pdf">Monarch venture pitch</a></li>
-<li><a href="./Commercialization/Customer_Discovery.pdf">Customer discovery guest lecture</a></li>
-<li><a href="./Commercialization/Final_Presentation.pdf">Final presentation for iCorps</a></li>
-<li><a href="./Commercialization/Breakthrough.pdf">2018 femtosat workshop talk</a></li>
-<li><a href="./Commercialization/Poster.pdf">Viticulture poster</a></li>
-<li><a href="./Talks/IoT_Energy.pdf">Power management in IoT devices</a></li>
-<li><a href="./Talks/ENGRD.pdf">On building things</a></li>
-<li><a href="./Talks/Natural_Computing.pdf">Natural computing</a></li>
-</ol>
 
 </div>
 </div>
@@ -13455,37 +13117,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-papers">Academic papers<a class="anchor-link" href="#Academic-papers">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Dissertation</strong></p>
-<ol>
-<li><a href="./Papers/Thesis.pdf">Theory and Applications of Gram-Scale Spacecraft</a><blockquote><ul>
-<li><a href="https://www.youtube.com/watch?v=2AEwKotldIY&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=1&amp;t=163s">Video of talk</a> (recorded at a later date)</li>
-<li><a href="./5160/Chipsats/Lecture26.pdf">Slides</a></li>
-<li><a href="https://www.youtube.com/watch?v=_-zkH7rmq8A&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=2&amp;t=14s">Video demonstrations of chipsats</a></li>
-<li><a href="https://www.youtube.com/watch?v=tuz8uGI1Nvw&amp;list=PLDqMkB5cbBA7iKXV4M0BJYe58dFeFdFE0&amp;index=3&amp;t=5s">University video about some of this work</a></li>
-</ul>
-</blockquote>
-</li>
-</ol>
-<p><strong>First author</strong></p>
-<ol>
-<li><a href="./Papers/R-selected.pdf">R-Selected Spacecraft</a></li>
-<li><a href="./Papers/Scalable_Packet_Routing.pdf">A scalable packet routing mechanism for chip-satellites in coplanar orbits</a></li>
-<li><a href="./Papers/Spacetime.pdf">Lost in space and time</a></li>
-<li><a href="./Papers/InterplanetaryOpNav.pdf">Interplanetary optical navigation</a></li>
-<li><a href="./Papers/ProbNet.pdf">A probabilistic network formulation for satellite swarm communications</a></li>
-</ol>
-<p><strong>Contributing author</strong></p>
-<ol>
-<li><a href="./Papers/Alpha.pdf">Design of the Alpha CubeSat: Technology Demonstration of a ChipSat-Equipped Retroreflective Light Sail</a></li>
-<li><a href="./Papers/cislunar.pdf">Cislunar Explorers: Lessons Learned from the Development of an Interplanetary CubeSat</a></li>
-</ol>
+<h2 id="Introduction-and-code-location">Introduction and code location<a class="anchor-link" href="#Introduction-and-code-location">&#182;</a></h2><p>UDP (User Datagram) lacks some of the nice features of TCP (no gaurantees with regard to packet delivery, and no guarantee that packets will be delivered in the correct order), but it also lacks much of the overhead associated with TCP. This makes it fast, and it also makes it a very nice starting point for working with LWIP! This webpage shows how to setup a simple chat capability between a PC and and Pi Pico W.</p>
+<p><strong>The code that this webpage documents lives <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/blob/master/WiFi/UDP/picow_udp_beacon.c">here</a>.</strong></p>
 
 </div>
 </div>
@@ -13501,13 +13134,99 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Thought-experiments">Thought experiments<a class="anchor-link" href="#Thought-experiments">&#182;</a></h2><p>Thinking about the programs that people generate, and vice versa. These are playful, not rigorous.</p>
+<h2 id="Some-background">Some background<a class="anchor-link" href="#Some-background">&#182;</a></h2><p>Some understanding of the data structures that LWIP uses to manage network connections and for communicating network data through the stack is helpful for assembling and debugging these programs. There are two data structures in particular that are useful to understand: <strong>protocol control blocks (PCB's)</strong> and <strong>packet buffers (pbuf's)</strong>. Let's consider each in turn.</p>
+<h3 id="Protocol-control-blocks">Protocol control blocks<a class="anchor-link" href="#Protocol-control-blocks">&#182;</a></h3><p>Your application code may be managing multiple network connections at the same time, perhaps receiving information over one port from one remote IP address and sending information out to some other destination address over a different port. LWIP uses a <strong>protocol control block (PCB)</strong> to manage each of these network connections. Each PCB is a struct that contains all of the information of relevance for a particular connection. In the case of a UDP protocol control block, this information includes things like the local IP, remote IP, local and remote ports, and a pointer to a receive callback function (plus some flags for settings).</p>
+<p>Perhaps it stands to reason that the protocol control block for <a href="https://github.com/lwip-tcpip/lwip/blob/ca0395c5ae54273b4fd542ef25b57d4b759678f8/src/include/lwip/tcp.h#L242">a TCP connection</a> maintains a lot more state than <a href="https://github.com/lwip-tcpip/lwip/blob/ca0395c5ae54273b4fd542ef25b57d4b759678f8/src/include/lwip/udp.h#L81">that for UDP</a>. UDP is connectionless and therefore receives no receipt of packet acknowledgements. It has no error correction (beyond a checksum in each packet) and therefore maintains no state associated with retransmission attempts.</p>
+<h3 id="Packet-buffers">Packet buffers<a class="anchor-link" href="#Packet-buffers">&#182;</a></h3><p><a href="https://github.com/lwip-tcpip/lwip/blob/ca0395c5ae54273b4fd542ef25b57d4b759678f8/src/include/lwip/pbuf.h#L186">Packet buffers (PBUF's)</a> are used to shuffle data through the LWIP stack. These are the containers that hold the packet data, and some metainformation about that packet. Each contains a pointer to the payload (the actual data), a field that indicates the total length of the buffer, a field that contains the length of this <em>particular</em> buffer, and a pointer to another PBUF called <code>next</code>. In the event that the packet data exceeds that which can be held in a single buffer, this pointer allows for us to chain PBUF's in a linked list. Other fields include the PBUF type (does this PBUF live in RAM, ROM, etc.?), some flags, and a reference count. The reference count tracks the number of users of this PBUF so that it's not freed to soon (more on that later). The final fields include one to hold the netif index for an incoming packet, and a place where a user could store custom data on a PBUF.</p>
+<p>This is how LWIP organizes packet information! When we want to send a packet, we will allocate a PBUF, populate its payload field, and send it out by way of a protocol control block. When we receive a packet, LWIP will emit that packet to our callback function <em>as a PBUF</em>. As we'll see, it's our responsibility to <em>free</em> each PBUF once we've finished using it. We interact with these PBUFF's largely by way of the <a href="https://www.nongnu.org/lwip/2_1_x/group__pbuf.html">PBUF API</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Receiving-UDP-on-the-Pico-W">Receiving UDP on the Pico W<a class="anchor-link" href="#Receiving-UDP-on-the-Pico-W">&#182;</a></h2><p>Setting up our device to <em>receive</em> UDP packets involves the following steps:</p>
 <ol>
-<li><a href="./Essays/Characters_in_a_story.pdf">Can characters in a story figure out that they're in a story?</a></li>
-<li><a href="./Essays/Black_holes.pdf">Are black holes symptomatic of a simulation, or of a bandwidth-limit on the universe?</a></li>
-<li><a href="./Essays/Earth_as_computer.pdf">What does a future in which natural computing has taken hold look like?</a></li>
-<li><a href="./Essays/Invite.pdf">If a secret technology is inexplicable, does information security reduce to material security?</a></li>
+<li>Creating a protocol control block</li>
+<li><em>Binding</em> that protocol control block to a specific local IP and port. This way, any message sent to our IP address at that specific port will be routed to this particular PCB.</li>
+<li>Setup a receive callback function for this PCB that will process incoming messages sent to the IP/port that we've bound.</li>
+<li>Within that receive callback function, which has a standard set of arguments that includes a PBUF in which the incoming packet information is stored, process the packet payload and then free the PBUF.</li>
 </ol>
+<p>Let us examine each of these steps.</p>
+<h4 id="Creating-a-protocol-control-block">Creating a protocol control block<a class="anchor-link" href="#Creating-a-protocol-control-block">&#182;</a></h4><p>We can declare a UDP protocol control block globally, and then we'll assign its value in an initialization function. Declaring the PCB (or, more specifically, a <em>pointer</em> to the PCB) looks like the following:</p>
+<div class="highlight"><pre><span></span><span class="c1">// Protocol control block for UDP receive connection</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">udp_pcb</span> <span class="o">*</span><span class="n">udp_rx_pcb</span><span class="p">;</span>
+</pre></div>
+<p>And the initializing this pcb looks like this:</p>
+<div class="highlight"><pre><span></span><span class="c1">// Initialize the RX protocol control block</span>
+<span class="n">udp_rx_pcb</span>  <span class="o">=</span> <span class="n">udp_new_ip_type</span><span class="p">(</span><span class="n">IPADDR_TYPE_ANY</span><span class="p">);</span>
+</pre></div>
+<p>Under the hood, <code>udp_new_ip_type</code> makes a call to the function <code>udp_new()</code>, which allocates a new udp protocol control block by way of <code>(struct udp_pcb *)memp_malloc(MEMP_UDP_PCB);</code>.</p>
+<h4 id="Brief-aside-on-LWIP-memory-management">Brief aside on LWIP memory management<a class="anchor-link" href="#Brief-aside-on-LWIP-memory-management">&#182;</a></h4><p>It may seem unusual that we would only declare a pointer to a PCB without allocating any memory, at compile-time, for the PCB itself. It may indeed make you very uncomfortable that we are doing what <em>looks</em> like a malloc in an embedded program. Might this not lead to memory fragmentation?</p>
+<p>LWIP does <em>not</em> use standard <code>malloc</code>/<code>free</code> in order to allocate and  free protocol control blocks or PBUF's. Instead, in the case of PCB's, it statically allocates a <em>pool</em> of protocol control block objects. When we runtime-allocate a new udp_pcb, LWIP is actually just grabbing one of the PCB's from this pool. When we free a PCB, LWIP is actually just marking it as "not in use." So, in the case of PCB's, there is not  any dynamic memory allocation occuring at runtime, though the LWIP API vocabulary kind of makes it sound like there is. The same applies to the PBUF structures (though not, as we'll see, to the PBUF payloads). The number of PBUF's in the pool is configurable by way of an LWIP configuration, <code>PBUF_POOL_SIZE</code>. And the number of UDP PCB's in the pool is another LWIP configuration, <code>MEMP_NUM_UDB_PCB</code>.</p>
+<p>For PBUF payloads, LWIP does in fact dynamically allocate memory from heap. But it does so from its own dedicated memory, of a size that we specify in the configuration, and by way of its own implementation of <code>malloc</code> that prohibits allocation outside of this dedicated memory. Even so, memory fragmentation is a risk! If you application includes lots of allocating/freeing of different-sized PBUF's, you may encounter this problem. You can mitigate your risk by instead allocating PBUF's from the <em>PBUF pool</em>. This pool contains pre-allocated memory for use as PBUF payloads. Using the pool means that your payload size is always the same (though you get to specify what that size is, by way of an LWIP configuration), which means you'll likely be using more memory than you would by allocating. But! You also aren't doing any dynamic memory allocation, which mitigates the risk of fragmentation. Note that all PBUF's allocated for received UDP packets come from this pool.</p>
+<h4 id="Binding-the-protocol-control-block">Binding the protocol control block<a class="anchor-link" href="#Binding-the-protocol-control-block">&#182;</a></h4><p>When we bind a PCB, we are associating it with a particular local IP and port. When a packet appears at that IP and port, it will be directed to our particular PCB (with which we can then associate a receive callback function). The bind occurs in the following line:</p>
+<div class="highlight"><pre><span></span><span class="n">err</span> <span class="o">=</span> <span class="n">udp_bind</span><span class="p">(</span><span class="n">udp_rx_pcb</span><span class="p">,</span> <span class="n">netif_ip_addr4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">),</span> <span class="n">UDP_PORT</span><span class="p">);</span>
+</pre></div>
+<p>The first argument is the PCB that we've just created, the second is the default IP address that we've been assigned by DHCP (see <a href="https://vanhunteradams.com/Pico/UDP/Connecting.html">here</a> for details), and the final argument is the port number. Under the hood, this function is setting the values of the <code>local_port</code> and <code>local_ip</code> fields of the <code>udp_pcb</code> struct. This function will return an error code which will either indicate that binding was successful (<code>ERR_OK</code>), or will indicate that something went wrong. Perhaps we attempted to bind a port which was already bound to another PCB, or perhaps we specified an invalied IP or port, or perhaps there was a memory allocation issue. Before proceeding, we check this error code to confirm that everything was successful.</p>
+<h4 id="Setup-a-receive-callback-function">Setup a receive callback function<a class="anchor-link" href="#Setup-a-receive-callback-function">&#182;</a></h4><p>Having associated a local IP and port with our PCB, we'd now like to setup a receive callback function. When a packet appears at our bound IP and port address, it will be directed to this callback function. LWIP allows for us to do this by way of the <code>udp_recv</code> function:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">ERR_OK</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Setup the receive callback function</span>
+      <span class="n">udp_recv</span><span class="p">(</span><span class="n">udp_rx_pcb</span><span class="p">,</span> <span class="n">udpecho_raw_recv</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;bind error&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</pre></div>
+<p>The first argument is the PCB that we've just created and bound, the second argument is a function pointer to the callback function, and the third argument allows for us to pass some user-defined arguments to this callback functions. In the above case, we aren't passing any arguments to the callback function. Having set this up, any packet that appears to the <code>udp_rx_pcb</code> PCB, which is bound to our specified local IP and port, will be forwarded to our specified callback function. Let's now take a look at that function.</p>
+<h4 id="The-receive-callback-function">The receive callback function<a class="anchor-link" href="#The-receive-callback-function">&#182;</a></h4><p>LWIP will call our callback function with a standard set of arguments, which include the (optional) user specified argument pointer, a pointer to the PCB, a pointer to a PBUF which holds the received packet, a pointer to the IP address object associated with the packet, and the port number to which the packet appeared.</p>
+<p>Within the callback function, we copy the payload of the packet to a buffer, signal a semaphore for a thread to run, clear the payload buffer, and then free the PBUF. <em>It is our responsibility to free this PBUF.</em></p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">udpecho_raw_recv</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="k">struct</span> <span class="n">udp_pcb</span> <span class="o">*</span><span class="n">upcb</span><span class="p">,</span> <span class="k">struct</span> <span class="n">pbuf</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span>
+                 <span class="k">const</span> <span class="n">ip_addr_t</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">u16_t</span> <span class="n">port</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">LWIP_UNUSED_ARG</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
+
+  <span class="c1">// Check that there&#39;s something in the pbuf</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Copy the contents of the payload</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="n">received_data</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">payload</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Semaphore-signal a thread</span>
+    <span class="n">PT_SEM_SAFE_SIGNAL</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">new_message</span><span class="p">)</span> <span class="p">;</span>
+    <span class="c1">// Reset the payload buffer</span>
+    <span class="n">memset</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">payload</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// Free the PBUF</span>
+    <span class="n">pbuf_free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;NULL pt in callback&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<h4 id="The-receive-thread">The receive thread<a class="anchor-link" href="#The-receive-thread">&#182;</a></h4><p>The associated thread which runs in response to this semaphore from the callback function simply prints out the message that we received.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="nf">PT_THREAD</span> <span class="p">(</span><span class="n">protothread_receive</span><span class="p">(</span><span class="k">struct</span> <span class="n">pt</span> <span class="o">*</span><span class="n">pt</span><span class="p">))</span>
+<span class="p">{</span>
+  <span class="c1">// Begin thread</span>
+  <span class="n">PT_BEGIN</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">;</span>
+
+  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Wait on a semaphore</span>
+    <span class="n">PT_SEM_SAFE_WAIT</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">new_message</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Print received message</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">received_data</span><span class="p">);</span>
+
+  <span class="p">}</span>
+
+  <span class="c1">// End thread</span>
+  <span class="n">PT_END</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 </div>
 </div>
@@ -13523,19 +13242,117 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Professional-stuff-and-external-links">Professional stuff and external links<a class="anchor-link" href="#Professional-stuff-and-external-links">&#182;</a></h2><p><strong>Professional documents</strong></p>
-<ul>
-<li><a href="./Professional/CV.pdf">CV</a>, <a href="./Professional/Teaching.pdf">Teaching statement</a>, <a href="./Professional/Research.pdf">Research statement</a>, <a href="./Professional/Service.pdf">Service statement</a>, <a href="./Pico/CourseMaterials/Lab_Criteria.html">What makes a good laboratory exercise?</a></li>
-<li><a href="./Professional/Dossier/Dossier.pdf">Reappointment dossier 2025</a> $\longleftarrow$ the best resource for forming a professional opinion of me</li>
-</ul>
-<p><strong>Articles</strong></p>
-<ul>
-<li><a href="./Media/Media.html">Link to list of articles</a></li>
-</ul>
-<p><strong>External links</strong></p>
-<ul>
-<li><a href="https://www.youtube.com/channel/UClyv0ZpZTPKirBJEeM3zsHQ">YouTube</a>, <a href="https://github.com/vha3">GitHub</a>, <a href="https://www.linkedin.com/in/van-hunter-adams-211bb1165/">LinkedIn</a>, <a href="https://scholar.google.com/citations?user=5Yi4f2oAAAAJ&amp;hl=en">Google scholar</a>,  <a href="https://www.engineering.cornell.edu/faculty-directory/hunter-adams">Cornell page</a></li>
-</ul>
+<h2 id="Sending-UDP-on-the-Pico-W">Sending UDP on the Pico W<a class="anchor-link" href="#Sending-UDP-on-the-Pico-W">&#182;</a></h2><p>Setting up our device to <em>send</em> UDP packets involves the following steps:</p>
+<ol>
+<li>Creating a protocol control block</li>
+<li>Creating an object for holding the destination IP</li>
+<li>Gather some information to send</li>
+<li>Allocating a PBUF</li>
+<li>Populating the payload field of the PBUF</li>
+<li>Sending the PBUF packet to a specified IP address and port</li>
+<li>Freeing the PBUF</li>
+</ol>
+<p>Let us take a look at each of these steps.</p>
+<h4 id="Creating-a-protocol-control-block">Creating a protocol control block<a class="anchor-link" href="#Creating-a-protocol-control-block">&#182;</a></h4><p>All of our UDP send logic is consolidated in a single Protothread. In the initialization part of that thread, we have the two lines of code indicated below. The first of these creates a static local pointer to an object of type <code>udp_pcb</code> called <code>pcb</code>, and the second allocated the <code>udp_pcb</code> object to which this pointer points. This is a static pointer so that it retains its value even after this thread yields.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Make a static local UDP protocol control block</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">udp_pcb</span><span class="o">*</span> <span class="n">pcb</span><span class="p">;</span>
+<span class="c1">// Initialize that protocol control block</span>
+<span class="n">pcb</span> <span class="o">=</span> <span class="n">udp_new</span><span class="p">()</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Destination-IP">Destination IP<a class="anchor-link" href="#Destination-IP">&#182;</a></h4><p>It's handy to create a static local object of type <code>ip_addr_t</code> to hold the destination IP address. The two lines below create such an object, and then populate the value of that object with the destination IP address.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Create a static local IP_ADDR_T object</span>
+<span class="k">static</span> <span class="n">ip_addr_t</span> <span class="n">addr</span><span class="p">;</span>
+<span class="c1">// Set the value of this IP address object to our destination IP address</span>
+<span class="n">ipaddr_aton</span><span class="p">(</span><span class="n">BEACON_TARGET</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">);</span>
+</pre></div>
+<h4 id="Gathering-information-to-send">Gathering information to send<a class="anchor-link" href="#Gathering-information-to-send">&#182;</a></h4><p>In this particular example, we will send user-provided character strings. This thread prompts the user to enter a string via a serial commad line. This string gets stored in the character array <code>pt_serial_in_buffer</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Prompt the user</span>
+<span class="n">sprintf</span><span class="p">(</span><span class="n">pt_serial_out_buffer</span><span class="p">,</span> <span class="s">&quot;&gt; &quot;</span><span class="p">);</span>
+<span class="n">serial_write</span> <span class="p">;</span>
+
+<span class="c1">// Perform a non-blocking serial read for a string</span>
+<span class="n">serial_read</span> <span class="p">;</span>
+</pre></div>
+<h4 id="Allocating-a-PBUF">Allocating a PBUF<a class="anchor-link" href="#Allocating-a-PBUF">&#182;</a></h4><p>Having gathered the information that we'd like to transmit, we must next allocate a PBUF in which to store that information. The line below creates a pointer to a <code>pbuf</code> object, and allocates that PBUF object to which the pointer points.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Allocate a PBUF</span>
+<span class="k">struct</span> <span class="n">pbuf</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">pbuf_alloc</span><span class="p">(</span><span class="n">PBUF_TRANSPORT</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">PBUF_RAM</span><span class="p">);</span>
+</pre></div>
+<p>The first of these arguments indicates the protocol layer for which the pbuf is being allocated. By specifying this as being on the <code>PBUF_TRANSPORT</code> layer, we are telling LWIP that this PBUF is intended for UDP communication and it will automatically allocate space for necessary packet headers in addition to the data. Alternatives for this argument inclue <code>PBUF_IP</code>, which would indicate that this is a network-layer PBUF, or <code>PBUF_LINK</code> (link layer), or <code>PBUF_RAW</code> (no headers).</p>
+<p>The second argument indicates the size of the payload that should be allocated (in bytes). We've added a "+1" to account for null-terminated C strings.</p>
+<p>The final argument tells LWIP the place from which it should grab or allocate the PCB. By making this argument <code>PBUF_RAM</code>, we are specifying that this PBUF should be allocated from RAM. We could instead have made this argument <code>PBUF_POOL</code>, in which case the PBUF would be grabbed from a compile-time-allocated pool of PBUF's (all of fixed payload size). We could alternatively have specified <code>PBUF_ROM</code>, which references read-only memory. Finally, this argument could be <code>PBUF_REF</code> to indicate <em>external</em> memory.</p>
+<h4 id="Populating-the-PBUF">Populating the PBUF<a class="anchor-link" href="#Populating-the-PBUF">&#182;</a></h4><p>We next populate the payload field of the PBUF that we've just allocated. As a matter of convenience, we first create a pointer to a char, and assign its value to be the address of the payload field of the PBUF. Now, be dereferencing and assigning values to this character pointer, we are setting the payload of the PBUF.</p>
+<p>We next clear the payload of the PBUF, and then use <code>snprintf</code> and some string formatters to write <code>BEACON_MSG_LEN_MAX+1</code> bytes to the payload. The payload will include our IP address, followed by the contents of <code>pt_serial_in_buffer</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Pointer to the payload of the pbuf</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">req</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">payload</span><span class="p">;</span>
+
+<span class="c1">// Clear the pbuf payload</span>
+<span class="n">memset</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// Fill the pbuf payload</span>
+<span class="n">snprintf</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="p">,</span> <span class="s">&quot;%s: %s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+  <span class="n">ip4addr_ntoa</span><span class="p">(</span><span class="n">netif_ip_addr4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">)),</span> <span class="n">pt_serial_in_buffer</span><span class="p">);</span>
+</pre></div>
+<h4 id="Sending-the-packet">Sending the packet<a class="anchor-link" href="#Sending-the-packet">&#182;</a></h4><p>Having allocated and populated our PBUF, we next want to send it! We do this by way of the <code>udp_sendto</code> function shown below. The first argument to this function is the PCB which we've created to manage our UDP transmissions, the second is a pointer to our PBUF, the third is a pointer to the <code>ip_addr_t</code> object which holds the destination IP, and the final argument specifies the destination port address.</p>
+<p>Note that we have not bound this PCB to any local port! As a consequence, LWIP will assign a random source port to the packet. We <em>could</em> bind this to a local port, if we cared about the source port. Note also that we have a few options with regard to sending a udp packet. Rather than using <code>udp_sendto</code>, which takes the destination IP/port as arguments, we could alternatively have used <code>udp_connect</code> to associated fixed destination IP/port values with this PCB and then sent the packet using <code>udp_send</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Send the UDP packet</span>
+<span class="n">err_t</span> <span class="n">er</span> <span class="o">=</span> <span class="n">udp_sendto</span><span class="p">(</span><span class="n">pcb</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">);</span>
+</pre></div>
+<h4 id="Free-the-PBUF">Free the PBUF<a class="anchor-link" href="#Free-the-PBUF">&#182;</a></h4><p>Now that we're finished with it, free it! In the event that this PBUF was allocated from RAM, this will free the associated memory. In the event that we grabbed this PBUF from the pool, this will mark it as available.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Free the PBUF</span>
+<span class="n">pbuf_free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</pre></div>
+<h4 id="The-whole-UDP-send-thread">The whole UDP send thread<a class="anchor-link" href="#The-whole-UDP-send-thread">&#182;</a></h4><p>Listed below.</p>
+<div class="highlight"><pre><span></span><span class="k">static</span> <span class="nf">PT_THREAD</span> <span class="p">(</span><span class="n">protothread_send</span><span class="p">(</span><span class="k">struct</span> <span class="n">pt</span> <span class="o">*</span><span class="n">pt</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Begin thread</span>
+    <span class="n">PT_BEGIN</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">;</span>
+
+    <span class="c1">// Make a static local UDP protocol control block</span>
+    <span class="k">static</span> <span class="k">struct</span> <span class="n">udp_pcb</span><span class="o">*</span> <span class="n">pcb</span><span class="p">;</span>
+    <span class="c1">// Initialize that protocol control block</span>
+    <span class="n">pcb</span> <span class="o">=</span> <span class="n">udp_new</span><span class="p">()</span> <span class="p">;</span>
+
+    <span class="c1">// Create a static local IP_ADDR_T object</span>
+    <span class="k">static</span> <span class="n">ip_addr_t</span> <span class="n">addr</span><span class="p">;</span>
+    <span class="c1">// Set the value of this IP address object to our destination IP address</span>
+    <span class="n">ipaddr_aton</span><span class="p">(</span><span class="n">BEACON_TARGET</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Prompt the user</span>
+        <span class="n">sprintf</span><span class="p">(</span><span class="n">pt_serial_out_buffer</span><span class="p">,</span> <span class="s">&quot;&gt; &quot;</span><span class="p">);</span>
+        <span class="n">serial_write</span> <span class="p">;</span>
+
+        <span class="c1">// Perform a non-blocking serial read for a string</span>
+        <span class="n">serial_read</span> <span class="p">;</span>
+
+        <span class="c1">// Allocate a PBUF</span>
+        <span class="k">struct</span> <span class="n">pbuf</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">pbuf_alloc</span><span class="p">(</span><span class="n">PBUF_TRANSPORT</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">PBUF_RAM</span><span class="p">);</span>
+
+        <span class="c1">// Pointer to the payload of the pbuf</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">req</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">payload</span><span class="p">;</span>
+
+        <span class="c1">// Clear the pbuf payload</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+        <span class="c1">// Fill the pbuf payload</span>
+        <span class="n">snprintf</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">BEACON_MSG_LEN_MAX</span><span class="p">,</span> <span class="s">&quot;%s: %s </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+          <span class="n">ip4addr_ntoa</span><span class="p">(</span><span class="n">netif_ip_addr4</span><span class="p">(</span><span class="n">netif_default</span><span class="p">)),</span> <span class="n">pt_serial_in_buffer</span><span class="p">);</span>
+
+        <span class="c1">// Send the UDP packet</span>
+        <span class="n">err_t</span> <span class="n">er</span> <span class="o">=</span> <span class="n">udp_sendto</span><span class="p">(</span><span class="n">pcb</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="n">UDP_PORT</span><span class="p">);</span>
+
+        <span class="c1">// Free the PBUF</span>
+        <span class="n">pbuf_free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+        <span class="c1">// Check for errors</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">er</span> <span class="o">!=</span> <span class="n">ERR_OK</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Failed to send UDP packet! error=%d&quot;</span><span class="p">,</span> <span class="n">er</span><span class="p">);</span>
+        <span class="p">}</span> 
+    <span class="p">}</span>
+    <span class="c1">// End thread</span>
+    <span class="n">PT_END</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
 
 </div>
 </div>
@@ -13551,21 +13368,51 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><head><script async defer src="https://buttons.github.io/buttons.js"></script><script async defer src="https://apis.google.com/js/platform.js"></script></head><table>
-<thead><tr>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-<th style="text-align:center">$\hspace{2mm}$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-<td style="text-align:center"><a class="github-button" href="https://github.com/vha3" aria-label="Follow @vha3 on GitHub">Follow @vha3</a></td>
-<td style="text-align:center"><div class="g-ytsubscribe" data-channelid="UClyv0ZpZTPKirBJEeM3zsHQ" data-layout="default" data-count="hidden"></div></td>
-</tr>
-</tbody>
-</table>
+<h2 id="Communicating-with-the-Pico-W">Communicating with the Pico W<a class="anchor-link" href="#Communicating-with-the-Pico-W">&#182;</a></h2><h3 id="From-the-command-line">From the command line<a class="anchor-link" href="#From-the-command-line">&#182;</a></h3><p>In my view, the easiest way to communicate with the Pico W from a PC is with <a href="https://docs.oracle.com/cd/E86824_01/html/E54763/netcat-1.html">netcat</a>. This is a linux networking utility.</p>
+<h4 id="Sending-from-PC">Sending from PC<a class="anchor-link" href="#Sending-from-PC">&#182;</a></h4><p>To send strings to the Pico W, I open a terminal window and run the command shown below. This is a netcat command (nc). The -u flag indicates UDP transactions, 172.20.10.5 is the destination IP (that of the Pico), and 1234 is the destination port (the one to which we've bound our receive PCB on the Pico). Once I run this, I can enter strings and, each time I push the enter key, that string will be transmitted, it will be forwarded to our receive PCB, which will call our callback function, which will copy the payload and semaphore-signal the receive thread, which will print out our message.</p>
+<p><code>nc -u 172.20.10.5 1234</code></p>
+<h4 id="Receiving-to-PC">Receiving to PC<a class="anchor-link" href="#Receiving-to-PC">&#182;</a></h4><p>To receive messages on our PC sent to us by the Pico, we run the command below in a <em>separate</em> terminal window. This is a netcat command which says please listen (-l) for udp packets (-u) on port 1234. This is the same port that we've specified as the destination port in the <code>udp_sendto</code> command described above. If we run this, then each time the Pico sends us a message it will be printed to the terminal window.</p>
+<p><code>nc -u -l 1234</code></p>
+<h3 id="From-Python">From Python<a class="anchor-link" href="#From-Python">&#182;</a></h3><p>Perhaps you're building some sort of Python application on the PC, and you'd like for that application to communicate with your Pico. The Python program below sets up a simple chat interface that allows for you to send and receive character strings.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+<span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s1">&#39;172.20.10.2&#39;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">))</span>  <span class="c1"># (host, port) because AF_INET</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Listening...&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">UDP_rx</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">sock</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span> <span class="c1"># buffer size</span>
+
+    
+<span class="n">t1</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">UDP_rx</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
+<span class="n">t1</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Send message: &quot;</span><span class="p">)</span>
+    <span class="n">sock</span><span class="o">.</span><span class="n">sendto</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;172.20.10.5&quot;</span><span class="p">,</span> <span class="mi">1234</span><span class="p">))</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
 
 </div>
 </div>
