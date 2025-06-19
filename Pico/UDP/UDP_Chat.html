@@ -13374,6 +13374,15 @@ div#notebook {
 <h4 id="Receiving-to-PC">Receiving to PC<a class="anchor-link" href="#Receiving-to-PC">&#182;</a></h4><p>To receive messages on our PC sent to us by the Pico, we run the command below in a <em>separate</em> terminal window. This is a netcat command which says please listen (-l) for udp packets (-u) on port 1234. This is the same port that we've specified as the destination port in the <code>udp_sendto</code> command described above. If we run this, then each time the Pico sends us a message it will be printed to the terminal window.</p>
 <p><code>nc -u -l 1234</code></p>
 <h3 id="From-Python">From Python<a class="anchor-link" href="#From-Python">&#182;</a></h3><p>Perhaps you're building some sort of Python application on the PC, and you'd like for that application to communicate with your Pico. The Python program below sets up a simple chat interface that allows for you to send and receive character strings.</p>
+<p>To make this code talk to your Pico, I recommend the following:</p>
+<ol>
+<li>Connect both devices to the same hotspot or WiFi network.</li>
+<li>Run ifconfig and check <code>en0</code> to see what computer's IP is. Mine is 172.20.10.2</li>
+<li>Bind to a socket at this IP, choose a port</li>
+<li>Configure beacon target and UDP port to match in your Pico code</li>
+<li>Send a message from the Pico, the PC will print out Pico's IP addr.</li>
+<li>Configure sendtoaddress to match Pico's address</li>
+</ol>
 
 </div>
 </div>
