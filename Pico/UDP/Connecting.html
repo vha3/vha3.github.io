@@ -13157,6 +13157,7 @@ div#notebook {
 <h4 id="Connecting-to-the-network">Connecting to the network<a class="anchor-link" href="#Connecting-to-the-network">&#182;</a></h4><ol>
 <li>We connect to the network by way of that network's SSID (i.e., it's name). This SSID is broadcast by the router as part of the WiFi signal so that devices can see it. Connection often requires a password.</li>
 <li>When we connect, the router will use its DHCP server to assign us a local IP address, and it will send us the local network gateway and subnet mask. That's all the info that we need to join that network.</li>
+<li>It's often the case that this connection is wireless! Bruce has documented the wireless link considerations for the Pico W at <a href="https://people.ece.cornell.edu/land/courses/ece4760/RP2040/C_SDK_setup/WIFI/index_wifi_setup.html">this webpage</a>.</li>
 </ol>
 <p>After connection, of course, there's a whole other protocol by which information is actually exchanged. But let's save that conversation, and focus only on getting a Pico W connected to a network.</p>
 
@@ -13351,6 +13352,7 @@ div#notebook {
 <div class="highlight"><pre><span></span><span class="n">cyw43_wifi_get_rssi</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cyw43_state</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rssi</span><span class="p">)</span>
 </pre></div>
 <p>The first argument is a pointer to the automatically-generated global struct of type <code>cyw43_t</code> that gets created during initialization. The second argument, <code>&amp;rssi</code>, is simply a pointer to an <code>int32_t</code>. This function will dereferece this pointer and set the value at the pointer address to the RSSI of the connected access point.</p>
+<h4 id="Wireless-link-considerations">Wireless link considerations<a class="anchor-link" href="#Wireless-link-considerations">&#182;</a></h4><p>Please see <a href="https://people.ece.cornell.edu/land/courses/ece4760/RP2040/C_SDK_setup/WIFI/index_wifi_setup.html">Bruce's writeup</a> on wireless link considerations with the Pico W. Antenna gain patterns, range experiments, etc.</p>
 
 </div>
 </div>
