@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Policy</title>
+<title>LabReportGrade</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,24 +13077,15 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Overview-and-Policy-for-ECE-4760-at-Cornell-University">Overview and Policy for ECE 4760 at Cornell University<a class="anchor-link" href="#Overview-and-Policy-for-ECE-4760-at-Cornell-University">&#182;</a></h1><p>Please note that I have borrowed these policies from Bruce Land, and they are largely identical to those provided on the <a href="https://people.ece.cornell.edu/land/courses/ece4760/EE4760_policy.html">previous course webpage</a>. Please also see the <a href="./Syllabus.pdf">online syllabus</a> for the course.</p>
-<blockquote><ul>
-<li><a href="#Prerequisites">Prerequisities</a></li>
-<li><a href="#Reading">Reading</a></li>
-<li><a href="#Purpose">Purpose</a></li>
-<li><a href="#Grading">Grading</a><blockquote><ul>
-<li><a href="#The-policy">The policy</a></li>
-<li><a href="#Reflecting-on-this-policy">Reflecting on this policy</a></li>
-</ul>
-</blockquote>
-</li>
-<li><a href="#Laboratory-policies">Laboratory policies</a></li>
-<li><a href="#AI-policies">AI policies</a></li>
-<li><a href="#Laboratory-reports">Laboratory reports</a></li>
-<li><a href="#Access-to-computers">Access to computers</a></li>
-<li><a href="#Academic-concerns">Academic concerns</a></li>
-</ul>
-</blockquote>
+<h1 id="Grading-Lab-Reports">Grading Lab Reports<a class="anchor-link" href="#Grading-Lab-Reports">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lab reports involve a unique combination of objective and subjective elements. This is a brief explanation of how I assign grades.</p>
+<p>Remember that your lab report grade is 40 percent of your grade for a particular lab assignment. The other 60 percent comes from your preparedness/participation, timeliness with hitting milestones, and the quality of your final demonstration.</p>
 
 </div>
 </div>
@@ -13110,11 +13101,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h2><ul>
-<li>ECE 3140, or permission of instructor</li>
-<li>You need to know C programming, electronic construction, and a fair amount of math for this course</li>
-<li>When in doubt, talk to the instructor</li>
-</ul>
+<h2 id="The-general-philosophy">The general philosophy<a class="anchor-link" href="#The-general-philosophy">&#182;</a></h2><p><strong>Documentation is part of engineering.</strong> This is a <em>design</em> class, and you will be evaluated on <em>both</em> the design/thoughtfulness of your engineered device, <em>and also</em> the design/thoughtfulness of the documentation for that device.</p>
 
 </div>
 </div>
@@ -13130,310 +13117,12 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h2><ul>
-<li>Labs will be based on webpages, RP2040 documentation, and documentation from a variety of other sensors and peripherals</li>
-<li>We expect for you to become <em>completely familiar</em> with detailed MCU information from Raspberry Pi</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Purpose">Purpose<a class="anchor-link" href="#Purpose">&#182;</a></h2><p>The purpose of this course is to enable students to carry out sophisticated designs of the modern digital systems which now appear in products such as automobiles, appliances, and industrial tools. The basis of such systems is the microcontroller, a microcomputer optimized for single-chip system design by possessing many peripheral devices geared to real-time applications. The microcontroller we will use is the RP2040 from Raspberry Pi. There is a large design project which is due the last week of classes. There will considerable emphasis on hardware concurrency: Getting good performance by using all of the concurrently executing co-processors available on the microcontroller chip, including: DMA, timers, SPI, UART, ADC subsystem, PIO, I2C and others.</p>
-<p><strong><em>This is a design course.</em></strong> This means that we will expect you to show considerable creativity, flexibility, and motivation. In particular, you will need to:</p>
-<ul>
-<li>Hit the web to find your own answers to questions you have.</li>
-<li>Read and understand every aspect of manufacturer's data sheets for a variety of devices.</li>
-<li>Read class-related email daily. You are responsible for any course information communicated by email.</li>
-<li>Use material from many of the courses you have taken at Cornell. Topics from ECE 2100, 3010, 3020, 3100, 3140, 4450, or 4750 may be useful in this course, particularly depending on the final project you choose.</li>
-<li><strong><em>Find solutions on your own from incomplete specifications.</em></strong> The lab assignments become more open-ended as the semester progresses. Clever, efficient solutions will be rewarded.</li>
-</ul>
-<p>We are trying to make this a little like the real world.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Grading">Grading<a class="anchor-link" href="#Grading">&#182;</a></h2><h4 id="The-policy">The policy<a class="anchor-link" href="#The-policy">&#182;</a></h4><p>This class is composed of laboratory assignments and a final project. You will be graded on these tasks, plus some consideration of class participation. The final design project demonstration is due the <em>last week of classes</em>. The grade breakdown is as follows:</p>
-<ul>
-<li><strong>50% for laboratory assignments</strong><blockquote><p>For <em>each</em> laboratory assignment:<br><br></p>
-<ul>
-<li>10% for preparedness and participation<blockquote><ul>
-<li>As determined by conversations with Hunter in the laboratory, lecture attendance, and occasional in-lecture quizzes.</li>
-<li>These should be easy points, just come to class!</li>
-</ul>
-</blockquote>
-</li>
-<li>20% for weekly progress deadlines (evenly distributed across all weeks for a particular lab)<blockquote><ul>
-<li>To make these deadlines, you <em>must come to lab prepared</em>. If you do not do any out-of-class preparations, you will not be able to meet these deadlines.</li>
-<li>Finishing a checkpoint on time will earn the student a 95% (A-equivalent). Finishing early will earn the student &gt;95% (exceeds expectations). Missing milestones earns a 0.</li>
-<li>If you checkoff on the required progress deadline before the end of lab, you are expected to stay and work on the next checkpoint.</li>
-<li><strong>A late progress checkoff receives a zero grade.</strong></li>
-</ul>
-</blockquote>
-</li>
-<li>30% for the final laboratory demonstration<blockquote><ul>
-<li>The system must meet specifications and be usable.</li>
-<li>Lab demos to TAs will be done before the <strong>end</strong> of each lab exercise, in lab.</li>
-<li>There will be <strong><em>no late final demonstrations for any lab</em></strong>. This policy is to prevent any students from falling behind on subsequent lab exercises.</li>
-<li>Your final demo may or may not include a code review to test for understanding.</li>
-<li><strong>A late demo receives a zero grade.</strong> If you run out of time, demonstrate the parts of the system that you've gotten working. These final demos are graded on the following scale:</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<table>
-<thead><tr>
-<th style="text-align:left">Technical specifications met</th>
-<th style="text-align:right">Score</th>
-<th style="text-align:right">Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">&lt; Week 1 checkoff</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td style="text-align:left">= Week 1 checkoff</td>
-<td style="text-align:right">50%</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;= Week 2 checkoff</td>
-<td style="text-align:right">50-75%</td>
-<td style="text-align:right">Directly proportional to number of<br> specifications met, weighted by <br>relative difficulty of those specifications</td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;= Week 3 checkoff</td>
-<td style="text-align:right">75-96%</td>
-<td style="text-align:right">Directly proportional to number of<br> specifications met, weighted by <br>relative difficulty of those specifications</td>
-</tr>
-<tr>
-<td style="text-align:left">&gt; Week 3 checkoff</td>
-<td style="text-align:right">96-100%</td>
-<td style="text-align:right">Students that exceed expectations<br> on a laboratory assignment will<br> receive A+ equivalent scores</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><blockquote><ul>
-<li>40% for the laboratory report<blockquote><ul>
-<li>Lab reports are due <em>before the start</em> of your next lab period.</li>
-<li>Please see the <a href="#Laboratory-reports">Laboratory reports</a> section of this webpage for information on content.</li>
-<li>All submissions will be electronic to your TA, via Canvas</li>
-<li>You must attend your weekly scheduled lab period, even if you have finished the lab assignment early!</li>
-<li>No late assignments will be accepted without prior permission (excepting reasonable extenuating circumstances)</li>
-<li>You will turn in one lab report per team. No written collaborations between groups is permitted. You are (of course!) encouraged to help anyone in lab.</li>
-<li>For some information about how these reports are graded, please see <a href="./LabReportGrade.html">here</a>.</li>
-<li><strong>A late report receives a zero grade</strong>.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-<li><strong>50% for the final project</strong><blockquote><p>This is further broken down similarly to the laboratory assignments:<br><br></p>
-<ul>
-<li>10% for preparedness and participation<blockquote><ul>
-<li>As determined by conversations with Hunter in the laboratory, lecture attendance, and occasional in-lecture quizzes.</li>
-<li>These should be easy points, just come to class!</li>
-</ul>
-</blockquote>
-</li>
-<li>20% for weekly progress deadlines (evenly distributed across all weeks of the final project)<blockquote><ul>
-<li>For the final project <strong>you</strong> are responsible for establishing these weekly milestones.</li>
-<li>Meeting milestones on time will earn the student a 95% (A-equivalent). Finishing early will earn the student &gt;95% (exceeds expectations). Missing milestones earns a 0.</li>
-<li>You will report your progress to me in a weekly update (which may be either written or verbal)</li>
-<li><strong>A late progress checkoff receives a zero grade.</strong></li>
-<li><strong>NOTE</strong>: I know that plans change, and that sometimes things are harder than you think they might be!! As long as you are communicating with me and working at a reasonable rate, your grade will not be adversely affected by changes of plan.</li>
-</ul>
-</blockquote>
-</li>
-<li>30% for the final laboratory demonstration<blockquote><ul>
-<li>The system must meet the specifications that you set at the beginning of the project (i.e., did you build what you said you were going to build?)</li>
-<li>The system must be usable.</li>
-<li>Your final demo may or may not include a code review to test for understanding.</li>
-<li>For the final project, your demo will also be evaluated on its sophistication <em>relative to other final projects</em>. This is to prevent gaming the system by choosing an easy project.</li>
-</ul>
-</blockquote>
-</li>
-<li>40% for the final report<blockquote><ul>
-<li>Please see <a href="https://vanhunteradams.com/Pico/CourseMaterials/Final_Project.html#Final-Report">this webpage</a> for information on content.</li>
-<li>For some information about how these reports are graded, please see <a href="./LabReportGrade.html">here</a>.</li>
-<li>You will create a webpage for your final project.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<p>Hunter reserves the right to make small adjustments to your grade. You may help your grade by participating in class discussions. Excessive nonattendance of lecture may lower your grade. If you feel that you have been unfairly graded, you have one week from the time the assignment is handed back to request a regrade. To request a regrade, you must submit the assignment with a written description of your concern attached to the instructor (not the TA).</p>
-<h4 id="Reflecting-on-this-policy">Reflecting on this policy<a class="anchor-link" href="#Reflecting-on-this-policy">&#182;</a></h4><p>Building things is difficult, and sometimes unpredictable. It may be the case that you don't make a weekly checkpoint. This can sometimes cause students to panic, and sometimes doing the math to determine how much of your final grade each component of the course is worth can alleviate that panic. The contribution to your final grade (as a percentage) of each assignment and checkout is listed below.</p>
-<blockquote><p><strong>Lab 1</strong></p>
-<ul>
-<li>Preparedness/participation: 1.7</li>
-<li>Checkout 1: 1.1</li>
-<li>Checkout 2: 1.1</li>
-<li>Checkout 3: 1.1</li>
-<li>Final demo: 5</li>
-<li>Lab report: 6.7</li>
-</ul>
-<p><strong>Lab 2</strong></p>
-<ul>
-<li>Preparedness/participation: 1.7</li>
-<li>Checkout 1: 1.1</li>
-<li>Checkout 2: 1.1</li>
-<li>Checkout 3: 1.1</li>
-<li>Final demo: 5</li>
-<li>Lab report: 6.7</li>
-</ul>
-<p><strong>Lab 3</strong></p>
-<ul>
-<li>Preparedness/participation: 1.7</li>
-<li>Checkout 1: 1.1</li>
-<li>Checkout 2: 1.1</li>
-<li>Checkout 3: 1.1</li>
-<li>Final demo: 5</li>
-<li>Lab report: 6.7</li>
-</ul>
-<p><strong>Final Project</strong></p>
-<ul>
-<li>Preparedness/participation: 5</li>
-<li>Weekly progress: 10</li>
-<li>Final demo: 15</li>
-<li>Final report: 20</li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Laboratory-policies">Laboratory policies<a class="anchor-link" href="#Laboratory-policies">&#182;</a></h2><p>You are expected to attend your assigned lab period every week and to finish the lab assignment in the alloted time. <strong>You must finish the assignment before the end of the alloted time, or you will lose up to 50% of your lab grade.</strong> You can, of course, start early on an assignment. All negotiations concerning lab absences due to planned trips or sickness are to be conducted with your lab instructor. For planned trips you must notify your instructor in advance.</p>
-<p>During the lab sections in which there is project checkoff:</p>
-<ul>
-<li>TAs first priority is to check people off.</li>
-<li>TAs can help people only if there is no one waiting to be checked off.</li>
-<li>If there are too many people to help, then the TAs will help students in the current section who are trying to finish on time.</li>
-<li>Only then will there be time to help people from other sections.</li>
-</ul>
-<p>Lab work will be in groups of 2 or 3. All members are expected to become proficient with all aspects of the lab. Where each has prepared design work or code assigned as homework, the group design will involve negotiation. The members of a group may be graded differentially if it becomes obvious that one person is doing the bulk of the work.</p>
-<p>Each student in this course is expected to abide by the <a href="http://cuinfo.cornell.edu/aic.cfm">Cornell University Code of Academic Integrity</a>.</p>
-<p>Any work submitted by a student in this course for academic credit will be the student's own work. For this course, collaboration is allowed between partners in a group. Students agree that by taking this course all required papers may be subject to submission for textual similarity review to Turnitin.com for the detection of plagiarism. All submitted papers will be included as source documents in the Turnitin.com reference database solely for the purpose of detecting plagiarism of such papers. Use of Turnitin.com service is subject to the Usage Policy posted on the Turnitin.com site.</p>
-<p>Examples of allowed/not allowed collaboration:</p>
-<ul>
-<li><strong>Allowed</strong>: All homework and code must be shared within a group. </li>
-<li><strong>Not Allowed</strong> Sharing of any material between groups. This includes unprotected GitHub or other code repositories. Unprotected code online will be considered a violation of Cornell academic integrity policy!</li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Talking in lab about code with another group. </li>
-<li><strong>Not Allowed</strong>: Emailing code to another group or using another group's keyboard to type code. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Showing another group your circuit.</li>
-<li><strong>Not Allowed</strong>: Wiring for another group, or lending them your circuit. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Talking about the contents of a lab report to another group. </li>
-<li><strong>Not Allowed</strong>: Copying anything (even one sentence) from any web or print document, unless the source is stated and the quote is short. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Using code from previous final projects or web sources with detailed attribution. </li>
-<li><strong>Not Allowed</strong>: Using code from previous final projects or web sources without attribution.</li>
-</ul>
-<p>All students will abide by Cornell policy on <a href="https://hr.cornell.edu/our-culture-diversity/diversity-inclusion/equal-opportunity-and-affirmative-action/equal-education">Equal Education and Employment Opportunity</a>. Exerpt:</p>
-<blockquote><p>Association with Cornell, either as a student, faculty, or staff member, involves participation in a free community where all people are recognized and rewarded on the basis of individual performance rather than personal convictions, appearance, preferences (including sexual or affectional orientation), or happenstance of birth. Cornell University's history of diversity and inclusion encourages all students, faculty and staff to support a diverse and inclusive university in which to work, study, teach, research and serve. No person shall be denied admission to any educational program or activity or be denied employment on the basis of any legally prohibited discrimination involving, but not limited to, such factors as race, color, creed, religion, national or ethnic origin, marital status, citizenship, sex, sexual orientation, gender identity or expression, age, disability, or protected veteran status.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="AI-policies">AI policies<a class="anchor-link" href="#AI-policies">&#182;</a></h2><h4 id="For-lab-reports">For lab reports<a class="anchor-link" href="#For-lab-reports">&#182;</a></h4><p>For your lab reports, you must cite and quote AI-generated content in an identical fashion to that with which you must cite and quote human-generated content. Failure to do so will be considered plagiarism.</p>
-<h4 id="For-your-code">For your code<a class="anchor-link" href="#For-your-code">&#182;</a></h4><p>You may use AI-generated code at your own risk, subject to the following requirements and conditions.</p>
-<ul>
-<li>Any AI-generated code <em>must</em> be clearly labeled as such. Please see the example below. Failure to label any AI-generated code will be considered plagiarism.</li>
-<li>The course staff will not help you debug AI-generated code.<div class="highlight"><pre><span></span><span class="cp">################## BEGIN AI-GENERATED CODE ##################</span>
-<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, humans.&quot;</span><span class="p">)</span> <span class="p">;</span>
-<span class="p">}</span>
-<span class="cp">################### END AI-GENERATED CODE ###################</span>
-</pre></div>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Laboratory-reports">Laboratory reports<a class="anchor-link" href="#Laboratory-reports">&#182;</a></h2><p>Each laboratory assignment requires a written report. You will submit a single report for your group. The report should be submitted as an electronic document via Canvas.</p>
-<p>The report should be a concise documentation of the project assigned. The presentation should be arranged so that any reader with technical competence in the subject can easily understand what was done and how it was done. You should write to a level of detail that, in 2 years, you could recreate your project (and understand the methodology!) using only your report. The following report organization is suggested:</p>
+<h2 id="1.-The-objective-scan">1. The objective scan<a class="anchor-link" href="#1.-The-objective-scan">&#182;</a></h2><p>Every lab assignment has a set of required sections that will be specified on the course website. For 4760, these required sections are listed on the <a href="https://vanhunteradams.com/Pico/CourseMaterials/Policy.html">policy page</a>. Previous TA's have <a href="https://vanhunteradams.com/Pico/CourseMaterials/General_Lab_writeup_Rubric.pdf">expanded on these guidelines</a> and the course website includes a couple example reports. My first step in grading a collection of lab reports is to scan through all of them to briefly check the following:</p>
 <ol>
-<li>Introduction: Give a short explanation of what was done.</li>
-<li>Design and Testing Methods: Explain the approach you used for both software and hardware aspects of the assignment. Be sure to include the design of tests whose outcome are convincing to the reader (or to the instructor in the lab) that the requirements of the assignment have been met.</li>
-<li>Documentation: Include here drawings, flowcharts, schematics, and program listings, together with any explanatory comments needed.</li>
-<li>Results: How fast was it? How accurate was it? What were the error ranges?</li>
-<li>Conclusions: Useability, what you might have done differently, etc. Any comments concerning the assignment, including suggestions for improvement, excuses, and complaints.</li>
-<li>Answers to specific questions given in the lab writeups.</li>
+<li>Does this report include all required sections?</li>
+<li>Is the content in those sections non-trivial and not copied directly from the lab assignment?</li>
 </ol>
-<p>Past TA's have <a href="./General_Lab_writeup_Rubric.pdf">expanded upon the above guidelines</a>.</p>
-<p><a href="./Birdsong.pdf">Here</a> and <a href="./Birdsong2.pdf">here</a> (and <a href="./cricket.pdf">here</a> and <a href="./reaction.pdf">here</a>) are some well done example reports.</p>
+<p>Having all required sections and having non-trivial content within each section will bring a group's grade up to approximately a B. If the content in any of these sections is lacking or trivial, their grade after the objective scan will be lower than a B by one half-letter grade per trivial/missing section. After the objective scan, a group's grade may be improved but will not be worsened by the subjective readthrough.</p>
 
 </div>
 </div>
@@ -13449,8 +13138,16 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Access-to-computers">Access to computers<a class="anchor-link" href="#Access-to-computers">&#182;</a></h2><p>You and your partner(s) will have use of a PC, microcontroller evaluation board, and peripheral breadboard in Phillips 238 during your assigned lab period. Students from other lab periods may use setups not needed by students attending their assigned lab.</p>
-<p><em>Machines and file systems sometimes die. You should always back up all your work. There is no excuse for lost work, even if it is because of a compiler or other system error.</em></p>
+<h2 id="2.-The-thorough-subjective-readthrough">2. The thorough subjective readthrough<a class="anchor-link" href="#2.-The-thorough-subjective-readthrough">&#182;</a></h2><p>After scanning through each lab report once, a second pass is performed in which each lab report is read very thoroughly. In this thorough readthrough, I am asking myself the following question:</p>
+<p>If I <strong>only had this lab report as a resource</strong>, could I:</p>
+<ol>
+<li>Understand what the objectives of the laboratory assignment were?</li>
+<li>Independently recreate the student's work (without looking at provided code) using the same development and debugging methods that they used?</li>
+<li><em>How easily</em> could I repeat this student's work using this report as a resource? In other words, how clear is this report?</li>
+<li>Understand <em>why</em> (quantitively or otherwise) the student chose a particular strategy over another strategy for meeting the requirements of the lab?</li>
+<li>Understand the metrics by which the student evaluated their solution? Could I evaluate my independently re-created version of their project by the same metrics and get the same results?</li>
+</ol>
+<p>My advice to students is to consider the audience of their lab reports to be themselves in 5 years. Assume that they haven't been working with this particular microcontroller since this course, and must re-create their work in one day. Could they do it (and justify the solution to a boss) using only the report?</p>
 
 </div>
 </div>
@@ -13458,7 +13155,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
+<h4 id="Rank-ordering/binning">Rank ordering/binning<a class="anchor-link" href="#Rank-ordering/binning">&#182;</a></h4><p>When performing a subjective evaluation of a group of lab reports, I am trying to determine how well each student has communicated the technical content in the report. In other words, I'm not only asking "Could I recreate this student's work using this report?" but also "<em>How easily</em> could I recreate this student's work?"</p>
+<p>This information may be communicated in a number of different ways, including written text, captioned images, figures, plots, code snippets, pseudocode, figures, flow charts, diagrams, etc. Different groups may use very different strategies for communicating the same information, and that's perfectly ok.</p>
+<p>For this reason, however, it is very difficult to judge a lab report <em>in isolation</em>. There is no "perfect" lab report against which to compare a particular lab report. However, it can be quite obvious that one is communicating information <em>more clearly</em> than another. The two contain the same information, but one presents that information in a way that is <em>clearer</em>. This is of course subjective (like an essay), but clarity is an important element of the lab report.</p>
+<p>The next step in the grading process is to rank and bin the assignments for content and clarity. I read thoroughly through each report and ask myself "does this report communicate the student's ideas more or less clearly than this other report?" I do that for all combinations of reports, and end up with a set of rank-ordered bins.</p>
+<p>I don't enforce any <em>number</em> of bins though. If all lab reports are equally excellent, then they all end up ranked together!</p>
 
 </div>
 </div>
@@ -13466,15 +13167,25 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-concerns">Academic concerns<a class="anchor-link" href="#Academic-concerns">&#182;</a></h2><p>If you are experiencing undue personal or academic stress at any time during the semester or need to talk with someone about a personal problem or situation, I encourage you to seek support as soon as possible. I am available to talk with you about stresses related to your work in my class. Additionally, I can assist you in reaching out to any one of a wide range of campus resources, including:</p>
-<ul>
-<li>Your college’s Academic Advising or Student Services Office</li>
-<li>Cornell Learning Strategies Center at 255-6310, <a href="http://lsc.sas.cornell.edu">http://lsc.sas.cornell.edu</a></li>
-<li>Gannett Health Services at 255-5155, www.gannett.cornell.edu</li>
-<li>Let’s Talk Drop–In Consultation and Support www.gannett.cornell.edu/Let’sTalk</li>
-<li>Peer Support provided by Empathy Assistance and Referral Service at 255-EARS</li>
-</ul>
-<p>DISABILITY-RELATED CONCERNS: Students with either an ongoing or short-term disability are encouraged to contact Student Disability Services (SDS) for a confidential discussion of their need for academic accommodations.SDS is located in 420 CCC building; phone number is 254-4545.</p>
+<h4 id="Grade-assignment-for-the-best-ranked-report(s)">Grade assignment for the best-ranked report(s)<a class="anchor-link" href="#Grade-assignment-for-the-best-ranked-report(s)">&#182;</a></h4><p>I then consider the top-ranked report (or reports). I ask myself <em>What would I need to change about this report to use it as an example in future semesters?</em> If the answer to that question is "Nothing" then the report gets an amount added to its objective score to bring it to a 100 percent. If anything would need to change, then the top-ranked report is given a score that is less than 100 percent. The total deduction is based on the number of required changes.</p>
+<p><em>There is no "correct" way to present information.</em> There may be two equally excellent reports that report the same information in very different ways.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Relative-grading-of-intermediate-ranked-reports">Relative grading of intermediate-ranked reports<a class="anchor-link" href="#Relative-grading-of-intermediate-ranked-reports">&#182;</a></h4><p>I next move down the rank-ordered list. For each report in the next-lower bin, I ask myself <em>How does this report compare to the one ranked above it?</em>. If one is only marginally clearer than the other, then it receives only a marginally better score. If the differences in clarity are greater, then the difference in scores are greater. Each is evaluated relative to the one ranked above it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="The-reverse-scan">The reverse scan<a class="anchor-link" href="#The-reverse-scan">&#182;</a></h4><p>Once all reports have been assigned their grades, I then start again from the bottom to revise and confirm that the scores are fair. I will consider the worst-ranked report in the class and ask myself <em>How many changes would be required for me to use this as an example in a future class?</em> If the previously assigned score matches (in a subjective sense) with the first-pass grade, then the grade remains the same. If not, then the grade is adjusted and all intermediately-ranked grades are also adjusted relative to the report ranked <em>below</em> it.</p>
+<p>After this second pass from bottom-to-top, the grades are finalized.</p>
 
 </div>
 </div>
