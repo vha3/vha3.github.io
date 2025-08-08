@@ -13119,13 +13119,25 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Building-and-debugging-the-circuit">Building and debugging the circuit<a class="anchor-link" href="#Building-and-debugging-the-circuit">&#182;</a></h3><p><strong>You will not be building this circuit on a solderless breadboard. It would melt if you did so. (Ask me how I know).</strong> Instead, you will use a small solderboard. <a href="https://people.ece.cornell.edu/land/courses/ece4760/Analog/motor_controller/index_motor.html">Bruce has put together an excellent guide to help you do this</a>. This is more reliable, and reusable for other projects!</p>
-<p><strong>Do not build this whole circuit without testing as you go.</strong> Start by building the piece of the circuit indicated in the diagram below. Use the function generator to generate a PWM input, and use the oscilloscope to confirm that you're seeing a PWM output at the junction indicated.</p>
+<h3 id="Building-and-debugging-the-circuit">Building and debugging the circuit<a class="anchor-link" href="#Building-and-debugging-the-circuit">&#182;</a></h3><p><strong>You will not be building this circuit on a solderless breadboard. It would melt if you did so. (Ask me how I know).</strong> Instead, you will be populating a printed circuit board that implements this circuit. This is more reliable, reusable for other projects, and an opportunity to learn a very practical skill!</p>
+<p>As you assemble, be careful of the following:</p>
+<ul>
+<li>The small dimple on the 4N35 indicates pin 1. Be sure to orient it correctly.</li>
+<li>Double check the orientation of the MOSFET before you solder!</li>
+<li>Double check the orientation of the diode before you solder.</li>
+</ul>
+<figure>
+    <img align="center" width="700" height="500" src="motorboard.png" alt='missing' />
+    <center><figcaption></figcaption></center>
+</figure><p>(By the way, astute observers will notice an <em>extra</em> 10k resistor on this PCB. Can you tell me what that's for?)</p>
+<!-- **Do not build this whole circuit without testing as you go.** Start by building the piece of the circuit indicated in the diagram below. Use the function generator to generate a PWM input, and use the oscilloscope to confirm that you're seeing a PWM output at the junction indicated.
+
 <figure>
     <img align="center" width="700" height="500" src="motorcircuit_start.png" alt='missing' />
     <center><figcaption></figcaption></center>
-</figure><p>Only once you've confirmed that this part of the circuit works, add the rest. <strong>Double-check the gate/source/drain for the MOSFET.</strong> It is an easy mistake to swap drain for source.</p>
+</figure>
 
+Only once you've confirmed that this part of the circuit works, add the rest. **Double-check the gate/source/drain for the MOSFET.** It is an easy mistake to swap drain for source. -->
 </div>
 </div>
 </div>

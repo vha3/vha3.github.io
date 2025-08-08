@@ -13095,12 +13095,11 @@ div#notebook {
 <h2 id="THE-EASY-WAY-.-.-.">THE EASY WAY . . .<a class="anchor-link" href="#THE-EASY-WAY-.-.-.">&#182;</a></h2><p>This webpage is for students enrolled in <a href="https://ece4760.github.io">ECE 4760/5730</a> at Cornell. It walks you through installing the ECE 4760 Visual Studio Code extension, and using that extension to build course demo code.</p>
 <ol>
 <li>Download <a href="https://code.visualstudio.com">VSCode</a>, if you don't already have it on your machine.</li>
-<li>Download the <a href="https://cornell.box.com/shared/static/s7e73e8j1h4yj5ctpu1ybip7o939gws0.vsix">ECE 4760 VSCode Extension</a>. This is a fork and gentle modification of the Raspberry Pi Pico extension.</li>
 <li>Open VSCode, and click the Extensions icon.</li>
-<li>At the top-right of the Extensions window click the "..." button and select "Install from VSIX" from the drop-down menu that appears.</li>
-<li>In the file-explorer window that appears, select the .vsix file that you downloaded in step 2 above and click Install.</li>
-<li>A new extension icon will appear at the left-side of the screen that says "4760." Click it, and select "New Project From Example."</li>
-<li>Select the "Blinky" example from the dropdown menu, select "Pico" as the board type, and choose any location that you'd like for the project. For your debugger, select "DebugProbe," then click "Create."</li>
+<li>Search available extensions for the official "Raspberry Pi Pico" extension. Install it.</li>
+<li><em>Either</em> download the whole <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos">course repo</a> and unzip it someplace convenient, <em>or</em> clone the repo to a convenient directory at the command line (<code>git clone -b master https://github.com/vha3/Hunter-Adams-RP2040-Demos.git</code>)</li>
+<li>In VSCode, click the icon for the Pi Pico extension, and then select "Import Project."</li>
+<li>In the window that appears, change the location of the project by clicking the "Change" button. Select any project directory in the course demo repo, and then click "Import."</li>
 <li>A new window will open that contains your project. Click "Compile" at the bottom of the screen to build the project. To load the project onto your Pico, hold down the Bootsel button and plug it in. Then click the "Run" icon at the bottom of the screen.</li>
 </ol>
 
@@ -13117,7 +13116,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1z3wiUjA0qo?si=sOqP8i2LXL5rL31p" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nIDVklS9Uys?si=jl0PQVWocE0rojdM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 </div>
 </div>
