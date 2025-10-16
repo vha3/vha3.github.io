@@ -13179,7 +13179,7 @@ Only once you've confirmed that this part of the circuit works, add the rest. **
 <span class="c1">// First argument is slice number.</span>
 <span class="c1">// If second argument is true, channel A is inverted.</span>
 <span class="c1">// If third argument is true, channel B is inverted.</span>
-<span class="n">pwm_set_output_polarity</span> <span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+<span class="c1">// pwm_set_output_polarity (slice_num, 0, 1) </span>
 
 <span class="c1">// This sets duty cycle</span>
 <span class="n">pwm_set_chan_level</span><span class="p">(</span><span class="n">slice_num</span><span class="p">,</span> <span class="n">PWM_CHAN_B</span><span class="p">,</span> <span class="mi">3125</span><span class="p">);</span>
