@@ -13189,13 +13189,13 @@ div#notebook {
 <h2 id="Weekly-checkpoints-and-lab-report">Weekly checkpoints and lab report<a class="anchor-link" href="#Weekly-checkpoints-and-lab-report">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
 <h4 id="Week-one-checkpoint">Week one checkpoint<a class="anchor-link" href="#Week-one-checkpoint">&#182;</a></h4><p>By the end of the lab session in week one of the lab you must have:</p>
 <ul>
-<li>The mechanical assembly finished and be able to control motor speed open loop, from the PWM output. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">Here is some demo code</a> to get you started. Remember that you'll need to add one line which inverts the PWM output! See the <a href="https://vanhunteradams.com/Pico/Helicopter/MotorCircuit.html">motor circuit page</a>.</li>
-<li><strong>You will build your motor control circuit on a solderboard, not on the breadboard!</strong> See <a href="https://people.ece.cornell.edu/land/courses/ece4760/Analog/motor_controller/index_motor.html">Bruce's guide</a>, also linked on the <a href="https://vanhunteradams.com/Pico/Helicopter/MotorCircuit.html">motor circuit page</a>.</li>
+<li>The mechanical assembly finished and be able to control motor speed open loop, from the PWM output. <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/PWM/PWM_Demo">Here is some demo code</a> to get you started. See the <a href="https://vanhunteradams.com/Pico/Helicopter/MotorCircuit.html">motor circuit page</a>.</li>
+<li><strong>You will build your motor control circuit on a printed circuit board, not on the breadboard!</strong> See the <a href="https://vanhunteradams.com/Pico/Helicopter/MotorCircuit.html">motor circuit page</a>.</li>
 <li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
 </ul>
 <h4 id="Week-two-checkpoint">Week two checkpoint<a class="anchor-link" href="#Week-two-checkpoint">&#182;</a></h4><p>By the end of the lab session in week two of the lab you must have:</p>
 <ul>
-<li>Display of the actual beam angle and the low-passed motor command signal using the two channel DAC <strong>or</strong> the VGA display. <em>This is critical for debugging.</em> <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Sensors/MPU6050_IMU_Demo">Here is some demo code for getting started</a>.</li>
+<li>Display of the actual beam angle and the low-passed motor command signal using the VGA display. <em>This is critical for debugging.</em> <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Sensors/MPU6050_IMU_Demo">Here is some demo code for getting started</a>.</li>
 <li>Full closed-loop control of the motor (just proportional control is fine).</li>
 <li>Serial command interface to set PID parameters.</li>
 <li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
@@ -13217,7 +13217,7 @@ div#notebook {
 <li>Tune the PID algorithm so that you can change the angle of the beam quickly and accurately without excessive angle oscillations.</li>
 <li>The user should be able to enter a desired hover angle and the motor should quickly change the beam to the new angle. The initial angle of the beam should be around -1.57 radians (hanging straight down).</li>
 <li>Display the motor control value (not the raw PWM signal) on the scope or VGA. Noise control on this signal is essential. If you cannot see the shape of the control signal, you will not get credit for this feature! <em>You may need to combine DSP and analog filtering, depending on exactly how you build the circuit.</em></li>
-<li>Display the actual beam angle, from the angle sensor, on the scope or VGA. If this signal is noisy, you need to find out why! Poor wire routing, loose connections, and motor noise are all posibilities. A noisy input makes the control PID algorithm very hard to tune.</li>
+<li>Display the actual beam angle, from the angle sensor, on the VGA. If this signal is noisy, you need to find out why! Poor wire routing, loose connections, and motor noise are all posibilities. A noisy input makes the control PID algorithm very hard to tune.</li>
 <li>When a button is pushed (not the reset button), the beam should go through a quick sequence of defined angle changes, using the current set of PID parameters:<blockquote><ul>
 <li>Before time=0, while holding the button, the beam should be hanging vertically down (motor off)</li>
 <li>When the button is released at time=0, target angle should be set to horizontal</li>
@@ -13239,7 +13239,7 @@ div#notebook {
 <h4 id="Lab-report">Lab report<a class="anchor-link" href="#Lab-report">&#182;</a></h4><p>Your written lab report should include the sections mentioned on the <a href="https://people.ece.cornell.edu/land/courses/ece4760/EE4760_policy.html">policy page</a>, and:</p>
 <ul>
 <li>A schematic of the circuit you built</li>
-<li>Scope or VGA screen dumps of typical two-trace: (1) motor-control and (2) actual angle. Include the demo sequence of four angles, as shown below<figure>
+<li>VGA screen dumps of typical two-trace: (1) motor-control and (2) actual angle. Include the demo sequence of four angles, as shown below<figure>
   <img align="center" width="500" height="500" src="lab4_Four_steps_tek.png" alt='missing' />
   <center><figcaption></figcaption></center>
 </figure></li>
