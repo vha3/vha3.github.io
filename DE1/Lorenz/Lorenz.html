@@ -13077,13 +13077,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hardware-ODE-solver-with-HPS-control-and-sonification">Hardware ODE solver with HPS control and sonification<a class="anchor-link" href="#Hardware-ODE-solver-with-HPS-control-and-sonification">&#182;</a></h1><h4 id="ECE-5760,-Spring-2023,-Adams/Land">ECE 5760, Spring 2023, Adams/Land<a class="anchor-link" href="#ECE-5760,-Spring-2023,-Adams/Land">&#182;</a></h4>
+<h1 id="Hardware-ODE-solver-with-HPS-control">Hardware ODE solver with HPS control<a class="anchor-link" href="#Hardware-ODE-solver-with-HPS-control">&#182;</a></h1><h4 id="ECE-5760,-Spring-2025,-Adams/Land">ECE 5760, Spring 2025, Adams/Land<a class="anchor-link" href="#ECE-5760,-Spring-2025,-Adams/Land">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;</span>
@@ -13111,7 +13111,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[31]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13139,7 +13139,7 @@ $( document ).ready(code_toggle);
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -13186,7 +13186,8 @@ $( document ).ready(code_toggle);
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>For this laboratory exercise, you will be asked to build a Digital Differential Analyzer (DDA) in Verilog that integrates the <a href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz system</a>. The Lorenz system generates (arguably) one of the most famous and beautiful structures in mathematics: the "butterfly curve" (from which the "butterfly effect" gets its name). For certain parameter values and initial conditions, the solutions for the Lorenz system are chaotic. That is to say, they are deterministic yet unpredictable. The solutions are so sensitive to initial conditions that, after sufficient time, it is no longer possible to determine the path that the system will take without running a simulation. Meditate on the notion of "deterministic yet unpredictable" for long enough and you may end up questioning things like your own free will. But I digress.</p>
 <p>The DDA circuit that you build will be controlled by the HPS. Controlling the DDA involves clocking it and setting initial conditions/parameter values. You will build a system that allows for you to <em>play</em> with the Lorenz system. The VGA screen will display all three projections of the 3D curve, and your user interface will support speeding up/slowing down animation, pausing/resuming animation, clearing the screen, dynamically changing parameters, and resetting with a new set of user-specified initial conditions.</p>
-<p>Finally, you will implement three <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a> synthesizers in Verilog that independently generate three tones from a speaker. Those tones will be functions of the x, y, and z state variable values, and will allow for us to <em>listen</em> to this chaotic system. This is all demonstrated in the video below.<br><br></p>
+<p><!-- Finally, you will implement three [Direct Digital Synthesis](https://vanhunteradams.com/DDS/DDS.html) synthesizers in Verilog that independently generate three tones from a speaker. Those tones will be functions of the x, y, and z state variable values, and will allow for us to *listen* to this chaotic system. This is all demonstrated in the video below.<br><br>
+ --></p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/BtavH_CFTWQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
@@ -13381,8 +13382,7 @@ dt &amp;= \frac{1}{256}
 <li><a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/CycloneV_SE_A5.PNG">Resources availabe on Cyclone V</a></li>
 <li><a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/Parallel_Port.pdf">PIO bus slaves</a></li>
 <li><a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Qsys_index.html">Qsys design page</a></li>
-<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">Using external buses</a></li>
-<li><a href="https://vanhunteradams.com/DE1/Drum/Audio_core.pdf">Altera audio core</a></li>
+<li><a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Bus_master_slave_index.html">Using external buses</a><!-- - [Altera audio core](https://vanhunteradams.com/DE1/Drum/Audio_core.pdf) --></li>
 </ul>
 
 </div>
@@ -13392,28 +13392,28 @@ dt &amp;= \frac{1}{256}
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Procedure-and-Weekly-Checkpoints">Procedure and Weekly Checkpoints<a class="anchor-link" href="#Procedure-and-Weekly-Checkpoints">&#182;</a></h2><hr>
-<h3 id="Week-0">Week 0<a class="anchor-link" href="#Week-0">&#182;</a></h3><ol>
+<h3 id="Week-1">Week 1<a class="anchor-link" href="#Week-1">&#182;</a></h3><ol>
 <li>Use <a href="./Getting_Started.html">this guide</a> to get the DE1-SoC setup.</li>
 <li>Read the <a href="https://people.ece.cornell.edu/land/courses/ece5760/policy.html">policy page</a>!</li>
 <li>Review <a href="./Verilog.html">Verilog basics</a>.</li>
 <li>Review <a href="https://vanhunteradams.com/DDS/DDS.html">Direct Digital Synthesis</a>.</li>
 <li>Get the DDS demonstration from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/ModelSim/index.html">ModelSim page</a> running, <strong>and add a second sine-wave output which is 90 degrees out of phase with the first.</strong></li>
 </ol>
-<h3 id="Week-1">Week 1<a class="anchor-link" href="#Week-1">&#182;</a></h3><ol>
+<h3 id="Week-2">Week 2<a class="anchor-link" href="#Week-2">&#182;</a></h3><ol>
 <li>Read the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DDA/index.htm">DDA webpage</a>. After reading the page down through <em>Second order system, <strong>stop</strong>.</em> The integrator code that you want to start from is in <a href="https://people.ece.cornell.edu/land/courses/ece5760/LABS/s2019/lab2_DDA_snippet.txt">this snippet</a>.</li>
-<li>Read about <a href="https://vha3.github.io/FixedPoint/FixedPoint.html">fixed point arithmetic</a>. We suggest a fixed point format of something like 7.20, with a range of +/-63 and a delta of $10^{-6}$. You will need to use a signed, fixed-point multiplier module and an integrator module similar to those in <a href="https://people.ece.cornell.edu/land/courses/ece5760/LABS/s2019/lab2_DDA_snippet.txt">this code snippet</a>. The arithmetic system will use 27-bit multiplies, which <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/CycloneV_SE_A5.PNG">on our FPGAs</a> take one hardware multiplier (<a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/DSP_wp-01159-arriav-cyclonev-dsp.pdf">DSP module</a>). You could use <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Floating_Point_index.html">floating point</a> (and <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/FP_DDA/index.htm">Floating DDA</a>) instead, if you want to be slightly adventurous.</li>
+<li>Read about <a href="https://vha3.github.io/FixedPoint/FixedPoint.html">fixed point arithmetic</a>. We suggest a fixed point format of something like 7.20, with a range of +/-63 and a delta of $10^{-6}$. You will need to use a signed, fixed-point multiplier module and an integrator module similar to those in <a href="https://people.ece.cornell.edu/land/courses/ece5760/LABS/s2019/lab2_DDA_snippet.txt">this code snippet</a>. The arithmetic system will use 27-bit multiplies, which <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/CycloneV_SE_A5.PNG">on our FPGAs</a> take one hardware multiplier (<a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/DSP_wp-01159-arriav-cyclonev-dsp.pdf">DSP module</a>). </li>
 <li>Start by simulating in Matlab or Python! On the FPGA you are going to be using a simple Euler integration. The Python program above is coded to use Euler integration so that you can directly compare the FPGA solution. <em>Make sure that for the constants and initial conditions that you choose <strong>no</strong> state variable (or intermediate result) goes outside the range +/-63</em>.</li>
-<li>Next, <a href="https://people.ece.cornell.edu/land/courses/ece5760/ModelSim/index.html">simulate your synthesizable verilog in Modelsim</a> until you get the same result as you did in Matlab or Python. You will need to write a testbench which sets the same constants and initial conditions as the Python code. One way to check the solver is to export the Modelsim solution vectors to Matlab or Python and create a 3D plot similar to <a href="./test.html">this one</a>. Your Modelsim traces will look something like those shown below.<figure>
+<li>Next, <a href="https://people.ece.cornell.edu/land/courses/ece5760/ModelSim/index.html">simulate your synthesizable verilog in Modelsim</a> until you get the same result as you did in Matlab or Python. You will need to write a testbench which sets the same constants and initial conditions as the Python code. One way to check the solver is to export the Modelsim solution vectors to Matlab or Python and create a 3D plot similar to <a href="./test.html">this one</a>. Your Modelsim traces will look something like those shown below.
+<figure>
  <img align="center" width="1500" height="500" src="modelsim.png" alt='missing' />
  <center><figcaption></figcaption></center>
-</figure></li>
-<li>Get the Audio Output Bus Master example from the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 webpage</a> running, and demonstrate a tone being generated from the speakers. You do not need to modify this example at all this week, just load it onto the FPGA and run it. Read about the <a href="https://vanhunteradams.com/DE1/Drum/Audio_core.pdf">Altera audio core!</a></li>
+</figure><!-- 4. Get the Audio Output Bus Master example from the [Quartus 18.1 webpage](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html) running, and demonstrate a tone being generated from the speakers. You do not need to modify this example at all this week, just load it onto the FPGA and run it. Read about the [Altera audio core!](https://vanhunteradams.com/DE1/Drum/Audio_core.pdf) --></li>
 <li><strong>Once you've verified your compute module in Modelsim (not before!), you're ready to read the solutions back to the HPS for visualization on the VGA display</strong>.</li>
-</ol>
-<hr>
-<h3 id="Week-2">Week 2<a class="anchor-link" href="#Week-2">&#182;</a></h3><ol>
-<li>Test 2D drawing from the HPS to the VGA display by drawing a sine wave data plot. A good place to start for the HPS to VGA interface is to search for <strong><em>Video VGA 640x480 displayed from SDRAM, in 16-bit color</em></strong> on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 example page</a>. In particular, start from the final example in that section (the graphics primitives in 16-bit color example).</li>
-<li>Connect your solver output to the HPS using <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/Parallel_Port.pdf">parallel i/o port bus-slaves</a>. In Qsys, remember to export the connections to the FPGA solver. Also remember that you have to assign unique addresses in Qsys to each PIO port and use those addresses in the C-code running on the HPS. A small example defines two PIO ports in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test/qsys.PNG">Qsys</a>, displays counts on LEDs in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/ghrd_top.v">Verilog</a>, and controls the counts in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/count_5feb16.c">C</a>. Remember that you will have to sign-extend the 7.20 numbers into full 32-bit notation. The easiest way to do this is to use hardware to concantenate 5 sign bits onto the 27 bit fixed point numbers.</li>
+<li>Connect your solver output to the HPS using <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/Parallel_Port.pdf">parallel i/o port bus-slaves</a>. In Qsys, remember to export the connections to the FPGA solver. Also remember that you have to assign unique addresses in Qsys to each PIO port and use those addresses in the C-code running on the HPS. A small example defines two PIO ports in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test/qsys.PNG">Qsys</a>, displays counts on LEDs in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/ghrd_top.v">Verilog</a>, and controls the counts in <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/count_5feb16.c">C</a>. Remember that you will have to sign-extend the 7.20 numbers into full 32-bit notation. The easiest way to do this is to use hardware to concantenate 5 sign bits onto the 27 bit fixed point numbers.<blockquote><ul>
+<li>I'd recommend starting from the <strong><em>Video VGA 640x480 displayed from SDRAM, in 16-bit color</em></strong> on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 example page</a>. In particular, start from the final example in that section (the graphics primitives in 16-bit color example).</li>
+</ul>
+</blockquote>
+</li>
 <li>Demonstrate <a href="https://people.ece.cornell.edu/land/courses/ece5760/Quartus/Quartus_compile.html">SignalTap</a>, an onboard logic analyzer, connected to your solver. Prove that the output of your solver on the FPGA matches the output of your solver on Modelsim. <strong><em>Later labs will assume you know how to use SignalTap.</em></strong><figure>
  <img align="center" width="1500" height="500" src="modelsim_out.png" alt='missing' />
  <center><figcaption>Solver output from Modelsim</figcaption></center>
@@ -13422,81 +13422,96 @@ dt &amp;= \frac{1}{256}
  <img align="center" width="1500" height="500" src="signaltap_out.png" alt='missing' />
  <center><figcaption>Solver output from SignalTap</figcaption></center>
 </figure></li>
-<li>Integrate the pure tone synthesizer from the Audio Output Bus Master example on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 webpage</a>. The synthesizer need not be connected to the integrator, it can just generate pure tones as before. This will require adding the Audio Subsystem to the Qsys bus, and moving the audio bus master state machine into your code.</li>
-<li>With hard-coded parameter values, demonstrate the hardware solver communicating solutions to the HPS and plotting those solutions to the VGA display. At reset, the system should start drawing all three projections of the Lorenz curve. At this point, you need not have any command-line interface implemented for interacting with this system.</li>
 </ol>
+<!-- ### Week 3
+
+6. Test 2D drawing from the HPS to the VGA display by drawing a sine wave data plot. A good place to start for the HPS to VGA interface is to search for ***Video VGA 640x480 displayed from SDRAM, in 16-bit color*** on the [Quartus 18.1 example page](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html). In particular, start from the final example in that section (the graphics primitives in 16-bit color example).
+7. Connect your solver output to the HPS using [parallel i/o port bus-slaves](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/Parallel_Port.pdf). In Qsys, remember to export the connections to the FPGA solver. Also remember that you have to assign unique addresses in Qsys to each PIO port and use those addresses in the C-code running on the HPS. A small example defines two PIO ports in [Qsys](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test/qsys.PNG), displays counts on LEDs in [Verilog](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/ghrd_top.v), and controls the counts in [C](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_FPGA/pio_test_2/count_5feb16.c). Remember that you will have to sign-extend the 7.20 numbers into full 32-bit notation. The easiest way to do this is to use hardware to concantenate 5 sign bits onto the 27 bit fixed point numbers.
+8. Demonstrate [SignalTap](https://people.ece.cornell.edu/land/courses/ece5760/Quartus/Quartus_compile.html), an onboard logic analyzer, connected to your solver. Prove that the output of your solver on the FPGA matches the output of your solver on Modelsim. ***Later labs will assume you know how to use SignalTap.***
+<figure>
+    <img align="center" width="1500" height="500" src="modelsim_out.png" alt='missing' />
+    <center><figcaption>Solver output from Modelsim</figcaption></center>
+</figure>
+<figure>
+    <img align="center" width="1500" height="500" src="signaltap_out.png" alt='missing' />
+    <center><figcaption>Solver output from SignalTap</figcaption></center>
+</figure>
+<!-- 8. Integrate the pure tone synthesizer from the Audio Output Bus Master example on the [Quartus 18.1 webpage](https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html). The synthesizer need not be connected to the integrator, it can just generate pure tones as before. This will require adding the Audio Subsystem to the Qsys bus, and moving the audio bus master state machine into your code. -->
+<!-- 9. With hard-coded parameter values, demonstrate the hardware solver communicating solutions to the HPS and plotting those solutions to the VGA display. At reset, the system should start drawing all three projections of the Lorenz curve. At this point, you need not have any command-line interface implemented for interacting with this system. --> 
+
 <hr>
 <h3 id="Week-3">Week 3<a class="anchor-link" href="#Week-3">&#182;</a></h3><ol>
+<li>Starting from the graphics primitives in 16-bit color example associated with the <strong><em>Video VGA 640x480 displayed from SDRAM, in 16-bit color</em></strong> on the <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Examples_version_18.html">Quartus 18.1 example page</a>, and starting with hard-coded parameter values in your Verilog, demonstrate the hardware solver communicating solutions to the HPS and plotting those solutions to the VGA display. At reset, the system should start drawing all three projections of the Lorenz curve. At this point, you need not have any command-line interface implemented for interacting with this system. <strong>Only move on once this is working.</strong></li>
 <li>When a hard-coded version plots correctly, build the PIO <a href="https://people.ece.cornell.edu/land/courses/ece5760/DE1_SOC/HPS_peripherials/Qsys_index.html">bus-slaves</a> necessary to control reset function and set constants from the HPS, then start on the command software for console control. I suggest a simple command interpreter to enter the three constants, three initial conditions, start/stop, and reset. You will probably also signal a solution time step request from the HPS to synchronize the solver and the graphics.</li>
-<li>Remember that a parallel I/O port (PIO) which provides data <em>from</em> the HPS <em>to</em> the FPGA is an <strong><em>output</em></strong>! To get the PIO datasheet in Qsys, right-click the module name and in the pop-up menu, select <code>details&gt;datasheet</code>. Some other modules require that you follow the path <code>details&gt;open_component_folder</code>to get the datasheet.</li>
-<li>Add two additional DDS synthesizers, and use the lookup table below to set the dds increment value as a function of the x, y, and z state values. The lookup table takes a 6-bit address between 0 and 51, and returns a 32-bit DDS increment. If necessary, add a constant to any state variable that assumes values that are less than zero, then set the address for the lookup table to bits [25:20] of the resulting 7.20 fixed-point value.<div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">freq_LUT</span> <span class="p">(</span>
-    <span class="k">input</span> <span class="kt">wire</span> <span class="p">[</span><span class="mh">5</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">address</span><span class="p">,</span>
-    <span class="k">output</span> <span class="kt">wire</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">dds_increment_out</span>
-<span class="p">)</span> <span class="p">;</span>
-<span class="kt">reg</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">dds_increment</span> <span class="p">;</span> 
-<span class="k">always</span><span class="p">@(</span><span class="n">address</span><span class="p">)</span>
-<span class="k">begin</span>
-    <span class="k">case</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-        <span class="mh">6</span><span class="mi">&#39;d0</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d2460658</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d1</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d2762200</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d2</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d2925946</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d3</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d3284755</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d4</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d3686513</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d5</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d3905735</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d6</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d4384445</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d7</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d4921316</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d8</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d5524401</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d9</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d5852787</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d10</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d6569510</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d11</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d7373921</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d12</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d7812366</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d13</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d8768891</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d14</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d9842633</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d15</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d11047908</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d16</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d11704680</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d17</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d13138126</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d18</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d14746949</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d19</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d15623838</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d20</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d17537783</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d21</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d19685266</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d22</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d22095817</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d23</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d23410256</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d24</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d26276252</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d25</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d29494793</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d26</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d31248571</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d27</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d35075566</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d28</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d39370533</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d29</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d44191634</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d30</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d46819617</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d31</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d52553398</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d32</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d58988691</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d33</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d62497142</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d34</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d70150237</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d35</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d78741067</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d36</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d88384163</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d37</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d93639234</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d38</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d105106797</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d39</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d117978277</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d40</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d124993390</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d41</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d140300475</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d42</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d157482134</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d43</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d176767432</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d44</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d187278469</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d45</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d210213595</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d46</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d235956555</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d47</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d249987676</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d48</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d280600950</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d49</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d314964268</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d50</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d353535759</span><span class="p">;</span>
-        <span class="mh">6</span><span class="mi">&#39;d51</span><span class="o">:</span> <span class="n">dds_increment</span><span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d374557834</span><span class="p">;</span>
-        <span class="k">default</span> <span class="n">dds_increment</span> <span class="o">=</span><span class="mh">32</span><span class="mi">&#39;d0</span> <span class="p">;</span>
-    <span class="k">endcase</span>
-<span class="k">end</span>
-<span class="k">assign</span> <span class="n">dds_increment_out</span> <span class="o">=</span> <span class="n">dds_increment</span> <span class="p">;</span>
-<span class="k">endmodule</span>
-</pre></div>
-</li>
-<li>In your demonstration, you will be asked to set initial conditions/parameter values and then start the integration animation. As the system is animating, we will ask you to speed up/slow down that animation and to pause/resume animation. We will also ask for you to clear the screen while the animation is running. You will be asked to change values for the parameters $\sigma$, $\beta$, and $\rho$ while the animation is running, and you will be asked to reset the system with a new set of initial conditions. The VGA screen should also display the values for the parameters $\sigma$, $\beta$, and $\rho$. All the while, the DDS synthesizers should be generating tones through the speaker so that we can hear the system. <strong>The video demonstration at the top of this webpage demonstrates all of the functionality that you will be asked to demonstrate.</strong></li>
+<li>Remember that a parallel I/O port (PIO) which provides data <em>from</em> the HPS <em>to</em> the FPGA is an <strong><em>output</em></strong>! To get the PIO datasheet in Qsys, right-click the module name and in the pop-up menu, select <code>details&gt;datasheet</code>. Some other modules require that you follow the path <code>details&gt;open_component_folder</code>to get the datasheet.<!-- 12. Add two additional DDS synthesizers, and use the lookup table below to set the dds increment value as a function of the x, y, and z state values. The lookup table takes a 6-bit address between 0 and 51, and returns a 32-bit DDS increment. If necessary, add a constant to any state variable that assumes values that are less than zero, then set the address for the lookup table to bits [25:20] of the resulting 7.20 fixed-point value.
+```verilog
+module freq_LUT (
+    input wire [5:0] address,
+    output wire [31:0] dds_increment_out
+) ;
+reg [31:0] dds_increment ; 
+always@(address)
+begin
+    case(address)
+        6'd0: dds_increment=32'd2460658;
+        6'd1: dds_increment=32'd2762200;
+        6'd2: dds_increment=32'd2925946;
+        6'd3: dds_increment=32'd3284755;
+        6'd4: dds_increment=32'd3686513;
+        6'd5: dds_increment=32'd3905735;
+        6'd6: dds_increment=32'd4384445;
+        6'd7: dds_increment=32'd4921316;
+        6'd8: dds_increment=32'd5524401;
+        6'd9: dds_increment=32'd5852787;
+        6'd10: dds_increment=32'd6569510;
+        6'd11: dds_increment=32'd7373921;
+        6'd12: dds_increment=32'd7812366;
+        6'd13: dds_increment=32'd8768891;
+        6'd14: dds_increment=32'd9842633;
+        6'd15: dds_increment=32'd11047908;
+        6'd16: dds_increment=32'd11704680;
+        6'd17: dds_increment=32'd13138126;
+        6'd18: dds_increment=32'd14746949;
+        6'd19: dds_increment=32'd15623838;
+        6'd20: dds_increment=32'd17537783;
+        6'd21: dds_increment=32'd19685266;
+        6'd22: dds_increment=32'd22095817;
+        6'd23: dds_increment=32'd23410256;
+        6'd24: dds_increment=32'd26276252;
+        6'd25: dds_increment=32'd29494793;
+        6'd26: dds_increment=32'd31248571;
+        6'd27: dds_increment=32'd35075566;
+        6'd28: dds_increment=32'd39370533;
+        6'd29: dds_increment=32'd44191634;
+        6'd30: dds_increment=32'd46819617;
+        6'd31: dds_increment=32'd52553398;
+        6'd32: dds_increment=32'd58988691;
+        6'd33: dds_increment=32'd62497142;
+        6'd34: dds_increment=32'd70150237;
+        6'd35: dds_increment=32'd78741067;
+        6'd36: dds_increment=32'd88384163;
+        6'd37: dds_increment=32'd93639234;
+        6'd38: dds_increment=32'd105106797;
+        6'd39: dds_increment=32'd117978277;
+        6'd40: dds_increment=32'd124993390;
+        6'd41: dds_increment=32'd140300475;
+        6'd42: dds_increment=32'd157482134;
+        6'd43: dds_increment=32'd176767432;
+        6'd44: dds_increment=32'd187278469;
+        6'd45: dds_increment=32'd210213595;
+        6'd46: dds_increment=32'd235956555;
+        6'd47: dds_increment=32'd249987676;
+        6'd48: dds_increment=32'd280600950;
+        6'd49: dds_increment=32'd314964268;
+        6'd50: dds_increment=32'd353535759;
+        6'd51: dds_increment=32'd374557834;
+        default dds_increment =32'd0 ;
+    endcase
+end
+assign dds_increment_out = dds_increment ;
+endmodule
+``` --></li>
+<li>In your demonstration, you will be asked to set initial conditions/parameter values and then start the integration animation. As the system is animating, we will ask you to speed up/slow down that animation and to pause/resume animation. We will also ask for you to clear the screen while the animation is running. You will be asked to change values for the parameters $\sigma$, $\beta$, and $\rho$ while the animation is running, and you will be asked to reset the system with a new set of initial conditions. The VGA screen should also display the values for the parameters $\sigma$, $\beta$, and $\rho$. All the while, the DDS synthesizers should be generating tones through the speaker so that we can hear the system. <strong>The video demonstration at the top of this webpage demonstrates all of the functionality that you will be asked to demonstrate. You don't need to implement the audio synth that the video includes.</strong></li>
 </ol>
 <hr>
 
