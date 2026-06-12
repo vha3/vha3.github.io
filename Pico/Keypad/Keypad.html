@@ -13108,8 +13108,8 @@ div#notebook {
 <p><strong>This webpage explains what is happening in <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad">this example code</a>.</strong></p>
 <p><br></p>
 <figure>
-    <img align="center" width="200" height="300" src="keypad.jpeg" alt='missing' />
-    <center><figcaption>Fig. 1: 3x4 keypad</figcaption></center>
+    <img align="center" width="500" height="300" src="keypad.png" alt='missing' />
+    <center><figcaption>Fig. 1: The two varieties of 3x4 keypads we have in lab</figcaption></center>
 </figure>
 </div>
 </div>
@@ -13122,7 +13122,7 @@ div#notebook {
 <p><br></p>
 <figure>
     <img align="center" width="400" height="300" src="layout.png" alt='missing' />
-    <center><figcaption>Fig. 2: Internal layout for keypad. **The resistors are external!!**</figcaption></center>
+    <center><figcaption>Fig. 2: Internal layout for keypad. **Row-resistors are external, pullups are internal**</figcaption></center>
 </figure>
 </div>
 </div>
@@ -13130,20 +13130,31 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reading-the-keypad">Reading the keypad<a class="anchor-link" href="#Reading-the-keypad">&#182;</a></h2><h3 id="Configuring-GPIO's">Configuring GPIO's<a class="anchor-link" href="#Configuring-GPIO's">&#182;</a></h3><p>To scan the keypad for button presses, we will configure each of the GPIO's connected to the <em>rows</em> of the keypad (9-12, as shown in Fig. 2) as <em>outputs</em>, and we'll configure each of the GPIO's connected to the <em>columns</em> of the keypad (13-15, as shown in Fig. 2) as <em>inputs</em>. For each of the input pins, we will enable internal pulldown resistors. To start, we'll set all the output GPIO's attached <em>low.</em></p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Reading-the-keypad">Reading the keypad<a class="anchor-link" href="#Reading-the-keypad">&#182;</a></h2><h3 id="Configuring-GPIO's">Configuring GPIO's<a class="anchor-link" href="#Configuring-GPIO's">&#182;</a></h3><p>To scan the keypad for button presses, we will configure each of the GPIO's connected to the <em>rows</em> of the keypad (9-12, as shown in Fig. 2) as <em>outputs</em>, and we'll configure each of the GPIO's connected to the <em>columns</em> of the keypad (13-15, as shown in Fig. 2) as <em>inputs</em>. For each of the input pins, we will enable internal pullup resistors. To start, we'll set all the output GPIO's attached <em>high.</em></p>
 <p>Using the C SDK for the RP2040, all of these configurations look like the following:</p>
 <div class="highlight"><pre><span></span><span class="cp">#define BASE_KEYPAD_PIN 9</span>
 
 <span class="c1">// Initialize the keypad GPIO&#39;s</span>
 <span class="n">gpio_init_mask</span><span class="p">((</span><span class="mh">0x7F</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_set_dir</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span><span class="o">+</span><span class="mi">4</span><span class="p">),</span> <span class="n">GPIO_IN</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">gpio_set_dir</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span><span class="o">+</span><span class="mi">5</span><span class="p">),</span> <span class="n">GPIO_IN</span><span class="p">)</span> <span class="p">;</span>
+<span class="n">gpio_set_dir</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span><span class="o">+</span><span class="mi">6</span><span class="p">),</span> <span class="n">GPIO_IN</span><span class="p">)</span> <span class="p">;</span>
 <span class="c1">// Set row-pins to output</span>
 <span class="n">gpio_set_dir_out_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
 <span class="c1">// Set all output pins to low</span>
 <span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span> <span class="p">(</span><span class="mh">0x0</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
 <span class="c1">// Turn on pulldown resistors for column pins (on by default)</span>
-<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))</span> <span class="p">;</span>
-<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="p">;</span>
-<span class="n">gpio_pull_down</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="p">;</span>
+<span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span> <span class="p">;</span>
 </pre></div>
 
 </div>
@@ -13153,14 +13164,14 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Scanning-for-presses">Scanning for presses<a class="anchor-link" href="#Scanning-for-presses">&#182;</a></h3><p>The RP2040 allows for us to get the state of <em>all</em> of the GPIO ports using <code>gpio_get_all()</code>. This returns a 32-bit unsigned int, each bit of which represents the state (high or low) of the associated GPIO port (bit 0 is GPIO 0, bit 1 is GPIO 1, etc.).</p>
-<p>We scan the keypad by setting the GPIO's attached to the columns of the matrix high one at a time, and then reading the states of all 7 GPIO's that are attached to the keypad. For convenience, we'll call <code>gpio_get_all()</code>, then shift the result right by 9 (so that the state of GPIO 9 is in bit 0), and then mask with 0x7f. This way, we're left with a 7-bit number, where each bit in that number represents one of the pins of the keypad. The first four are attached to the rows, and the next 3 are attached to the columns.</p>
+<p>We scan the keypad by setting the GPIO's attached to the columns of the matrix low one at a time, and then reading the states of all 7 GPIO's that are attached to the keypad. For convenience, we'll call <code>gpio_get_all()</code>, then shift the result right by 9 (so that the state of GPIO 9 is in bit 0), and then mask with 0x7f. This way, we're left with a 7-bit number, where each bit in that number represents one of the pins of the keypad. The first four are attached to the rows, and the next 3 are attached to the columns.</p>
 <div class="highlight"><pre><span></span><span class="n">keypad</span> <span class="o">=</span> <span class="p">((</span><span class="n">gpio_get_all</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">)</span> <span class="p">;</span>
 </pre></div>
-<p>Suppose that we set GPIO 9, and we are not presssing any keys. Then none of the column pins are shorted to the row pins, and they'd all remain pulled low. The bit associated with GPIO 9 will be high (since we set it high), but none of the others. So, when we scan the keypad, we get a value of 0b0000001, or 0x01. This is the scancode that corresponds to "no press."</p>
-<p>Suppose instead that we set GPIO 9 high, and we press key 1. What value would we expect for the keypad? The bit associated with GPIO 9 will be high (since we set it high), and the bit associated with GPIO 13 will <em>also</em> be high, since pressing key 1 shorted it to GPIO 9. So, the binary value for <code>keypad</code> will be 0b0010001, or 0x11 in hex.</p>
-<p>Suppose that we had instead pressed 2. Then the bits of <code>keypad</code> associated with GPIO's 9 and 14 would be high. We would get a scancode of 0b0100001, or 0x21.</p>
-<p>And lastly, suppose that we had pressed 3. Then the bits of <code>keypad</code> associated with GPIO's 9 and 15 would be high. We would get a scancode of 0b1000001, or 0x41.</p>
-<p>If we had gotten any scancode <em>other than</em> 0x01, 0x11, 0x21, or 0x41, then that means the user had two keys pressed simultaneously. You could expand your keycodes to accomodate those cases, but for now we'll treat these as "invalid presses."</p>
+<p>Suppose that we clear GPIO 9, and we are not presssing any keys. Then none of the column pins are shorted to the row pins, and they'd all remain pulled high. The bit associated with GPIO 9 will be low (since we set it low), but none of the others. So, when we scan the keypad, we get a value of 0b1111110, or 0x7E. This is the scancode that corresponds to "no press."</p>
+<p>Suppose instead that we set GPIO 9 low, and we press key 1. What value would we expect for the keypad? The bit associated with GPIO 9 will be low (since we set it low), and the bit associated with GPIO 13 will <em>also</em> be low, since pressing key 1 shorted it to GPIO 9. So, the binary value for <code>keypad</code> will be 0b1101110, or 0x6E in hex.</p>
+<p>Suppose that we had instead pressed 2. Then the bits of <code>keypad</code> associated with GPIO's 9 and 14 would be low. We would get a scancode of 0b1011110, or 0x5E.</p>
+<p>And lastly, suppose that we had pressed 3. Then the bits of <code>keypad</code> associated with GPIO's 9 and 15 would be low. We would get a scancode of 0b0111110, or 0x3E.</p>
+<p>If we had gotten any scancode <em>other than</em> 0x7E, 0x6E, 0x5E, or 0x3E, then that means the user had two keys pressed simultaneously. You could expand your keycodes to accomodate those cases, but for now we'll treat these as "invalid presses."</p>
 <p>The table below enumerates these cases for row 0, and expands to include the scancodes for the other three rows of the keypad.</p>
 <table>
 <thead><tr>
@@ -13178,258 +13189,258 @@ div#notebook {
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
-<td style="text-align:center">0x1</td>
-<td style="text-align:center">0x01</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0xE</td>
+<td style="text-align:center">0x07</td>
 <td style="text-align:center">No  press</td>
 <td></td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x11</td>
-<td style="text-align:center">Pressed 1</td>
+<td style="text-align:center">0x6E</td>
+<td style="text-align:center">Pressed x</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x21</td>
+<td style="text-align:center">0x5E</td>
 <td style="text-align:center">Pressed 2</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x41</td>
+<td style="text-align:center">0x3E</td>
 <td style="text-align:center">Pressed 3</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
 <td style="text-align:center"></td>
 <td style="text-align:center">else</td>
 <td style="text-align:center">Invalid.</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0x2</td>
-<td style="text-align:center">0x02</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0xD</td>
+<td style="text-align:center">0x07</td>
 <td style="text-align:center">No press</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x12</td>
+<td style="text-align:center">0x6D</td>
 <td style="text-align:center">Pressed 4</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x22</td>
+<td style="text-align:center">0x5D</td>
 <td style="text-align:center">Pressed 5</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x42</td>
+<td style="text-align:center">0x3D</td>
 <td style="text-align:center">Pressed 6</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
 <td style="text-align:center">else</td>
 <td style="text-align:center">Invalid.</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0x4</td>
-<td style="text-align:center">0x04</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0xB</td>
+<td style="text-align:center">0x07</td>
 <td style="text-align:center">No press</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x14</td>
+<td style="text-align:center">0x6B</td>
 <td style="text-align:center">Pressed 7</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x24</td>
+<td style="text-align:center">0x5B</td>
 <td style="text-align:center">Pressed 8</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x44</td>
+<td style="text-align:center">0x3B</td>
 <td style="text-align:center">Pressed 9</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
 <td style="text-align:center">else</td>
 <td style="text-align:center">Invalid.</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0x8</td>
-<td style="text-align:center">0x08</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0x7</td>
+<td style="text-align:center">0x07</td>
 <td style="text-align:center">No press</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x18</td>
+<td style="text-align:center">0x67</td>
 <td style="text-align:center">Pressed *</td>
 </tr>
 <tr>
-<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x28</td>
+<td style="text-align:center">0x57</td>
 <td style="text-align:center">Pressed 0</td>
 </tr>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
 <td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
-<td style="text-align:center">0x48</td>
+<td style="text-align:center">0x37</td>
 <td style="text-align:center">Pressed #</td>
 </tr>
 <tr>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
 <td style="text-align:center"></td>
+<td style="text-align:center">0</td>
 <td style="text-align:center">1</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
 <td style="text-align:center"></td>
 <td style="text-align:center">else</td>
 <td style="text-align:center">Invalid.</td>
 </tr>
 </tbody>
 </table>
-<p>Note that we can do a quick check to see whether or not any button is pushed by masking <code>keypad</code> with 0x70, and checking if the result is nonzero. If the result is nonzero, it means one or more of the column GPIO's (15, 14, and/or 13) is pressed. We can then compare the full scancode against valid scancodes to determine which button was pressed.</p>
+<p>Note that we can do a quick check to see whether or not any button is pushed by masking <code>~keypad</code> with 0x70, and checking if the result is nonzero. If the result is nonzero, it means one or more of the column GPIO's (15, 14, and/or 13) is pressed. We can then compare the full scancode against valid scancodes to determine which button was pressed.</p>
 <p>Encoded, this sequence of steps looks like the following:</p>
 <div class="highlight"><pre><span></span><span class="cp">#define BASE_KEYPAD_PIN 9</span>
 <span class="cp">#define KEYROWS         4</span>
 <span class="cp">#define NUMKEYS         12</span>
 
-<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">keycodes</span><span class="p">[</span><span class="n">NUMKEYS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0x28</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0x21</span><span class="p">,</span> <span class="mh">0x41</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span>
-                                     <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0x42</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span> <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span>
-                                     <span class="mh">0x18</span><span class="p">,</span> <span class="mh">0x48</span><span class="p">}</span> <span class="p">;</span>
-<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">scancodes</span><span class="p">[</span><span class="n">KEYROWS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x04</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">}</span> <span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">keycodes</span><span class="p">[</span><span class="n">NUMKEYS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0x57</span><span class="p">,</span> <span class="mh">0x6E</span><span class="p">,</span> <span class="mh">0x5E</span><span class="p">,</span> <span class="mh">0x3E</span><span class="p">,</span> <span class="mh">0x6D</span><span class="p">,</span>
+                                <span class="mh">0x5D</span><span class="p">,</span> <span class="mh">0x3D</span><span class="p">,</span> <span class="mh">0x6B</span><span class="p">,</span> <span class="mh">0x5B</span><span class="p">,</span> <span class="mh">0x3B</span><span class="p">,</span>
+                                <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0x37</span><span class="p">}</span> <span class="p">;</span>
+<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">scancodes</span><span class="p">[</span><span class="n">KEYROWS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>   <span class="mh">0xE</span><span class="p">,</span> <span class="mh">0xD</span><span class="p">,</span> <span class="mh">0xB</span><span class="p">,</span> <span class="mh">0x7</span><span class="p">}</span> <span class="p">;</span>
 <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">button</span> <span class="o">=</span> <span class="mh">0x70</span> <span class="p">;</span>
 
 <span class="c1">// Scan the keypad!</span>
@@ -13438,14 +13449,14 @@ div#notebook {
     <span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span>
                     <span class="p">(</span><span class="n">scancodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
     <span class="c1">// Small delay required</span>
-    <span class="n">sleep_us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span> 
+    <span class="n">sleep_us</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">;</span>
     <span class="c1">// Read the keycode</span>
     <span class="n">keypad</span> <span class="o">=</span> <span class="p">((</span><span class="n">gpio_get_all</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">)</span> <span class="p">;</span>
     <span class="c1">// Break if button(s) are pressed</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="k">break</span> <span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="o">~</span><span class="n">keypad</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="k">break</span> <span class="p">;</span>
 <span class="p">}</span>
 <span class="c1">// If we found a button . . .</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">((</span><span class="o">~</span><span class="n">keypad</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">button</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Look for a valid keycode.</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">NUMKEYS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">keypad</span> <span class="o">==</span> <span class="n">keycodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">break</span> <span class="p">;</span>
@@ -13464,6 +13475,14 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Debouncing">Debouncing<a class="anchor-link" href="#Debouncing">&#182;</a></h2><p>Each button on the keypad can be modeled as a spring-mass-damper system. When you press a key, you are closing a <em>mechanical</em> switch, and mechanical things bounce! As a consequence, the microcontroller might detect multiple button presses each time you press/release a key. In order to prevent this, you must implement a debouncing state machine. An example of one such state machine is illustrated in Fig. 3.</p>
 <figure>
     <img align="center" width="600" height="300" src="sm.png" alt='missing' />
@@ -13472,6 +13491,22 @@ div#notebook {
 <p>When the scan returns a valid keypress, we transition to the <code>Maybe pressed</code> state and store the value of that keypress in a variable called <code>possible</code>. We then scan the keypad again, and compare the keycode to the value of <code>possible</code>. If they differ, then the key has bounced to a different state and we transition back to <code>Not pressed</code>. If they are the same, then we assume the key state to be stable and we transition from <code>Maybe pressed</code> to <code>Pressed</code>. If you want for a single event to occur <em>each time</em> a button is pressed, then that event should be triggered on this transition.</p>
 <p>Once we're in the <code>Pressed</code> state, we continue to scan the keypad. For as long as the keycode matches the value that we stored in <code>possible</code>, we remain in this state. If the value differs, we transition to <code>Maybe not pressed</code>.</p>
 <p>In <code>Maybe not pressed</code>, we scan the keypad again. If the keycode matches <code>possible</code>, we transition back to <code>Pressed</code>. Otherwise, we transition to <code>Not pressed</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Why-do-we-pulse-the-rows-low-instead-of-high?">Why do we pulse the rows low instead of high?<a class="anchor-link" href="#Why-do-we-pulse-the-rows-low-instead-of-high?">&#182;</a></h2><p>Why pull the columns up instead of down? In principle either works just fine, but this design is compatible with Errata RP2350-E9.</p>
 
 </div>
 </div>
