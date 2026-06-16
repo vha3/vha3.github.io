@@ -13099,8 +13099,8 @@ div#notebook {
     <center><figcaption>Fig. 1: Galton Board overview</figcaption></center>
 </figure><p>It is really startling to watch! In fact, this phenomenon so impressed Francis Galton that he stated:</p>
 <p><em>The law [the central limit theorem] would have been personified by the Greeks and deified, if they had known of it. It reigns with serenity and in complete self-effacement amidst the wildest confusion. The huger the mob, and the greater the apparent anarchy, the more perfect is its sway. It is the supreme law of Unreason. Whenever a large sample of chaotic elements are taken in hand and marshalled in the order of their magnitude, an unsuspected and most beautiful form of regularity proves to have been latent all along.</em></p>
-<p>You will build a digital version of a board, through which you will drop as many balls as you can manage at 30 frames per second. The more thoughtful and efficient your code, the more balls you will be able to animate. Every time any ball strikes a peg there must be a "thunk!" sound effect. You don't want to waste cycles doing interrupt-based audio synthesis, so you will use a DMA channel to trigger the sound effects. The balls will bounce according to collision physics. You must count and plot the number of balls that land in each bin at the bottom of the board so that we can see the central limit theorem in action. You will implement a potentiometer-based interface that allows for the user to adjust parameters in realtime and thereby "play" with the central limit theorem.</p>
-<p><strong>Key concepts</strong>: Fixed point arithmetic, optimization, direct memory access, SPI, collision physics, analog to digital converter, computer animation, VGA, PIO, alpha max beta min, overclocking, multicore parallelism, binomial distribution, Gaussian distribution, central limit theorem, Pascal's triangle.</p>
+<p>You will build a digital version of a board, through which you will drop as many balls as you can manage at 60 frames per second (the speed of the VGA display). The more thoughtful and efficient your code, the more balls you will be able to animate. Every time any ball strikes a peg there must be a "thunk!" sound effect. You don't want to waste cycles doing interrupt-based audio synthesis, so you will use a DMA channel to trigger the sound effects. The balls will bounce according to collision physics. You must count and plot the number of balls that land in each bin at the bottom of the board so that we can see the central limit theorem in action. You will implement a potentiometer-based interface that allows for the user to adjust parameters in realtime and thereby "play" with the central limit theorem.</p>
+<p><strong>Key concepts</strong>: Fixed point arithmetic, optimization, direct memory access, SPI, collision physics, analog to digital converter, computer animation, VGA, double-buffering, semaphores, PIO, alpha max beta min, overclocking, multicore parallelism, binomial distribution, Gaussian distribution, central limit theorem, Pascal's triangle.</p>
 
 </div>
 </div>
@@ -13148,7 +13148,7 @@ div#notebook {
 <p><strong>Engineering background</strong></p>
 <ul>
 <li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage. You will need to modify it if you want to overclock the RP2040.</li>
-<li><a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html"><strong>Fixed-point arithmetic</strong></a>: To animate the most-possible balls, you want for your arithmetic to be as fast as possible. Floating point is too slow. Fixed-point arithmetic allows for you to use integer arithmetic (which is way faster than floating point, on this architecture) while maintaining fractional resolution.</li>
+<li><a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html"><strong>Fixed-point arithmetic</strong></a>: To animate the most-possible balls, you want for your arithmetic to be as fast as possible. On the RP2040, floating point is <em>way</em> too slow. The RP2350 has a floating point unit, so it's faster. Even so, you will probably have fastest execution with fixed point!</li>
 <li><a href="https://vanhunteradams.com/Protocols/SPI/SPI.html"><strong>SPI interface</strong></a>: You will generate sound effects by means of an SPI DAC. An understanding of this interface will help you debug.</li>
 <li><a href="https://vanhunteradams.com/Pico/Birds/DAC.pdf"><strong>DAC datasheet</strong></a>: Datasheet for the MCP4822 DAC we'll be using in this lab.</li>
 <li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: Sections on DMA, UART, Multicore, Timers, PIO, ADC, GPIO</li>
@@ -13166,6 +13166,11 @@ div#notebook {
 // Each frame, we update every ball . . .
 for each ball:
 
+    // Use ball's current velocity to update its position
+    ball.x = ball.x + ball.vx
+    ball.y = ball.y + ball.vy
+
+    // Now we're going to re-compute the ball's velocity . . .
     // Every ball looks at every peg . . .
     for each peg:
 
@@ -13179,23 +13184,27 @@ for each ball:
             // If so, compute the distance separating ball and peg
             distance = sqrt(dx^2 + dy^2)
 
-            // Generate the normal vector that points from peg to ball
-            normal_x = dx/distance
-            normal_y = dy/distance
+            // Are we in collision?
+            if (distance &lt; (ball.radius + peg.radius):
 
-            // Collision physics (see webpage)
-            intermediate_term = -2*((normal_x * ball.vx) + (normal_y * ball.vy))
+                // Generate the normal vector that points from peg to ball
+                normal_x = dx/distance
+                normal_y = dy/distance
 
-            // Are the ball velocity and normal vectors in opposite directions?
-            if (intermediate_term &gt; 0):
+                // Collision physics (see webpage)
+                intermediate_term = -2*((normal_x * ball.vx) + (normal_y * ball.vy))
 
-                // Teleport it outside the collision distance with the peg
-                ball.x = peg.x + (normal_x * (distance+1))
-                ball.y = peg.y + (normal_y * (distance+1))
+                // Teleport it outside the collision distance with the peg, 
+                // in the direction of the normal vector (an approximation)
+                ball.x = peg.x + (normal_x * (peg.radius + ball.radius + 1))
+                ball.y = peg.y + (normal_y * (peg.radius + ball.radius + 1))
 
-                // Update its velocity (see collision physics webpage)
-                ball.vx = ball.vx + (normal_x * intermediate_term)
-                ball.vy = ball.vy + (normal_y * intermediate_term)
+                // A minor cheat to sidestep tricky corner cases
+                if (intermediate_term &gt; 0):
+
+                    // Update its velocity (see collision physics webpage)
+                    ball.vx = ball.vx + (normal_x * intermediate_term)
+                    ball.vy = ball.vy + (normal_y * intermediate_term)
 
                 // Did we just strike a new peg?
                 if current_peg != last_peg:
@@ -13217,11 +13226,7 @@ for each ball:
 
 
     // Apply gravity
-    ball.vy = ball.vy + gravity
-
-    // Use ball's updated velocity to update its position
-    ball.x = ball.x + ball.vx
-    ball.y = ball.y + ball.vy</code></pre>
+    ball.vy = ball.vy + gravity</code></pre>
 <p><strong>Optional book-club reading</strong></p>
 <blockquote><ul>
 <li><a href="https://www.amazon.com/Leonardo-Vinci-Walter-Isaacson/dp/1501139150"><strong>Leonardo da Vinci</strong> by Walter Isaacson</a>: Chapters 12-22</li>
@@ -13274,7 +13279,7 @@ for each ball:
 </ul>
 <p><strong>Week 3</strong></p>
 <ul>
-<li>At reset, the maximum number of balls which you can animate at 30fps should be dropped into the top of the Galton Board.</li>
+<li>At reset, the maximum number of balls which you can animate at 60fps should be dropped into the top of the Galton Board.</li>
 <li>Each of these balls should generate a "thunk" sound when it hits a new peg.</li>
 <li>The user interface is an external button and a potentiometer. At reset, the potentiometer should not affect the animation. Upon a button push, the potentiometer adjusts the number of balls. Upon a second push, the potentiometer adjusts the <em>bounciness</em> parameter. The user should be able to cycle through all these states via repeated button pushes, and the state should be shown on the VGA display.</li>
 <li>A histogram, normalized to the available vertical space beneath the Galton Board, should show the number of balls that have fallen through each pair of pegs in the bottom row.</li>
