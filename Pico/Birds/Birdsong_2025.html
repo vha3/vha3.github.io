@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Birdsong</title>
+<title>Birdsong_2025</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Synthesizing-Birdsong-with-the-RP2350">Synthesizing Birdsong with the RP2350<a class="anchor-link" href="#Synthesizing-Birdsong-with-the-RP2350">&#182;</a></h1>
+<h1 id="Synthesizing-Birdsong-with-the-RP2040">Synthesizing Birdsong with the RP2040<a class="anchor-link" href="#Synthesizing-Birdsong-with-the-RP2040">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -13085,7 +13085,6 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="V.-Hunter-Adams-(vha3@cornell.edu)"><a href="https://vanhunteradams.com">V. Hunter Adams</a> (vha3@cornell.edu)<a class="anchor-link" href="#V.-Hunter-Adams-(vha3@cornell.edu)">&#182;</a></h4><ul>
-<li><a href="./Birdsong_2025.html">Fall, 2025 version</a></li>
 <li><a href="./Birdsong_keypad.html">Fall, 2021 version</a></li>
 <li><a href="./Birdsong_serial.html">Spring, 2021 version</a></li>
 </ul>
@@ -13109,15 +13108,14 @@ div#notebook {
 <figure>
     <img align="center" width="40%" height="200" src="cardinal.jpg" alt='missing' />
     <center><figcaption>Fig 1: A Northern Cardinal</figcaption>
-</figure><p>Fig. 2 shows the <a href="https://en.wikipedia.org/wiki/Spectrogram">spectrogram</a> for the song that we'll be synthesizing. Cardinals and many other songbirds produce almost pure frequency-modulated tones (i.e., they whistle!). As can be seen in the spectrogram below, the cardinal sweeps through frequencies from ~2kHz to ~7kHz. We'll assume that the dominant tones  (the darkest lines on the spectrogram) are significantly louder than all other frequencies (the lighter lines). We'll only synthesize these loudest frequencies. The generated song sounds quite realistic under this assumption, as demonstrated in the embedded video farther down the webpage.</p>
-<p>Rather than building a static synth, your user interface will allow for the user to program <em>new</em> sounds into the device! This means that you can try to emulate lots of other birds (or whales? R2D2? crickets?), or use your device as an instrument. We'll reprogram the device via a keypad and a slide potentiometer.</p>
+</figure><p>Fig. 2 shows the <a href="https://en.wikipedia.org/wiki/Spectrogram">spectrogram</a> for the song that we'll be synthesizing (5730 students will also synthesize an <em>additional</em> song, described at the bottom of this webpage). Cardinals and many other songbirds produce almost pure frequency-modulated tones (i.e., they whistle!). As can be seen in the spectrogram below, the cardinal sweeps through frequencies from ~2kHz to ~7kHz. We'll assume that the dominant tones  (the darkest lines on the spectrogram) are significantly louder than all other frequencies (the lighter lines). We'll only synthesize these loudest frequencies. The generated song sounds quite realistic under this assumption, as demonstrated in the embedded video farther down the webpage. Your synthesizer will be controlled via a keypad.</p>
 <p><br></p>
 <figure>
     <img align="center" width="100%" height="200" src="spectrogram.png" alt='missing' />
     <center><figcaption>Fig 2: Spectrogram for a cardinal song</figcaption>
 </figure><p>There will be a number of interesting outcomes from this laboratory exercise. You'll gain familiarity with all of the key concepts listed below, but you may also notice that something strange occurs in your own brain! After gaining such an intimate understanding the cardinal's song, you may find that you <em>notice birds singing</em> after completing this lab! It's really nice when an engineering project changes the way that you see and appreciate the world around you, I hope that occurs for some of you.</p>
 <p>If you'd like to take things farther, you can also synthesize songs for other, more challenging birds like the <a href="https://macaulaylibrary.org/asset/93753?__hstc=75100365.4af4b5ec7660d0673dacf4700155172a.1603723056763.1603723056763.1603723056763.1&amp;__hssc=75100365.1.1603723056764&amp;__hsfp=3874643835#_ga=2.88178002.855674868.1603723056-1513990777.1603723055">Baltimore oriole</a>. (If you're lucky, you can spot these in Ithaca too. They're gorgeous and have a very distinctive song). If you're feeling really ambitious, do additive synthesis to generate a <a href="https://macaulaylibrary.org/asset/580562881">Bobolink</a> (might make a good final project!).</p>
-<p><strong>Key concepts</strong>: Timers, timer interrupts, Direct Digital Synthesis, SPI communication, GPIO, threading/concurrency, digital-to-analog converters, analog-to-digital converters, potentiometers, fixed-point arithmetic, keypads, debouncing, code characterization</p>
+<p><strong>Key concepts</strong>: Timers, timer interrupts, Direct Digital Synthesis, SPI communication, GPIO, threading/concurrency, digital-to-analog converters, fixed-point arithmetic, keypads, debouncing, curve fitting, numeric integration, code characterization</p>
 
 </div>
 </div>
@@ -13141,7 +13139,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7Sm-g5hQTHs?si=RSgm8LT5tIJQrdoi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bEWip7StmZk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
 </div>
@@ -13175,7 +13173,8 @@ div#notebook {
 </ul>
 </blockquote>
 <h3 id="Mathematical-&amp;-algorithmic-background">Mathematical &amp; algorithmic background<a class="anchor-link" href="#Mathematical-&amp;-algorithmic-background">&#182;</a></h3><blockquote><ul>
-<li><a href="https://vanhunteradams.com/DDS/DDS.html"><strong>Direct digital synthesis (DDS)</strong></a>: This is the algorithm that we will use for sound production. <em>This is a powerful algorithm</em>, a good one to understand deeply.<!-- > - [**Birdsong synthesis via DDS**](./Birdsong_synthesis.html): This webpage deconstructs the Northern cardinal's song, and synthesizes it via DDS. --></li>
+<li><a href="https://vanhunteradams.com/DDS/DDS.html"><strong>Direct digital synthesis (DDS)</strong></a>: This is the algorithm that we will use for sound production. <em>This is a powerful algorithm</em>, a good one to understand deeply.</li>
+<li><a href="./Birdsong_synthesis.html"><strong>Birdsong synthesis via DDS</strong></a>: This webpage deconstructs the Northern cardinal's song, and synthesizes it via DDS.</li>
 </ul>
 </blockquote>
 <h3 id="Related-reading">Related reading<a class="anchor-link" href="#Related-reading">&#182;</a></h3><blockquote><ul>
@@ -13203,13 +13202,13 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Weekly-Checkpoints">Weekly Checkpoints<a class="anchor-link" href="#Weekly-Checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative.</strong> In week 2, for example, you must have also completed all of the requirements from week 1. <strong>Look ahead, and design your system with thoughtfulness to the features that you will need to add in the subsequent weeks.</strong></p>
+<h2 id="Weekly-Checkpoints">Weekly Checkpoints<a class="anchor-link" href="#Weekly-Checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative.</strong> In week 2, for example, you must have also completed all of the requirements from week 1.</p>
 <h4 id="Homework-before-week-1">Homework before week 1<a class="anchor-link" href="#Homework-before-week-1">&#182;</a></h4><ul>
 <li>Using <a href="https://vanhunteradams.com/Pico/CourseMaterials/Building_Demos.html">this webpage</a> as a guide, download and build the course demo code on your PC</li>
 <li>Read the <a href="https://vanhunteradams.com/Pico/CourseMaterials/Policy.html">course policy page</a>. If you have any questions, ask Hunter! This is the implicit contract to which you are agreeing by taking this course, now's the time to seek any clarification you may require.</li>
 </ul>
 <h4 id="Week-1">Week 1<a class="anchor-link" href="#Week-1">&#182;</a></h4><ul>
-<li><p>In <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/a_Timer_Interrupt_DDS_Demo"><strong>this example code</strong></a>, direct digital synthesis is used to generate a pure tone. Connect the DAC to the Pico per the <code>#define</code> statements at the top of the source code and the <a href="./DAC.pdf">DAC datasheet</a>, build the code, and load it onto the Pico. Please note that different manufacturers use different names for SPI signals! Here are the correct connections:</p>
+<li><p>In <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/c_Audio_Beep_Synthesis_Single_Core"><strong>this example code</strong></a>, direct digital synthesis is used to generate a pure sine wave "beep". Connect the DAC to the Pico per the <code>#define</code> statements at the top of the source code and the <a href="./DAC.pdf">DAC datasheet</a>, build the code, and load it onto the Pico. Please note that different manufacturers use different names for SPI signals! Here are the correct connections:</p>
 <blockquote><p><code>3.3V(OUT)</code> --&gt; <code>VDD</code><br>
 <code>GND</code> --&gt; <code>VSS</code><br>
 <code>PIN_CS</code> --&gt; $\overline{\text{CS}}$<br>
@@ -13218,38 +13217,43 @@ div#notebook {
 <code>LDAC</code> --&gt; $\overline{\text{LDAC}}$</p>
 </blockquote>
 </li>
-<li><p>Confirm that the waveforms are being generated by the DAC with the oscilloscope, then use a <a href="https://www.cuidevices.com/product/resource/sj1-355xng.pdf">3.5 mm audio socket</a> so that you can plug in speakers and listen to the tone.</p>
+<li><p>Confirm that the waveforms are being generated by the DAC with the oscilloscope, then use a <a href="https://www.cuidevices.com/product/resource/sj1-355xng.pdf">3.5 mm audio socket</a> so that you can plug in speakers and listen to the generated beeps.</p>
 </li>
 <li>Modify the code such that the waveform is sent to the <em>other</em> DAC output channel.</li>
 <li>Add the <code>bootsel</code> button to your breadboard, as described on <a href="https://people.ece.cornell.edu/land/courses/ece4760/RP2040/hardware/index_pgm_button.html">this webpage</a></li>
-<li>Add a slide potentiometer to your breadboard, use the <strong>ADC demo code</strong> to confirm that your connections are correct.</li>
-<li>Integrate the ADC demo code with the DDS tone generating code. The frequency of the tone generator should be set with the slide potentiometer, with a range of 0 to ~10kHz. I recommend augementing the ADC demo with the DDS demo, rather than augmenting the DDS demo with the ADC demo.</li>
 </ul>
 <h4 id="Week-2">Week 2<a class="anchor-link" href="#Week-2">&#182;</a></h4><ul>
 <li>Use the <a href="https://vanhunteradams.com/Pico/Keypad/Keypad.html"><strong>keypad webpage</strong></a> to connect the keypad to the Pico. Use the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> to confirm that your connections are correct.</li>
-<li>Integrate the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> with the your potentiometer-controlled tone generator code from last week. Have the program produce a tone when you press/release the 0 key, and stop producing a tone when you press/release the 0 key again. This requires debouncing the keypad.</li>
-<li>Modify the program such that pressing/releasing the asterisk button puts the device into "Record Mode." The user can push/hold any key 1-9, and the frequencies will be recorded while they hold down that button. Releasing the button stops the recording, and pressing/releasing that key again plays back the recording. The user can press/release the asterisk <em>again</em> to re-record a sound to any key 1-9. How frequently do you need to store the frequency in order to accurately playback the sound?</li>
-<li>The program should set a GPIO pin when it enters the synthesis ISR, and clear the GPIO pin when it leaves the synthesis ISR. Use the oscilloscope to measure the time that you are spending in the ISR.</li>
+<li>Integrate the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Human_Input/Keypad"><strong>keypad example code</strong></a> with the <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Audio/c_Audio_Beep_Synthesis_Single_Core"><strong>beep beep demo code</strong></a> from last week. Have the program produce a single beep each time you press a key (requires debouncing).</li>
+<li>Modify the program such that it produces exactly one swoop sound each time you press the 1 key, and one chirp sound each time you press the 2 key. These sounds should be amplitude modulated so that there are no audio artifacts (clicks, pops, etc.).</li>
+<li>The program should set a GPIO pin when it enters the synthesis ISR, and clear the GPIO pin when it leaves the synthesis ISR. Use the oscilloscope to measure the time that you are spending in the ISR. How can you make it faster? Why are some sounds faster than others?</li>
 <li><em>Finishing a checkpoint does NOT mean you can leave lab early!</em></li>
 </ul>
 <h4 id="Week-3-(4760)">Week 3 (4760)<a class="anchor-link" href="#Week-3-(4760)">&#182;</a></h4><p><em>Write a C program that meets the following requirements . . .</em></p>
 <ul>
-<li>The system boots in tone generator mode. It generates a pure tone of a frequency which is adjustable by moving the slide potentiometer.</li>
-<li>Pressing/releasing the 0 key silences the tone generator. Pressing/releasing the 0 key again starts the tone generator.</li>
-<li>Pressing/releasing the * key puts the device into "Record Mode." The user can then press/hold any key 1-9 and the frequency of the tone generator will be recorded for as long as that key is held down. Releasing the key stops the recording.</li>
-<li>Pressing/releasing that same key will play back the sound which was just recorded, <strong>but at 8-10x speed.</strong> This is to help us record rapidly-modulated birdsongs.</li>
-<li>The user can record different sounds to each key 1-9.</li>
-<li>Pressing/releasing the # key puts the device into "Compose Mode." The user can subsequently push a sequence of keys, and that key sequence will be recorded.</li>
-<li>Pressing/releasing the # key again plays back the sequence that the user recorded.</li>
+<li>The program has two modes: <em>play mode</em> and <em>record mode</em>. The system boots into <em>play mode</em>, in which it plays the swoop sound when the 1 key is pressed and the chirp sound when the 2 key is pressed. Each sound will play for 130ms, exactly once, independent of the duration of the button push. There should be no clicks, pops, or other audio artifacts.</li>
+<li>By pressing a separate key on the keypad, or an external button, or toggling an external switch, the user places the device into <em>record mode</em>. In <em>record mode</em>, the device remembers the sequence of inputs that the user specifies. When the user transitions from <em>record mode</em> back to <em>play mode</em>, the device plays back the recorded sequence with the correct timing.</li>
 <li>The program should set a GPIO pin when it enters the synthesis ISR, and clear the GPIO pin when it leaves the synthesis ISR. Use the oscilloscope to measure the time that you are spending in the ISR.</li>
 </ul>
-<p>When you demonstrate the program to Hunter or a TA, you will be asked to play back a sequence of sounds which simulates the birdsong in Fig. 2. If you're able to trick the Merlin App, you will earn a handshake. You will also be asked to play record/playback a random sequence of sounds that Hunter or the TA uses the keypad and slide potentiometer to record. <strong>At no time during the demo can you reset or reprogram the Pico.</strong> <em>Finishing a checkpoint does NOT mean you can leave lab early!</em></p>
+<p>When you demonstrate the program to Hunter or a TA, you will be asked to play back a sequence of sounds which simulates the birdsong in Fig. 2. If you're able to trick the Merlin App, you will earn a handshake. You will also be asked to play back a random sequence of swoops/chirps/silences that Hunter or the TA uses the keypad to generate. <strong>At no time during the demo can you reset or reprogram the RP2040.</strong> <em>Finishing a checkpoint does NOT mean you can leave lab early!</em></p>
 <h4 id="Week-3-(5730)">Week 3 (5730)<a class="anchor-link" href="#Week-3-(5730)">&#182;</a></h4><p><em>In addition to the above requirements for 4760, 5730 students should also . . .</em></p>
 <ul>
-<li>Add an external switch to the breadboard. When the switch is toggled, the position of the potentiometer is used to set the volume of playback. Toggling the switch back reverts to exactly the behavior described above.</li>
+<li>Synthesize <em>another</em> Northern Cardinal song, shown in Fig. 3. You may deconstruct this song into 4 sound primitives, as illustrated in that figure's annotations. Fit these frequency sweeps to functions using similar analysis to that shown at the top of this document.</li>
+<li>Each of these 4 sound primitives should be mapped to 4 additional keys on the keypad.</li>
+<li>You may fit to any function that you like. 2 linear function and a parabolic or sine curve sound nice.</li>
 </ul>
-<p>When you demonstrate the program to Hunter or a TA, you will be asked to play back a sequence of sounds which simulates the birdsongs in Fig. 2 and Fig. 3. If you're able to trick the Merlin App, you will earn a handshake. You will also be asked to play back a random sequence of swoops/chirps/silences that Hunter or the TA uses the keypad to generate. <strong>At no time during the demo can you reset or reprogram the Pico.</strong> <em>Finishing a checkpoint does NOT mean you can leave lab early!</em></p>
+<p>When you demonstrate the program to Hunter or a TA, you will be asked to play back a sequence of sounds which simulates the birdsongs in Fig. 2 and Fig. 3. If you're able to trick the Merlin App, you will earn a handshake. You will also be asked to play back a random sequence of swoops/chirps/silences that Hunter or the TA uses the keypad to generate. <strong>At no time during the demo can you reset or reprogram the RP2040.</strong> <em>Finishing a checkpoint does NOT mean you can leave lab early!</em></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<figure>
+    <img align="center" width="100%" height="200" src="Down_annotated.png" alt='missing' />
+    <center><figcaption>Fig 3: Spectrogram for an additional cardinal song (5730 students only)</figcaption>
+</figure>
 </div>
 </div>
 </div>
@@ -13267,6 +13271,7 @@ div#notebook {
 <h2 id="Lab-report">Lab report<a class="anchor-link" href="#Lab-report">&#182;</a></h2><p>Your written lab report should include the sections mentioned in the <a href="https://vanhunteradams.com/Pico/CourseMaterials/Policy.html">policy page</a>, and:</p>
 <ul>
 <li>A scope display of a swoop/chirp birdcall showing rise, sustain, fall</li>
+<li>A table which shows the time spent in the ISR for <em>each</em> of your sound primitives. Please comment on the differences among these times, any optimizations that you implemented to improve this speed, and any additional optimizations that you could have implemented with more time.</li>
 <li><strong>A spectrogram of the sound produced by your MCU.</strong> You can generate this anyway you like. You could plug the DAC output into the mic input of your laptop via an aux cable, and then generate a spectrogram in Python. You could alternatively use some software on the lab PC to generate a spectrogram (WaveForms). Or you can use the Merlin app.</li>
 <li>A heavily commented listing of your code</li>
 <li>A prompt log from any AI tool that you used for code generation. The log should include words exchanged, number of code additions/deletions/modifications suggested, and number of code additions/deletions/modification accepted. The AI tool will generate this log for you if prompted to do so.</li>
