@@ -13106,7 +13106,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this lab, you will construct and control of a one-degree-of-freedom helicopter. A small ducted is rigidly attached to the end of a lever-arm, the other end of which is attached to a hinge. The drone motor can lift the arm, and the angle of the arm is estimated via a complementary filter of accelerometer and gyro measurements from an onboard IMU. The user can select a target arm-angle and a PID controller will drive the arm to that angle.</p>
-<p>The target and measured angle are displayed on the oscilloscope <em>or</em> the VGA screen and the user specifies new target angles through a serial interface to the RP2040. <br><br></p>
+<p>The target and measured angle are displayed on the oscilloscope <em>or</em> the VGA screen and the user specifies new target angles through a serial interface to the RP2350. <br><br></p>
 <figure>
     <img align="center" width="600" height="500" src="system.png" alt='missing' />
     <center><figcaption></figcaption></center>
@@ -13138,8 +13138,8 @@ div#notebook {
 <li><a href="./MotorCircuit.html"><strong>Motor circuit and PWM</strong></a>: This webpage describes the circuit that you will construct to safely drive the DC motor, and how to generate PWM.<!-- > - [**Angle sensing circuit**](./Angle.html): This webpage describes the potentiometer circuit that you will use to measure the arm's position, and how to setup/read the ADC. --></li>
 <li><a href="./Display.html"><strong>Data display</strong></a>: This webpage describes the data that you must visualize in realtime, and some strategies for visualizing that data.</li>
 <li><a href="https://vanhunteradams.com/Protocols/I2C/I2C.html"><strong>I2C communication</strong></a>: You will communicate with the IMU via an I2C channel. An understanding of the I2C protocol will help you debug that connection.</li>
-<li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: See chapters on PWM and I2C.</li>
-<li><a href="https://www.raspberrypi.com/documentation/pico-sdk/hardware.html"><strong>RP2040 C SDK</strong></a>: See chapters on PWM and I2C.</li>
+<li><a href="https://pip-assets.raspberrypi.com/categories/1214-rp2350/documents/RP-008373-DS-2-rp2350-datasheet.pdf"><strong>RP2350 datasheet</strong></a>: See chapters on PWM and I2C.</li>
+<li><a href="https://www.raspberrypi.com/documentation/pico-sdk/hardware.html"><strong>RP2350 C SDK</strong></a>: See chapters on PWM and I2C.</li>
 </ul>
 </blockquote>
 <h3 id="Optional-book-club-reading">Optional book-club reading<a class="anchor-link" href="#Optional-book-club-reading">&#182;</a></h3><blockquote><ul>
