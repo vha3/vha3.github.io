@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>Policy</title>
+<title>Rotary_Encoder</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13077,24 +13077,23 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Overview-and-Policy-for-ECE-4760-at-Cornell-University">Overview and Policy for ECE 4760 at Cornell University<a class="anchor-link" href="#Overview-and-Policy-for-ECE-4760-at-Cornell-University">&#182;</a></h1><p>Please note that I have borrowed these policies from Bruce Land, and they are largely identical to those provided on the <a href="https://people.ece.cornell.edu/land/courses/ece4760/EE4760_policy.html">previous course webpage</a>. Please also see the <a href="./Syllabus.pdf">online syllabus</a> for the course.</p>
-<blockquote><ul>
-<li><a href="#Prerequisites">Prerequisities</a></li>
-<li><a href="#Reading">Reading</a></li>
-<li><a href="#Purpose">Purpose</a></li>
-<li><a href="#Grading">Grading</a><blockquote><ul>
-<li><a href="#The-policy">The policy</a></li>
-<li><a href="#Reflecting-on-this-policy">Reflecting on this policy</a></li>
-</ul>
-</blockquote>
-</li>
-<li><a href="#Laboratory-policies">Laboratory policies</a></li>
-<li><a href="#AI-policies">AI policies</a></li>
-<li><a href="#Laboratory-reports">Laboratory reports</a></li>
-<li><a href="#Access-to-computers">Access to computers</a></li>
-<li><a href="#Academic-concerns">Academic concerns</a></li>
-</ul>
-</blockquote>
+<h1 id="How-does-a-rotary-encoder-work?">How does a rotary encoder work?<a class="anchor-link" href="#How-does-a-rotary-encoder-work?">&#182;</a></h1><h4 id="V.-Hunter-Adams"><a href="https://vanhunteradams.com">V. Hunter Adams</a><a class="anchor-link" href="#V.-Hunter-Adams">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Purpose-of-this-webpage">Purpose of this webpage<a class="anchor-link" href="#Purpose-of-this-webpage">&#182;</a></h2><p>In <a href="https://ece4760.github.io">ECE 4760</a>, you are asked to use a rotary encoder to implement a user interface to one of your labs. This webpage will not provide a wiring guide or demo code, but will instead give you the background knowledge that, by applying the stuff we've learned in previous labs, allows you to put together some code for interacting with the encoder.</p>
+<p>Think carefully about your design! The lab for which you're using the rotary encoder is all about optimization. You want to spend as few cycles as possible interacting with the rotary encoder and as many cycles as possible doing animation calculations. Hmm, does an interrupt-based interface seem like a good approach? Maybe <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/Basic_Demos/GPIO_Interrupt_Demo">this demo code</a> could be useful??</p>
 
 </div>
 </div>
@@ -13110,408 +13109,35 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h2><ul>
-<li>ECE 3140, or permission of instructor</li>
-<li>You need to know C programming, electronic construction, and a fair amount of math for this course</li>
-<li>When in doubt, talk to the instructor</li>
-</ul>
-
+<h2 id="How-do-rotary-encoders-work?">How do rotary encoders work?<a class="anchor-link" href="#How-do-rotary-encoders-work?">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
+<p>The rotary encoder that we'll be using has three pins on one side and two pins on the other. Those two pins are just the output of a normally-open switch. When you push down on the top of the potentiometer, it shorts those two pins together.</p>
+<p>The side with three pins is more interesting. These pins are called <code>A</code>, <code>B</code> and <code>COM</code>.  As you rotate the encoder with your fingers, you're rotating an internal disk that contains evenly-spaced "contact zones." Each of these contact zones is connected to the <code>COM</code> pin. So, if you were to connect <code>COM</code> to ground, each of these contact zones would <em>also</em> be connected to ground. See the image below. <br><br></p>
+<figure style="text-align: center;">
+  <img src="encoder.png" alt="Trulli" style="width:50%">
+  <figcaption>Fig. 1: Rotary encoder internal mechanism </figcaption>
+</figure><p>The <code>A</code> and <code>B</code> pins connect to contacts that do <em>not</em> rotate along with the internal disk. Instead, the disk rotates underneath the contacts. The rotating contact zones make <em>contact</em> with <code>A</code> and <code>B</code> as they rotate underneath them. When this happens, <code>COM</code> shorts to <code>A</code> and/or <code>B</code>. The output pins associated with <code>A</code> and <code>B</code> <em>float</em> when they are not shorted to a contact zone.</p>
+<p>The internal contacts for <code>A</code> and <code>B</code> are oriented such that, as you rotate clockwise by one "click," the next contact pad on the internal disk will be rotated into contact with <code>A</code> <em>first</em>, then it will be in contact with <code>A</code> and <code>B</code>, then it will only be in contact with <code>B</code>, and then it will again be out of contact with both <code>A</code> and <code>B</code>.</p>
+<figure style="text-align: center;">
+  <img src="clockwise.png" alt="Trulli" style="width:60%">
+  <figcaption>Fig. 2: Output pin events associated with rotating one click *clockwise* </figcaption>
+</figure><p>Does it stand to reason that rotating counterclockwise by one "click" gives the same events in opposite order?</p>
+<figure style="text-align: center;">
+  <img src="counterclockwise.png" alt="Trulli" style="width:58%">
+  <figcaption>Fig. 3: Output pin events associated with rotating one click *counterclockwise* </figcaption>
+</figure>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reading">Reading<a class="anchor-link" href="#Reading">&#182;</a></h2><ul>
-<li>Labs will be based on webpages, RP2350 documentation, and documentation from a variety of other sensors and peripherals</li>
-<li>We expect for you to become <em>completely familiar</em> with detailed MCU information from Raspberry Pi</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Purpose">Purpose<a class="anchor-link" href="#Purpose">&#182;</a></h2><p>The purpose of this course is to enable students to carry out sophisticated designs of the modern digital systems which now appear in products such as automobiles, appliances, and industrial tools. The basis of such systems is the microcontroller, a microcomputer optimized for single-chip system design by possessing many peripheral devices geared to real-time applications. The microcontroller we will use is the RP2350 from Raspberry Pi. There is a large design project which is due the last week of classes. There will considerable emphasis on hardware concurrency: Getting good performance by using all of the concurrently executing co-processors available on the microcontroller chip, including: DMA, timers, SPI, UART, ADC subsystem, PIO, I2C and others.</p>
-<p><strong><em>This is a design course.</em></strong> This means that we will expect you to show considerable creativity, flexibility, and motivation. In particular, you will need to:</p>
-<ul>
-<li>Hit the web to find your own answers to questions you have.</li>
-<li>Read and understand every aspect of manufacturer's data sheets for a variety of devices.</li>
-<li>Read class-related email daily. You are responsible for any course information communicated by email.</li>
-<li>Use material from many of the courses you have taken at Cornell. Topics from ECE 2100, 3010, 3020, 3100, 3140, 4450, or 4750 may be useful in this course, particularly depending on the final project you choose.</li>
-<li><strong><em>Find solutions on your own from incomplete specifications.</em></strong> The lab assignments become more open-ended as the semester progresses. Clever, efficient solutions will be rewarded.</li>
-</ul>
-<p>We are trying to make this a little like the real world.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Grading">Grading<a class="anchor-link" href="#Grading">&#182;</a></h2><h4 id="The-policy">The policy<a class="anchor-link" href="#The-policy">&#182;</a></h4><p>This class is composed of laboratory assignments and a final project. You will be graded on these tasks, plus some consideration of class participation. The final design project demonstration is due the <em>last week of classes</em>. The grade breakdown is as follows:</p>
-<ul>
-<li><strong>50% for laboratory assignments</strong><blockquote><p>For <em>each</em> laboratory assignment:<br><br></p>
-<ul>
-<li>10% for in-class debugging quizzes<blockquote><ul>
-<li>At the end of every lab, there will be an in-class debugging quiz. You'll either be presented with the symptoms of a bug and asked to reason about what the bug might be and how you'd track it down, or you'll be told the bug and asked to reason about its symptoms. If you understand the code that you've written (i.e., you wrote the code or you used AI responsibly), you need not study for these quizzes. These are graded individually, according to the the following scale. Your grade will be returned with your lab report.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<table>
-<thead><tr>
-<th style="text-align:left">Score</th>
-<th style="text-align:right">Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0%</td>
-<td style="text-align:right">Student did not show up for the quiz</td>
-</tr>
-<tr>
-<td style="text-align:left">50%</td>
-<td style="text-align:right">Student's answer does not indicate<br> any understanding of how their system works</td>
-</tr>
-<tr>
-<td style="text-align:left">75%</td>
-<td style="text-align:right">Student's answer shows evidence of<br> understanding of pieces of their system,<br> but lack of understanding of<br> how those pieces work together.<br> Incorrect reasoning.</td>
-</tr>
-<tr>
-<td style="text-align:left">85%</td>
-<td style="text-align:right">Student's answer shows good reasoning, <br>but a misunderstaning of a fundamental concept leads<br> them down the wrong path or their<br> answer is oversimplified or ambiguous.</td>
-</tr>
-<tr>
-<td style="text-align:left">95%</td>
-<td style="text-align:right">Student's answer shows good reasoning, with minor<br> misunderstanding, minor oversimplification<br>, and/or minor ambiguity.</td>
-</tr>
-<tr>
-<td style="text-align:left">97-100%</td>
-<td style="text-align:right">Student shows an extraordinary<br>depth of understanding</td>
-</tr>
-</tbody>
-</table>
-<blockquote><ul>
-<li>20% for weekly progress deadlines (evenly distributed across all weeks for a particular lab)<blockquote><ul>
-<li>To make these deadlines, you <em>must come to lab prepared</em>. If you do not do any out-of-class preparations, you will not be able to meet these deadlines.</li>
-<li>Finishing a checkpoint on time will earn the student a 95% (A-equivalent). Finishing early will earn the student &gt;95% (exceeds expectations). Missing milestones earns a 0.</li>
-<li>If you checkoff on the required progress deadline before the end of lab, you are expected to stay and work on the next checkpoint.</li>
-<li><strong>A late progress checkoff receives a zero grade.</strong></li>
-</ul>
-</blockquote>
-</li>
-<li>30% for the final laboratory demonstration<blockquote><ul>
-<li>The system must meet specifications and be usable.</li>
-<li>Lab demos to TAs will be done before the <strong>end</strong> of each lab exercise, in lab.</li>
-<li>There will be <strong><em>no late final demonstrations for any lab</em></strong>. This policy is to prevent any students from falling behind on subsequent lab exercises.</li>
-<li>Your final demo may or may not include a code review to test for understanding.</li>
-<li><strong>A late demo receives a zero grade.</strong> If you run out of time, demonstrate the parts of the system that you've gotten working. These final demos are graded on the following scale:</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<table>
-<thead><tr>
-<th style="text-align:left">Technical specifications met</th>
-<th style="text-align:right">Score</th>
-<th style="text-align:right">Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">&lt; Week 1 checkoff</td>
-<td style="text-align:right">0</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td style="text-align:left">= Week 1 checkoff</td>
-<td style="text-align:right">50%</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;= Week 2 checkoff</td>
-<td style="text-align:right">50-75%</td>
-<td style="text-align:right">Directly proportional to number of<br> specifications met, weighted by <br>relative difficulty of those specifications</td>
-</tr>
-<tr>
-<td style="text-align:left">&lt;= Week 3 checkoff</td>
-<td style="text-align:right">75-96%</td>
-<td style="text-align:right">Directly proportional to number of<br> specifications met, weighted by <br>relative difficulty of those specifications</td>
-</tr>
-<tr>
-<td style="text-align:left">&gt; Week 3 checkoff</td>
-<td style="text-align:right">96-100%</td>
-<td style="text-align:right">Students that exceed expectations<br> on a laboratory assignment will<br> receive A+ equivalent scores</td>
-</tr>
-</tbody>
-</table>
-<blockquote><ul>
-<li>40% for the laboratory report<blockquote><ul>
-<li>Lab reports are due <em>before the start</em> of your next lab period.</li>
-<li>Please see the <a href="#Laboratory-reports">Laboratory reports</a> section of this webpage for information on content.</li>
-<li>All submissions will be electronic to your TA, via Canvas</li>
-<li>You must attend your weekly scheduled lab period, even if you have finished the lab assignment early!</li>
-<li>No late assignments will be accepted without prior permission (excepting reasonable extenuating circumstances)</li>
-<li>You will turn in one lab report per team. No written collaborations between groups is permitted. You are (of course!) encouraged to help anyone in lab.</li>
-<li>For some information about how these reports are graded, please see <a href="./LabReportGrade.html">here</a>.</li>
-<li><strong>A late report receives a zero grade</strong>.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><strong>50% for the final project</strong><blockquote><p>This is further broken down similarly to the laboratory assignments:<br><br></p>
-<ul>
-<li>10% for preparedness and participation<blockquote><ul>
-<li>As determined by conversations with Hunter in the laboratory, lecture attendance, and occasional in-lecture quizzes.</li>
-<li>These should be easy points, just come to class!</li>
-</ul>
-</blockquote>
-</li>
-<li>20% for weekly progress deadlines (evenly distributed across all weeks of the final project)<blockquote><ul>
-<li>For the final project <strong>you</strong> are responsible for establishing these weekly milestones.</li>
-<li>Meeting milestones on time will earn the student a 95% (A-equivalent). Finishing early will earn the student &gt;95% (exceeds expectations). Missing milestones earns a 0.</li>
-<li>You will report your progress to me in a weekly update (which may be either written or verbal)</li>
-<li><strong>A late progress checkoff receives a zero grade.</strong></li>
-<li><strong>NOTE</strong>: I know that plans change, and that sometimes things are harder than you think they might be!! As long as you are communicating with me and working at a reasonable rate, your grade will not be adversely affected by changes of plan.</li>
-</ul>
-</blockquote>
-</li>
-<li>30% for the final laboratory demonstration<blockquote><ul>
-<li>The system must meet the specifications that you set at the beginning of the project (i.e., did you build what you said you were going to build?)</li>
-<li>The system must be usable.</li>
-<li>Your final demo may or may not include a code review to test for understanding.</li>
-<li>For the final project, your demo will also be evaluated on its sophistication <em>relative to other final projects</em>. This is to prevent gaming the system by choosing an easy project.</li>
-</ul>
-</blockquote>
-</li>
-<li>40% for the final report<blockquote><ul>
-<li>Please see <a href="https://vanhunteradams.com/Pico/CourseMaterials/Final_Project.html#Final-Report">this webpage</a> for information on content.</li>
-<li>For some information about how these reports are graded, please see <a href="./LabReportGrade.html">here</a>.</li>
-<li>You will create a webpage for your final project.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<p>Hunter reserves the right to make small adjustments to your grade. You may help your grade by participating in class discussions. Excessive nonattendance of lecture may lower your grade. If you feel that you have been unfairly graded, you have one week from the time the assignment is handed back to request a regrade. To request a regrade, you must submit the assignment with a written description of your concern attached to the instructor (not the TA).</p>
-<h4 id="Reflecting-on-this-policy">Reflecting on this policy<a class="anchor-link" href="#Reflecting-on-this-policy">&#182;</a></h4><p>Building things is difficult, and sometimes unpredictable. It may be the case that you don't make a weekly checkpoint. This can sometimes cause students to panic, and sometimes doing the math to determine how much of your final grade each component of the course is worth can alleviate that panic. The contribution to your final grade (as a percentage) of each assignment and checkout is listed below.</p>
-<blockquote><p><strong>Lab 1</strong></p>
-<ul>
-<li>Debugging quiz: $1 \frac{2}{3}$</li>
-<li>Checkout 1: $1 \frac{1}{9}$</li>
-<li>Checkout 2: $1 \frac{1}{9}$</li>
-<li>Checkout 3: $1 \frac{1}{9}$</li>
-<li>Final demo: 5</li>
-<li>Lab report: $6 \frac{2}{3}$</li>
-</ul>
-<p><strong>Lab 2</strong></p>
-<ul>
-<li>Debugging quiz: $1 \frac{2}{3}$</li>
-<li>Checkout 1: $1 \frac{1}{9}$</li>
-<li>Checkout 2: $1 \frac{1}{9}$</li>
-<li>Checkout 3: $1 \frac{1}{9}$</li>
-<li>Final demo: 5</li>
-<li>Lab report: $6 \frac{2}{3}$</li>
-</ul>
-<p><strong>Lab 3</strong></p>
-<ul>
-<li>Debugging quiz: $1 \frac{2}{3}$</li>
-<li>Checkout 1: $1 \frac{1}{9}$</li>
-<li>Checkout 2: $1 \frac{1}{9}$</li>
-<li>Checkout 3: $1 \frac{1}{9}$</li>
-<li>Final demo: 5</li>
-<li>Lab report: $6 \frac{2}{3}$</li>
-</ul>
-<p><strong>Final Project</strong></p>
-<ul>
-<li>Preparedness/participation: 5</li>
-<li>Weekly progress: 10</li>
-<li>Final demo: 15</li>
-<li>Final report: 20</li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Laboratory-policies">Laboratory policies<a class="anchor-link" href="#Laboratory-policies">&#182;</a></h2><p>You are expected to attend your assigned lab period every week and to finish the lab assignment in the alloted time. <strong>You must finish the assignment before the end of the alloted time, or you will lose up to 50% of your lab grade.</strong> You can, of course, start early on an assignment. All negotiations concerning lab absences due to planned trips or sickness are to be conducted with your lab instructor. For planned trips you must notify your instructor in advance.</p>
-<p>During the lab sections in which there is project checkoff:</p>
-<ul>
-<li>TAs first priority is to check people off.</li>
-<li>TAs can help people only if there is no one waiting to be checked off.</li>
-<li>If there are too many people to help, then the TAs will help students in the current section who are trying to finish on time.</li>
-<li>Only then will there be time to help people from other sections.</li>
-</ul>
-<p>Lab work will be in groups of 2 or 3. All members are expected to become proficient with all aspects of the lab. Where each has prepared design work or code assigned as homework, the group design will involve negotiation. The members of a group may be graded differentially if it becomes obvious that one person is doing the bulk of the work.</p>
-<p>Each student in this course is expected to abide by the <a href="http://cuinfo.cornell.edu/aic.cfm">Cornell University Code of Academic Integrity</a>.</p>
-<p>Any work submitted by a student in this course for academic credit will be the student's own work. For this course, collaboration is allowed between partners in a group. Students agree that by taking this course all required papers may be subject to submission for textual similarity review to Turnitin.com for the detection of plagiarism. All submitted papers will be included as source documents in the Turnitin.com reference database solely for the purpose of detecting plagiarism of such papers. Use of Turnitin.com service is subject to the Usage Policy posted on the Turnitin.com site.</p>
-<p>Examples of allowed/not allowed collaboration:</p>
-<ul>
-<li><strong>Allowed</strong>: All homework and code must be shared within a group. </li>
-<li><strong>Not Allowed</strong> Sharing of any material between groups. This includes unprotected GitHub or other code repositories. Unprotected code online will be considered a violation of Cornell academic integrity policy!</li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Talking in lab about code with another group. </li>
-<li><strong>Not Allowed</strong>: Emailing code to another group or using another group's keyboard to type code. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Showing another group your circuit.</li>
-<li><strong>Not Allowed</strong>: Wiring for another group, or lending them your circuit. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Talking about the contents of a lab report to another group. </li>
-<li><strong>Not Allowed</strong>: Copying anything (even one sentence) from any web or print document, unless the source is stated and the quote is short. </li>
-</ul>
-<ul>
-<li><strong>Allowed</strong>: Using code from previous final projects or web sources with detailed attribution. </li>
-<li><strong>Not Allowed</strong>: Using code from previous final projects or web sources without attribution.</li>
-</ul>
-<p>All students will abide by Cornell policy on <a href="https://hr.cornell.edu/our-culture-diversity/diversity-inclusion/equal-opportunity-and-affirmative-action/equal-education">Equal Education and Employment Opportunity</a>. Exerpt:</p>
-<blockquote><p>Association with Cornell, either as a student, faculty, or staff member, involves participation in a free community where all people are recognized and rewarded on the basis of individual performance rather than personal convictions, appearance, preferences (including sexual or affectional orientation), or happenstance of birth. Cornell University's history of diversity and inclusion encourages all students, faculty and staff to support a diverse and inclusive university in which to work, study, teach, research and serve. No person shall be denied admission to any educational program or activity or be denied employment on the basis of any legally prohibited discrimination involving, but not limited to, such factors as race, color, creed, religion, national or ethnic origin, marital status, citizenship, sex, sexual orientation, gender identity or expression, age, disability, or protected veteran status.</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="AI-policies">AI policies<a class="anchor-link" href="#AI-policies">&#182;</a></h2><h4 id="For-lab-reports">For lab reports<a class="anchor-link" href="#For-lab-reports">&#182;</a></h4><p>For your lab reports, you must cite and quote AI-generated content in an identical fashion to that with which you must cite and quote human-generated content. Failure to do so will be considered plagiarism.</p>
-<h4 id="For-your-code">For your code<a class="anchor-link" href="#For-your-code">&#182;</a></h4><p>You may use AI-generated code at your own risk, subject to the following requirements and conditions.</p>
-<ul>
-<li>Any AI-generated code <em>must</em> be clearly labeled as such. Please see the example below. Failure to label any AI-generated code will be considered plagiarism.</li>
-<li>The course staff will not help you debug AI-generated code.<div class="highlight"><pre><span></span><span class="cp">################## BEGIN AI-GENERATED CODE ##################</span>
-<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello, humans.&quot;</span><span class="p">)</span> <span class="p">;</span>
-<span class="p">}</span>
-<span class="cp">################### END AI-GENERATED CODE ###################</span>
-</pre></div>
-</li>
-<li>Along with your lab reports, you must turn in your prompt log. You can generate this prompt log with the following command to Copilot:</li>
-</ul>
-<p><code>Generate a prompt log of this conversation. For each prompt, include the time/date, the number of edits suggested, and the number of code insertions, deletions, and modifications accepted.</code></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Laboratory-reports">Laboratory reports<a class="anchor-link" href="#Laboratory-reports">&#182;</a></h2><p>Each laboratory assignment requires a written report. You will submit a single report for your group. The report should be submitted as an electronic document via Canvas.</p>
-<p>The report should be a concise documentation of the project assigned. The presentation should be arranged so that any reader with technical competence in the subject can easily understand what was done and how it was done. You should write to a level of detail that, in 2 years, you could recreate your project (and understand the methodology!) using only your report. The following report organization is suggested:</p>
-<ol>
-<li>Introduction: Give a short explanation of what was done.</li>
-<li>Design and Testing Methods: Explain the approach you used for both software and hardware aspects of the assignment. Be sure to include the design of tests whose outcome are convincing to the reader (or to the instructor in the lab) that the requirements of the assignment have been met. <strong>This section should include discussion of your AI use.</strong></li>
-<li>Documentation: Include here drawings, flowcharts, schematics, and program listings, together with any explanatory comments needed.</li>
-<li>Results: How fast was it? How accurate was it? What were the error ranges?</li>
-<li>Conclusions: Useability, what you might have done differently, etc. Any comments concerning the assignment, including suggestions for improvement, excuses, and complaints.</li>
-<li>Answers to specific questions given in the lab writeups.</li>
-</ol>
-<p><!-- Past TA's have [expanded upon the above guidelines](./General_Lab_writeup_Rubric.pdf).
- -->
-<a href="./Birdsong.pdf">Here</a> and <a href="./Birdsong2.pdf">here</a> (and <a href="./cricket.pdf">here</a> and <a href="./reaction.pdf">here</a>) are some well done example reports. Note that these do not include discussion of AI, which is now a requirement.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Access-to-computers">Access to computers<a class="anchor-link" href="#Access-to-computers">&#182;</a></h2><p>You and your partner(s) will have use of a PC, microcontroller evaluation board, and peripheral breadboard in Phillips 238 during your assigned lab period. Students from other lab periods may use setups not needed by students attending their assigned lab.</p>
-<p><em>Machines and file systems sometimes die. You should always back up all your work. There is no excuse for lost work, even if it is because of a compiler or other system error.</em></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Academic-concerns">Academic concerns<a class="anchor-link" href="#Academic-concerns">&#182;</a></h2><p>If you are experiencing undue personal or academic stress at any time during the semester or need to talk with someone about a personal problem or situation, I encourage you to seek support as soon as possible. I am available to talk with you about stresses related to your work in my class. Additionally, I can assist you in reaching out to any one of a wide range of campus resources, including:</p>
-<ul>
-<li>Your college’s Academic Advising or Student Services Office</li>
-<li>Cornell Learning Strategies Center at 255-6310, <a href="http://lsc.sas.cornell.edu">http://lsc.sas.cornell.edu</a></li>
-<li>Gannett Health Services at 255-5155, www.gannett.cornell.edu</li>
-<li>Let’s Talk Drop–In Consultation and Support www.gannett.cornell.edu/Let’sTalk</li>
-<li>Peer Support provided by Empathy Assistance and Referral Service at 255-EARS</li>
-</ul>
-<p>DISABILITY-RELATED CONCERNS: Students with either an ongoing or short-term disability are encouraged to contact Student Disability Services (SDS) for a confidential discussion of their need for academic accommodations.SDS is located in 420 CCC building; phone number is 254-4545.</p>
+<h2 id="Which-pins-are-which?">Which pins are which?<a class="anchor-link" href="#Which-pins-are-which?">&#182;</a></h2><p>Read the <a href="./rotary_datasheet.pdf">datasheet</a>, and use the oscilloscope to make sure you've got it right!</p>
 
 </div>
 </div>

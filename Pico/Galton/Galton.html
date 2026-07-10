@@ -13099,8 +13099,8 @@ div#notebook {
     <center><figcaption>Fig. 1: Galton Board overview</figcaption></center>
 </figure><p>It is really startling to watch! In fact, this phenomenon so impressed Francis Galton that he stated:</p>
 <p><em>The law [the central limit theorem] would have been personified by the Greeks and deified, if they had known of it. It reigns with serenity and in complete self-effacement amidst the wildest confusion. The huger the mob, and the greater the apparent anarchy, the more perfect is its sway. It is the supreme law of Unreason. Whenever a large sample of chaotic elements are taken in hand and marshalled in the order of their magnitude, an unsuspected and most beautiful form of regularity proves to have been latent all along.</em></p>
-<p>You will build a digital version of a board, through which you will drop as many balls as you can manage at 60 frames per second (the speed of the VGA display). The more thoughtful and efficient your code, the more balls you will be able to animate. Every time any ball strikes a peg there must be a "thunk!" sound effect. You don't want to waste cycles doing interrupt-based audio synthesis, so you will use a DMA channel to trigger the sound effects. The balls will bounce according to collision physics. You must count and plot the number of balls that land in each bin at the bottom of the board so that we can see the central limit theorem in action. You will implement a potentiometer-based interface that allows for the user to adjust parameters in realtime and thereby "play" with the central limit theorem.</p>
-<p><strong>Key concepts</strong>: Fixed point arithmetic, optimization, direct memory access, SPI, collision physics, analog to digital converter, computer animation, VGA, double-buffering, semaphores, PIO, alpha max beta min, overclocking, multicore parallelism, binomial distribution, Gaussian distribution, central limit theorem, Pascal's triangle.</p>
+<p>You will build a digital version of a board, through which you will drop as many balls as you can manage at 60 frames per second (the speed of the VGA display). The more thoughtful and efficient your code, the more balls you will be able to animate. Every time any ball strikes a peg there must be a "thunk!" sound effect. You don't want to waste cycles doing interrupt-based audio synthesis, so you will use a DMA channel to trigger the sound effects. The balls will bounce according to collision physics. You must count and plot the number of balls that land in each bin at the bottom of the board so that we can see the central limit theorem in action. You will implement a rotary-encoder-based interface that allows for the user to adjust parameters in realtime and thereby "play" with the central limit theorem.</p>
+<p><strong>Key concepts</strong>: Fixed point arithmetic, optimization, direct memory access, SPI, collision physics, rotary encoder, computer animation, VGA, double-buffering, semaphores, PIO, alpha max beta min, overclocking, multicore parallelism, binomial distribution, Gaussian distribution, central limit theorem, Pascal's triangle.</p>
 
 </div>
 </div>
@@ -13116,7 +13116,8 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2>
+<h2 id="Demonstration">Demonstration<a class="anchor-link" href="#Demonstration">&#182;</a></h2><p>(Uses a potentiometer instead of a rotary encoder but is otherwise exactly what you'll build)</p>
+
 </div>
 </div>
 </div>
@@ -13150,6 +13151,7 @@ div#notebook {
 <li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage. You will need to modify it if you want to overclock the RP2040.</li>
 <li><a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html"><strong>Fixed-point arithmetic</strong></a>: To animate the most-possible balls, you want for your arithmetic to be as fast as possible. On the RP2040, floating point is <em>way</em> too slow. The RP2350 has a floating point unit, so it's faster. Even so, you will probably have fastest execution with fixed point!</li>
 <li><a href="https://vanhunteradams.com/Protocols/SPI/SPI.html"><strong>SPI interface</strong></a>: You will generate sound effects by means of an SPI DAC. An understanding of this interface will help you debug.</li>
+<li><a href="./Rotary_Encoder.html"><strong>Rotary encoder internal mechanism</strong></a>: You will design an interface to the rotary encoder based on your understanding of its internal mechanism, and using things you learned in lecture and lab 1.</li>
 <li><a href="https://vanhunteradams.com/Pico/Birds/DAC.pdf"><strong>DAC datasheet</strong></a>: Datasheet for the MCP4822 DAC we'll be using in this lab.</li>
 <li><a href="https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"><strong>RP2040 datasheet</strong></a>: Sections on DMA, UART, Multicore, Timers, PIO, ADC, GPIO</li>
 <li><a href="https://www.raspberrypi.com/documentation/pico-sdk/hardware.html"><strong>RP2040 C SDK guide</strong></a>: Same sections as above</li>
@@ -13250,6 +13252,7 @@ for each ball:
 <h2 id="Weekly-Checkpoints">Weekly Checkpoints<a class="anchor-link" href="#Weekly-Checkpoints">&#182;</a></h2><p>Note that these checkpoints are <strong>cumulative</strong>. In week 2, for example, you must have also completed all of the requirements from week 1.</p>
 <p><strong>Week 1</strong></p>
 <ul>
+<li>Read the <a href="./Rotary_Encoder.html">rotary encoder page</a> and write a software interface to the rotary encoder. You should display a number on the VGA display that increments when you rotate the encoder clockwise, and decrements when you rotate it counterclockwise.</li>
 <li>Starting from <a href="https://github.com/vha3/Hunter-Adams-RP2040-Demos/tree/master/VGA_Graphics/Animation_Demo">this example</a>, and using the pseudocode above (which comes from the <a href="https://vanhunteradams.com/Pico/Galton/Collisions.html">collision physics for the digital Galton Board webpage</a>), get one ball to bounce off one peg.<blockquote><ul>
 <li>This ball should be "dropped" from the top of the screen with zero y-velocity, and a randomized (small) x-velocity.</li>
 <li>The ball should accelerate downward by gravity and collide with the peg underneath, bouncing off.</li>
@@ -13266,7 +13269,7 @@ for each ball:
 </figure><p><strong>Week 2</strong></p>
 <ul>
 <li>Generate the 16-row Galton Board, and animate at least 10 balls falling through it. Each ball should generate a sound effect when it collides with a new peg, and each should be re-spawned when it falls thru the bottom of the screen.</li>
-<li>The user should be able to adjust the number of balls by means of a potentiometer.</li>
+<li>The user should be able to adjust the number of balls by means of the rotary encoder.</li>
 <li>The VGA screen should display:<blockquote><ul>
 <li>The current number of balls being animated.</li>
 <li>The total number that have fallen through the board since reset.</li>
@@ -13281,7 +13284,7 @@ for each ball:
 <ul>
 <li>At reset, the maximum number of balls which you can animate at 60fps should be dropped into the top of the Galton Board.</li>
 <li>Each of these balls should generate a "thunk" sound when it hits a new peg.</li>
-<li>The user interface is an external button and a potentiometer. At reset, the potentiometer should not affect the animation. Upon a button push, the potentiometer adjusts the number of balls. Upon a second push, the potentiometer adjusts the <em>bounciness</em> parameter. The user should be able to cycle through all these states via repeated button pushes, and the state should be shown on the VGA display.</li>
+<li>The user interface is a rotary encoder (plus the switch built into the rotary encoder). The rotary encoder adjusts the number of balls. By pushing the button, the rotary encoder now adjusts the <em>bounciness</em> parameter. The user should be able to cycle through these states via repeated button pushes, and the state should be shown on the VGA display.</li>
 <li>A histogram, normalized to the available vertical space beneath the Galton Board, should show the number of balls that have fallen through each pair of pegs in the bottom row.</li>
 <li>The VGA screen should display:<blockquote><ul>
 <li>The current number of balls being animated.</li>
@@ -13291,9 +13294,9 @@ for each ball:
 </ul>
 </blockquote>
 </li>
-<li>Adjusting any parameter by means of the potentiometer should reset the histogram, and reset the total number of balls that have fallen through the board since reset.</li>
-<li>If the 30fps deadline is missed, the LED should turn on.</li>
-<li><strong>5730 students only</strong>: Add another state, in which the potentiometer adjusts any one of the other Galton board parameters.</li>
+<li>Adjusting any parameter by means of the rotary encoder should reset the histogram, and reset the total number of balls that have fallen through the board since reset.</li>
+<li>If the 60fps deadline is missed, the LED should turn on.</li>
+<li><strong>5730 students only</strong>: Add another state, in which the rotary encoder adjusts any one of the other Galton board parameters.</li>
 </ul>
 
 </div>
