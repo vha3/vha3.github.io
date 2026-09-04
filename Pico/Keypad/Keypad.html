@@ -13149,9 +13149,9 @@ div#notebook {
 <span class="n">gpio_set_dir</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span><span class="o">+</span><span class="mi">6</span><span class="p">),</span> <span class="n">GPIO_IN</span><span class="p">)</span> <span class="p">;</span>
 <span class="c1">// Set row-pins to output</span>
 <span class="n">gpio_set_dir_out_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
-<span class="c1">// Set all output pins to low</span>
+<span class="c1">// Set all output pins to high</span>
 <span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span> <span class="p">(</span><span class="mh">0x0</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
-<span class="c1">// Turn on pulldown resistors for column pins (on by default)</span>
+<span class="c1">// Turn on pullup resistors for column pins</span>
 <span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">4</span><span class="p">))</span> <span class="p">;</span>
 <span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span> <span class="p">;</span>
 <span class="n">gpio_pull_up</span><span class="p">((</span><span class="n">BASE_KEYPAD_PIN</span> <span class="o">+</span> <span class="mi">6</span><span class="p">))</span> <span class="p">;</span>
@@ -13211,7 +13211,7 @@ div#notebook {
 <td style="text-align:center">0</td>
 <td style="text-align:center"></td>
 <td style="text-align:center">0x6E</td>
-<td style="text-align:center">Pressed x</td>
+<td style="text-align:center">Pressed 1</td>
 </tr>
 <tr>
 <td style="text-align:center">1</td>
@@ -13445,7 +13445,7 @@ div#notebook {
 
 <span class="c1">// Scan the keypad!</span>
 <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">KEYROWS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Set a row high</span>
+    <span class="c1">// Set a row low</span>
     <span class="n">gpio_put_masked</span><span class="p">((</span><span class="mh">0xF</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">),</span>
                     <span class="p">(</span><span class="n">scancodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">BASE_KEYPAD_PIN</span><span class="p">))</span> <span class="p">;</span>
     <span class="c1">// Small delay required</span>
