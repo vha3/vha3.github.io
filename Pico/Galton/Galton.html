@@ -13148,7 +13148,8 @@ div#notebook {
 </ul>
 <p><strong>Engineering background</strong></p>
 <ul>
-<li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage. You will need to modify it if you want to overclock the RP2040.</li>
+<li><a href="https://vanhunteradams.com/Pico/VGA/VGA.html"><strong>VGA driver</strong></a>: You will not be asked to implement a VGA driver, you will use the one described on this webpage. You will need to modify it if you want to overclock the RP2350. <em>This</em> webpage is useful for understanding the VGA standard and timing requirements.</li>
+<li><a href="https://people.ece.cornell.edu/land/courses/ece4760/pi_pico/vga16_v3/index_vga16_v3.html"><strong>Double-buffered VGA driver</strong></a>: This webpage describes Bruce's augmentations to the VGA driver to implement double-buffering. This is the implementation you will be using.</li>
 <li><a href="https://vanhunteradams.com/FixedPoint/FixedPoint.html"><strong>Fixed-point arithmetic</strong></a>: To animate the most-possible balls, you want for your arithmetic to be as fast as possible. On the RP2040, floating point is <em>way</em> too slow. The RP2350 has a floating point unit, so it's faster. Even so, you will probably have fastest execution with fixed point!</li>
 <li><a href="https://vanhunteradams.com/Protocols/SPI/SPI.html"><strong>SPI interface</strong></a>: You will generate sound effects by means of an SPI DAC. An understanding of this interface will help you debug.</li>
 <li><a href="./Rotary_Encoder.html"><strong>Rotary encoder internal mechanism</strong></a>: You will design an interface to the rotary encoder based on your understanding of its internal mechanism, and using things you learned in lecture and lab 1.</li>
