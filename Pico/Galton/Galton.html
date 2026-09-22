@@ -13202,12 +13202,9 @@ for each ball:
                 ball.x = peg.x + (normal_x * (peg.radius + ball.radius + 1))
                 ball.y = peg.y + (normal_y * (peg.radius + ball.radius + 1))
 
-                // A minor cheat to sidestep tricky corner cases
-                if (intermediate_term &gt; 0):
-
-                    // Update its velocity (see collision physics webpage)
-                    ball.vx = ball.vx + (normal_x * intermediate_term)
-                    ball.vy = ball.vy + (normal_y * intermediate_term)
+                // Update its velocity (see collision physics webpage)
+                ball.vx = ball.vx + (normal_x * intermediate_term)
+                ball.vy = ball.vy + (normal_y * intermediate_term)
 
                 // Did we just strike a new peg?
                 if current_peg != last_peg:
